@@ -11,13 +11,13 @@ const Pricing = () => {
     <section id="pricing" className="relative z-10 py-16 md:py-20 lg:py-28">
       <div className="container">
         <SectionTitle
-          title="Simple and Affordable Pricing"
-          paragraph="There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
+          title="Choose the best plan for your needs."
+          paragraph="Our three-tiered pricing model offers options for everyone, whether you're a small business owner or a power user."
           center
           width="665px"
         />
 
-        <div className="w-full">
+        {/* <div className="w-full">
           <div
             className="wow fadeInUp mb-8 flex justify-center md:mb-12 lg:mb-16"
             data-wow-delay=".1s"
@@ -58,47 +58,41 @@ const Pricing = () => {
               Yearly
             </span>
           </div>
-        </div>
+        </div> */}
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
           <PricingBox
             packageName="Lite"
-            price={isMonthly ? "40" : "120"}
-            duration={isMonthly ? "mo" : "yr"}
-            subtitle="Lorem ipsum dolor sit amet adiscing elit Mauris egestas enim."
+            price={299}
+            subtitle="Suitable for small businesses or individuals on a budget."
           >
-            <OfferList text="All UI Components" status="active" />
-            <OfferList text="Use with Unlimited Projects" status="active" />
-            <OfferList text="Commercial Use" status="active" />
-            <OfferList text="Email Support" status="active" />
-            <OfferList text="Lifetime Access" status="inactive" />
-            <OfferList text="Free Lifetime Updates" status="inactive" />
+            <OfferList text="One year hosting" status="active" />
+            <OfferList text="One year domain " status="active" />
+            <OfferList text="SSL certificate" status="active" />
+            <OfferList text="Google SEO friendly" status="active" />
+            <OfferList text="1 - 10 statics pages." status="active" />
           </PricingBox>
           <PricingBox
             packageName="Basic"
-            price={isMonthly ? "399" : "789"}
-            duration={isMonthly ? "mo" : "yr"}
-            subtitle="Lorem ipsum dolor sit amet adiscing elit Mauris egestas enim."
+            price={399}
+            subtitle="Designed for those who need a little more functionality but still want to keep costs down."
           >
-            <OfferList text="All UI Components" status="active" />
-            <OfferList text="Use with Unlimited Projects" status="active" />
-            <OfferList text="Commercial Use" status="active" />
-            <OfferList text="Email Support" status="active" />
-            <OfferList text="Lifetime Access" status="active" />
-            <OfferList text="Free Lifetime Updates" status="inactive" />
+            <OfferList text="One year hosting" status="active" />
+            <OfferList text="One year domain " status="active" />
+            <OfferList text="SSL certificate" status="active" />
+            <OfferList text="Google SEO friendly" status="active" />
+            <OfferList text="11 - 50 statics pages." status="active" />
           </PricingBox>
           <PricingBox
             packageName="Plus"
-            price={isMonthly ? "589" : "999"}
-            duration={isMonthly ? "mo" : "yr"}
-            subtitle="Lorem ipsum dolor sit amet adiscing elit Mauris egestas enim."
+            price={589}
+            subtitle="The highest level of service and capabilities, designed for power users."
           >
-            <OfferList text="All UI Components" status="active" />
-            <OfferList text="Use with Unlimited Projects" status="active" />
-            <OfferList text="Commercial Use" status="active" />
-            <OfferList text="Email Support" status="active" />
-            <OfferList text="Lifetime Access" status="active" />
-            <OfferList text="Free Lifetime Updates" status="active" />
+            <OfferList text="One year hosting" status="active" />
+            <OfferList text="One year domain " status="active" />
+            <OfferList text="SSL certificate" status="active" />
+            <OfferList text="Google SEO friendly" status="active" />
+            <OfferList text="50 - 99 statics pages." status="active" />
           </PricingBox>
         </div>
       </div>

@@ -9,7 +9,7 @@ const Features = () => {
         <div className="container">
           <SectionTitle
             title="Main Features"
-            paragraph="There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
+            paragraph="Easily create Google-friendly static websites and enjoy improved SEO benefits, which means that Google will give you better visibility among others.            "
             center
           />
 

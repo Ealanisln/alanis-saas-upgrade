@@ -15,7 +15,9 @@ const AboutPage = () => {
     <>
       <Breadcrumb
         pageName="About Page"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
+        description="👋 Hi there! I'm a 🇲🇽 Mexican web developer who is currently living in 🌁 California. I have a passion for creating impactful experiences on the web 🌎, and I'm constantly learning something new. Additionally, I enjoy helping others to grow and develop alongside me. 👨🏽‍💻
+
+        "
       />
       <AboutSectionOne />
       <AboutSectionTwo />

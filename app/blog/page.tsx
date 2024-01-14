@@ -1,32 +1,57 @@
 import SingleBlog from "@/components/Blog/SingleBlog";
 import blogData from "@/components/Blog/blogData";
 import Breadcrumb from "@/components/Common/Breadcrumb";
+import { SanityDocument } from "next-sanity";
+import { sanityFetch } from "@/sanity/lib/sanityFetch";
+import { postPathsQuery, postsQuery } from "@/sanity/lib/queries";
+import { client } from "@/sanity/lib/client";
 
 import { Metadata } from "next";
+import Posts from "@/components/Blog";
 
 export const metadata: Metadata = {
-  title: "Blog Page | Free Next.js Template for Startup and SaaS",
+  title: "Alanis WebDev | Welcome to our blog",
   description: "This is Blog Page for Startup Nextjs Template",
   // other metadata
 };
 
-const Blog = () => {
+// Prepare Next.js to know which routes already exist
+export async function generateStaticParams() {
+  // Important, use the plain Sanity Client here
+  const posts = await client.fetch(postPathsQuery);
+  return posts;
+
+}
+
+// const Blog = async () => {
+//   const posts = await sanityFetch<SanityDocument[]>({ query: postsQuery });
+
+//   console.log(posts);
+
+//   return <Posts posts={posts} />;
+// };
+
+const Blog = async () => {
+  const posts = await sanityFetch<SanityDocument[]>({ query: postsQuery });
+  console.log(posts);
+  
   return (
     <>
       <Breadcrumb
-        pageName="Blog Grid"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
+        pageName="Blog articles"
+        description="Discover Cool Stuff About Web Development: Read Interesting Articles on Creating Websites and Apps."
       />
 
       <section className="pb-[120px] pt-[120px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap justify-center">
-            {blogData.map((blog) => (
+            {posts.map((post) => (
               <div
-                key={blog.id}
+                key={post.id}
                 className="w-full px-4 md:w-2/3 lg:w-1/2 xl:w-1/3"
               >
-                <SingleBlog blog={blog} />
+                <Posts posts={posts} />
+                {/* <SingleBlog blog={blog} /> */}
               </div>
             ))}
           </div>
