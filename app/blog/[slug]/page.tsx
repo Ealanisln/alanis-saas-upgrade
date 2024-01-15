@@ -1,13 +1,11 @@
-// ./nextjs-app/app/[slug]/page.tsx
-
-import { SanityDocument } from "@sanity/client";
-// import Post from "../../../../components/Blog/Post";
-import { postPathsQuery, postQuery } from "@/sanity/lib/queries";
-import { sanityFetch } from "@/sanity/lib/sanityFetch";
 import { client, urlFor } from "@/sanity/lib/client";
 import { FullPost } from "@/types/simple-blog-card";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
+
+
+export const revalidate = 30; // revalidate at most every hour
+
 async function getData(slug: string) {
   const query = `
     *[_type == "post" && slug.current == '${slug}'] {
@@ -48,7 +46,7 @@ export default async function Page({ params }: { params: any }) {
               className="mt-8 rounded-lg border"
             />
 
-            <div className="prose prose-blue prose-xl dark:prose-invert mt-16">
+            <div className="prose prose-xl prose-blue mt-16 dark:prose-invert prose-li:marker:text-primary prose-a:text-primary">
               <PortableText value={data.body} />
             </div>
           </div>

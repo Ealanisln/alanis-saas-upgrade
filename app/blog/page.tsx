@@ -6,6 +6,8 @@ import { postPathsQuery } from "@/sanity/lib/queries";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
 import { Metadata } from "next";
 
+export const revalidate = 30; 
+
 export const metadata: Metadata = {
   title: "Alanis WebDev | Welcome to our blog",
   description: "This is Blog Page for Startup Nextjs Template",
