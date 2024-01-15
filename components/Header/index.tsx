@@ -3,8 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import ThemeToggler from "./ThemeToggler";
+import {ModeToggle} from "./Toggler";
 import menuData from "./menuData";
+import ThemeToggler from "./ThemeToggler";
 
 const Header = () => {
   // Navbar toggle
@@ -171,7 +172,8 @@ const Header = () => {
                 >
                   Sign Up
                 </Link>
-                <div>
+                <div className="px-4">
+                  {/* <ModeToggle /> */}
                   <ThemeToggler />
                 </div>
               </div>

@@ -9,15 +9,17 @@ import Hero from "@/components/Hero";
 import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
 import Video from "@/components/Video";
+import { client } from "@/sanity/lib/client";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Alanis Web-dev - Your website easy and fast",
-  description: "Web developer offering trendy website designs, e-commerce solutions, and backend services with secure logins and databases. Powered by Next.js and React, I bring your online ideas to life. Let's create something amazing for your business",
+  description:
+    "Web developer offering trendy website designs, e-commerce solutions, and backend services with secure logins and databases. Powered by Next.js and React, I bring your online ideas to life. Let's create something amazing for your business",
   // other metadata
 };
 
-export default function Home() {
+export default async function Home() {
   return (
     <>
       <ScrollUp />

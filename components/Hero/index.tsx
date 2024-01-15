@@ -22,7 +22,7 @@ const Hero = () => {
                 </h1> */}
                 <p className="mb-12 text-base !leading-relaxed text-body-color dark:text-body-color-dark sm:text-lg md:text-xl">
                   Thinking of making your own website, for yourself or your
-                  business, but not sure how to start? You're in the right
+                  business, but not sure how to start? Your&apos;e in the right
                   place! Let us assist you in building a special and
                   budget-friendly website that truly reflects who you are.
                 </p>
