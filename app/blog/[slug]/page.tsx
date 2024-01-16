@@ -29,9 +29,6 @@ export default async function Page({ params }: { params: any }) {
         <div className="-mx-4 flex flex-wrap justify-center">
           <div className="w-full px-4 lg:w-8/12">
             <h1>
-              <span className="block text-center text-base font-semibold text-primary">
-                Alanis - blog
-              </span>
               <span className="mb-8 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight">
                 {data.title}
               </span>
@@ -43,7 +40,7 @@ export default async function Page({ params }: { params: any }) {
               height={800}
               alt={data.title}
               priority
-              className="mt-8 rounded-lg border"
+              className="mt-8 rounded-xl"
             />
 
             <div className="prose prose-xl prose-blue mt-16 dark:prose-invert prose-li:marker:text-primary prose-a:text-primary">

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import TitleTypewriter from "../TypewriterTitle";
 
 const Hero = () => {
@@ -26,7 +25,7 @@ const Hero = () => {
                   place! Let us assist you in building a special and
                   budget-friendly website that truly reflects who you are.
                 </p>
-                <div className="flex items-center justify-center py-4">
+                {/* <div className="flex items-center justify-center py-4">
                   <Image
                     src="/images/hero/hero-saas.png"
                     alt="logo"
@@ -34,18 +33,18 @@ const Hero = () => {
                     width={450}
                     height={450}
                   />
-                </div>
+                </div> */}
 
                 <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0 mt-4">
                   <Link
                     href="https://nextjstemplates.com/templates/saas-starter-startup"
-                    className="rounded-lg bg-primary px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-primary/80"
+                    className="rounded-xl bg-primary px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-primary/80"
                   >
-                    🔥 Get started now
+                    Get started now
                   </Link>
                   <Link
-                    href="https://github.com/NextJSTemplates/startup-nextjs"
-                    className="inline-block rounded-lg bg-black px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-black/90 dark:bg-white/10 dark:text-white dark:hover:bg-white/5"
+                    href="#pricing"
+                    className="inline-block rounded-xl bg-black px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-black/90 dark:bg-white/10 dark:text-white dark:hover:bg-white/5"
                   >
                     View our plans
                   </Link>

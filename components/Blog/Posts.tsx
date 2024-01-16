@@ -21,7 +21,7 @@ const Posts = ({ data }: PostsProps) => {
                 alt="Blog post image"
                 width={500}
                 height={500}
-                className="h-[200px] rounded-t-lg object-cover"
+                className="h-[200px] rounded-xl object-cover"
               />
             </Card>
             <CardContent className="mt-5">

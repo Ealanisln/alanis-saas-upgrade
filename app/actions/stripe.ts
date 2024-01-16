@@ -30,7 +30,7 @@ export async function createCheckoutSession(unitAmount: number,): Promise<void> 
       success_url: `${headers().get(
         "origin",
       )}/purchase/result?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${headers().get("origin")}/purchase`,
+      cancel_url: `${headers().get("origin")}/`,
     });
 
     redirect(checkoutSession.url)
