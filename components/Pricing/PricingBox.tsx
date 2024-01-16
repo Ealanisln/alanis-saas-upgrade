@@ -1,3 +1,7 @@
+import { createCheckoutSession } from "@/app/actions/stripe";
+import { formatAmountForStripe } from "@/lib/utils/stripe-helpers";
+import { CURRENCY } from "@/config";
+
 const PricingBox = (props: {
   price: number;
   packageName: string;
@@ -6,10 +10,19 @@ const PricingBox = (props: {
 }) => {
   const { price, packageName, subtitle, children } = props;
 
+    const handleCheckout = async () => {
+
+      const unitAmount = formatAmountForStripe(price, CURRENCY);
+      await createCheckoutSession(unitAmount);
+
+
+    }
+  
+
   return (
     <div className="w-full">
       <div
-        className="wow fadeInUp shadow-three dark:bg-gray-dark dark:shadow-two dark:hover:shadow-gray-dark relative z-10 rounded-sm bg-white px-8 py-10 hover:shadow-one"
+        className="wow fadeInUp relative z-10 rounded-sm bg-white px-8 py-10 shadow-three hover:shadow-one dark:bg-gray-dark dark:shadow-two dark:hover:shadow-gray-dark"
         data-wow-delay=".1s"
       >
         <div className="flex items-center justify-between">
@@ -22,9 +35,12 @@ const PricingBox = (props: {
         </div>
         <p className="mb-7 text-base text-body-color">{subtitle}</p>
         <div className="mb-8 border-b border-body-color border-opacity-10 pb-8 dark:border-white dark:border-opacity-10">
-          <button className="flex w-full items-center justify-center rounded-sm bg-primary p-3 text-base font-semibold text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
-            Get started now
-          </button>
+          <form action={handleCheckout}>
+            <button className="flex w-full items-center justify-center rounded-sm bg-primary p-3 text-base font-semibold text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+             type="submit">
+              Get started now
+            </button>
+          </form>
         </div>
         <div>{children}</div>
         <div className="absolute bottom-0 right-0 z-[-1]">
