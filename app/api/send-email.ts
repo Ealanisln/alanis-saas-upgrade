@@ -1,6 +1,6 @@
 const client = require("@sendgrid/client");
 
-export default async function (req: any, res: any) {
+export default async function sendEmail (req: any, res: any) {
   client.setApiKey(process.env.SENDGRID_API_KEY);
 
   const { name, email, message } = req.body;
