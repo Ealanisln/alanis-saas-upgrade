@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 
 export const metadata: Metadata = {
-  title: "Checkout stripe | Next.js + TypeScript Example",
+  title: "Alanis | Web Developer",
 };
 
 export default function DonatePage(): JSX.Element {

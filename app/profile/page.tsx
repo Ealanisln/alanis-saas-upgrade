@@ -2,6 +2,7 @@ import { auth } from "@/auth.config";
 import React from "react";
 import { redirect } from "next/navigation"
 import Profile from "./profile";
+import Pricing from "@/components/Pricing";
 
 const page = async () => {
   const session = await auth();
@@ -12,6 +13,7 @@ const page = async () => {
   return (
     <div className="pt-32 container">
       <Profile user={session.user} />
+      <Pricing />
     </div>
   );
 };

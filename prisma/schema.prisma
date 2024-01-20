@@ -7,9 +7,20 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum WebType {
+  static
+  ecommerce
+}
+
 enum Role {
   admin
   user
+}
+
+model Category {
+  id      String    @id @default(uuid())
+  name    String    @unique
+  Product Product[]
 }
 
 model Account {
@@ -51,6 +62,7 @@ model User {
   resetTokenExpiry DateTime?
   accounts         Account[]
   sessions         Session[]
+  Order            Order[]
 }
 
 model VerificationToken {
@@ -59,4 +71,66 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  price       Float    @default(0)
+  slug        String   @unique
+  tags        String[] @default([])
+  webtype     WebType
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  String  
+
+  // Relaciones
+
+  ProductImage ProductImage[]
+  OrderItem    OrderItem[]
+
+  @@index([webtype])
+}
+
+model ProductImage {
+  id  Int    @id @default(autoincrement())
+  url String
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+}
+
+model OrderItem {
+  id       String @id @default(uuid())
+  quantity Int
+  price    Float
+
+  // Relaciones
+  order   Order  @relation(fields: [orderId], references: [id])
+  orderId String
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+}
+
+// Order de compras
+model Order {
+  id           String    @id @default(uuid())
+  subTotal     Float
+  tax          Float
+  total        Float
+  itemsInOrder Int
+  isPaid       Boolean   @default(false)
+  paidAt       DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relaciones
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  OrderItem OrderItem[]
+
+  transactionId String?
 }

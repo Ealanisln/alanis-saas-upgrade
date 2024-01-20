@@ -11,12 +11,12 @@ export default async function profile({
   };
 }) {
   return (
+    <div className="container">
     <div className="flex justify-between">
-      <div>
+      <div className="px-32">
         <h2 className="text-3xl font-semibold">{user.name}</h2>
         <div>{user.email}</div>
       </div>
-      <Link href={user.image || ""}>
         <div className="relative h-20 w-20 overflow-hidden rounded-full">
           <Image
             className="object-cover"
@@ -27,7 +27,7 @@ export default async function profile({
             fill={true}
           />
         </div>
-      </Link>
+    </div>
     </div>
   );
 }

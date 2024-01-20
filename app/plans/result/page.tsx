@@ -1,5 +1,4 @@
 import PlanDetails from "@/components/Plans";
-import Plans from "@/components/Plans";
 
 export default async function ResultPage({
   searchParams,

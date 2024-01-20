@@ -12,8 +12,6 @@ const PlanDetails = async ({
       expand: ["line_items", "payment_intent"],
     });
 
-  const paymentIntent = checkoutSession.payment_intent as Stripe.PaymentIntent;
-
   return (
     <>
       <div className="w-full">
