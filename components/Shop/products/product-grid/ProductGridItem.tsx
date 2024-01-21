@@ -13,7 +13,7 @@ const ProductGridItem = ({ product }: Props) => {
 
   return (
     <div className="rounded-md overflow-hidden fade-in">
-      <Link href={`/product/${product.slug}`}>
+      <Link href={`/shop/product/${product.slug}`}>
         <Image
           src={`/products/${displayImage}`}
           alt={product.title}

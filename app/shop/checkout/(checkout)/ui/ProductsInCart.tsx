@@ -2,11 +2,10 @@
 
 import { useCartStore } from "@/store";
 import React, { useEffect, useState } from "react";
-import { ProductImage } from "@/components/Product/";
-import Link from "next/link";
+import Image from "next/image";
+import { currencyFormat } from "@/lib/utils/currencyFormat";
 
 const ProductsInCart = () => {
-  const removeProduct = useCartStore((state) => state.removeProduct);
   const productsInCart = useCartStore((state) => state.cart);
   const [loaded, setLoaded] = useState(false);
 
@@ -21,9 +20,9 @@ const ProductsInCart = () => {
   return (
     <>
       {productsInCart.map((product) => (
-        <div key={`${product.slug}`} className="mb-5 flex">
-          <ProductImage
-            src={product.image}
+        <div key={`${product.slug}`} className="flex mb-5">
+          <Image
+            src={`/products/${product.image}`}
             width={100}
             height={100}
             style={{
@@ -34,19 +33,12 @@ const ProductsInCart = () => {
             className="mr-5 rounded"
           />
           <div>
-            <Link
-              className="cursor-pointer hover:underline"
-              href={`/product/${product.slug}`}
-            >
-              {product.title}
-            </Link>
-            <p>{product.price}</p>
-            <button
-              onClick={() => removeProduct(product)}
-              className="mt-3 underline"
-            >
-              Remover
-            </button>
+            <span>
+            {product.title} ({product.quantity})
+            </span>
+            <p className="font-bold">
+              {currencyFormat(product.price * product.quantity)}
+            </p>
           </div>
         </div>
       ))}

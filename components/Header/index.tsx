@@ -193,7 +193,7 @@ const Header = () => {
                     <ThemeToggler />
                   </div>
                   <Link
-                    href={totalItemsInCart === 0 && loaded ? "/empty" : "/cart"}
+                    href={totalItemsInCart === 0 && loaded ? "/empty" : "/shop/cart"}
                     className="mx-2"
                   >
                     <div className="relative">

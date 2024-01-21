@@ -5,6 +5,7 @@ import { currencyFormat } from "@/lib/utils/currencyFormat";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button"
 
 const OrderSummary = () => {
   const router = useRouter();
@@ -25,18 +26,18 @@ const OrderSummary = () => {
   }, [itemsInCart, loaded, router]);
 
   return (
-    <div className="bg-white rounded-xl shadow-xl p-7 h-fit">
-      <h2 className="text-2xl mb-2">Resumen de orden</h2>
+    <div className="bg-white  dark:bg-gray-800 rounded-xl shadow-xl p-7 h-fit">
+      <h2 className="text-2xl mb-2">Order summary</h2>
       <div className="grid grid-cols-2">
-        <span>No. productos</span>
+        <span>Products:</span>
         <span className="text-right">
-          {itemsInCart === 1 ? "1 artículo" : `${itemsInCart} artículos`}
+          {itemsInCart === 1 ? "1 item" : `${itemsInCart} items`}
         </span>
 
         <span>Subtotal</span>
         <span className="text-right">{currencyFormat(subTotal)}</span>
 
-        <span>Impuestos</span>
+        <span>Tax</span>
         <span className="text-right">{currencyFormat(tax)}</span>
 
         <span className="text-2xl mt-5">Total</span>
@@ -44,12 +45,12 @@ const OrderSummary = () => {
           {currencyFormat(total)}
         </span>
       </div>
-      <div className="mt-5 mb-2 w-full">
+      <div className="mt-5 mb-2 w-full text-white">
         <Link
-          className="flex btn-primary justify-center"
-          href="/checkout/address"
+          className="flex justify-center"
+          href="/shop/checkout/"
         >
-          Ir al pago
+          <Button className="rounded-xl">Go to payment</Button>
         </Link>
       </div>
     </div>

@@ -3,6 +3,7 @@
 import { CartProduct, Product } from "@/types/store.interface";
 import { useCartStore } from "@/store/";
 import { useState } from "react";
+import { Button } from "@/components/ui";
 
 interface Props {
   product: Product;
@@ -37,18 +38,12 @@ const AddToCart = ({ product }: Props) => {
 
   return (
     <>
-      {posted && (
-        <span className="mt-2 text-red-500 fade-in">
-          Debe seleccionar una talla*
-        </span>
-      )}
-
       {/* <QuantitySelector quantity={quantity} onQuantityChanged={setQuantity} /> */}
 
       {/* Button */}
-      <button onClick={addToCart} className="btn-primary my-5">
-        Add to the cart
-      </button>
+      <Button onClick={addToCart} className="btn-primary my-5 rounded-xl text-white">
+        Add to cart
+      </Button>
     </>
   );
 };

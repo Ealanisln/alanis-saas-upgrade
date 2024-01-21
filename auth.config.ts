@@ -28,9 +28,8 @@ export const authConfig: NextAuthConfig = {
       }
       return token;
     },
-    session({ session, user }: { session: Session; user?: User })  {
+    session({ session, user }: { session: Session; user?: User }) {
       if (user) {
-        
       }
       return session;
     },
