@@ -22,7 +22,7 @@ export const initialData: SeedData = {
   products: [
     {
       description: "Suitable for small businesses or individuals on a budget.",
-      images: ["first-image.png", "/images/second-image.png"],
+      images: ["first-image.png", "second-image.png"],
       price: 299,
       slug: "static-website-1-10-pages",
       tags: ["static", "responsive"],
@@ -33,7 +33,7 @@ export const initialData: SeedData = {
     {
       description:
         "Designed for those who need a little more functionality but still want to keep costs down.",
-      images: ["/first-image.png", "/second-image.png"],
+      images: ["first-image.png", "second-image.png"],
       price: 299,
       slug: "static-website-11-50-pages",
       tags: ["static", "responsive"],
@@ -44,7 +44,7 @@ export const initialData: SeedData = {
     {
       description:
         "The highest level of service and capabilities, designed for power users.",
-      images: ["/first-image.png", "/second-image.png"],
+      images: ["first-image.png", "second-image.png"],
       price: 299,
       slug: "static-website-51-99-pages",
       tags: ["static", "responsive"],
