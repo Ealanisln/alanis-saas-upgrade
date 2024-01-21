@@ -1,4 +1,4 @@
-import type { CartProduct } from "@/interfaces";
+import type { CartProduct } from "@/types/store.interface";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -36,13 +36,13 @@ export const useCartStore = create<State>()(
 
         const subTotal = cart.reduce(
           (subTotal, product) => product.quantity * product.price + subTotal,
-          0
+          0,
         );
         const tax = subTotal * 0.15;
         const total = subTotal + tax;
         const itemsInCart = cart.reduce(
           (total, item) => total + item.quantity,
-          0
+          0,
         );
 
         return {
@@ -58,9 +58,7 @@ export const useCartStore = create<State>()(
 
         // Check if the product exist in the cart with the selected size
 
-        const productInCart = cart.some(
-          (item) => item.id === product.id && item.size === product.size
-        );
+        const productInCart = cart.some((item) => item.id === product.id);
 
         if (!productInCart) {
           set({ cart: [...cart, product] });
@@ -70,7 +68,7 @@ export const useCartStore = create<State>()(
         // The product does exist by size, should be incremented
 
         const updatedCartProducts = cart.map((item) => {
-          if (item.id === product.id && item.size === product.size) {
+          if (item.id === product.id) {
             return { ...item, quantity: item.quantity + product.quantity };
           }
 
@@ -84,7 +82,7 @@ export const useCartStore = create<State>()(
         const { cart } = get();
 
         const updatedCartProducts = cart.map((item) => {
-          if (item.id === product.id && item.size === product.size) {
+          if (item.id === product.id) {
             return { ...item, quantity: quantity };
           }
           return item;
@@ -94,20 +92,17 @@ export const useCartStore = create<State>()(
       removeProduct: (product: CartProduct) => {
         const { cart } = get();
 
-        const updatedCart = cart.filter(
-          (item) => !(item.id === product.id && item.size === product.size)
-        );
+        const updatedCart = cart.filter((item) => !(item.id === product.id));
 
         set({ cart: updatedCart });
       },
       clearCart: () => {
-        set({ cart: []});
-      }
+        set({ cart: [] });
+      },
     }),
-
 
     {
       name: "shopping-cart",
-    }
-  )
+    },
+  ),
 );

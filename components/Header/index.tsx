@@ -158,13 +158,13 @@ const Header = () => {
                             >
                               {menuItem.submenu.map((submenuItem, index) => (
                                 <>
-                                <Link
-                                  href={submenuItem.path}
-                                  key={index}
-                                  className="block rounded py-2.5 text-sm text-dark hover:text-primary dark:text-white/70 dark:hover:text-white lg:px-3"
-                                >
-                                  {submenuItem.title}
-                                </Link>
+                                  <Link
+                                    href={submenuItem.path}
+                                    key={index}
+                                    className="block rounded py-2.5 text-sm text-dark hover:text-primary dark:text-white/70 dark:hover:text-white lg:px-3"
+                                  >
+                                    {submenuItem.title}
+                                  </Link>
                                 </>
                               ))}
                             </div>
@@ -178,57 +178,55 @@ const Header = () => {
               {status === "authenticated" ? (
                 <div className="flex items-center justify-end pr-4 lg:pr-0">
                   <Link
-                  href="/profile"
-                  className="hidden px-14 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
-                >
-                  My profile
-                </Link>
-                <button
-                  className="ease-in-up hidden rounded-xl bg-primary px-8 py-3 text-base font-medium text-white shadow-btn transition duration-300 hover:bg-opacity-90 hover:shadow-btn-hover md:block md:px-9 lg:px-6 xl:px-9"
-                  onClick={() => signOut()}
-                >
-                  Sign out
-                </button>
-                <div className="px-4">
-                  <ThemeToggler />
-                </div>
+                    href="/profile"
+                    className="hidden px-14 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
+                  >
+                    My profile
+                  </Link>
+                  <button
+                    className="ease-in-up hidden rounded-xl bg-primary px-8 py-3 text-base font-medium text-white shadow-btn transition duration-300 hover:bg-opacity-90 hover:shadow-btn-hover md:block md:px-9 lg:px-6 xl:px-9"
+                    onClick={() => signOut()}
+                  >
+                    Sign out
+                  </button>
+                  <div className="px-4">
+                    <ThemeToggler />
+                  </div>
+                  <Link
+                    href={totalItemsInCart === 0 && loaded ? "/empty" : "/cart"}
+                    className="mx-2"
+                  >
+                    <div className="relative">
+                      {loaded && totalItemsInCart > 0 && (
+                        <span className="absolute -right-2 -top-2 rounded-full bg-blue-700 px-1 text-xs font-bold text-white fade-in">
+                          {totalItemsInCart}
+                        </span>
+                      )}
+
+                      <ShoppingCartIcon className="h-5 w-5" />
+                    </div>
+                  </Link>
                 </div>
               ) : (
                 <>
-                <div className="flex items-center justify-end pr-16 lg:pr-0">
-                <Link
-                  href="/auth/login"
-                  className="hidden px-14 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  href="/auth/signup"
-                  className="ease-in-up hidden rounded-xl bg-primary px-8 py-3 text-base font-medium text-white shadow-btn transition duration-300 hover:bg-opacity-90 hover:shadow-btn-hover md:block md:px-9 lg:px-6 xl:px-9"
-                >
-                  Sign Up
-                </Link>
-                <div className="px-4">
-                <ThemeToggler />
-              </div>
-              <Link
-          href={
-            ((totalItemsInCart === 0) && loaded)  ? "/empty" : "/cart"
-          }
-          className="mx-2"
-        >
-          <div className="relative">
-            {loaded && totalItemsInCart > 0 && (
-              <span className="fade-in absolute text-xs rounded-full px-1 font-bold -top-2 -right-2 bg-blue-700 text-white">
-                {totalItemsInCart}
-              </span>
-            )}
-
-            <ShoppingCartIcon className="w-5 h-5" />
-          </div>
-        </Link>
-              </div>
-              </>
+                  <div className="flex items-center justify-end pr-16 lg:pr-0">
+                    <Link
+                      href="/auth/login"
+                      className="hidden px-14 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/auth/signup"
+                      className="ease-in-up hidden rounded-xl bg-primary px-8 py-3 text-base font-medium text-white shadow-btn transition duration-300 hover:bg-opacity-90 hover:shadow-btn-hover md:block md:px-9 lg:px-6 xl:px-9"
+                    >
+                      Sign Up
+                    </Link>
+                    <div className="px-4">
+                      <ThemeToggler />
+                    </div>
+                  </div>
+                </>
               )}
             </div>
           </div>
