@@ -1,4 +1,4 @@
-import NextAuth, { type NextAuthConfig } from "next-auth";
+import NextAuth, { NextAuthConfig, type Session, type User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import { z } from "zod";
@@ -8,7 +8,7 @@ import bcryptjs from "bcryptjs";
 export const authConfig: NextAuthConfig = {
   pages: {
     signIn: "/auth/login",
-    newUser: "/auth/new-account",
+    newUser: "/auth/signup",
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
@@ -28,8 +28,10 @@ export const authConfig: NextAuthConfig = {
       }
       return token;
     },
-    session({ session, token }) {
-      session.user = token.data as any;
+    session({ session, user }: { session: Session; user?: User })  {
+      if (user) {
+        
+      }
       return session;
     },
   },
