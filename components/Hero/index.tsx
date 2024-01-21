@@ -37,10 +37,10 @@ const Hero = () => {
 
                 <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0 mt-4">
                   <Link
-                    href="https://nextjstemplates.com/templates/saas-starter-startup"
+                    href="/contact"
                     className="rounded-xl bg-primary px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-primary/80"
                   >
-                    Get started now
+                    Send me a message! 
                   </Link>
                   <Link
                     href="#pricing"

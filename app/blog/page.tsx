@@ -1,7 +1,6 @@
 import Posts from "@/components/Blog/Posts";
 import Breadcrumb from "@/components/Common/Breadcrumb";
-import { Card } from "@/components/ui";
-import { client, urlFor } from "@/sanity/lib/client";
+import { client } from "@/sanity/lib/client";
 import { postPathsQuery } from "@/sanity/lib/queries";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
 import { Metadata } from "next";

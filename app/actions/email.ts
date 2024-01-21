@@ -33,7 +33,7 @@ const sendEmail = async( data: FormInputs) => {
     sgMail.setApiKey(process.env.SEND_API_KEY || "");
   
     try {
-      // await sgMail.send(msg);
+      await sgMail.send(msg);
       console.log("Message was sent successfully.");
       return "Message sent successfully"; 
     } catch (error) {

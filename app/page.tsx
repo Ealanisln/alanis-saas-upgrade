@@ -28,9 +28,9 @@ export default async function Home() {
       <Brands />
       <AboutSectionOne />
       <AboutSectionTwo />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <Pricing />
-      {/* <Blog /> */}
+      <Blog />
       <Contact />
     </>
   );

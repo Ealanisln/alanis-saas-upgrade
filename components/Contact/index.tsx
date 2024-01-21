@@ -54,10 +54,10 @@ const Contact = () => {
               "
             >
               <h2 className="mb-3 text-2xl font-bold text-black dark:text-white sm:text-3xl lg:text-2xl xl:text-3xl">
-                Do you have any questions?
+                Do you have any questions or need start a new project?
               </h2>
               <p className="mb-12 text-base font-medium text-body-color">
-                I will get back to you ASAP via email.
+                I will get back to you as soon as be possible.
               </p>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="-mx-4 flex flex-wrap">
@@ -123,7 +123,7 @@ const Contact = () => {
                       type="submit"
                       className="rounded-xl bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark"
                     >
-                      Submit Ticket
+                      Send Message
                     </button>
                   </div>
                 </div>

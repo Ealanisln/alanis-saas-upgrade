@@ -116,3 +116,12 @@ interface Order {
   OrderItem: OrderItem[];
   transactionId?: string;
 }
+
+export interface CartProduct {
+  id: string;
+  slug: string;
+  title: string;
+  price: number;
+  quantity: number;
+  image: string;
+}

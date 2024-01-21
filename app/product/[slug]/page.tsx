@@ -8,7 +8,7 @@ import {
 } from "@/components/Product";
 import { getProductBySlug } from "@/app/actions/products/";
 import { Metadata, ResolvingMetadata } from "next";
-// import AddToCart from "./ui/AddToCart";
+import AddToCart from "./ui/AddToCart";
 
 interface Props {
   params: {
@@ -77,7 +77,7 @@ export default async function ProductBySlugPage({ params }: Props) {
         </h1>
         <p className="text-lg mb-5">${product.price}</p>
 
-        {/* <AddToCart product={product} /> */}
+        <AddToCart product={product} />
 
         {/* Descripción */}
         <h3 className="font-bold text-sm">Descripción</h3>
