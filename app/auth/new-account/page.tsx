@@ -2,9 +2,10 @@ import Profile from "@/app/profile/profile";
 import { auth } from "@/auth.config";
 
 
-const session = await auth();
 
-const newAccount = () => {
+const newAccount = async() => {
+  const session = await auth();
+
   return (
     <>
       <div className="container">
