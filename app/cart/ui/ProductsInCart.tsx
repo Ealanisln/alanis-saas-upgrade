@@ -6,7 +6,7 @@ import { ProductImage } from "@/components/Product/";
 import Link from "next/link";
 
 const ProductsInCart = () => {
-  const removeProduct = useCartStore( state => state.removeProduct);
+  const removeProduct = useCartStore((state) => state.removeProduct);
   const productsInCart = useCartStore((state) => state.cart);
   const [loaded, setLoaded] = useState(false);
 
@@ -21,7 +21,7 @@ const ProductsInCart = () => {
   return (
     <>
       {productsInCart.map((product) => (
-        <div key={`${product.slug}-${product.size}`} className="flex mb-5">
+        <div key={`${product.slug}`} className="mb-5 flex">
           <ProductImage
             src={product.image}
             width={100}
@@ -35,15 +35,18 @@ const ProductsInCart = () => {
           />
           <div>
             <Link
-              className="hover:underline cursor-pointer"
+              className="cursor-pointer hover:underline"
               href={`/product/${product.slug}`}
             >
-             { product.size } - {product.title}
+              {product.title}
             </Link>
             <p>{product.price}</p>
-            <button 
-            onClick={() => removeProduct(product)}
-            className="underline mt-3">Remover</button>
+            <button
+              onClick={() => removeProduct(product)}
+              className="mt-3 underline"
+            >
+              Remover
+            </button>
           </div>
         </div>
       ))}
