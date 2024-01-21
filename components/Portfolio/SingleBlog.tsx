@@ -38,7 +38,7 @@ const SingleBlog = () => {
     {
       id: 5,
       title: "Cat Wiki",
-      paragraph: "It&quot;s a project where I used NextJS to fetch data from thecatapi.com using server components and static site generation. The service is free for the first 5 queries and has a monthly payment for unlimited usage.",
+      paragraph: "It was a project where I used NextJS to fetch data from thecatapi.com using server components and static site generation. The service is free for the first 5 queries and has a monthly payment for unlimited usage.",
       image: "/images/blog/blog-05.webp",
       location: {
         url: "https://cat-wiki-alanis.vercel.app/",
@@ -157,7 +157,7 @@ const SingleBlog = () => {
                 </div>
                 <div className="inline-block">
                   <h4 className="mb-1 text-sm font-medium text-dark dark:text-white">
-                  "date"
+                  Date:
                   </h4>
                   <p className="text-xs text-body-color">
                     {blogItem.publishDate}
