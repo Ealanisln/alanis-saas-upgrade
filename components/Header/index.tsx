@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { titleFont } from "@/config/fonts";
-import { useCartStore, useUIStore } from "@/store";
+import { useCartStore } from "@/store";
 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
