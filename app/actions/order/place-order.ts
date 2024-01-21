@@ -82,8 +82,6 @@ export const placeOrder = async (productIds: ProductToOrder[]) => {
 
       // Validar, si el price es cero, entonces, lanzar un error
 
-      // 3. Crear la direccion de la orden
-      // Address
 
       return {
         order: order,

@@ -18,7 +18,7 @@ export const deleteOrder = async (orderId: string) => {
     // Get the order to be deleted
     const orderToDelete = await prisma.order.findUnique({
       where: { id: orderId },
-      include: { OrderItem: true, OrderAddress: true },
+      include: { OrderItem: true },
     });
 
     // Check if the order exists and belongs to the user
@@ -33,11 +33,6 @@ export const deleteOrder = async (orderId: string) => {
     const prismaTx = await prisma.$transaction(async (tx) => {
       // Delete order items
       await tx.orderItem.deleteMany({
-        where: { orderId: orderId },
-      });
-
-      // Delete order address
-      await tx.orderAddress.delete({
         where: { orderId: orderId },
       });
 

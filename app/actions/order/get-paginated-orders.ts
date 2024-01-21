@@ -17,14 +17,6 @@ export const getPaginatedOrders = async () => {
     orderBy: {
       createdAt: "desc",
     },
-    include: {
-      OrderAddress: {
-        select: {
-          firstName: true,
-          lastName: true,
-        },
-      },
-    },
   });
 
   return {
