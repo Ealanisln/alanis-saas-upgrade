@@ -1,8 +1,3 @@
-// Define enum types
-enum WebType {
-  Static = 'static',
-  Ecommerce = 'ecommerce',
-}
 
 enum Role {
   Admin = 'admin',
@@ -10,7 +5,7 @@ enum Role {
 }
 
 // Interface for Category model
-interface Category {
+export interface Category {
   id: string;
   name: string;
   Product: Product[];
@@ -74,15 +69,30 @@ export interface Product {
   price: number;
   slug: string;
   tags: string[];
-  webtype: WebType;
+  category?: Category;
+  categoryId: string;
+  ProductImage: { url: string }[];
+  OrderItem?: OrderItem[];
+}
+
+export interface ProductGrid {
+  id: string;
+  description: string;
+  images: string[];
+  price: number;
+  slug: string;
+  tags: string[];
   category: Category;
   categoryId: string;
   ProductImage: ProductImage[];
   OrderItem: OrderItem[];
+  
+  title: string;
+  // to-do type: Type;
 }
 
 // Interface for ProductImage model
-interface ProductImage {
+export interface ProductImage {
   id: number;
   url: string;
   product: Product;
@@ -90,7 +100,7 @@ interface ProductImage {
 }
 
 // Interface for OrderItem model
-interface OrderItem {
+export interface OrderItem {
   id: string;
   quantity: number;
   price: number;

@@ -1,11 +1,16 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { titleFont } from "@/config/fonts";
+import { useCartStore, useUIStore } from "@/store";
+
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import menuData from "./menuData";
 import ThemeToggler from "./ThemeToggler";
 import { signOut, useSession } from "next-auth/react";
+import { ShoppingCartIcon } from "lucide-react";
 
 const Header = () => {
   const { status } = useSession();
@@ -38,7 +43,15 @@ const Header = () => {
     }
   };
 
+  const totalItemsInCart = useCartStore((state) => state.getTotalItems());
+
   const usePathName = usePathname();
+
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
 
   return (
     <>
@@ -198,6 +211,22 @@ const Header = () => {
                 <div className="px-4">
                 <ThemeToggler />
               </div>
+              <Link
+          href={
+            ((totalItemsInCart === 0) && loaded)  ? "/empty" : "/cart"
+          }
+          className="mx-2"
+        >
+          <div className="relative">
+            {loaded && totalItemsInCart > 0 && (
+              <span className="fade-in absolute text-xs rounded-full px-1 font-bold -top-2 -right-2 bg-blue-700 text-white">
+                {totalItemsInCart}
+              </span>
+            )}
+
+            <ShoppingCartIcon className="w-5 h-5" />
+          </div>
+        </Link>
               </div>
               </>
               )}

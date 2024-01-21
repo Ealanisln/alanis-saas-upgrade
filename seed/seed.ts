@@ -5,7 +5,6 @@ interface SeedProduct {
   slug: string;
   tags: string[];
   type: ValidTypes;
-  webtype: "static" | "ecommerce";
   title: string;
 }
 
@@ -27,7 +26,6 @@ export const initialData: SeedData = {
       slug: "static-website-1-10-pages",
       tags: ["static", "responsive"],
       type: 'front',
-      webtype: "static",
       title: "Static Website 1-10 pages",
     },
     {
@@ -38,7 +36,6 @@ export const initialData: SeedData = {
       slug: "static-website-11-50-pages",
       tags: ["static", "responsive"],
       type: 'front',
-      webtype: "static",
       title: "Static Website 11-50 pages",
     },
     {
@@ -49,7 +46,6 @@ export const initialData: SeedData = {
       slug: "static-website-51-99-pages",
       tags: ["static", "responsive"],
       type: 'front',
-      webtype: "static",
       title: "Static Website 51-99 pages",
     },
   ],

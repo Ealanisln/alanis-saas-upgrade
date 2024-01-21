@@ -1,4 +1,3 @@
-import { WebType } from "@prisma/client";
 import prisma from "../lib/prisma";
 import { initialData } from "./seed";
 

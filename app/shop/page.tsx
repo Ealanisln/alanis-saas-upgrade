@@ -19,6 +19,7 @@ export default async function Shop({ searchParams }: Props) {
   const { products, currentPage, totalPages } =
   await getPaginatedProductsWithImages({ page });
 
+  console.log(products);
   if (products.length === 0) {
     redirect("/");
   }

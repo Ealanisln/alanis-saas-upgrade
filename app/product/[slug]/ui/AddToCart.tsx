@@ -1,6 +1,6 @@
 "use client";
 
-import { CartProduct, Product } from "@/interfaces/store.interface";
+import { CartProduct, Product } from "@/types/store.interface";
 import { useCartStore } from "@/store/";
 import { useState } from "react";
 
@@ -9,15 +9,14 @@ interface Props {
 }
 
 const AddToCart = ({ product }: Props) => {
-
-  const addProductToCart = useCartStore( state => state.addProductToCart);
+  const addProductToCart = useCartStore((state) => state.addProductToCart);
 
   const [quantity, setQuantity] = useState<number>(1);
   const [posted, setPosted] = useState(false);
 
   const addToCart = () => {
     setPosted(true);
-    console.log({  quantity, product})
+    console.log({ quantity, product });
 
     // Todo add to cart
 
@@ -27,29 +26,28 @@ const AddToCart = ({ product }: Props) => {
       title: product.title,
       price: product.price,
       quantity: quantity,
-      image: product.images[0]
-    }
+      image: product.images[0],
+    };
 
     addProductToCart(cartProduct);
 
     setPosted(false);
     setQuantity(1);
-
-
   };
 
   return (
     <>
       {posted && (
-        <span className="mt-2 text-red-500 fade-in">Debe seleccionar una talla*</span>
+        <span className="mt-2 text-red-500 fade-in">
+          Debe seleccionar una talla*
+        </span>
       )}
-
 
       {/* <QuantitySelector quantity={quantity} onQuantityChanged={setQuantity} /> */}
 
       {/* Button */}
       <button onClick={addToCart} className="btn-primary my-5">
-        Agregar al carrito
+        Add to the cart
       </button>
     </>
   );

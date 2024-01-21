@@ -11,14 +11,13 @@ export const PageNotFound = () => {
         <p className="font-light">
           <span>Puedes regresar al</span>
           <Link href="/" className="font-normal hover:underline transition-all">
-            {" "}
             Inicio
           </Link>
         </p>
       </div>
       <div className="px-5 mx-5">
         <Image
-          src="/imgs/fatty-corgi.jpg"
+          src="/images/fatty-corgi.jpg"
           alt="Dog corgi sad"
           className="p-5 sm:p-0"
           width={550}
