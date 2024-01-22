@@ -1,8 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-
 import LoginForm from "./ui/LoginForm";
 import { signOut, useSession } from "next-auth/react";
 
@@ -22,8 +19,8 @@ const SigninPage = () => {
           /> */}
         </div>
         <p className="mb-2 text-2xl">
-          Welcome <span className="font-bold">{session.user.name}</span>.
-          Signed In As
+          Welcome <span className="font-bold">{session.user.name}</span>. Signed
+          In As
         </p>
         <p className="mb-4 font-bold">{session.user.email}</p>
         <button

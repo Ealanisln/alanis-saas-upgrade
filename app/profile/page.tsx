@@ -1,4 +1,4 @@
-import { auth } from "@/auth.config";
+import { auth } from "@/auth";
 import React from "react";
 import { redirect } from "next/navigation"
 import Profile from "./profile";
@@ -6,6 +6,7 @@ import Pricing from "@/components/Pricing";
 
 const page = async () => {
   const session = await auth();
+  console.log(session)
 
   if (!session?.user) {
     redirect("/auth/login")

@@ -2,7 +2,7 @@ import NextAuth, { NextAuthConfig, type Session, type User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import { z } from "zod";
-import prisma from "./lib/prisma";
+import prisma from "@/lib/prisma";
 import bcryptjs from "bcryptjs";
 
 export const authConfig: NextAuthConfig = {
@@ -22,15 +22,15 @@ export const authConfig: NextAuthConfig = {
       // }
       return true;
     },
-    jwt({ token, user }) {
+    async jwt({ token, user }) {
       if (user) {
         token.data = user;
       }
       return token;
     },
-    session({ session, user }: { session: Session; user?: User }) {
-      if (user) {
-      }
+    async  session({ session, token, user }: { session: Session; user?: User }) {
+      session.user = token.data as any;
+      console.log(session.user)
       return session;
     },
   },

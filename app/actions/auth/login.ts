@@ -12,14 +12,14 @@ export async function authenticate(
       ...Object.fromEntries(formData),
       redirect: false,
     });
-    return "¡Autenticación exitosa!";
+    return "Success";
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          return "Usuario o contraseña incorrectos.";
+          return "Email or password error.";
         default:
-          return "Algo salió mal.";
+          return "Something happens.";
       }
     }
 
