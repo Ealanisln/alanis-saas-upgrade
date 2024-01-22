@@ -12,8 +12,6 @@ export const placeOrder = async (productIds: ProductToOrder[]) => {
   const session = await auth();
   const userId = session?.user.id;
 
-  console.log(session.user.id);
-
   // Verificar sesión de usuario
   if (!userId) {
     return {

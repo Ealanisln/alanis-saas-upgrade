@@ -94,6 +94,7 @@ export default async function OrdersByIdPage({ params }: Props) {
             </div>
 
             <div className="mb-2 mt-5 w-full">
+              
               {/* {order?.isPaid ? (
                 <OrderStatus isPaid={order?.isPaid ?? false} />
               ) : (
