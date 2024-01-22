@@ -4,6 +4,7 @@ import Google from "next-auth/providers/google";
 import { z } from "zod";
 import prisma from "@/lib/prisma";
 import bcryptjs from "bcryptjs";
+import { JWT } from "next-auth/jwt";
 
 export const authConfig: NextAuthConfig = {
   pages: {
@@ -28,9 +29,9 @@ export const authConfig: NextAuthConfig = {
       }
       return token;
     },
-    async  session({ session, token, user }: { session: Session; user?: User }) {
+    async  session({ session, token }: { session: Session; user?: User; token?: JWT}) {
       session.user = token.data as any;
-      console.log(session.user)
+      console.log(session)
       return session;
     },
   },

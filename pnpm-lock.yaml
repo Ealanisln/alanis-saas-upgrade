@@ -63,8 +63,8 @@ dependencies:
     specifier: ^14.0.4
     version: 14.0.4(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
   next-auth:
-    specifier: 5.0.0-beta.4
-    version: 5.0.0-beta.4(next@14.0.4)(react@18.2.0)
+    specifier: 5.0.0-beta.5
+    version: 5.0.0-beta.5(next@14.0.4)(react@18.2.0)
   next-sanity:
     specifier: ^7.0.10
     version: 7.0.10(@sanity/client@6.11.1)(@sanity/icons@2.8.0)(@sanity/types@3.24.1)(@sanity/ui@2.0.0-beta.16)(next@14.0.4)(react@18.2.0)(sanity@3.24.1)(styled-components@6.1.8)
@@ -166,22 +166,6 @@ packages:
       bidi-js: 1.0.3
       css-tree: 2.3.1
       is-potential-custom-element-name: 1.0.1
-    dev: false
-
-  /@auth/core@0.18.4:
-    resolution: {integrity: sha512-GsNhsP1xE/3FoNS3dVkPjqRljLNJ4iyL2OLv3klQGNvw3bMpROFcK4lqhx7+pPHiamnVaYt2vg1xbB+lsNaevg==}
-    peerDependencies:
-      nodemailer: ^6.8.0
-    peerDependenciesMeta:
-      nodemailer:
-        optional: true
-    dependencies:
-      '@panva/hkdf': 1.1.1
-      cookie: 0.6.0
-      jose: 5.2.0
-      oauth4webapi: 2.6.0
-      preact: 10.11.3
-      preact-render-to-string: 5.2.3(preact@10.11.3)
     dev: false
 
   /@auth/core@0.21.0:
@@ -7816,8 +7800,8 @@ packages:
       type-fest: 0.4.1
     dev: false
 
-  /next-auth@5.0.0-beta.4(next@14.0.4)(react@18.2.0):
-    resolution: {integrity: sha512-vgocjvwPA8gxd/zrIP/vr9lJ/HeNe+C56lPP1D3sdyenHt8KncQV6ro7q0xCsDp1fcOKx7WAWVZH5o8aMxDzgw==}
+  /next-auth@5.0.0-beta.5(next@14.0.4)(react@18.2.0):
+    resolution: {integrity: sha512-tEYIPhm/i0byW4xf9Ldlsnh7ckBQfNvMjOA3B3eXQX9taAQWb8earravSn1fjk4fKfKvaOApFJkks0VeI7Vy/A==}
     peerDependencies:
       next: ^14
       nodemailer: ^6.6.5
@@ -7826,7 +7810,7 @@ packages:
       nodemailer:
         optional: true
     dependencies:
-      '@auth/core': 0.18.4
+      '@auth/core': 0.21.0
       next: 14.0.4(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
     dev: false
