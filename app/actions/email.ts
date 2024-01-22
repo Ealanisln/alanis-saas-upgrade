@@ -18,13 +18,12 @@ const sendEmail = async( data: FormInputs) => {
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
         const value = data[key];
-        console.log(`${key}: ${value}`);
         body += `<p>${key}: ${value}</p>`;
       }
     }
   
     const msg = {
-      to: data.email,
+      to: "ealanisln@me.com",
       from: "emmanuel@alanis.dev",
       subject: "Website message - Alanis.dev",
       html: body,

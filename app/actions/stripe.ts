@@ -9,7 +9,7 @@ import { CURRENCY } from "@/config";
 import { formatAmountForStripe } from "@/lib/utils/stripe-helpers";
 import { stripe } from "@/lib/stripe";
 
-export async function createCheckoutSession(unitAmount: number,): Promise<void> {
+export async function createCheckoutSession(amount: number, name: string): Promise<void> {
   const checkoutSession: Stripe.Checkout.Session =
     await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -19,36 +19,20 @@ export async function createCheckoutSession(unitAmount: number,): Promise<void> 
           price_data: {
             currency: CURRENCY,
             product_data: {
-              name: "Alanis Web Dev",
-              description: `Charging you`,
+              name:  "Alanis Web Dev",
+              description: name,
             },
-            unit_amount: formatAmountForStripe(unitAmount, CURRENCY),
+            unit_amount: formatAmountForStripe(amount, CURRENCY),
           },
         },
       ],
       mode: "payment",
       success_url: `${headers().get(
         "origin",
-      )}/plans/result?session_id={CHECKOUT_SESSION_ID}`,
+      )}/shop/orders/result?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${headers().get("origin")}/plans`,
     });
 
     redirect(checkoutSession.url)
 
-}
-
-export async function createPaymentIntent(
-  data: FormData,
-): Promise<{ client_secret: string }> {
-  const paymentIntent: Stripe.PaymentIntent =
-    await stripe.paymentIntents.create({
-      amount: formatAmountForStripe(
-        Number(data.get("customDonation") as string),
-        CURRENCY,
-      ),
-      automatic_payment_methods: { enabled: true },
-      currency: CURRENCY,
-    });
-
-  return { client_secret: paymentIntent.client_secret as string };
 }

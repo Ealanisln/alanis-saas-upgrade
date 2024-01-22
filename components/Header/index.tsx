@@ -6,10 +6,10 @@ import { useCartStore } from "@/store";
 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import menuData from "./menuData";
 import ThemeToggler from "./ThemeToggler";
 import { signOut, useSession } from "next-auth/react";
 import { ShoppingCartIcon } from "lucide-react";
+import menuDataMobile from "./menuDataMobile";
 
 const Header = () => {
   const { status } = useSession();
@@ -31,6 +31,11 @@ const Header = () => {
   useEffect(() => {
     window.addEventListener("scroll", handleStickyNavbar);
   });
+
+    // Close the menu when a link is clicked
+    const handleLinkClick = () => {
+      setNavbarOpen(false);
+    };
 
   // submenu handler
   const [openIndex, setOpenIndex] = useState(-1);
@@ -119,11 +124,12 @@ const Header = () => {
                   }`}
                 >
                   <ul className="block lg:flex lg:space-x-12">
-                    {menuData.map((menuItem, index) => (
+                    {menuDataMobile.map((menuItem, index) => (
                       <li key={index} className="group relative">
                         {menuItem.path ? (
                           <Link
                             href={menuItem.path}
+                            onClick={handleLinkClick}
                             className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 ${
                               usePathName === menuItem.path
                                 ? "text-primary dark:text-white"
@@ -191,8 +197,11 @@ const Header = () => {
                   <div className="px-4">
                     <ThemeToggler />
                   </div>
+                  <div className="pr-14">
                   <Link
-                    href={totalItemsInCart === 0 && loaded ? "/empty" : "/shop/cart"}
+                    href={
+                      totalItemsInCart === 0 && loaded ? "/empty" : "/shop/cart"
+                    }
                     className="mx-2"
                   >
                     <div className="relative">
@@ -205,6 +214,7 @@ const Header = () => {
                       <ShoppingCartIcon className="h-5 w-5" />
                     </div>
                   </Link>
+                  </div>
                 </div>
               ) : (
                 <>

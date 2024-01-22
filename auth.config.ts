@@ -31,7 +31,6 @@ export const authConfig: NextAuthConfig = {
     },
     async  session({ session, token }: { session: Session; user?: User; token?: JWT}) {
       session.user = token.data as any;
-      console.log(session)
       return session;
     },
   },

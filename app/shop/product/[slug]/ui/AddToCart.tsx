@@ -17,7 +17,6 @@ const AddToCart = ({ product }: Props) => {
 
   const addToCart = () => {
     setPosted(true);
-    console.log({ quantity, product });
 
     // Todo add to cart
 

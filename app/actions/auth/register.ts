@@ -27,7 +27,6 @@ export const registerUser = async (
       user: user,
     };
   } catch (error:any) {
-    console.log("Error al crear usuario:", error);
 
     if (error.code === 'P2002' && error.meta?.target?.includes('email')) {
       return {

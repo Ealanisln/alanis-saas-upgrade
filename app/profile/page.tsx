@@ -6,7 +6,6 @@ import Pricing from "@/components/Pricing";
 
 const page = async () => {
   const session = await auth();
-  console.log(session)
 
   if (!session?.user) {
     redirect("/auth/login")
