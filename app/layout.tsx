@@ -6,6 +6,7 @@ import "node_modules/react-modal-video/css/modal-video.css";
 import "../styles/index.css";
 import { Providers } from "./providers";
 import SessionWrapper from "@/components/Session/SessionWrapper";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default function RootLayout({
           <Providers>
             <Header />
             {children}
+            <Analytics />
             <Footer />
             <ScrollToTop />
           </Providers>
