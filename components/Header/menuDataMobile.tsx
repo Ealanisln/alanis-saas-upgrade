@@ -37,11 +37,11 @@ const menuDataMobile: Menu[] = [
   //   path: "/auth/signup",
   //   newTab: false,
   // },
-  {
-    id: 4,
-    title: "My Account",
-    newTab: false,
-    submenu: [
+  // {
+  //   id: 4,
+  //   title: "My Account",
+  //   newTab: false,
+  //   submenu: [
       // {
   //       id: 41,
   //       title: "About Page",
@@ -72,25 +72,24 @@ const menuDataMobile: Menu[] = [
   //       path: "/blog-details",
   //       newTab: false,
   //     },
-      {
-        id: 46,
-        title: "Sign In Page",
-        path: "/signin",
-        newTab: false,
-      },
-      {
-        id: 47,
-        title: "Sign Up Page",
-        path: "/signup",
-        newTab: false,
-      },
+      // {
+      //   id: 46,
+      //   title: "Sign In Page",
+      //   path: "/signin",
+      //   newTab: false,
+      // },
+      // {
+      //   id: 47,
+      //   title: "Sign Up Page",
+      //   path: "/signup",
+      //   newTab: false,
+      // },
   //     {
   //       id: 48,
   //       title: "Error Page",
   //       path: "/error",
   //       newTab: false,
   //     },
-    ],
-  },
+    // ],
 ];
 export default menuDataMobile;

@@ -12,7 +12,7 @@ const PricingBox = (props: {
 
   const handleCheckout = async () => {
     const unitAmount = formatAmountForStripe(price, CURRENCY);
-    await createCheckoutSession(unitAmount);
+    await createCheckoutSession(unitAmount, packageName);
   };
 
   return (
