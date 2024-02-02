@@ -50,6 +50,9 @@ dependencies:
   clsx:
     specifier: ^2.1.0
     version: 2.1.0
+  embla-carousel-react:
+    specifier: 8.0.0-rc22
+    version: 8.0.0-rc22(react@18.2.0)
   eslint:
     specifier: 8.33.0
     version: 8.33.0
@@ -3146,7 +3149,7 @@ packages:
   /axios@1.6.5:
     resolution: {integrity: sha512-Ii012v05KEVuUoFWmMW/UQv9aRIc3ZwkWDcM+h5Il8izZCtRVpDUfwpoFf7eOtajT3QiGR4yDUx7lPqHJULgbg==}
     dependencies:
-      follow-redirects: 1.15.5(debug@4.3.2)
+      follow-redirects: 1.15.5(debug@4.3.4)
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -4139,7 +4142,6 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
     dev: false
-    bundledDependencies: false
 
   /create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
@@ -4654,6 +4656,28 @@ packages:
       inherits: 2.0.4
       minimalistic-assert: 1.0.1
       minimalistic-crypto-utils: 1.0.1
+    dev: false
+
+  /embla-carousel-react@8.0.0-rc22(react@18.2.0):
+    resolution: {integrity: sha512-NwmISV0Cw9XVo76Vquz3hJaeZe7qoCRtrzStxlEY7qfZD8WR/f4JlQAso35URTs1BeYVhcuClflelioo+Zmidg==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.1 || ^18.0.0
+    dependencies:
+      embla-carousel: 8.0.0-rc22
+      embla-carousel-reactive-utils: 8.0.0-rc22(embla-carousel@8.0.0-rc22)
+      react: 18.2.0
+    dev: false
+
+  /embla-carousel-reactive-utils@8.0.0-rc22(embla-carousel@8.0.0-rc22):
+    resolution: {integrity: sha512-K4b8QhQGXYW5wr4l+U6XryhafsFV5c/IyohDnZN3MGoYIB9xY7qpjUWAcs5bTDjAD+qCZPOuXre0D3IVa28mqw==}
+    peerDependencies:
+      embla-carousel: 8.0.0-rc22
+    dependencies:
+      embla-carousel: 8.0.0-rc22
+    dev: false
+
+  /embla-carousel@8.0.0-rc22:
+    resolution: {integrity: sha512-MeXnPT1LShfgAu8qXj3CskayV0R6OkHx7w3cPTx+Q5ZWKyShKpIuu7qVQJ5BoFegalE4n6yxqoQaRuGFbK9pYw==}
     dev: false
 
   /emoji-regex@8.0.0:

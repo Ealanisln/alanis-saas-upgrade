@@ -2,7 +2,6 @@ import SingleBlog from "@/components/Portfolio/SingleBlog";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import { GetStaticPropsContext } from "next";
 import SectionTitle from "@/components/Common/SectionTitle";
-import Gallery from "@/components/Portfolio/Gallery";
 
 const Blog = () => {
   return (
@@ -19,8 +18,8 @@ const Blog = () => {
             paragraph="Discover the power of NextJS with my latest projects, where cutting-edge technology and stunning user experiences merge seamlessly."
             center
           />
-          <div className="justify-center">
-            <Gallery />
+          <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 md:gap-x-6 lg:gap-x-8 xl:grid-cols-3">
+            <SingleBlog />
           </div>
         </div>
       </section>
