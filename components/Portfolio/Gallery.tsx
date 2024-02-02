@@ -124,9 +124,9 @@ export default function CarouselDemo() {
   ];
 
   return (
-    <div className="flex h-full items-center justify-center px-12">
+    <div className="flex h-full items-center justify-center">
       <Carousel className="mx-auto w-full sm:w-3/4">
-        <CarouselContent>
+        <CarouselContent className="flex items-center">
           {blogData.map((blog) => (
             <CarouselItem key={blog.id}>
               <div>
@@ -138,8 +138,7 @@ export default function CarouselDemo() {
                     <CardDescription className="py-2">
                       <span className="text-xl">{blog.paragraph}</span>
                       <div className="my-5 flex items-center">
-                        <div className="flex-1 border-t border-gray-500"></div>
-                        <div className="flex-1 border-t border-gray-500"></div>
+                        <div className="flex-1 border-t border-gray-200"></div>
                       </div>
                       <div className="py-6">
                         <span className="text-lg">

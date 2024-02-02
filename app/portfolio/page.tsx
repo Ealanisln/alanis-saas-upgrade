@@ -12,7 +12,7 @@ const Blog = () => {
         description="Explore the gallery of my projects that combine creativity and technical expertise.
 "
       />
-      <section id="blog" className="bg-primary/5 py-16 md:py-20 lg:py-28">
+      <section id="blog" className="bg-primary/5 py-16 md:py-20 lg:py-28 px-10">
         <div className="container">
           <SectionTitle
             title="My latest projects:"

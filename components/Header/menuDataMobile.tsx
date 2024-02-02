@@ -14,14 +14,20 @@ const menuDataMobile: Menu[] = [
     newTab: false,
   },
   {
-    id: 33,
+    id: 3,
+    title: "Portfolio",
+    path: "/portfolio",
+    newTab: false,
+  },
+  {
+    id: 4,
     title: "Blog",
     path: "/blog",
     newTab: false,
   },
   {
-    id: 3,
-    title: "Support",
+    id: 5,
+    title: "Contact",
     path: "/contact",
     newTab: false,
   },
