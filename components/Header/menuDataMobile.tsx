@@ -3,19 +3,19 @@ import { Menu } from "@/types/menu";
 const menuDataMobile: Menu[] = [
   {
     id: 1,
-    title: "Home",
+    title: "Inicio",
     path: "/",
     newTab: false,
   },
   {
     id: 2,
-    title: "About",
+    title: "Acerca de mí",
     path: "/about",
     newTab: false,
   },
   {
     id: 3,
-    title: "Portfolio",
+    title: "Portafolio",
     path: "/portfolio",
     newTab: false,
   },
@@ -27,7 +27,7 @@ const menuDataMobile: Menu[] = [
   },
   {
     id: 5,
-    title: "Contact",
+    title: "Contacto",
     path: "/contact",
     newTab: false,
   },

@@ -54,10 +54,10 @@ const Contact = () => {
               "
             >
               <h2 className="mb-3 text-2xl font-bold text-black dark:text-white sm:text-3xl lg:text-2xl xl:text-3xl">
-                Do you have any questions or need start a new project?
+                Tienes alguna duda sobre tu proyecto?
               </h2>
               <p className="mb-12 text-base font-medium text-body-color">
-                I will get back to you as soon as be possible.
+                Escribeme y me pondré en contacto lo mas pronto posible. 
               </p>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="-mx-4 flex flex-wrap">

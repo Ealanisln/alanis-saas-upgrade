@@ -8,8 +8,8 @@ const Features = () => {
       <section id="features" className="py-16 md:py-20 lg:py-28">
         <div className="container">
           <SectionTitle
-            title="Main Features"
-            paragraph="Easily create Google-friendly static websites and enjoy improved SEO benefits, which means that Google will give you better visibility among others.            "
+            title="Principales beneficios"
+            paragraph="Nuestros desarrollos web son compatibles con Google, asi que puedes disfrutar de beneficios de SEO mejorados, lo que significa que Google te brindará una mejor visibilidad entre los demás sin pagar más."
             center
           />
 

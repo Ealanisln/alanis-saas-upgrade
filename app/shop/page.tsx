@@ -32,8 +32,8 @@ export default async function Shop({ searchParams }: Props) {
   return (
     <div className="container pt-32">
       <Title
-        title="Our services"
-        subtitle="From a static website to a e-commerce, choose the best option for you:"
+        title="Nuestros servicios"
+        subtitle="Desde una web estática hasta un e-commerce, elige la mejor opción para ti:"
       />
       <ProductGrid products={products} />
     </div>

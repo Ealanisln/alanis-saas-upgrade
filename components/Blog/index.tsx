@@ -32,8 +32,8 @@ const Blog = async () => {
     >
       <div className="container">
         <SectionTitle
-          title="Our Latest Blogs"
-          paragraph="Discover Cool Stuff About Web Development: Read Interesting Articles on Creating Websites and Apps."
+          title="Mis últimas publicaciones"
+          paragraph="Descubre cosas nuevas sobre desarrollo web: lee artículos interesantes sobre la creación de sitios web y aplicaciones."
           center
         />
 

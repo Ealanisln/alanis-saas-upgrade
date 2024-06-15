@@ -24,8 +24,8 @@ const AboutSectionOne = () => {
           <div className="-mx-4 flex flex-wrap items-center">
             <div className="w-full px-4 lg:w-1/2">
               <SectionTitle
-                title="The best solution for your business."
-                paragraph="Are you worried about technical matters? No need to fret; we assure you that we will provide you with the best solutions to keep your business running smoothly. You will always be supported by our top-notch experience."
+                title="La mejor solución para tu negocio."
+                paragraph="¿Te preocupan los asuntos técnicos? No te preocupes, te aseguramos que te brindaremos las mejores soluciones para que tu negocio funcione sin problemas. Siempre contarás con el respaldo de nuestra experiencia de primer nivel."
                 mb="44px"
               />
 
@@ -35,15 +35,15 @@ const AboutSectionOne = () => {
               >
                 <div className="mx-[-12px] flex flex-wrap">
                   <div className="w-full px-3 sm:w-1/2 lg:w-full xl:w-1/2">
-                    <List text="Premium quality" />
-                    <List text="Tailwind CSS" />
-                    <List text="Use for lifetime" />
+                    <List text="Las tecnologías mas nuevas" />
+                    <List text="Completamente escalable" />
+                    <List text="Calidad de clase mundial" />
                   </div>
 
                   <div className="w-full px-3 sm:w-1/2 lg:w-full xl:w-1/2">
-                    <List text="Best costs." />
-                    <List text="Full support" />
-                    <List text="Non-tech person friendly" />
+                    <List text="Costos accesibles." />
+                    <List text="Soporte en español e inglés." />
+                    <List text="Ideal para personas sin conocimientos técnicos" />
                   </div>
                 </div>
               </div>
@@ -56,6 +56,7 @@ const AboutSectionOne = () => {
               >
                 <Image
                   src="/images/about/about-image.svg"
+                  
                   alt="about-image"
                   fill
                   className="drop-shadow-three mx-auto max-w-full dark:hidden dark:drop-shadow-none lg:mr-0"

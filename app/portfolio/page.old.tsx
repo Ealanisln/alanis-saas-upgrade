@@ -14,7 +14,7 @@ const Blog = () => {
       <section id="blog" className="bg-primary/5 py-16 md:py-20 lg:py-28">
         <div className="container">
           <SectionTitle
-            title="My latest projects:"
+            title="Mis proyectos recientes:"
             paragraph="Discover the power of NextJS with my latest projects, where cutting-edge technology and stunning user experiences merge seamlessly."
             center
           />

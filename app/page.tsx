@@ -12,9 +12,9 @@ import Testimonials from "@/components/Testimonials";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Alanis Web-dev - Your website easy and fast",
+  title: "Alanis Developer - Tu aplicación efectiva.",
   description:
-    "Web developer offering trendy website designs, e-commerce solutions, and backend services with secure logins and databases. Powered by Next.js and React, I bring your online ideas to life. Let's create something amazing for your business",
+    "En Alanis Web Dev, ofrecemos soluciones personalizadas de desarrollo web y software para negocios y clientes individuales. Utilizando las tecnologías más recientes, como Next JS y React, creamos sitios web modernos, funcionales y adaptados a las necesidades específicas de cada cliente. Nuestro enfoque se centra en la innovación, la calidad y la satisfacción del cliente, garantizando que cada proyecto no solo cumpla con las expectativas, sino que las supere. Ya sea que necesites un sitio web corporativo, una tienda en línea, o una aplicación web a medida, en Alanis Web Dev tenemos la experiencia y el conocimiento para llevar tu visión a la realidad.",
   // other metadata
 };
 

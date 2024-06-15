@@ -20,10 +20,7 @@ const Hero = () => {
                 Simple solutions for modern companies.
                 </h1> */}
                 <p className="mb-12 text-base !leading-relaxed text-body-color dark:text-body-color-dark sm:text-lg md:text-xl">
-                  Thinking of making your own website, for yourself or your
-                  business, but not sure how to start? Your&apos;e in the right
-                  place! Let us assist you in building a special and
-                  budget-friendly website that truly reflects who you are.
+                ¿Necesitas tu propio sitio web, para ti o para tu negocio, pero no sabes cómo empezar? ¡Estás en el lugar correcto! Permítenos ayudarte a construir la mejor web. 
                 </p>
                 {/* <div className="flex items-center justify-center py-4">
                   <Image
@@ -40,13 +37,13 @@ const Hero = () => {
                     href="/contact"
                     className="rounded-xl bg-primary px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-primary/80"
                   >
-                    Send me a message! 
+                    Enviame un mensaje! 
                   </Link>
                   <Link
                     href="#pricing"
                     className="inline-block rounded-xl bg-black px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-black/90 dark:bg-white/10 dark:text-white dark:hover:bg-white/5"
                   >
-                    View our plans
+                    Ver nuestros planes
                   </Link>
                 </div>
               </div>

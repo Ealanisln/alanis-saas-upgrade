@@ -20,7 +20,7 @@ const AboutSectionTwo = () => {
                 src="/images/about/about-image-2-dark.svg"
                 alt="about image"
                 fill
-                className="drop-shadow-three hidden dark:block dark:drop-shadow-none"
+                className="hidden drop-shadow-three dark:block dark:drop-shadow-none"
               />
             </div>
           </div>
@@ -28,26 +28,33 @@ const AboutSectionTwo = () => {
             <div className="wow fadeInUp max-w-[470px]" data-wow-delay=".2s">
               <div className="mb-9">
                 <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                  Tested code
+                  Código probado
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                Our bug-free code ensures optimal performance and functionality for your software applications. Trust our experienced team to deliver quality results without unexpected issues.
+                  Nuestro código libre de errores garantiza un rendimiento y
+                  funcionalidad óptimos para tus aplicaciones de software.
+                  Confía en nuestro equipo experimentado para entregar
+                  resultados de calidad sin problemas inesperados.
                 </p>
               </div>
               <div className="mb-9">
                 <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                First-world support
+                  Soporte de primer nivel
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                  I am here to answer questions, address concerns, and provide solutions for a seamless experience.
+                  Estoy aquí para responder preguntas, aclarar inquietudes y
+                  proporcionar soluciones para una experiencia sin
+                  contratiempos.
                 </p>
               </div>
               <div className="mb-1">
                 <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                  Flexible plans
+                  Planes flexibles
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                If you need something special, no worries; I will be happy to assist you and offer the best option based on your needs.
+                  Si necesitas algo especial, no te preocupes; estaré encantado
+                  de asistirte y ofrecerte la mejor opción según tus
+                  necesidades. 
                 </p>
               </div>
             </div>

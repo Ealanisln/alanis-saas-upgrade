@@ -8,8 +8,8 @@ const Pricing = () => {
     <section id="pricing" className="relative z-10 py-16 md:py-20 lg:py-28">
       <div className="container">
         <SectionTitle
-          title="Choose the best plan for your needs."
-          paragraph="Our three-tiered pricing model offers options for everyone, whether you're a small business owner or a power user."
+          title="Elige el mejor plan para tus necesidades."
+          paragraph="Nuestro modelo de precios de tres niveles ofrece opciones para todos, ya seas un pequeño empresario o un usuario avanzado."
           center
           width="665px"
         />
@@ -60,36 +60,36 @@ const Pricing = () => {
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
           <PricingBox
             packageName="Lite"
-            price={299}
-            subtitle="Suitable for small businesses or individuals on a budget."
+            price={5500}
+            subtitle="Adecuado para pequeñas empresas o individuos con un presupuesto limitado."
           >
-            <OfferList text="One year hosting" status="active" />
-            <OfferList text="One year domain " status="active" />
-            <OfferList text="SSL certificate" status="active" />
-            <OfferList text="Google SEO friendly" status="active" />
-            <OfferList text="1 - 10 statics pages." status="active" />
+            <OfferList text="Un año de alojamiento" status="active" />
+            <OfferList text="Dominio por un año " status="active" />
+            <OfferList text="Certificado de seguridad SSL" status="active" />
+            <OfferList text="Optimización SEO para Google" status="active" />
+            <OfferList text="1 - 10 páginas estáticas." status="active" />
           </PricingBox>
           <PricingBox
             packageName="Basic"
-            price={399}
-            subtitle="Designed for those who need a little more functionality but still want to keep costs down."
+            price={7200}
+            subtitle="Diseñado para aquellos que necesitan un poco más de funcionalidad pero aún desean mantener bajos los costos."
           >
-            <OfferList text="One year hosting" status="active" />
-            <OfferList text="One year domain " status="active" />
-            <OfferList text="SSL certificate" status="active" />
-            <OfferList text="Google SEO friendly" status="active" />
-            <OfferList text="11 - 50 statics pages." status="active" />
+            <OfferList text="Un año de alojamiento" status="active" />
+            <OfferList text="Dominio por un año " status="active" />
+            <OfferList text="Certificado de seguridad SSL" status="active" />
+            <OfferList text="Optimización SEO para Google" status="active" />
+            <OfferList text="11 - 50 páginas estáticas." status="active" />
           </PricingBox>
           <PricingBox
             packageName="Plus"
-            price={589}
+            price={9900}
             subtitle="The highest level of service and capabilities, designed for power users."
           >
-            <OfferList text="One year hosting" status="active" />
-            <OfferList text="One year domain " status="active" />
-            <OfferList text="SSL certificate" status="active" />
-            <OfferList text="Google SEO friendly" status="active" />
-            <OfferList text="50 - 99 statics pages." status="active" />
+            <OfferList text="Un año de alojamiento" status="active" />
+            <OfferList text="Dominio por un año " status="active" />
+            <OfferList text="Certificado de seguridad SSL" status="active" />
+            <OfferList text="Optimización SEO para Google" status="active" />
+            <OfferList text="50 - 99 páginas estáticas." status="active" />
           </PricingBox>
         </div>
       </div>
