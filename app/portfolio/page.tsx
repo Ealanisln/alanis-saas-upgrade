@@ -8,15 +8,14 @@ const Blog = () => {
   return (
     <>
       <Breadcrumb
-        pageName="Welcome to my portfolio:"
-        description="Explore the gallery of my projects that combine creativity and technical expertise.
-"
+        pageName="Mi portafolio"
+        description="Explora la galería de mis proyectos que combinan creatividad y experiencia técnica."
       />
       <section id="blog" className="bg-primary/5 py-16 md:py-20 lg:py-28 px-10">
         <div className="container">
           <SectionTitle
-            title="My latest projects:"
-            paragraph="Discover the power of NextJS with my latest projects, where cutting-edge technology and stunning user experiences merge seamlessly."
+            title="Mis proyectos recientes:"
+            paragraph="Descubre el poder de NextJS con mis últimos proyectos, donde la tecnología de vanguardia y las sorprendentes experiencias de usuario se fusionan a la perfección."
             center
           />
           <div className="justify-center">

@@ -33,10 +33,9 @@ const sendEmail = async( data: FormInputs) => {
   
     try {
       await sgMail.send(msg);
-      console.log("Message was sent successfully.");
-      return "Message sent successfully"; 
+      return "Tu mensaje ha sido enviado correctamente. :)"; 
     } catch (error) {
-      throw new Error("Error sending email");
+      throw new Error("Ha ocurrido un error al enviar el mensaje.");
     }
 
   }

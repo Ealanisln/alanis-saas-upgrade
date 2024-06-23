@@ -34,7 +34,7 @@ const Contact = () => {
     } catch (error) {
       setMessage({
         type: "error",
-        text: "Error sending email: " + error.message,
+        text: "Oops, lo sentimos, hubo un error al enviar tu mensaje: " + error.message,
       });
       // Clear the error message after 3 seconds
       setTimeout(() => {
@@ -54,7 +54,7 @@ const Contact = () => {
               "
             >
               <h2 className="mb-3 text-2xl font-bold text-black dark:text-white sm:text-3xl lg:text-2xl xl:text-3xl">
-                Tienes alguna duda sobre tu proyecto?
+                ¿Tienes alguna duda?
               </h2>
               <p className="mb-12 text-base font-medium text-body-color">
                 Escribeme y me pondré en contacto lo mas pronto posible. 
@@ -67,15 +67,15 @@ const Contact = () => {
                         htmlFor="name"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
                       >
-                        Your Name
+                        Tu nombre
                       </label>
                       <input
                         {...register("name", { required: true })}
                         type="text"
-                        placeholder="Enter your name"
+                        placeholder="Escribe aqui tu nombre"
                         className="w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                       />
-                      {errors.name && <span>This field is required</span>}
+                      {errors.name && <span>Este campo es requerido</span>}
                     </div>
                   </div>
                   <div className="w-full px-4 md:w-1/2">
@@ -84,15 +84,15 @@ const Contact = () => {
                         htmlFor="email"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
                       >
-                        Your Email
+                        Correo electrónico
                       </label>
                       <input
                         {...register("email", { required: true })}
                         type="email"
-                        placeholder="Enter your email"
+                        placeholder="Escribe aqui tu correo"
                         className="w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                       />
-                      {errors.email && <span>This field is required</span>}
+                      {errors.email && <span>Este campo es requerido</span>}
                     </div>
                   </div>
                   <div className="w-full px-4">
@@ -101,7 +101,7 @@ const Contact = () => {
                         htmlFor="message"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
                       >
-                        Your Message
+                        Tu mensaje
                       </label>
                       <textarea
                         {...register("message", {
@@ -110,12 +110,12 @@ const Contact = () => {
                         })}
                         name="message"
                         rows={5}
-                        placeholder="Enter your Message"
+                        placeholder="Escribe aqui tu mensaje"
                         className="w-full resize-none rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                       >
                       </textarea>
-                      {errors.email && <span>This field is required - </span>}
-                      <span>Max: 500 characters</span>
+                      {errors.email && <span>Este campo es requerido - </span>}
+                      <span>Max: 500 caracteres</span>
                     </div>
                   </div>
                   <div className="w-full px-4">
@@ -123,7 +123,7 @@ const Contact = () => {
                       type="submit"
                       className="rounded-xl bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark"
                     >
-                      Send Message
+                      Enviar mensaje
                     </button>
                   </div>
                 </div>

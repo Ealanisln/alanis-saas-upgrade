@@ -12,8 +12,8 @@ const ContactPage = () => {
   return (
     <>
       <Breadcrumb
-        pageName="Contact Page"
-        description="Get in touch with me. I would love to hear from you!"
+        pageName="Contacto"
+        description="¡Me encantaría saber acercad de tu proyecto!"
       />
 
       <Contact />

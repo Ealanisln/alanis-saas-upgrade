@@ -42,62 +42,62 @@ export default function CarouselDemo() {
       id: 6,
       title: "Chat PDF",
       paragraph:
-        "Its a website where you will be able to interact with any PDF document using the Open AI power.",
+        "Es un sitio web donde podrás interactuar con cualquier documento PDF utilizando el poder de Open AI.",
       image: "/images/blog/blog-06.webp",
       location: {
         url: "https://www.charlapdf.pro",
         image: "/images/blog/yo.jpg",
         designation: "NextJS, OpenAI, postgreSQL",
       },
-      tags: ["AI API"],
+      tags: ["API de IA"],
       publishDate: "2023",
     },
     {
       id: 5,
       title: "Cat Wiki",
       paragraph:
-        "It was a project where I used NextJS to fetch data from thecatapi.com using server components and static site generation. The service is free for the first 5 queries and has a monthly payment for unlimited usage.",
+        "Fue un proyecto donde utilicé NextJS para obtener datos de thecatapi.com usando componentes del servidor y generación de sitios estáticos. El servicio es gratuito para las primeras 5 consultas y tiene un pago mensual para uso ilimitado.",
       image: "/images/blog/blog-05.webp",
       location: {
         url: "https://cat-wiki-alanis.vercel.app/",
         image: "/images/blog/yo.jpg",
         designation: "NextJS, API, Tailwind CSS.",
       },
-      tags: ["Static Site Generation"],
+      tags: ["Generación de Sitios Estáticos"],
       publishDate: "2023",
     },
     {
       id: 4,
       title: "CEF",
-      paragraph: "Drive its easy",
+      paragraph: "Conducir es fácil",
       image: "/images/blog/blog-01.webp",
       location: {
         url: "https://conducir-es-facil.vercel.app/",
         image: "/images/blog/yo.jpg",
         designation: "NextJS, Prisma, Supabase, Tailwind CSS.",
       },
-      tags: ["Static Website"],
+      tags: ["Sitio Web Estático"],
       publishDate: "2023",
     },
     {
       id: 3,
       title: "Alanis saas",
       paragraph:
-        "This website offers web design packages, integrating the Stripe API as a payment gateway, sendgrid for contact form submissions, and ecommerce.",
+        "Este sitio web ofrece paquetes de diseño web, integrando la API de Stripe como pasarela de pago, sendgrid para el envío de formularios de contacto y ecommerce.",
       image: "/images/blog/blog-04.webp",
       location: {
         url: "https://www.alanis.dev/",
         image: "/images/blog/yo.jpg",
         designation: "NextJS, Tailwind, Clerk",
       },
-      tags: ["Landing Page"],
+      tags: ["Página de Aterrizaje"],
       publishDate: "2023",
     },
     {
       id: 2,
       title: "Sierra Western Store",
       paragraph:
-        "This is an online store created with NextJS 14, next-auth, prisma as database connector to a postgreSQL database. Paypal as payment gateway and zustand as state management solution.",
+        "Esta es una tienda en línea creada con NextJS 14, next-auth, prisma como conector de base de datos a una base de datos postgreSQL. Paypal como pasarela de pago y zustand como solución de gestión de estado.",
       image: "/images/blog/blog-03.webp",
       location: {
         url: "https://sierra-western.vercel.app/",
@@ -111,14 +111,14 @@ export default function CarouselDemo() {
       id: 1,
       title: "Family Vet",
       paragraph:
-        "This static page was created for a veterinary clinic where various services are offered. I used Next.js, Tailwind for the design, and Sanity for blog management.",
+        "Esta página estática fue creada para una clínica veterinaria donde se ofrecen varios servicios. Utilicé Next.js, Tailwind para el diseño, y Sanity para la gestión del blog.",
       image: "/images/blog/blog-02.webp",
       location: {
         url: "https://www.vetforfamily.com",
         image: "/images/blog/yo.jpg",
         designation: "NextJS",
       },
-      tags: ["Static website"],
+      tags: ["Sitio web estático"],
       publishDate: "2023",
     },
   ];

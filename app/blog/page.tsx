@@ -8,8 +8,8 @@ import { Metadata } from "next";
 export const revalidate = 30; 
 
 export const metadata: Metadata = {
-  title: "Alanis WebDev | Welcome to our blog",
-  description: "This is Blog Page for Startup Nextjs Template",
+  title: "Alanis Developer | Bienvenido a mi blog",
+  description: "Descubre cosas interesantes sobre el desarrollo web: lea artículos sobre la creación de sitios web y aplicaciones.",
   // other metadata
 };
 
@@ -45,8 +45,8 @@ export default async function Blog() {
   return (
     <>
       <Breadcrumb
-        pageName="Blog articles"
-        description="Discover Cool Stuff About Web Development: Read Interesting Articles on Creating Websites and Apps."
+        pageName="Articulos de blog"
+        description="Descubre cosas interesantes sobre el desarrollo web: lea artículos sobre la creación de sitios web y aplicaciones."
       />
        <section className="pb-8 md:pb-16 pt-8 md:pt-16">
        <div className="container mx-auto">

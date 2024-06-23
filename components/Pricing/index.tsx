@@ -83,7 +83,7 @@ const Pricing = () => {
           <PricingBox
             packageName="Plus"
             price={9900}
-            subtitle="The highest level of service and capabilities, designed for power users."
+            subtitle="El nivel más alto de servicio y capacidades, diseñado para usuarios avanzados."
           >
             <OfferList text="Un año de alojamiento" status="active" />
             <OfferList text="Dominio por un año " status="active" />
