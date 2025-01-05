@@ -1,9 +1,4 @@
-import SingleBlog from "@/components/Portfolio/SingleBlog";
-import Breadcrumb from "@/components/Common/Breadcrumb";
-import { GetStaticPropsContext } from "next";
 import SectionTitle from "@/components/Common/SectionTitle";
-import Gallery from "@/components/Portfolio/Gallery";
-import Portfolio from "@/components/Portfolio";
 import { PortfolioProjects } from "@/components/Portfolio/Projects";
 
 const Blog = () => {
