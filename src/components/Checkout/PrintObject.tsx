@@ -16,7 +16,7 @@ export default function PrintObject({
   content,
 }: {
   content: Stripe.PaymentIntent | Stripe.Checkout.Session;
-}): JSX.Element {
+}): React.ReactElement {
   const formattedContent: string = JSON.stringify(content, null, 2);
   const [loggedFields, setLoggedFields] = useState<string[]>([]);
 
@@ -62,11 +62,7 @@ export default function PrintObject({
     data.forEach((field) => {
       const [key, value] = field.split(": ");
       const splitValues = value.split("_");
-
-      // Take the last element of the array
       const lastPart = splitValues[splitValues.length - 1];
-
-      // Update parsedData with the last part
       parsedData[key] = lastPart;
     });
 

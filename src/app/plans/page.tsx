@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "The best plans for your needs on web development."
 };
 
-export default function PricingPage(): JSX.Element {
+export default function PricingPage() {
   return (
     <Pricing />
   );
