@@ -3,7 +3,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]  // Updated to point to src directory
     },
     "allowJs": true,
     "skipLibCheck": true,
@@ -24,6 +24,13 @@
     ],
     "target": "ES2017"
   },
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts", 
+    "src/**/*.ts",        // Updated to look in src directory
+    "src/**/*.tsx",       // Updated to look in src directory
+    "**/*.ts",           // Keep for root typescript files
+    "**/*.tsx"          // Keep for root typescript files
+  ],
   "exclude": ["node_modules"]
 }
