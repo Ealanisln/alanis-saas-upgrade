@@ -1,6 +1,8 @@
+import React from 'react';
+
 export type Feature = {
   id: number;
-  icon: JSX.Element;
+  icon: React.ReactNode;  // Changed from JSX.Element
   title: string;
   paragraph: string;
 };

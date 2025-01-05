@@ -17,7 +17,7 @@ const featuresData: Feature[] = [
       "Todos nuestros diseños web son completamente responsivos y están optimizados para dispositivos móviles, lo que garantiza que tu sitio web se vea y funcione perfectamente en todos los dispositivos.",
   },
   {
-    id: 1,
+    id: 2,
     icon: (
       <svg width="40" height="40" viewBox="0 0 40 40" className="fill-current">
         <path
@@ -32,7 +32,7 @@ const featuresData: Feature[] = [
       "Creo diseños únicos específicos para tu marca. Esto asegura que tu sitio web se vea diferente y mejor que los demás en tu sector.",
   },
   {
-    id: 1,
+    id: 3,
     icon: (
       <svg width="40" height="40" viewBox="0 0 40 40" className="fill-current">
         <path
@@ -47,7 +47,7 @@ const featuresData: Feature[] = [
       "Nuestro diseño web te permite crear tantas páginas estáticas como necesites, contamos con diferentes planes según tus necesidades. Esto significa que puedes expandir fácilmente tu sitio web a medida que tu negocio crece, sin preocuparte por limitaciones técnicas.",
   },
   {
-    id: 1,
+    id: 4,
     icon: (
       <svg width="40" height="42" viewBox="0 0 40 42" className="fill-current">
         <path
@@ -62,7 +62,7 @@ const featuresData: Feature[] = [
       "Utilizamos las últimas tecnologías de desarrollo web para garantizar que tu sitio web sea rápido, compatible con cualquier dispositivo y escalable. Somos expertos en el uso de Next.js, un poderoso framework de desarrollo web.",
   },
   {
-    id: 1,
+    id: 5,
     icon: (
       <svg width="40" height="40" viewBox="0 0 40 40" className="fill-current">
         <path
@@ -77,7 +77,7 @@ const featuresData: Feature[] = [
       "¡Da rienda suelta a tu creatividad y personaliza tu sitio web a la perfección con nuestras funciones totalmente personalizables! ¡Sin límites!",
   },
   {
-    id: 1,
+    id: 6,
     icon: (
       <svg width="40" height="45" viewBox="0 0 40 45" className="fill-current">
         <path

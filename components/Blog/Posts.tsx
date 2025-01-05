@@ -12,9 +12,9 @@ interface PostsProps {
 const Posts = ({ data }: PostsProps) => {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-      {data.map((post, idx) => (
-        <Link  key={post._id} href={`/blog/${post.slug.current}`}>
-          <div key={idx}>
+      {data.map((post) => (
+        <Link key={post._id} href={`/blog/${post.slug.current}`}>
+          <div> {/* Removed the key from here */}
             <Card>
               <Image
                 src={urlFor(post.mainImage).url()}
@@ -38,7 +38,6 @@ const Posts = ({ data }: PostsProps) => {
                       <h4 className="mb-1 text-sm font-medium text-dark dark:text-white">
                         By {post.author.name}
                       </h4>
-
                       <p>{post._updatedAt.substring(0, 10)}</p>
                     </div>
                   </div>

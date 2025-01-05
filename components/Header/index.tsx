@@ -182,7 +182,7 @@ const Header = () => {
               </div>
               {status === "authenticated" ? (
                 <div className="flex items-center justify-end pr-4 lg:pr-0">
-                  <Link
+                  {/* <Link
                     href="/profile"
                     className="hidden px-14 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
                   >
@@ -193,7 +193,7 @@ const Header = () => {
                     onClick={() => signOut()}
                   >
                     Sign out
-                  </button>
+                  </button> */}
                   <div className="px-4">
                     <ThemeToggler />
                   </div>
@@ -219,7 +219,7 @@ const Header = () => {
               ) : (
                 <>
                   <div className="flex items-center justify-end pr-16 lg:pr-0">
-                    <Link
+                    {/* <Link
                       href="/auth/login"
                       className="hidden px-14 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
                     >
@@ -230,7 +230,7 @@ const Header = () => {
                       className="ease-in-up hidden rounded-xl bg-primary px-8 py-3 text-base font-medium text-white shadow-btn transition duration-300 hover:bg-opacity-90 hover:shadow-btn-hover md:block md:px-9 lg:px-6 xl:px-9"
                     >
                       Sign Up
-                    </Link>
+                    </Link> */}
                     <div className="px-4">
                       <ThemeToggler />
                     </div>
