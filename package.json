@@ -1,20 +1,22 @@
 {
   "name": "alanis-saas",
   "version": "0.3.0",
-  "private": true,
-  "scripts": {
-    "dev": "dotenv -e .env.local next dev --turbopack",
-    "build": "dotenv -e .env.local -- pnpm prisma:deploy && dotenv -e .env.local next build",
-    "start": "dotenv -e .env.local next start",
+  "private": true,"scripts": {
+    "dev": "next dev --turbopack",
+    "build": "prisma generate && prisma migrate deploy && next build",
+    "start": "next start",
     "lint": "next lint",
-    "prisma:deploy": "dotenv -e .env.local prisma migrate deploy && dotenv -e .env.local prisma generate",
-    "prisma:generate": "dotenv -e .env.local prisma generate",
-    "prisma:migrate": "dotenv -e .env.local prisma migrate deploy",
-    "prisma:studio": "dotenv -e .env.local prisma studio",
-    "prisma:reset": "dotenv -e .env.local prisma migrate reset --force",
-    "db:push": "dotenv -e .env.local prisma db push",
-    "seed": "dotenv -e .env.local -- ts-node --compiler-options {\"module\":\"CommonJS\"} ./seed/seed-database.ts",
-    "postinstall": "prisma generate"
+    "prisma:deploy": "prisma migrate deploy && prisma generate",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate deploy",
+    "prisma:studio": "prisma studio",
+    "prisma:reset": "prisma migrate reset --force",
+    "db:push": "prisma db push",
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} ./seed/seed-database.ts",
+    "postinstall": "prisma generate",
+    "dev:local": "dotenv -e .env.local next dev --turbopack",
+    "prisma:studio:local": "dotenv -e .env.local prisma studio",
+    "seed:local": "dotenv -e .env.local -- ts-node --compiler-options {\"module\":\"CommonJS\"} ./seed/seed-database.ts"
   },
   "dependencies": {
     "@auth/core": "^0.37.4",
@@ -70,6 +72,7 @@
     "@typescript-eslint/eslint-plugin": "^8.24.0",
     "@typescript-eslint/parser": "^8.24.0",
     "autoprefixer": "^10.4.20",
+    "dotenv-cli": "^8.0.0",
     "eslint": "9.20.1",
     "postcss": "^8.5.2",
     "prettier": "^3.5.1",
