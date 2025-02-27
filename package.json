@@ -14,7 +14,7 @@
     "prisma:reset": "dotenv -e .env.local prisma migrate reset --force",
     "db:push": "dotenv -e .env.local prisma db push",
     "seed": "dotenv -e .env.local -- ts-node --compiler-options {\"module\":\"CommonJS\"} ./seed/seed-database.ts",
-    "postinstall": "dotenv -e .env.local prisma generate"
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@auth/core": "^0.37.4",
