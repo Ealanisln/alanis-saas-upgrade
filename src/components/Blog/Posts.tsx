@@ -10,41 +10,62 @@ interface PostsProps {
 }
 
 const Posts = ({ data }: PostsProps) => {
+  // Ordenar los posts del más reciente al más viejo
+  const sortedPosts = [...data].sort((a, b) => 
+    new Date(b._updatedAt).getTime() - new Date(a._updatedAt).getTime()
+  );
+
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-      {data.map((post) => (
-        <Link key={post._id} href={`/blog/${post.slug.current}`}>
-          <div> {/* Removed the key from here */}
-            <Card>
+    <div className="grid grid-cols-1 gap-8 sm:gap-10 md:gap-12 sm:grid-cols-2 lg:grid-cols-3 p-2">
+      {sortedPosts.map((post) => (
+        <Link 
+          key={post._id} 
+          href={`/blog/${post.slug.current}`}
+          className="group transition-all duration-300 hover:translate-y-[-5px] mb-6"
+        >
+          <Card className="overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+            <div className="relative h-48 md:h-56 overflow-hidden">
               <Image
                 src={urlFor(post.mainImage).url()}
-                alt="Blog post image"
-                width={500}
-                height={500}
-                className="h-[200px] rounded-xl object-cover"
+                alt={post.title || "Blog post image"}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                priority={false}
               />
-            </Card>
-            <CardContent className="mt-5">
-              <h3 className="mb-4 block text-xl font-bold text-black hover:text-primary dark:text-white dark:hover:text-primary sm:text-2xl">
+            </div>
+            
+            <CardContent className="p-6 md:p-7">
+              <div className="mb-4 flex items-center text-sm text-gray-500 dark:text-gray-400">
+                <span className="font-medium text-primary dark:text-primary-light">
+                  {new Date(post._updatedAt).toLocaleDateString('es-ES', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                  })}
+                </span>
+                <span className="mx-2">•</span>
+                <span>Por {post.author.name}</span>
+              </div>
+              
+              <h3 className="mb-3 text-xl font-bold text-gray-900 group-hover:text-primary dark:text-white dark:group-hover:text-primary-light line-clamp-2">
                 {post.title}
               </h3>
-              <h2 className="mb-6 border-b border-body-color border-opacity-10 pb-6 text-base font-medium text-body-color dark:border-white dark:border-opacity-10">
+              
+              <p className="mb-5 text-base text-gray-600 dark:text-gray-300 line-clamp-3">
                 {post.smallDescription}
-              </h2>
-              <div className="flex items-center">
-                <div className="mr-5 flex items-center border-r border-body-color border-opacity-10 pr-5 dark:border-white dark:border-opacity-10 xl:mr-3 xl:pr-3 2xl:mr-5 2xl:pr-5">
-                  <div className="mr-4">
-                    <div className="w-full">
-                      <h4 className="mb-1 text-sm font-medium text-dark dark:text-white">
-                        By {post.author.name}
-                      </h4>
-                      <p>{post._updatedAt.substring(0, 10)}</p>
-                    </div>
-                  </div>
-                </div>
+              </p>
+              
+              <div className="flex justify-end">
+                <span className="inline-flex items-center text-sm font-medium text-primary group-hover:underline dark:text-primary-light">
+                  Leer más
+                  <svg className="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                  </svg>
+                </span>
               </div>
             </CardContent>
-          </div>
+          </Card>
         </Link>
       ))}
     </div>

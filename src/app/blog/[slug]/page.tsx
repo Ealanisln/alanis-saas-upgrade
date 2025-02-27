@@ -1,10 +1,11 @@
+// app/blog/[slug]/page.tsx
 import { client, urlFor } from "@/sanity/lib/client";
 import { FullPost } from "@/types/simple-blog-card";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
+import { portableTextComponents } from "@/components/Blog/PortableText";
 
-
-export const revalidate = 30; // revalidate at most every hour
+export const revalidate = 30;
 
 async function getData(slug: string) {
   const query = `
@@ -14,14 +15,14 @@ async function getData(slug: string) {
       body,
       mainImage   
     }[0]`;
-
   const data = await client.fetch(query);
-
   return data;
 }
 
 export default async function Page({ params }: { params: any }) {
-  const data: FullPost = await getData(params.slug);
+  // Await the params object to access its properties
+  const { slug } = await params;
+  const data: FullPost = await getData(slug);
 
   return (
     <section className="pb-[120px] pt-[150px]">
@@ -33,23 +34,25 @@ export default async function Page({ params }: { params: any }) {
                 {data.title}
               </span>
             </h1>
-
-            <Image
-              src={urlFor(data.mainImage).url()}
-              width={800}
-              height={800}
-              alt={data.title}
-              priority
-              className="mt-8 rounded-xl"
-            />
-
+            {data.mainImage && (
+              <Image
+                src={urlFor(data.mainImage).url()}
+                width={800}
+                height={800}
+                alt={data.title}
+                priority
+                className="mt-8 rounded-xl"
+              />
+            )}
             <div className="prose prose-xl prose-blue mt-16 dark:prose-invert prose-li:marker:text-primary prose-a:text-primary">
-              <PortableText value={data.body} />
+              <PortableText 
+                value={data.body} 
+                components={portableTextComponents}
+              />
             </div>
           </div>
         </div>
       </div>
     </section>
   );
-  // return <Post post={post} />;
 }

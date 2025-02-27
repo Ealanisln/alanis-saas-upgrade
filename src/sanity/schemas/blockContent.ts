@@ -1,16 +1,5 @@
 import {defineType, defineArrayMember} from 'sanity'
 
-/**
- * This is the schema type for block content used in the post document type
- * Importing this type into the studio configuration's `schema` property
- * lets you reuse it in other document types with:
- *  {
- *    name: 'someName',
- *    title: 'Some title',
- *    type: 'blockContent'
- *  }
- */
-
 export default defineType({
   title: 'Block Content',
   name: 'blockContent',
@@ -19,10 +8,7 @@ export default defineType({
     defineArrayMember({
       title: 'Block',
       type: 'block',
-      // Styles let you define what blocks can be marked up as. The default
-      // set corresponds with HTML tags, but you can set any title or value
-      // you want, and decide how you want to deal with it where you want to
-      // use your content.
+      // Estilos existentes
       styles: [
         {title: 'Normal', value: 'normal'},
         {title: 'H1', value: 'h1'},
@@ -32,15 +18,11 @@ export default defineType({
         {title: 'Quote', value: 'blockquote'},
       ],
       lists: [{title: 'Bullet', value: 'bullet'}],
-      // Marks let you mark up inline text in the Portable Text Editor
       marks: {
-        // Decorators usually describe a single property – e.g. a typographic
-        // preference or highlighting
         decorators: [
           {title: 'Strong', value: 'strong'},
           {title: 'Emphasis', value: 'em'},
         ],
-        // Annotations can be any object structure – e.g. a link or a footnote.
         annotations: [
           {
             title: 'URL',
@@ -57,9 +39,7 @@ export default defineType({
         ],
       },
     }),
-    // You can add additional types here. Note that you can't use
-    // primitive types such as 'string' and 'number' in the same array
-    // as a block type.
+    // Imagen
     defineArrayMember({
       type: 'image',
       options: {hotspot: true},
@@ -70,6 +50,110 @@ export default defineType({
           title: 'Alternative Text',
         }
       ]
+    }),
+    // Soporte para el tipo 'code' estándar (para usar en nuevos contenidos)
+    defineArrayMember({
+      name: 'code',
+      title: 'Code Block',
+      type: 'object',
+      fields: [
+        {
+          name: 'code',
+          title: 'Code',
+          type: 'text',
+        },
+        {
+          name: 'filename',
+          title: 'Filename',
+          type: 'string',
+        },
+        {
+          name: 'language',
+          title: 'Language',
+          type: 'string',
+          options: {
+            list: [
+              {title: 'JavaScript', value: 'javascript'},
+              {title: 'JSX', value: 'jsx'},
+              {title: 'TypeScript', value: 'typescript'},
+              {title: 'TSX', value: 'tsx'},
+              {title: 'HTML', value: 'html'},
+              {title: 'CSS', value: 'css'},
+              {title: 'Python', value: 'python'},
+              {title: 'PHP', value: 'php'},
+              {title: 'Shell', value: 'bash'},
+              {title: 'JSON', value: 'json'},
+            ],
+          },
+        },
+      ],
+      preview: {
+        select: {
+          title: 'filename',
+          language: 'language',
+          code: 'code',
+        },
+        prepare({title, language, code}: {title?: string, language?: string, code?: string}) {
+          return {
+            title: title || 'Code snippet',
+            subtitle: language,
+            media: () => '💻',
+            description: code ? `${code.substring(0, 30)}...` : '',
+          }
+        },
+      },
+    }),
+    // Soporte para myCodeField (para compatibilidad con contenido existente)
+    defineArrayMember({
+      name: 'myCodeField',
+      title: 'Legacy Code Block',
+      type: 'object',
+      fields: [
+        {
+          name: 'code',
+          title: 'Code',
+          type: 'text',
+        },
+        {
+          name: 'filename',
+          title: 'Filename',
+          type: 'string',
+        },
+        {
+          name: 'language',
+          title: 'Language',
+          type: 'string',
+          options: {
+            list: [
+              {title: 'JavaScript', value: 'javascript'},
+              {title: 'JSX', value: 'jsx'},
+              {title: 'TypeScript', value: 'typescript'},
+              {title: 'TSX', value: 'tsx'},
+              {title: 'HTML', value: 'html'},
+              {title: 'CSS', value: 'css'},
+              {title: 'Python', value: 'python'},
+              {title: 'PHP', value: 'php'},
+              {title: 'Shell', value: 'bash'},
+              {title: 'JSON', value: 'json'},
+            ],
+          },
+        },
+      ],
+      preview: {
+        select: {
+          title: 'filename',
+          language: 'language',
+          code: 'code',
+        },
+        prepare({title, language, code}: {title?: string, language?: string, code?: string}) {
+          return {
+            title: title || 'Legacy Code Block',
+            subtitle: language,
+            media: () => '🧩',
+            description: code ? `${code.substring(0, 30)}...` : '',
+          }
+        },
+      },
     }),
   ],
 })
