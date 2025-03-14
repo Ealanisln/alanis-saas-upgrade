@@ -50,7 +50,6 @@ export default async function Blog() {
       />
        <section className="pb-8 md:pb-16 pt-8 md:pt-16">
        <div className="container mx-auto">
-
        <div className="-mx-4 flex flex-wrap justify-center">
         <Posts data={data} />
       </div>

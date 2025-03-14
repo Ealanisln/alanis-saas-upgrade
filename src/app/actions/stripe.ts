@@ -33,7 +33,7 @@ export async function createCheckoutSession(amount: number, name: string): Promi
     ],
     mode: "payment",
     success_url: `${origin}/shop/orders/result?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/plans`,
+    cancel_url: `${origin}/planes`,
   });
 
   if (!checkoutSession.url) {

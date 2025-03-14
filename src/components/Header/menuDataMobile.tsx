@@ -27,8 +27,14 @@ const menuDataMobile: Menu[] = [
   },
   {
     id: 5,
+    title: "Planes",
+    path: "/planes",
+    newTab: false,
+  },
+  {
+    id: 6,
     title: "Contacto",
-    path: "/contact",
+    path: "/contacto",
     newTab: false,
   },
   // {

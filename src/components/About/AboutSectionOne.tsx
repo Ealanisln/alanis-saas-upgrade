@@ -1,3 +1,5 @@
+// src/components/About/AboutSectionOne.tsx
+
 import Image from "next/image";
 import SectionTitle from "../Common/SectionTitle";
 
