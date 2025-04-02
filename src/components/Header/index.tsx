@@ -9,12 +9,10 @@ import { useCartStore } from "@/store";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import ThemeToggler from "./ThemeToggler";
-import { signOut, useSession } from "next-auth/react";
 import { ShoppingCartIcon } from "lucide-react";
 import menuDataMobile from "./menuDataMobile";
 
 const Header = () => {
-  const { status } = useSession();
   // Navbar toggle
   const [navbarOpen, setNavbarOpen] = useState(false);
   const navbarToggleHandler = () => {
