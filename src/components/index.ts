@@ -13,7 +13,6 @@ export { default as Header } from './Header';
 export { default as Plans } from './Plans';
 export { default as Pricing } from './Pricing';
 export { default as ScrollToTop } from './ScrollToTop';
-export { default as SessionWrapper } from './Session/SessionWrapper';
 export { default as Testimonials } from './Testimonials';
 export { default as TypewriterTitle } from './TypewriterTitle';
 export { default as Video } from './Video';

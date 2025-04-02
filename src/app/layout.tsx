@@ -5,7 +5,6 @@ import { Inter } from "next/font/google";
 import "node_modules/react-modal-video/css/modal-video.css";
 import "../styles/index.css";
 import { Providers } from "./providers";
-import SessionWrapper from "@/components/Session/SessionWrapper";
 import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -50,23 +49,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <SessionWrapper>
-      <html suppressHydrationWarning lang="es" className="h-full">
-        <head />
-        <body className={`bg-[#FCFCFC] dark:bg-black ${inter.className} h-full`}>
-          <Providers>
-            <div className="flex min-h-[100dvh] flex-col">
-              <Header />
-              <main className="flex-1">
-                {children}
-              </main>
-              <Analytics />
-              <Footer />
-              <ScrollToTop />
-            </div>
-          </Providers>
-        </body>
-      </html>
-    </SessionWrapper>
+    <html suppressHydrationWarning lang="es" className="h-full">
+      <head />
+      <body className={`bg-[#FCFCFC] dark:bg-black ${inter.className} h-full`}>
+        <Providers>
+          <div className="flex min-h-[100dvh] flex-col">
+            <Header />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Analytics />
+            <Footer />
+            <ScrollToTop />
+          </div>
+        </Providers>
+      </body>
+    </html>
   );
 }
