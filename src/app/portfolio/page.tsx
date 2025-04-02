@@ -1,17 +1,29 @@
+// src/app/portfolio/page.tsx
 import SectionTitle from "@/components/Common/SectionTitle";
 import { PortfolioProjects } from "@/components/Portfolio/Projects";
+import { Metadata } from "next";
 
-const Blog = () => {
+export const metadata: Metadata = {
+  title: "Portfolio | Mis Proyectos",
+  description: "Explora mis proyectos más recientes desarrollados con las últimas tecnologías web",
+};
+
+const PortfolioPage = () => {
   return (
     <>
-      <section id="blog" className="bg-primary/5 py-16 md:py-20 lg:py-28 px-10">
-        <div className="container">
+      <section 
+        id="portfolio" 
+        className="relative bg-white dark:bg-gray-900 py-16 md:py-20 lg:py-28"
+      >
+        
+        <div className="container relative px-4 sm:px-6 lg:px-8">
           <SectionTitle
-            title="Mis proyectos recientes:"
-            paragraph="Descubre el poder de NextJS con mis últimos proyectos, donde la tecnología de vanguardia y las sorprendentes experiencias de usuario se fusionan a la perfección."
+            title="Mis proyectos recientes"
+            paragraph="Descubre el poder de Next.js con mis últimos proyectos, donde la tecnología de vanguardia y las experiencias de usuario se fusionan a la perfección."
             center
           />
-          <div className="justify-center">
+          
+          <div className="mt-10 sm:mt-16">
             <PortfolioProjects />
           </div>
         </div>
@@ -20,4 +32,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default PortfolioPage;

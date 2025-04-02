@@ -1,7 +1,8 @@
 {
   "name": "alanis-saas",
   "version": "0.3.0",
-  "private": true,"scripts": {
+  "private": true,
+  "scripts": {
     "dev": "next dev --turbopack",
     "build": "dotenv -e .env.local -- prisma generate && dotenv -e .env.local -- prisma migrate deploy && dotenv -e .env.local -- next build",
     "start": "next start",
@@ -39,6 +40,7 @@
     "clsx": "^2.1.1",
     "embla-carousel-react": "8.5.2",
     "eslint-config-next": "15.1.7",
+    "framer-motion": "^12.6.3",
     "fs": "0.0.1-security",
     "lucide-react": "^0.475.0",
     "next": "15.1.7",
