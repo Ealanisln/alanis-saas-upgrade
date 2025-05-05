@@ -4,20 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "dotenv -e .env.local -- prisma generate && dotenv -e .env.local -- prisma migrate deploy && dotenv -e .env.local -- next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma:deploy": "prisma migrate deploy && prisma generate",
-    "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate deploy",
-    "prisma:studio": "prisma studio",
-    "prisma:reset": "prisma migrate reset --force",
-    "db:push": "prisma db push",
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} ./seed/seed-database.ts",
-    "postinstall": "prisma generate",
-    "dev:local": "dotenv -e .env.local next dev --turbopack",
-    "prisma:studio:local": "dotenv -e .env.local prisma studio",
-    "seed:local": "dotenv -e .env.local -- ts-node --compiler-options {\"module\":\"CommonJS\"} ./seed/seed-database.ts"
+    "dev:local": "next dev --turbopack"
   },
   "dependencies": {
     "@portabletext/react": "^3.2.1",

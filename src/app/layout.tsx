@@ -6,6 +6,7 @@ import "node_modules/react-modal-video/css/modal-video.css";
 import "../styles/index.css";
 import { Providers } from "./providers";
 import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -50,7 +51,14 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning lang="es" className="h-full">
-      <head />
+      <head>
+        <Script
+          defer
+          src="https://analytics-omega-nine.vercel.app/script.js"
+          data-website-id="ff7f7fca-11fa-497f-814a-ee473d935868"
+          strategy="afterInteractive"
+        />
+      </head>
       <body className={`bg-[#FCFCFC] dark:bg-black ${inter.className} h-full`}>
         <Providers>
           <div className="flex min-h-[100dvh] flex-col">
