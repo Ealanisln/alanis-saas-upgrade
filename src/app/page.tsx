@@ -4,6 +4,7 @@ import Blog from "@/components/Blog";
 import Brands from "@/components/Brands";
 import ScrollUp from "@/components/Common/ScrollUp";
 import Contact from "@/components/Contact";
+import { EcommerceSectionOne, EcommerceSectionTwo } from "@/components/Ecommerce";
 import Features from "@/components/Features";
 import HeroSection from "@/components/Hero/index";
 import Pricing from "@/components/Pricing";
@@ -25,9 +26,9 @@ export default async function Home() {
       <HeroSection />
       <Features />
       {/* <Video /> */}
-      <Brands />
-      <AboutSectionOne />
-      <AboutSectionTwo />
+      {/* <Brands /> */}
+      {/* <EcommerceSectionOne />
+      <EcommerceSectionTwo /> */}
       {/* <Testimonials /> */}
       <Pricing />
       <Blog />

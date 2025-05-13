@@ -10,11 +10,12 @@ import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// Separate viewport configuration
+// Updated viewport configuration for better iOS Safari handling
 export const viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
+  userScalable: true,
   viewportFit: "cover",
 };
 
@@ -50,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning lang="es" className="h-full">
+    <html suppressHydrationWarning lang="es" className="scroll-smooth">
       <head>
         <Script
           defer
@@ -58,8 +59,13 @@ export default function RootLayout({
           data-website-id="ff7f7fca-11fa-497f-814a-ee473d935868"
           strategy="afterInteractive"
         />
+        {/* Add meta tag specifically for iOS */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#0F172A" media="(prefers-color-scheme: dark)" />
       </head>
-      <body className={`bg-[#FCFCFC] dark:bg-black ${inter.className} h-full`}>
+      <body className={`bg-[#FCFCFC] dark:bg-black ${inter.className} antialiased text-body-color overflow-x-hidden`}>
         <Providers>
           <div className="flex min-h-[100dvh] flex-col">
             <Header />

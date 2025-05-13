@@ -7,6 +7,30 @@
 @layer base {
   body {
     font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* iOS Safari fixes */
+  @supports (-webkit-touch-callout: none) {
+    .min-h-screen {
+      min-height: -webkit-fill-available;
+    }
+    .min-h-\[100dvh\] {
+      min-height: -webkit-fill-available;
+    }
+    body {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  }
+  
+  /* Set line heights consistently for text elements */
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight leading-tight;
+  }
+  
+  p {
+    @apply leading-relaxed;
   }
 }
 
@@ -29,5 +53,10 @@
 
   input#checkboxLabel:checked ~ .box span {
     @apply opacity-100;
+  }
+  
+  /* Pricing component specific styles */
+  .pricing-box {
+    @apply transition-all duration-300 ease-in-out;
   }
 }

@@ -18,30 +18,30 @@ const PricingBox = (props: {
   return (
     <div className="w-full">
       <div
-        className="wow fadeInUp relative z-10 rounded-sm bg-white px-8 py-10 shadow-three hover:shadow-one dark:bg-gray-dark dark:shadow-two dark:hover:shadow-gray-dark"
+        className="wow fadeInUp relative z-10 rounded-md bg-white px-8 py-10 shadow-three hover:shadow-one dark:bg-gray-dark dark:shadow-two dark:hover:shadow-gray-dark transition-shadow duration-300"
         data-wow-delay=".1s"
       >
-        <div className="flex items-center justify-between">
-          <h3 className="price mb-2 text-3xl font-bold text-black dark:text-white">
-            $<span className="amount">{price} </span>
-            <span className="text-sm">MXN</span>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-3xl font-bold text-black dark:text-white">
+            $<span className="amount">{price}</span>
+            <span className="text-sm font-medium ml-1">MXN</span>
           </h3>
-          <h4 className="mb-2 text-xl font-bold text-dark dark:text-white">
+          <h4 className="text-xl font-bold text-dark dark:text-white">
             {packageName}
           </h4>
         </div>
-        <p className="mb-7 text-base text-body-color">{subtitle}</p>
+        <p className="mb-8 text-base text-body-color dark:text-gray-300">{subtitle}</p>
         <div className="mb-8 border-b border-body-color border-opacity-10 pb-8 dark:border-white dark:border-opacity-10">
           <form action={handleCheckout}>
             <button
-              className="flex w-full items-center justify-center rounded-xl bg-primary p-3 text-base font-semibold text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+              className="flex w-full items-center justify-center rounded-md bg-primary p-3 text-base font-semibold text-white transition duration-300 ease-in-out hover:bg-opacity-90 hover:shadow-signUp"
               type="submit"
             >
              Contrata ahora
             </button>
           </form>
         </div>
-        <div>{children}</div>
+        <div className="space-y-4">{children}</div>
         <div className="absolute bottom-0 right-0 z-[-1]">
           <svg
             width="179"

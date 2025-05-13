@@ -16,7 +16,7 @@ const Pricing = () => {
           width="665px"
         />
 
-        <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3 mt-8 md:mt-12">
           <PricingBox
             packageName="Lite"
             price={6500}

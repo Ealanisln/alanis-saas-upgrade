@@ -25,7 +25,7 @@ const SectionTitle: FC<SectionTitleProps> = ({
 
   return (
     <div
-      className={`w-full ${width} ${center ? 'mx-auto text-center' : 'text-left'}`}
+      className={`w-full ${width} ${center ? 'mx-auto text-center' : 'text-left'} mb-12 md:mb-16`}
     >
       {subtitle && (
         <span className="mb-3 inline-block rounded-full bg-blue-100 dark:bg-blue-900/30 px-4 py-1.5 text-sm font-semibold tracking-wide text-blue-600 dark:text-blue-400">
@@ -33,7 +33,7 @@ const SectionTitle: FC<SectionTitleProps> = ({
         </span>
       )}
 
-      <h2 className="mb-4 text-3xl font-bold !leading-tight text-gray-800 dark:text-white sm:text-4xl md:text-[42px]">
+      <h2 className="mb-5 text-3xl font-bold !leading-tight text-gray-800 dark:text-white sm:text-4xl md:text-[42px] tracking-tight">
         {highlight ? (
           <>
             {highlightIndex > 0 && titleParts[0]}
@@ -49,7 +49,7 @@ const SectionTitle: FC<SectionTitleProps> = ({
       </h2>
 
       {paragraph && (
-        <p className="text-base !leading-relaxed text-gray-600 dark:text-gray-300 md:text-lg">
+        <p className="text-base !leading-relaxed text-gray-600 dark:text-gray-300 md:text-lg max-w-3xl mx-auto">
           {paragraph}
         </p>
       )}

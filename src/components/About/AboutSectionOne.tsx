@@ -24,11 +24,11 @@ const AboutSectionOne = () => {
   );
 
   return (
-    <section id="about" className="pt-16 md:pt-20 lg:pt-28">
-      <div className="container">
-        <div className="border-b border-body-color/[.15] pb-16 dark:border-white/[.15] md:pb-20 lg:pb-28">
+    <section id="about" className="pb-16 pt-16 md:pt-20 lg:pt-28">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="border-b border-body-color/[.15] pb-12 dark:border-white/[.15] md:pb-20 lg:pb-28">
           <div className="-mx-4 flex flex-wrap items-center">
-            <div className="w-full px-4 lg:w-1/2">
+            <div className="w-full px-4 pb-12 lg:w-1/2 lg:pb-0">
               <SectionTitle
                 title="La mejor solución para tu negocio."
                 paragraph="¿Te preocupan los asuntos técnicos? No te preocupes, te aseguramos que te brindaremos las mejores soluciones para que tu negocio funcione sin problemas. Siempre contarás con el respaldo de nuestra experiencia de primer nivel."
@@ -55,7 +55,7 @@ const AboutSectionOne = () => {
               </div>
             </div>
 
-            <div className="w-full px-4 lg:w-1/2">
+            <div className="w-full px-4 pb-8 lg:mt-0 lg:pb-0 lg:w-1/2">
               <div
                 className="wow fadeInUp relative mx-auto aspect-[25/24] max-w-[500px] lg:mr-0"
                 data-wow-delay=".2s"
@@ -64,13 +64,17 @@ const AboutSectionOne = () => {
                   src="/images/about/about-image.svg"
                   alt="about-image"
                   fill
+                  priority
                   className="drop-shadow-three mx-auto max-w-full dark:hidden dark:drop-shadow-none lg:mr-0"
+                  style={{objectFit: "contain"}}
                 />
                 <Image
                   src="/images/about/about-image-dark.svg"
                   alt="about-image"
                   fill
+                  priority
                   className="drop-shadow-three mx-auto hidden max-w-full dark:block dark:drop-shadow-none lg:mr-0"
+                  style={{objectFit: "contain"}}
                 />
               </div>
             </div>
