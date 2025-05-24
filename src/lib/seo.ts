@@ -258,7 +258,7 @@ export function generateBreadcrumbs(path: string) {
   
   const pathMap: Record<string, string> = {
     'about': 'Acerca de mí',
-    'portfolio': 'Portfolio',
+    'portafolio': 'portafolio',
     'contacto': 'Contacto',
     'planes': 'Planes y Precios',
     'blog': 'Blog'

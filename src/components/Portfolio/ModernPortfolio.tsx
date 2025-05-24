@@ -5,11 +5,11 @@ import { Project } from '@/lib/types';
 import ProjectCard from './ProjectCard';
 import ProjectModal from './ProjectModal';
 
-interface PortfolioProps {
+interface portafolioProps {
   projects: Project[];
 }
 
-const ModernPortfolio: FC<PortfolioProps> = ({ projects }) => {
+const Modernportafolio: FC<portafolioProps> = ({ projects }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -57,4 +57,4 @@ const ModernPortfolio: FC<PortfolioProps> = ({ projects }) => {
   );
 };
 
-export default ModernPortfolio; 
+export default Modernportafolio; 

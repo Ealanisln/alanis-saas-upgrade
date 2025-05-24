@@ -19,8 +19,8 @@ src/
 │   ├── opengraph-image.tsx          # Root OG image
 │   ├── about/
 │   │   └── opengraph-image.tsx      # About page OG image
-│   ├── portfolio/
-│   │   └── opengraph-image.tsx      # Portfolio page OG image
+│   ├── portafolio/
+│   │   └── opengraph-image.tsx      # portafolio page OG image
 │   ├── contacto/
 │   │   └── opengraph-image.tsx      # Contact page OG image
 │   ├── planes/
@@ -44,7 +44,7 @@ All OG images follow a consistent design system:
 - **Brand Colors**: 
   - Home: Blue gradient (#1E40AF → #60A5FA)
   - About: Green gradient (#059669 → #34D399)
-  - Portfolio: Purple gradient (#7C3AED → #C084FC)
+  - portafolio: Purple gradient (#7C3AED → #C084FC)
   - Contact: Red gradient (#DC2626 → #F87171)
   - Pricing: Cyan gradient (#0891B2 → #38BDF8)
   - Blog: Orange gradient (#F59E0B → #FB923C)
@@ -70,7 +70,7 @@ All OG images follow a consistent design system:
    - Skills and expertise
    - Social media profiles
 
-3. **Portfolio Page** (`/portfolio`)
+3. **portafolio Page** (`/portafolio`)
    - Collection page structured data
    - Project showcase metadata
 
@@ -131,7 +131,7 @@ Generates breadcrumb items for any page path.
 - **Person**: About page
 - **ContactPage**: Contact page
 - **Service**: Pricing page
-- **CollectionPage**: Portfolio page
+- **CollectionPage**: portafolio page
 - **Blog**: Blog listing
 - **BlogPosting**: Individual blog posts
 - **BreadcrumbList**: Navigation breadcrumbs

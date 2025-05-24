@@ -1,46 +1,46 @@
-// src/app/portfolio/page.tsx
+// src/app/portafolio/page.tsx
 import SectionTitle from "@/components/Common/SectionTitle";
-import ModernPortfolio from "@/components/Portfolio/ModernPortfolio";
+import Modernportafolio from "@/components/Portfolio/ModernPortfolio";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import projects from "@/data/projects";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Portfolio | Proyectos de Desarrollo Web - Alanis Dev",
+  title: "portafolio | Proyectos de Desarrollo Web - Alanis Dev",
   description: "Explora mis proyectos más recientes: aplicaciones web modernas, e-commerce, SaaS y APIs desarrollados con Next.js, React, TypeScript y las últimas tecnologías web.",
-  keywords: ["portfolio", "proyectos web", "desarrollo web", "Next.js", "React", "TypeScript", "aplicaciones web", "e-commerce", "SaaS"],
+  keywords: ["portafolio", "proyectos web", "desarrollo web", "Next.js", "React", "TypeScript", "aplicaciones web", "e-commerce", "SaaS"],
   openGraph: {
-    title: "Portfolio | Proyectos de Desarrollo Web - Alanis Dev",
+    title: "portafolio | Proyectos de Desarrollo Web - Alanis Dev",
     description: "Explora mis proyectos más recientes: aplicaciones web modernas, e-commerce, SaaS y APIs desarrollados con Next.js, React, TypeScript y las últimas tecnologías web.",
     type: "website",
     images: [
       {
-        url: "/portfolio/opengraph-image",
+        url: "/portafolio/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Portfolio - Proyectos de Alanis Dev",
+        alt: "portafolio - Proyectos de Alanis Dev",
       }
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Portfolio | Proyectos de Desarrollo Web - Alanis Dev",
+    title: "portafolio | Proyectos de Desarrollo Web - Alanis Dev",
     description: "Explora mis proyectos más recientes desarrollados con las últimas tecnologías web.",
-    images: ["/portfolio/opengraph-image"],
+    images: ["/portafolio/opengraph-image"],
   },
   alternates: {
-    canonical: "/portfolio",
+    canonical: "/portafolio",
   }
 };
 
-const PortfolioPage = () => {
-  // Create structured data for the Portfolio page
+const portafolioPage = () => {
+  // Create structured data for the portafolio page
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "Portfolio - Proyectos de Desarrollo Web",
+    "name": "portafolio - Proyectos de Desarrollo Web",
     "description": "Explora mis proyectos más recientes: aplicaciones web modernas, e-commerce, SaaS y APIs desarrollados con Next.js, React, TypeScript y las últimas tecnologías web.",
-    "url": "https://www.alanis.dev/portfolio",
+    "url": "https://www.alanis.dev/portafolio",
     "author": {
       "@type": "Person",
       "name": "Emmanuel Alanis",
@@ -64,7 +64,7 @@ const PortfolioPage = () => {
   // Breadcrumb items for structured data
   const breadcrumbItems = [
     { name: 'Inicio', url: 'https://www.alanis.dev' },
-    { name: 'Portfolio', url: 'https://www.alanis.dev/portfolio' }
+    { name: 'portafolio', url: 'https://www.alanis.dev/portafolio' }
   ];
 
   return (
@@ -109,7 +109,7 @@ const PortfolioPage = () => {
             
             <div className="flex flex-wrap justify-center gap-4">
               <a 
-                href="#portfolio-grid" 
+                href="#portafolio-grid" 
                 className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-medium transition-all duration-300 shadow-lg hover:shadow-blue-600/20 hover:-translate-y-1"
               >
                 Ver Proyectos
@@ -125,9 +125,9 @@ const PortfolioPage = () => {
         </div>
       </section>
       
-      {/* Main Portfolio Section */}
+      {/* Main portafolio Section */}
       <section 
-        id="portfolio-grid" 
+        id="portafolio-grid" 
         className="relative bg-white dark:bg-gray-900 py-20 md:py-24 lg:py-28"
       >
         {/* Decorative Elements */}
@@ -144,7 +144,7 @@ const PortfolioPage = () => {
           />
           
           <div className="mt-12 sm:mt-16">
-            <ModernPortfolio projects={projects} />
+            <Modernportafolio projects={projects} />
           </div>
         </div>
       </section>
@@ -152,4 +152,4 @@ const PortfolioPage = () => {
   );
 };
 
-export default PortfolioPage;
+export default portafolioPage;

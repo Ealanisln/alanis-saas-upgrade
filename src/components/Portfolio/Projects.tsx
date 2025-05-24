@@ -1,4 +1,4 @@
-// src/components/Portfolio/Projects.tsx
+// src/components/portafolio/Projects.tsx
 "use client";
 
 import { ExternalLink, Github, Info, ArrowRight, Code, Eye } from "lucide-react";
@@ -48,7 +48,7 @@ interface Project {
   githubUrl: string;
 }
 
-export function PortfolioProjects() {
+export function PortafolioProjects() {
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const filtersRef = useRef<HTMLDivElement>(null);

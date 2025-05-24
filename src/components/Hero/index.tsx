@@ -38,7 +38,7 @@ export default function HeroSection() {
 
                 {/* Botones */}
                 <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
-                  <Link href="/portfolio">
+                  <Link href="/portafolio">
                     <Button className="h-14 rounded-xl bg-primary px-8 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark">
                       Ver Mis Proyectos <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>

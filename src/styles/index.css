@@ -60,7 +60,7 @@
     @apply transition-all duration-300 ease-in-out;
   }
   
-  /* Portfolio animations */
+  /* portafolio animations */
   @keyframes fadeIn {
     from {
       opacity: 0;

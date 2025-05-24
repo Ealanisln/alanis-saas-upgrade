@@ -44,13 +44,13 @@ export const metadata = {
   openGraph: {
     type: "website",
     locale: "es_ES",
-    url: "/",
+    url: "https://www.alanis.dev",
     siteName: "Alanis Dev",
     title: "Alanis - Web Developer",
     description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/og-alanis-web-dev.jpg",
         width: 1200,
         height: 630,
         alt: "Alanis - Web Developer",
@@ -61,7 +61,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Alanis - Web Developer",
     description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
-    images: ["/opengraph-image"],
+    images: ["/og-alanis-web-dev.jpg"],
     creator: "@alanisdev",
   },
   robots: {

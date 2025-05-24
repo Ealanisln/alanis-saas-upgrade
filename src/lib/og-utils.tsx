@@ -182,12 +182,12 @@ export const routeConfigs: Record<string, OGContent> = {
     topics: ['Experiencia', 'Habilidades', 'Formación', 'Proyectos'],
     url: 'alanis.dev/about'
   },
-  portfolio: {
-    title: 'Portfolio',
+  portafolio: {
+    title: 'portafolio',
     subtitle: 'Proyectos y trabajos realizados con tecnologías modernas',
     icon: '💼',
     topics: ['Proyectos', 'Web Apps', 'APIs', 'UI/UX'],
-    url: 'alanis.dev/portfolio'
+    url: 'alanis.dev/portafolio'
   },
   contacto: {
     title: 'Contacto',

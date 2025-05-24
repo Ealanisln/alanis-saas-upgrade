@@ -1,11 +1,12 @@
 import SectionTitle from "../Common/SectionTitle";
-import { PortfolioProjects } from "./Projects";
-import ModernPortfolio from "./ModernPortfolio";
+import { PortafolioProjects } from "./Projects";
 import ProjectCard from "./ProjectCard";
 import ProjectModal from "./ProjectModal";
 import TechBadge from "./TechBadge";
+import Modernportafolio from "./ModernPortfolio";
+import projects from "@/data/projects";
 
-const Portfolio = () => {
+const portafolio = () => {
 
   return (
     <section id="blog" className="bg-primary/5 py-16 md:py-20 lg:py-28">
@@ -16,19 +17,19 @@ const Portfolio = () => {
           center
         />
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 md:gap-x-6 lg:gap-x-8 xl:grid-cols-3">
-          <PortfolioProjects />
+          <Modernportafolio projects={projects} />
         </div>
       </div>
     </section>
   );
 };
 
-export default Portfolio;
+export default portafolio;
 
-// Export all portfolio components
+// Export all portafolio components
 export {
-  PortfolioProjects,
-  ModernPortfolio,
+  PortafolioProjects,
+  Modernportafolio,
   ProjectCard,
   ProjectModal,
   TechBadge,

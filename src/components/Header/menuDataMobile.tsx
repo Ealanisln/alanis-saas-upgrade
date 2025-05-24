@@ -16,7 +16,7 @@ const menuDataMobile: Menu[] = [
   {
     id: 3,
     title: "Portafolio",
-    path: "/portfolio",
+    path: "/portafolio",
     newTab: false,
   },
   {
