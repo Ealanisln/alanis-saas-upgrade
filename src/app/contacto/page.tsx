@@ -39,13 +39,13 @@ const ContactPage = () => {
     "@type": "ContactPage",
     "name": "Contacto - Alanis Dev",
     "description": "¿Tienes un proyecto en mente? Contáctame para una consulta gratuita. Especializado en desarrollo web con Next.js, React y TypeScript.",
-    "url": "https://alanis.dev/contacto",
+    "url": "https://www.alanis.dev/contacto",
     "mainEntity": {
       "@type": "Person",
       "name": "Emmanuel Alanis",
       "jobTitle": "Full-Stack Developer",
       "email": "contact@alanis.dev",
-      "url": "https://alanis.dev",
+              "url": "https://www.alanis.dev",
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "customer service",
@@ -56,8 +56,8 @@ const ContactPage = () => {
 
   // Breadcrumb items for structured data
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://alanis.dev' },
-    { name: 'Contacto', url: 'https://alanis.dev/contacto' }
+    { name: 'Inicio', url: 'https://www.alanis.dev' },
+    { name: 'Contacto', url: 'https://www.alanis.dev/contacto' }
   ];
 
   return (

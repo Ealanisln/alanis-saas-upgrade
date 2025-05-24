@@ -112,34 +112,34 @@ export default async function BlogPostPage({
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": post.title,
-    "image": post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : "https://alanis.dev/images/og-image.jpg",
+    "image": post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : "https://www.alanis.dev/images/og-image.jpg",
     "datePublished": publishDate,
     "dateModified": publishDate,
     "author": {
       "@type": "Person",
       "name": post.author || "Alanis Dev",
-      "url": "https://alanis.dev/about"
+      "url": "https://www.alanis.dev/about"
     },
     "publisher": {
       "@type": "Organization",
       "name": "Alanis Dev",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://alanis.dev/images/logo.png"
+        "url": "https://www.alanis.dev/images/logo.png"
       }
     },
     "description": post.smallDescription || "Artículo de blog por Alanis Dev",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://alanis.dev/blog/${post.currentSlug}`
+      "@id": `https://www.alanis.dev/blog/${post.currentSlug}`
     }
   };
 
   // Breadcrumb items for structured data
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://alanis.dev' },
-    { name: 'Blog', url: 'https://alanis.dev/blog' },
-    { name: post.title, url: `https://alanis.dev/blog/${post.currentSlug}` }
+    { name: 'Inicio', url: 'https://www.alanis.dev' },
+    { name: 'Blog', url: 'https://www.alanis.dev/blog' },
+    { name: post.title, url: `https://www.alanis.dev/blog/${post.currentSlug}` }
   ];
 
   return (

@@ -15,7 +15,7 @@ interface SEOConfig {
 
 const defaultConfig = {
   siteName: "Alanis Dev",
-  siteUrl: "https://alanis.dev",
+  siteUrl: "https://www.alanis.dev",
   defaultTitle: "Alanis - Web Developer",
   defaultDescription: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
   twitterHandle: "@alanisdev",

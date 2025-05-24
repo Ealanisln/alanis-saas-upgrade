@@ -22,9 +22,9 @@ export default async function Home() {
     "@type": "ProfessionalService",
     "name": "Alanis Dev - Desarrollo Web",
     "description": "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar con Next.js, React y TypeScript.",
-    "url": "https://alanis.dev",
-    "logo": "https://alanis.dev/images/logo.png",
-    "image": "https://alanis.dev/opengraph-image",
+    "url": "https://www.alanis.dev",
+    "logo": "https://www.alanis.dev/images/logo.png",
+    "image": "https://www.alanis.dev/opengraph-image",
     "telephone": "+52-XXX-XXX-XXXX", // Replace with actual phone
     "email": "contact@alanis.dev",
     "address": {
@@ -36,7 +36,7 @@ export default async function Home() {
       "@type": "Person",
       "name": "Emmanuel Alanis",
       "jobTitle": "Full-Stack Developer",
-      "url": "https://alanis.dev/about"
+      "url": "https://www.alanis.dev/about"
     },
     "serviceType": "Web Development",
     "areaServed": {

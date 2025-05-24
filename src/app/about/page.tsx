@@ -41,8 +41,8 @@ const AboutPage = () => {
     "name": "Emmanuel Alanis",
     "alternateName": "Alanis Dev",
     "description": "Desarrollador web mexicano especializado en React, Next.js y TypeScript",
-    "url": "https://alanis.dev/about",
-    "image": "https://alanis.dev/about/opengraph-image",
+    "url": "https://www.alanis.dev/about",
+    "image": "https://www.alanis.dev/about/opengraph-image",
     "sameAs": [
       "https://github.com/alanisdev",
       "https://linkedin.com/in/alanisdev",
@@ -71,8 +71,8 @@ const AboutPage = () => {
 
   // Breadcrumb items for structured data
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://alanis.dev' },
-    { name: 'Acerca de mí', url: 'https://alanis.dev/about' }
+    { name: 'Inicio', url: 'https://www.alanis.dev' },
+    { name: 'Acerca de mí', url: 'https://www.alanis.dev/about' }
   ];
 
   return (

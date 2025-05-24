@@ -39,18 +39,18 @@ const PortfolioPage = () => {
     "@type": "CollectionPage",
     "name": "Portfolio - Proyectos de Desarrollo Web",
     "description": "Explora mis proyectos más recientes: aplicaciones web modernas, e-commerce, SaaS y APIs desarrollados con Next.js, React, TypeScript y las últimas tecnologías web.",
-    "url": "https://alanis.dev/portfolio",
+    "url": "https://www.alanis.dev/portfolio",
     "author": {
       "@type": "Person",
       "name": "Emmanuel Alanis",
-      "url": "https://alanis.dev/about"
+      "url": "https://www.alanis.dev/about"
     },
     "publisher": {
       "@type": "Organization",
       "name": "Alanis Dev",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://alanis.dev/images/logo.png"
+        "url": "https://www.alanis.dev/images/logo.png"
       }
     },
     "mainEntity": {
@@ -62,8 +62,8 @@ const PortfolioPage = () => {
 
   // Breadcrumb items for structured data
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://alanis.dev' },
-    { name: 'Portfolio', url: 'https://alanis.dev/portfolio' }
+    { name: 'Inicio', url: 'https://www.alanis.dev' },
+    { name: 'Portfolio', url: 'https://www.alanis.dev/portfolio' }
   ];
 
   return (

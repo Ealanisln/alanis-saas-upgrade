@@ -41,11 +41,11 @@ export default function PricingPage() {
     "@type": "Service",
     "name": "Servicios de Desarrollo Web",
     "description": "Planes y precios para desarrollo web con Next.js, React y TypeScript",
-    "url": "https://alanis.dev/planes",
+    "url": "https://www.alanis.dev/planes",
     "provider": {
       "@type": "Person",
       "name": "Emmanuel Alanis",
-      "url": "https://alanis.dev/about"
+      "url": "https://www.alanis.dev/about"
     },
     "offers": [
       {
@@ -77,8 +77,8 @@ export default function PricingPage() {
 
   // Breadcrumb items for structured data
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://alanis.dev' },
-    { name: 'Planes y Precios', url: 'https://alanis.dev/planes' }
+    { name: 'Inicio', url: 'https://www.alanis.dev' },
+    { name: 'Planes y Precios', url: 'https://www.alanis.dev/planes' }
   ];
 
   return (

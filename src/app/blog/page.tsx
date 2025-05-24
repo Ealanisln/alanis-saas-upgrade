@@ -70,24 +70,24 @@ export default async function Blog() {
     "@type": "Blog",
     "headline": "Blog sobre Desarrollo Web | Alanis Dev",
     "description": "Descubre consejos, tutoriales y mejores prácticas sobre desarrollo web, Next.js, React, TypeScript y más.",
-    "url": "https://alanis.dev/blog",
+    "url": "https://www.alanis.dev/blog",
     "author": {
       "@type": "Person",
       "name": "Alanis Dev",
-      "url": "https://alanis.dev/about"
+      "url": "https://www.alanis.dev/about"
     },
     "publisher": {
       "@type": "Organization",
       "name": "Alanis Dev",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://alanis.dev/images/logo.png"
+        "url": "https://www.alanis.dev/images/logo.png"
       }
     },
     "blogPosts": data.map(post => ({
       "@type": "BlogPosting",
       "headline": post.title,
-      "url": `https://alanis.dev/blog/${post.slug?.current || ''}`,
+      "url": `https://www.alanis.dev/blog/${post.slug?.current || ''}`,
       "dateModified": post._updatedAt,
       "author": {
         "@type": "Person",
@@ -98,8 +98,8 @@ export default async function Blog() {
 
   // Breadcrumb items for structured data
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://alanis.dev' },
-    { name: 'Blog', url: 'https://alanis.dev/blog' }
+    { name: 'Inicio', url: 'https://www.alanis.dev' },
+    { name: 'Blog', url: 'https://www.alanis.dev/blog' }
   ];
 
   return (
