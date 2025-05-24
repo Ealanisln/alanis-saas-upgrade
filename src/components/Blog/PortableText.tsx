@@ -1,6 +1,7 @@
 // src/components/Blog/PortableText.tsx
 import React from 'react';
 import { PortableTextComponents } from '@portabletext/react';
+import Image from 'next/image';
 import CodeBlock from './CodeBlock';
 
 export const portableTextComponents: PortableTextComponents = {
@@ -12,10 +13,16 @@ export const portableTextComponents: PortableTextComponents = {
         return null;
       }
       return (
-        <img 
+        <Image 
           src={value.asset.url} 
           alt={value.alt || ' '} 
+          width={800}
+          height={600}
           className="rounded-lg my-4"
+          style={{
+            width: '100%',
+            height: 'auto',
+          }}
         />
       );
     },

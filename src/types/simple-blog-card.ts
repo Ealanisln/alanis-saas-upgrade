@@ -33,6 +33,17 @@ export interface FullPost {
       _type: 'reference';
     };
   };
+  publishedAt?: string;
+  author?: string;
+  authorImage?: {
+    _type: 'image';
+    asset: {
+      _ref: string;
+      _type: 'reference';
+    };
+  };
+  smallDescription?: string;
+  _updatedAt?: string;
 }
 
 interface Block {

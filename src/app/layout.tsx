@@ -22,16 +22,30 @@ export const viewport = {
 // Metadata configuration with metadataBase
 export const metadata = {
   metadataBase: new URL('https://alanis.dev'),
-  title: "Alanis - Web Developer",
+  title: {
+    default: "Alanis - Web Developer",
+    template: "%s | Alanis Dev"
+  },
   description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
+  keywords: ["desarrollo web", "programación", "javascript", "typescript", "react", "next.js", "full-stack"],
+  authors: [{ name: "Alanis Dev" }],
+  creator: "Alanis Dev",
+  publisher: "Alanis Dev",
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-icon.png",
+  },
+  alternates: {
+    canonical: '/',
+    languages: {
+      'es-ES': 'https://alanis.dev',
+    },
   },
   openGraph: {
     type: "website",
     locale: "es_ES",
     url: "https://alanis.dev",
+    siteName: "Alanis Dev",
     title: "Alanis - Web Developer",
     description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
     images: [
@@ -42,6 +56,26 @@ export const metadata = {
         alt: "Alanis - Web Developer",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Alanis - Web Developer",
+    description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
+    images: ["/images/og-image.jpg"],
+    creator: "@alanisdev",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: "verification_token", // Replace with your actual verification token
   },
 };
 
