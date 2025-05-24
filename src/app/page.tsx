@@ -12,8 +12,33 @@ import Testimonials from "@/components/Testimonials";
 // import Video from "@/components/Video";
 import { Metadata } from "next";
 
-// Enhanced metadata is already defined in layout.tsx, so we don't need to override it here
-// The layout.tsx metadata will be used for the home page
+export const metadata: Metadata = {
+  title: "Alanis - Web Developer",
+  description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
+  keywords: ["desarrollo web", "programación", "javascript", "typescript", "react", "next.js", "full-stack"],
+  openGraph: {
+    title: "Alanis - Web Developer",
+    description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
+    type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Alanis - Web Developer",
+      }
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Alanis - Web Developer",
+    description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
+    images: ["/opengraph-image"],
+  },
+  alternates: {
+    canonical: "/",
+  }
+};
 
 export default async function Home() {
   // Create structured data for the home page
