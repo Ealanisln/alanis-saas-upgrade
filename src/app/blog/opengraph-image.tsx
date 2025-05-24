@@ -21,7 +21,7 @@ export default function Image() {
           display: "flex",
           width: "100%",
           height: "100%",
-          background: "linear-gradient(135deg, #F59E0B 0%, #F97316 50%, #FB923C 100%)",
+          background: "linear-gradient(135deg, #1E3282 0%, #2D48A8 30%, #3D5FD0 70%, #4F7AFA 100%)",
           position: "relative",
         }}
       >
