@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 
 // Image metadata
-export const alt = "Blog - Alanis Dev";
+export const alt = "Contacto - Alanis Dev";
 export const size = {
   width: 1200,
   height: 630,
@@ -21,7 +21,7 @@ export default function Image() {
           display: "flex",
           width: "100%",
           height: "100%",
-          background: "linear-gradient(135deg, #F59E0B 0%, #F97316 50%, #FB923C 100%)",
+          background: "linear-gradient(135deg, #DC2626 0%, #EF4444 50%, #F87171 100%)",
           position: "relative",
         }}
       >
@@ -34,9 +34,9 @@ export default function Image() {
             width: "100%",
             height: "100%",
             background: `
-              radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
-              radial-gradient(circle at 70% 70%, rgba(255,255,255,0.1) 0%, transparent 50%),
-              radial-gradient(circle at 50% 20%, rgba(255,255,255,0.05) 0%, transparent 50%)
+              radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 20% 70%, rgba(255,255,255,0.05) 0%, transparent 50%)
             `,
           }}
         />
@@ -47,29 +47,29 @@ export default function Image() {
             position: "absolute",
             top: "60px",
             left: "60px",
-            width: "70px",
-            height: "70px",
+            width: "80px",
+            height: "80px",
             border: "3px solid rgba(255,255,255,0.2)",
-            borderRadius: "15px",
-            transform: "rotate(20deg)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: "120px",
-            right: "80px",
-            width: "50px",
-            height: "50px",
-            border: "2px solid rgba(255,255,255,0.2)",
             borderRadius: "50%",
           }}
         />
         <div
           style={{
             position: "absolute",
-            bottom: "100px",
-            left: "100px",
+            top: "120px",
+            right: "100px",
+            width: "60px",
+            height: "60px",
+            border: "2px solid rgba(255,255,255,0.2)",
+            borderRadius: "12px",
+            transform: "rotate(25deg)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: "80px",
+            left: "80px",
             width: "40px",
             height: "40px",
             border: "2px solid rgba(255,255,255,0.2)",
@@ -107,7 +107,7 @@ export default function Image() {
                 fontWeight: "500",
               }}
             >
-              Blog
+              ¡Hablemos!
             </div>
             
             <h1
@@ -120,7 +120,7 @@ export default function Image() {
                 textShadow: "0 4px 8px rgba(0,0,0,0.3)",
               }}
             >
-              Desarrollo Web
+              Contacto
             </h1>
             
             <div
@@ -131,10 +131,10 @@ export default function Image() {
                 marginBottom: "30px",
               }}
             >
-              Consejos, tutoriales y mejores prácticas para desarrolladores
+              ¿Tienes un proyecto en mente? Me encantaría conocer más detalles y ayudarte a hacerlo realidad.
             </div>
             
-            {/* Topics */}
+            {/* Contact Methods */}
             <div
               style={{
                 display: "flex",
@@ -142,9 +142,9 @@ export default function Image() {
                 flexWrap: "wrap",
               }}
             >
-              {["Next.js", "React", "TypeScript", "Tutoriales"].map((topic) => (
+              {["Email", "WhatsApp", "LinkedIn", "Consulta Gratis"].map((method) => (
                 <div
-                  key={topic}
+                  key={method}
                   style={{
                     padding: "8px 16px",
                     background: "rgba(255,255,255,0.2)",
@@ -154,7 +154,7 @@ export default function Image() {
                     fontWeight: "500",
                   }}
                 >
-                  {topic}
+                  {method}
                 </div>
               ))}
             </div>
@@ -182,7 +182,7 @@ export default function Image() {
                 position: "relative",
               }}
             >
-              {/* Blog icon */}
+              {/* Message icon */}
               <div
                 style={{
                   fontSize: "100px",
@@ -190,7 +190,7 @@ export default function Image() {
                   opacity: 0.9,
                 }}
               >
-                📝
+                💬
               </div>
               
               {/* Floating elements */}
@@ -231,7 +231,7 @@ export default function Image() {
             fontWeight: "500",
           }}
         >
-          alanis.dev/blog
+          alanis.dev/contacto
         </div>
       </div>
     ),

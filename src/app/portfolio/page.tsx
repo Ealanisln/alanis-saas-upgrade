@@ -1,16 +1,82 @@
 // src/app/portfolio/page.tsx
 import SectionTitle from "@/components/Common/SectionTitle";
 import { PortfolioProjects } from "@/components/Portfolio/Projects";
+import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Portfolio | Mis Proyectos",
-  description: "Explora mis proyectos más recientes desarrollados con las últimas tecnologías web",
+  title: "Portfolio | Proyectos de Desarrollo Web - Alanis Dev",
+  description: "Explora mis proyectos más recientes: aplicaciones web modernas, e-commerce, SaaS y APIs desarrollados con Next.js, React, TypeScript y las últimas tecnologías web.",
+  keywords: ["portfolio", "proyectos web", "desarrollo web", "Next.js", "React", "TypeScript", "aplicaciones web", "e-commerce", "SaaS"],
+  openGraph: {
+    title: "Portfolio | Proyectos de Desarrollo Web - Alanis Dev",
+    description: "Explora mis proyectos más recientes: aplicaciones web modernas, e-commerce, SaaS y APIs desarrollados con Next.js, React, TypeScript y las últimas tecnologías web.",
+    type: "website",
+    images: [
+      {
+        url: "/portfolio/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Portfolio - Proyectos de Alanis Dev",
+      }
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Portfolio | Proyectos de Desarrollo Web - Alanis Dev",
+    description: "Explora mis proyectos más recientes desarrollados con las últimas tecnologías web.",
+    images: ["/portfolio/opengraph-image"],
+  },
+  alternates: {
+    canonical: "/portfolio",
+  }
 };
 
 const PortfolioPage = () => {
+  // Create structured data for the Portfolio page
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Portfolio - Proyectos de Desarrollo Web",
+    "description": "Explora mis proyectos más recientes: aplicaciones web modernas, e-commerce, SaaS y APIs desarrollados con Next.js, React, TypeScript y las últimas tecnologías web.",
+    "url": "https://alanis.dev/portfolio",
+    "author": {
+      "@type": "Person",
+      "name": "Emmanuel Alanis",
+      "url": "https://alanis.dev/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Alanis Dev",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://alanis.dev/images/logo.png"
+      }
+    },
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": "Proyectos de Desarrollo Web",
+      "description": "Colección de proyectos web desarrollados con tecnologías modernas"
+    }
+  };
+
+  // Breadcrumb items for structured data
+  const breadcrumbItems = [
+    { name: 'Inicio', url: 'https://alanis.dev' },
+    { name: 'Portfolio', url: 'https://alanis.dev/portfolio' }
+  ];
+
   return (
     <>
+      {/* Add JSON-LD structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      
+      {/* Add breadcrumb structured data */}
+      <BreadcrumbJsonLd items={breadcrumbItems} />
+
       {/* Hero Section with Gradient Background */}
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-900 via-indigo-900 to-blue-950 py-20 md:py-28 lg:py-32">
         {/* Animated Particles/Shapes Background */}

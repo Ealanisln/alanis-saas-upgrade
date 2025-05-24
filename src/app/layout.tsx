@@ -50,7 +50,7 @@ export const metadata = {
     description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
     images: [
       {
-        url: "/images/og-image.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Alanis - Web Developer",
@@ -61,7 +61,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Alanis - Web Developer",
     description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
-    images: ["/images/og-image.jpg"],
+    images: ["/opengraph-image"],
     creator: "@alanisdev",
   },
   robots: {

@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 
 // Image metadata
-export const alt = "Blog - Alanis Dev";
+export const alt = "Planes y Precios - Alanis Dev";
 export const size = {
   width: 1200,
   height: 630,
@@ -21,7 +21,7 @@ export default function Image() {
           display: "flex",
           width: "100%",
           height: "100%",
-          background: "linear-gradient(135deg, #F59E0B 0%, #F97316 50%, #FB923C 100%)",
+          background: "linear-gradient(135deg, #0891B2 0%, #0EA5E9 50%, #38BDF8 100%)",
           position: "relative",
         }}
       >
@@ -34,47 +34,51 @@ export default function Image() {
             width: "100%",
             height: "100%",
             background: `
-              radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
-              radial-gradient(circle at 70% 70%, rgba(255,255,255,0.1) 0%, transparent 50%),
-              radial-gradient(circle at 50% 20%, rgba(255,255,255,0.05) 0%, transparent 50%)
+              radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 50%)
             `,
           }}
         />
         
-        {/* Decorative Elements */}
+        {/* Decorative Price Tags */}
         <div
           style={{
             position: "absolute",
-            top: "60px",
-            left: "60px",
-            width: "70px",
-            height: "70px",
-            border: "3px solid rgba(255,255,255,0.2)",
-            borderRadius: "15px",
-            transform: "rotate(20deg)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: "120px",
-            right: "80px",
-            width: "50px",
-            height: "50px",
-            border: "2px solid rgba(255,255,255,0.2)",
-            borderRadius: "50%",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: "100px",
-            left: "100px",
-            width: "40px",
+            top: "80px",
+            left: "80px",
+            width: "60px",
             height: "40px",
-            border: "2px solid rgba(255,255,255,0.2)",
+            background: "rgba(255,255,255,0.2)",
             borderRadius: "8px",
-            transform: "rotate(-15deg)",
+            transform: "rotate(15deg)",
+            border: "2px solid rgba(255,255,255,0.3)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: "150px",
+            right: "120px",
+            width: "50px",
+            height: "35px",
+            background: "rgba(255,255,255,0.2)",
+            borderRadius: "6px",
+            transform: "rotate(-20deg)",
+            border: "2px solid rgba(255,255,255,0.3)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: "120px",
+            left: "120px",
+            width: "45px",
+            height: "30px",
+            background: "rgba(255,255,255,0.2)",
+            borderRadius: "6px",
+            transform: "rotate(10deg)",
+            border: "2px solid rgba(255,255,255,0.3)",
           }}
         />
         
@@ -95,7 +99,7 @@ export default function Image() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              width: "65%",
+              width: "60%",
               paddingRight: "40px",
             }}
           >
@@ -107,12 +111,12 @@ export default function Image() {
                 fontWeight: "500",
               }}
             >
-              Blog
+              Planes y Precios
             </div>
             
             <h1
               style={{
-                fontSize: "72px",
+                fontSize: "64px",
                 fontWeight: "bold",
                 color: "white",
                 margin: "0 0 30px",
@@ -120,21 +124,21 @@ export default function Image() {
                 textShadow: "0 4px 8px rgba(0,0,0,0.3)",
               }}
             >
-              Desarrollo Web
+              Encuentra el plan perfecto
             </h1>
             
             <div
               style={{
-                fontSize: "32px",
+                fontSize: "28px",
                 color: "rgba(255,255,255,0.9)",
                 lineHeight: 1.4,
                 marginBottom: "30px",
               }}
             >
-              Consejos, tutoriales y mejores prácticas para desarrolladores
+              Soluciones web diseñadas para satisfacer todas tus necesidades de desarrollo
             </div>
             
-            {/* Topics */}
+            {/* Plan Features */}
             <div
               style={{
                 display: "flex",
@@ -142,9 +146,9 @@ export default function Image() {
                 flexWrap: "wrap",
               }}
             >
-              {["Next.js", "React", "TypeScript", "Tutoriales"].map((topic) => (
+              {["Básico", "Profesional", "Premium", "Personalizado"].map((plan) => (
                 <div
-                  key={topic}
+                  key={plan}
                   style={{
                     padding: "8px 16px",
                     background: "rgba(255,255,255,0.2)",
@@ -154,7 +158,7 @@ export default function Image() {
                     fontWeight: "500",
                   }}
                 >
-                  {topic}
+                  {plan}
                 </div>
               ))}
             </div>
@@ -166,41 +170,77 @@ export default function Image() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: "35%",
+              width: "40%",
             }}
           >
             <div
               style={{
-                width: "250px",
-                height: "250px",
-                borderRadius: "30px",
+                width: "280px",
+                height: "280px",
+                borderRadius: "25px",
                 background: "rgba(255,255,255,0.15)",
                 display: "flex",
+                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
                 border: "3px solid rgba(255,255,255,0.3)",
                 position: "relative",
               }}
             >
-              {/* Blog icon */}
+              {/* Price symbol */}
               <div
                 style={{
-                  fontSize: "100px",
+                  fontSize: "80px",
                   color: "white",
-                  opacity: 0.9,
+                  fontWeight: "bold",
+                  marginBottom: "10px",
                 }}
               >
-                📝
+                $
+              </div>
+              
+              {/* Pricing cards stack */}
+              <div
+                style={{
+                  display: "flex",
+                  gap: "8px",
+                  marginTop: "10px",
+                }}
+              >
+                <div
+                  style={{
+                    width: "40px",
+                    height: "50px",
+                    background: "rgba(255,255,255,0.3)",
+                    borderRadius: "8px",
+                  }}
+                />
+                <div
+                  style={{
+                    width: "40px",
+                    height: "50px",
+                    background: "rgba(255,255,255,0.4)",
+                    borderRadius: "8px",
+                  }}
+                />
+                <div
+                  style={{
+                    width: "40px",
+                    height: "50px",
+                    background: "rgba(255,255,255,0.3)",
+                    borderRadius: "8px",
+                  }}
+                />
               </div>
               
               {/* Floating elements */}
               <div
                 style={{
                   position: "absolute",
-                  top: "-10px",
-                  right: "-10px",
-                  width: "30px",
-                  height: "30px",
+                  top: "20px",
+                  right: "20px",
+                  width: "25px",
+                  height: "25px",
                   borderRadius: "50%",
                   background: "rgba(255,255,255,0.4)",
                 }}
@@ -208,10 +248,10 @@ export default function Image() {
               <div
                 style={{
                   position: "absolute",
-                  bottom: "-15px",
-                  left: "-15px",
-                  width: "25px",
-                  height: "25px",
+                  bottom: "25px",
+                  left: "25px",
+                  width: "20px",
+                  height: "20px",
                   borderRadius: "50%",
                   background: "rgba(255,255,255,0.3)",
                 }}
@@ -231,7 +271,7 @@ export default function Image() {
             fontWeight: "500",
           }}
         >
-          alanis.dev/blog
+          alanis.dev/planes
         </div>
       </div>
     ),

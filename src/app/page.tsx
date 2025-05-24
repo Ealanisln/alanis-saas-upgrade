@@ -12,16 +12,82 @@ import Testimonials from "@/components/Testimonials";
 // import Video from "@/components/Video";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Alanis Developer | Tu aplicación web moderna.",
-  description:
-    "En Alanis Web Dev, ofrecemos soluciones personalizadas de desarrollo web y software para negocios y clientes individuales. Utilizando las tecnologías más recientes, como Next JS y React, creamos sitios web modernos, funcionales y adaptados a las necesidades específicas de cada cliente. Nuestro enfoque se centra en la innovación, la calidad y la satisfacción del cliente, garantizando que cada proyecto no solo cumpla con las expectativas, sino que las supere. Ya sea que necesites un sitio web corporativo, una tienda en línea, o una aplicación web a medida, en Alanis Web Dev tenemos la experiencia y el conocimiento para llevar tu visión a la realidad.",
-  // other metadata
-};
+// Enhanced metadata is already defined in layout.tsx, so we don't need to override it here
+// The layout.tsx metadata will be used for the home page
 
 export default async function Home() {
+  // Create structured data for the home page
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Alanis Dev - Desarrollo Web",
+    "description": "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar con Next.js, React y TypeScript.",
+    "url": "https://alanis.dev",
+    "logo": "https://alanis.dev/images/logo.png",
+    "image": "https://alanis.dev/opengraph-image",
+    "telephone": "+52-XXX-XXX-XXXX", // Replace with actual phone
+    "email": "contact@alanis.dev",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "MX",
+      "addressLocality": "Mexico"
+    },
+    "founder": {
+      "@type": "Person",
+      "name": "Emmanuel Alanis",
+      "jobTitle": "Full-Stack Developer",
+      "url": "https://alanis.dev/about"
+    },
+    "serviceType": "Web Development",
+    "areaServed": {
+      "@type": "Country",
+      "name": "Mexico"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Servicios de Desarrollo Web",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Desarrollo de Aplicaciones Web",
+            "description": "Aplicaciones web modernas con Next.js y React"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "E-commerce",
+            "description": "Tiendas en línea completas y funcionales"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Landing Pages",
+            "description": "Páginas de aterrizaje optimizadas para conversión"
+          }
+        }
+      ]
+    },
+    "sameAs": [
+      "https://github.com/alanisdev",
+      "https://linkedin.com/in/alanisdev",
+      "https://twitter.com/alanisdev"
+    ]
+  };
+
   return (
     <>
+      {/* Add JSON-LD structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <ScrollUp />
       <HeroSection />
       <Features />

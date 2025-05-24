@@ -17,10 +17,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/blog-og-image.jpg",
+        url: "/blog/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Alanis Dev Blog",
+        alt: "Blog - Alanis Dev",
       }
     ],
   },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Blog sobre Desarrollo Web | Alanis Dev",
     description: "Descubre consejos, tutoriales y mejores prácticas sobre desarrollo web, Next.js, React, TypeScript y más.",
-    images: ["/images/blog-og-image.jpg"],
+    images: ["/blog/opengraph-image"],
   },
   alternates: {
     canonical: "/blog",
