@@ -19,9 +19,19 @@ export const viewport = {
   viewportFit: "cover",
 };
 
-// Metadata configuration with metadataBase
+// Dynamic metadata configuration that adapts to environment
+const getMetadataBase = () => {
+  if (process.env.VERCEL_URL) {
+    return new URL(`https://${process.env.VERCEL_URL}`);
+  }
+  if (process.env.NODE_ENV === 'development') {
+    return new URL('http://localhost:3000');
+  }
+  return new URL('https://www.alanis.dev');
+};
+
 export const metadata = {
-  metadataBase: new URL('https://www.alanis.dev'),
+  metadataBase: getMetadataBase(),
   title: {
     default: "Alanis - Web Developer",
     template: "%s | Alanis Dev"
@@ -38,13 +48,13 @@ export const metadata = {
   alternates: {
     canonical: '/',
     languages: {
-      'es-ES': 'https://www.alanis.dev',
+      'es-ES': '/',
     },
   },
   openGraph: {
     type: "website",
     locale: "es_ES",
-    url: "https://www.alanis.dev",
+    url: "/",
     siteName: "Alanis Dev",
     title: "Alanis - Web Developer",
     description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
