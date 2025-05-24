@@ -19,19 +19,9 @@ export const viewport = {
   viewportFit: "cover",
 };
 
-// Dynamic metadata configuration that adapts to environment
-const getMetadataBase = () => {
-  if (process.env.VERCEL_URL) {
-    return new URL(`https://${process.env.VERCEL_URL}`);
-  }
-  if (process.env.NODE_ENV === 'development') {
-    return new URL('http://localhost:3000');
-  }
-  return new URL('https://www.alanis.dev');
-};
-
+// Metadata configuration with metadataBase
 export const metadata = {
-  metadataBase: getMetadataBase(),
+  metadataBase: new URL('https://www.alanis.dev'),
   title: {
     default: "Alanis - Web Developer",
     template: "%s | Alanis Dev"

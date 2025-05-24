@@ -20,14 +20,7 @@ export const metadata: Metadata = {
     title: "Alanis - Web Developer",
     description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
     type: "website",
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "Alanis - Web Developer",
-      }
-    ],
+    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",

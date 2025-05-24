@@ -1,7 +1,8 @@
 // src/app/portfolio/page.tsx
 import SectionTitle from "@/components/Common/SectionTitle";
-import { PortfolioProjects } from "@/components/Portfolio/Projects";
+import ModernPortfolio from "@/components/Portfolio/ModernPortfolio";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
+import projects from "@/data/projects";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -143,7 +144,7 @@ const PortfolioPage = () => {
           />
           
           <div className="mt-12 sm:mt-16">
-            <PortfolioProjects />
+            <ModernPortfolio projects={projects} />
           </div>
         </div>
       </section>

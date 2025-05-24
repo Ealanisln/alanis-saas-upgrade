@@ -4,10 +4,10 @@ import { generateOGImage, routeConfigs, size, contentType } from "@/lib/og-utils
 export const runtime = "edge";
 
 // Image metadata
-export const alt = "Contacto - Alanis Dev";
+export const alt = "Portfolio - Alanis Dev";
 export { size, contentType };
 
 // Image generation
 export default function Image() {
-  return generateOGImage(routeConfigs.contacto);
+  return generateOGImage(routeConfigs.portfolio);
 } 

@@ -1,5 +1,9 @@
 import SectionTitle from "../Common/SectionTitle";
 import { PortfolioProjects } from "./Projects";
+import ModernPortfolio from "./ModernPortfolio";
+import ProjectCard from "./ProjectCard";
+import ProjectModal from "./ProjectModal";
+import TechBadge from "./TechBadge";
 
 const Portfolio = () => {
 
@@ -20,3 +24,12 @@ const Portfolio = () => {
 };
 
 export default Portfolio;
+
+// Export all portfolio components
+export {
+  PortfolioProjects,
+  ModernPortfolio,
+  ProjectCard,
+  ProjectModal,
+  TechBadge,
+};
