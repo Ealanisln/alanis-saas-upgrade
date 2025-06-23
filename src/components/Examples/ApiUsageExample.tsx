@@ -180,13 +180,13 @@ export const ApiUsageExample: React.FC = () => {
                 <div className="flex justify-between items-start">
                   <div>
                     <p className="font-medium">
-                      {quote.request?.clientInfo?.name || 'No name'}
+                      {quote.clientInfo?.name || 'No name'}
                     </p>
                     <p className="text-sm text-gray-600">
-                      {quote.request?.clientInfo?.email}
+                      {quote.clientInfo?.email}
                     </p>
                     <p className="text-sm text-gray-600">
-                      Total: ${quote.calculation?.total.toLocaleString()}
+                      Total: ${quote.calculation?.total?.toLocaleString() || quote.total?.toLocaleString() || '0'}
                     </p>
                   </div>
                   <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">

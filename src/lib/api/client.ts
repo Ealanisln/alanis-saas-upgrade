@@ -1,50 +1,44 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { ApiResponse, ApiError } from './types';
+import axios, { AxiosInstance } from 'axios';
 
 export class ApiClient {
   private client: AxiosInstance;
-
-  constructor(baseURL?: string) {
+  
+  constructor(baseURL: string = 'https://api.alanis.dev') {
     this.client = axios.create({
-      baseURL: baseURL || '/api',
-      timeout: 10000,
+      baseURL,
+      timeout: 30000,
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
-    this.setupInterceptors();
-  }
-
-  private setupInterceptors() {
-    // Request interceptor
+    // Request interceptor for authentication
     this.client.interceptors.request.use(
       (config) => {
         // Add auth token if available
-        if (typeof window !== 'undefined') {
-          const token = localStorage.getItem('auth_token');
-          if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-          }
+        const token = this.getAuthToken();
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
       },
-      (error) => {
-        return Promise.reject(error);
-      }
+      (error) => Promise.reject(error)
     );
 
-    // Response interceptor
+    // Response interceptor for error handling
     this.client.interceptors.response.use(
-      (response: AxiosResponse) => {
-        return response;
-      },
+      (response) => response.data,
       (error) => {
-        const apiError: ApiError = {
-          message: error.response?.data?.message || error.message || 'An error occurred',
-          status: error.response?.status || 500,
-          code: error.response?.data?.code || 'UNKNOWN_ERROR',
-          details: error.response?.data?.details,
+        console.error('API Error:', error);
+        
+        if (error.response?.status === 401) {
+          this.handleUnauthorized();
+        }
+        
+        const apiError = error.response?.data || {
+          success: false,
+          message: error.message || 'Network error occurred',
+          data: null
         };
         
         return Promise.reject(apiError);
@@ -52,53 +46,92 @@ export class ApiClient {
     );
   }
 
-  // Generic HTTP methods
-  async get<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.client.get<ApiResponse<T>>(url, config);
-    return response.data;
+  private getAuthToken(): string | null {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('auth_token');
+    }
+    return null;
   }
 
-  async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.client.post<ApiResponse<T>>(url, data, config);
-    return response.data;
+  private handleUnauthorized(): void {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('auth_token');
+    }
   }
 
-  async put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.client.put<ApiResponse<T>>(url, data, config);
-    return response.data;
+  // Generic methods
+  async get<T>(endpoint: string, params?: Record<string, any>): Promise<any> {
+    return this.client.get(endpoint, { params });
   }
 
-  async delete<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.client.delete<ApiResponse<T>>(url, config);
-    return response.data;
+  async post<T>(endpoint: string, data?: any): Promise<any> {
+    return this.client.post(endpoint, data);
   }
 
-  async patch<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.client.patch<ApiResponse<T>>(url, data, config);
-    return response.data;
+  async put<T>(endpoint: string, data?: any): Promise<any> {
+    return this.client.put(endpoint, data);
   }
 
-  // Convenience methods for common operations
-  async fetchQuotes() {
-    return this.get('/quotes');
+  async delete<T>(endpoint: string): Promise<any> {
+    return this.client.delete(endpoint);
   }
 
-  async createQuote(quoteData: any) {
-    return this.post('/quotes', quoteData);
+  // Specific API methods
+  async fetchQuotes(params?: {
+    page?: number;
+    limit?: number;
+    status?: string;
+    clientType?: string;
+  }): Promise<any> {
+    return this.get('/quotes', params);
   }
 
-  async sendEmail(emailData: any) {
-    return this.post('/send-email', emailData);
+  async createQuote(request: any): Promise<any> {
+    return this.post('/quotes', request);
   }
 
-  // Invoice Ninja integration
-  async syncWithInvoiceNinja(quoteData: any) {
-    return this.post('/quotes/invoice-ninja', quoteData);
+  async getQuote(id: string): Promise<any> {
+    return this.get(`/quotes/${id}`);
+  }
+
+  async updateQuote(id: string, request: any): Promise<any> {
+    return this.put(`/quotes/${id}`, request);
+  }
+
+  async deleteQuote(id: string): Promise<any> {
+    return this.delete(`/quotes/${id}`);
+  }
+
+  async sendEmail(request: any): Promise<any> {
+    return this.post('/emails/send', request);
+  }
+
+  async syncWithInvoiceNinja(quoteData: any): Promise<any> {
+    return this.post('/quotes/sync/invoice-ninja', quoteData);
+  }
+
+  async sendContactForm(data: {
+    name: string;
+    email: string;
+    message: string;
+    subject?: string;
+  }): Promise<any> {
+    return this.post('/contact', data);
+  }
+
+  async healthCheck(): Promise<any> {
+    return this.get('/health');
   }
 }
 
-// Create and export a singleton instance
-export const createApiClient = () => new ApiClient();
+// Singleton instance
+let apiClientInstance: ApiClient | null = null;
 
-// Export default instance for direct use
+export const createApiClient = (baseURL?: string): ApiClient => {
+  if (!apiClientInstance) {
+    apiClientInstance = new ApiClient(baseURL);
+  }
+  return apiClientInstance;
+};
+
 export const apiClient = createApiClient(); 

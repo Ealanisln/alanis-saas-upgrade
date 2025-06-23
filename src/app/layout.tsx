@@ -21,7 +21,7 @@ export const viewport = {
 
 // Metadata configuration with metadataBase
 export const metadata = {
-  metadataBase: new URL('https://www.alanis.dev'),
+  metadataBase: new URL('https://alanis.dev'),
   title: {
     default: "Alanis - Web Developer",
     template: "%s | Alanis Dev"
@@ -44,7 +44,7 @@ export const metadata = {
   openGraph: {
     type: "website",
     locale: "es_ES",
-    url: "https://www.alanis.dev",
+    url: "https://alanis.dev",
     siteName: "Alanis Dev",
     title: "Alanis - Web Developer",
     description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
@@ -62,7 +62,7 @@ export const metadata = {
     title: "Alanis - Web Developer",
     description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
     images: ["/og-alanis-web-dev.jpg"],
-    creator: "@alanisdev",
+    creator: "@ealanisln",
   },
   robots: {
     index: true,

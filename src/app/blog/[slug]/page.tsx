@@ -19,7 +19,7 @@ export async function generateMetadata(
   
   // Get post data
   const query = `
-    *[_type == "post" && slug.current == '${slug}'][0] {
+    *[_type == "post" && slug.current == $slug][0] {
       title,
       mainImage,
       smallDescription,
@@ -27,7 +27,7 @@ export async function generateMetadata(
       "author": author->name
     }`;
   
-  const post = await client.fetch(query);
+  const post = await client.fetch(query, { slug });
   
   // If no post found, return default metadata
   if (!post) {
@@ -38,7 +38,9 @@ export async function generateMetadata(
   }
 
   // Get the post image URL
-  const imageUrl = post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : "/images/og-image.jpg";
+  const imageUrl = post.mainImage 
+    ? urlFor(post.mainImage).width(1200).height(630).url() 
+    : "/opengraph-image";
   
   // Create a description from post.smallDescription or extract from body if needed
   const description = post.smallDescription || "Artículo de blog por Alanis Dev";
@@ -46,18 +48,24 @@ export async function generateMetadata(
   // Get parent metadata
   const previousImages = (await parent).openGraph?.images || [];
 
+  const postUrl = `https://alanis.dev/blog/${slug}`;
+
   return {
     title: `${post.title} | Alanis Dev Blog`,
     description: description,
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
     openGraph: {
       title: post.title,
       description: description,
       type: "article",
+      url: postUrl,
       publishedTime: post.publishedAt || new Date().toISOString(),
       authors: [post.author || "Alanis Dev"],
       images: [
         {
-          url: imageUrl,
+          url: `/blog/${slug}/opengraph-image`,
           width: 1200,
           height: 630,
           alt: post.title,
@@ -69,7 +77,8 @@ export async function generateMetadata(
       card: "summary_large_image",
       title: post.title,
       description: description,
-      images: [imageUrl],
+      images: [`/blog/${slug}/opengraph-image`],
+      creator: "@ealanisln",
     },
   };
 }
@@ -112,34 +121,34 @@ export default async function BlogPostPage({
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": post.title,
-    "image": post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : "https://www.alanis.dev/images/og-image.jpg",
+    "image": post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : "https://alanis.dev/opengraph-image",
     "datePublished": publishDate,
     "dateModified": publishDate,
     "author": {
       "@type": "Person",
       "name": post.author || "Alanis Dev",
-      "url": "https://www.alanis.dev/about"
+      "url": "https://alanis.dev/about"
     },
     "publisher": {
       "@type": "Organization",
       "name": "Alanis Dev",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.alanis.dev/images/logo.png"
+        "url": "https://alanis.dev/images/logo.png"
       }
     },
     "description": post.smallDescription || "Artículo de blog por Alanis Dev",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://www.alanis.dev/blog/${post.currentSlug}`
+      "@id": `https://alanis.dev/blog/${post.currentSlug}`
     }
   };
 
   // Breadcrumb items for structured data
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://www.alanis.dev' },
-    { name: 'Blog', url: 'https://www.alanis.dev/blog' },
-    { name: post.title, url: `https://www.alanis.dev/blog/${post.currentSlug}` }
+    { name: 'Inicio', url: 'https://alanis.dev' },
+    { name: 'Blog', url: 'https://alanis.dev/blog' },
+    { name: post.title, url: `https://alanis.dev/blog/${post.currentSlug}` }
   ];
 
   return (

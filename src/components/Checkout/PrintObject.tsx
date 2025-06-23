@@ -1,6 +1,5 @@
 "use client";
 
-import type { Stripe } from "stripe";
 import {
   Table,
   TableBody,
@@ -12,10 +11,21 @@ import {
 } from "@/components/ui/table";
 import { useEffect, useState } from "react";
 
+// Generic interface for payment/checkout objects
+interface PaymentObject {
+  id?: string;
+  customer_details?: {
+    name?: string;
+  };
+  payment_method_types?: string[];
+  amount_total?: number;
+  [key: string]: any;
+}
+
 export default function PrintObject({
   content,
 }: {
-  content: Stripe.PaymentIntent | Stripe.Checkout.Session;
+  content: PaymentObject;
 }): React.ReactElement {
   const formattedContent: string = JSON.stringify(content, null, 2);
   const [loggedFields, setLoggedFields] = useState<string[]>([]);

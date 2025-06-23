@@ -15,19 +15,52 @@ export const size = {
 // Image generation
 export default async function Image({ params }: { params: { slug: string } }) {
   try {
-    // Fetch post data
-    const post = await client.fetch(
-      `*[_type == "post" && slug.current == '${params.slug}'][0]{
-        title,
-        mainImage,
-        "author": author->name
-      }`
-    );
+    // Fetch post data with proper GROQ query
+    const query = `*[_type == "post" && slug.current == $slug][0]{
+      title,
+      mainImage,
+      "author": author->name,
+      smallDescription
+    }`;
+    
+    const post = await client.fetch(query, { slug: params.slug });
+
+    // If no post found, return fallback
+    if (!post) {
+      return new ImageResponse(
+        (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              height: "100%",
+              backgroundColor: "#1E3282",
+              color: "white",
+              fontSize: "48px",
+              fontWeight: "bold",
+              textAlign: "center",
+              padding: "40px",
+            }}
+          >
+            <h1>Alanis Dev Blog</h1>
+            <p style={{ fontSize: "32px", marginTop: "20px" }}>
+              Desarrollo web y tecnología
+            </p>
+          </div>
+        ),
+        {
+          ...size,
+        }
+      );
+    }
 
     // Use post image if available, otherwise use a default background
     const imageUrl = post.mainImage 
       ? urlFor(post.mainImage).width(1200).height(630).url() 
-      : "https://alanis.dev/images/blog-og-image.jpg";
+      : null;
 
     return new ImageResponse(
       (
@@ -37,63 +70,114 @@ export default async function Image({ params }: { params: { slug: string } }) {
             flexDirection: "column",
             width: "100%",
             height: "100%",
-            backgroundImage: `url(${imageUrl})`,
+            background: imageUrl 
+              ? `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${imageUrl})`
+              : "linear-gradient(135deg, #1E3282 0%, #2D48A8 30%, #3D5FD0 70%, #4F7AFA 100%)",
             backgroundSize: "cover",
             backgroundPosition: "center",
             position: "relative",
           }}
         >
-          {/* Overlay to ensure text readability */}
+          {/* Background Pattern for non-image backgrounds */}
+          {!imageUrl && (
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                background: `
+                  radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%)
+                `,
+              }}
+            />
+          )}
+          
+          {/* Content Container */}
           <div
             style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              backgroundColor: "rgba(0, 0, 0, 0.6)",
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-end",
-              padding: "50px",
+              width: "100%",
+              height: "100%",
+              padding: "60px",
+              position: "relative",
+              zIndex: 1,
             }}
           >
+            {/* Logo/Brand */}
+            <div
+              style={{
+                position: "absolute",
+                top: "40px",
+                right: "60px",
+                display: "flex",
+                alignItems: "center",
+                color: "white",
+                fontSize: "24px",
+                fontWeight: "600",
+              }}
+            >
+              alanis.dev
+            </div>
+            
+            {/* Main Title */}
             <h1
               style={{
-                fontSize: "64px",
+                fontSize: post.title.length > 50 ? "48px" : "64px",
                 fontWeight: "bold",
                 color: "white",
                 marginBottom: "20px",
                 lineHeight: 1.2,
+                textShadow: "0 2px 4px rgba(0, 0, 0, 0.8)",
+                maxHeight: "320px",
+                overflow: "hidden",
               }}
             >
               {post.title}
             </h1>
+            
+            {/* Author and Blog Label */}
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
+                marginTop: "auto",
               }}
             >
-              <p
+              <div
                 style={{
-                  fontSize: "32px",
-                  color: "white",
-                  opacity: 0.9,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "20px",
                 }}
               >
-                Por: {post.author || "Alanis Dev"}
-              </p>
-              <p
-                style={{
-                  fontSize: "32px",
-                  color: "white",
-                  opacity: 0.8,
-                }}
-              >
-                alanis.dev
-              </p>
+                <div
+                  style={{
+                    padding: "8px 16px",
+                    backgroundColor: "rgba(255, 255, 255, 0.2)",
+                    borderRadius: "20px",
+                    color: "white",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                  }}
+                >
+                  📝 Blog
+                </div>
+                <p
+                  style={{
+                    fontSize: "24px",
+                    color: "rgba(255, 255, 255, 0.9)",
+                    margin: 0,
+                  }}
+                >
+                  Por: {post.author || "Alanis Dev"}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -103,6 +187,8 @@ export default async function Image({ params }: { params: { slug: string } }) {
       }
     );
   } catch (error) {
+    console.error("Error generating OG image:", error);
+    
     // In case of error, return a simple fallback
     return new ImageResponse(
       (
@@ -114,18 +200,39 @@ export default async function Image({ params }: { params: { slug: string } }) {
             justifyContent: "center",
             width: "100%",
             height: "100%",
-            backgroundColor: "#111827",
+            background: "linear-gradient(135deg, #1E3282 0%, #2D48A8 30%, #3D5FD0 70%, #4F7AFA 100%)",
             color: "white",
             fontSize: "48px",
             fontWeight: "bold",
             textAlign: "center",
             padding: "40px",
+            position: "relative",
           }}
         >
-          <h1>Alanis Dev Blog</h1>
-          <p style={{ fontSize: "32px", marginTop: "20px" }}>
-            Desarrollo web y tecnología
-          </p>
+          {/* Background Pattern */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              background: `
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%)
+              `,
+            }}
+          />
+          
+          <div style={{ position: "relative", zIndex: 1 }}>
+            <h1>Alanis Dev Blog</h1>
+            <p style={{ fontSize: "32px", marginTop: "20px" }}>
+              Desarrollo web y tecnología
+            </p>
+            <p style={{ fontSize: "24px", marginTop: "20px", opacity: 0.8 }}>
+              alanis.dev
+            </p>
+          </div>
         </div>
       ),
       {

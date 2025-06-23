@@ -1,14 +1,13 @@
 "use server";
 
-import type { Stripe } from "stripe";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
-import { CURRENCY } from "@/config";
-import { formatAmountForStripe } from "@/lib/utils/stripe-helpers";
-import { stripe } from "@/lib/stripe";
+
+// Note: Stripe payments are now handled by the external API at api.alanis.dev
+// This function is kept for compatibility but should be migrated to use the external API
 
 export async function createCheckoutSession(amount: number, name: string): Promise<void> {
-  // Correctly await and get the origin
+  // Get the origin for redirect URLs
   const headersList = await headers();
   const origin = headersList.get("origin");
 
@@ -16,29 +15,10 @@ export async function createCheckoutSession(amount: number, name: string): Promi
     throw new Error('Origin header is missing');
   }
 
-  const checkoutSession: Stripe.Checkout.Session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    line_items: [
-      {
-        quantity: 1,
-        price_data: {
-          currency: CURRENCY,
-          product_data: {
-            name: "Alanis Web Dev",
-            description: name,
-          },
-          unit_amount: formatAmountForStripe(amount, CURRENCY),
-        },
-      },
-    ],
-    mode: "payment",
-    success_url: `${origin}/shop/orders/result?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/planes`,
-  });
-
-  if (!checkoutSession.url) {
-    throw new Error('Failed to create checkout session');
-  }
-
-  redirect(checkoutSession.url);
+  // TODO: Replace with API call to api.alanis.dev for payment processing
+  // For now, redirect to plans page as fallback
+  console.log('Payment processing moved to external API:', { amount, name });
+  
+  // Temporary redirect - this should be replaced with actual payment flow via external API
+  redirect(`${origin}/planes?payment_required=true&amount=${amount}&service=${encodeURIComponent(name)}`);
 }

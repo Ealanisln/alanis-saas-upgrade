@@ -1,17 +1,34 @@
 import PrintObject from "@/components/Checkout/PrintObject";
-import type { Stripe } from "stripe";
-import { stripe } from "@/lib/stripe";
 import type { JSX } from "react";
+
+// Mock data structure for checkout session (replace with API call when needed)
+interface CheckoutSession {
+  id: string;
+  customer_details?: {
+    name?: string;
+  };
+  payment_method_types?: string[];
+  amount_total?: number;
+}
 
 const PlanDetails = async ({
   searchParams,
 }: {
   searchParams: { session_id: string };
 }): Promise<JSX.Element> => {
-  const checkoutSession: Stripe.Checkout.Session =
-    await stripe.checkout.sessions.retrieve(searchParams.session_id, {
-      expand: ["line_items", "payment_intent"],
-    });
+  // TODO: Replace with API call to external backend to get session details
+  // For now, showing a placeholder structure
+  const checkoutSession: CheckoutSession = {
+    id: searchParams.session_id || 'placeholder',
+    customer_details: {
+      name: 'Customer Name'
+    },
+    payment_method_types: ['card'],
+    amount_total: 0
+  };
+
+  // In the future, this should be:
+  // const checkoutSession = await apiClient.getCheckoutSession(searchParams.session_id);
 
   return (
     <>
@@ -22,6 +39,9 @@ const PlanDetails = async ({
         >
           <h2 className="pb-8 text-xl font-semibold">Order details </h2>
           <PrintObject content={checkoutSession} />
+          <div className="mt-4 text-sm text-gray-500">
+            <p>Note: Payment processing is now handled by our external API.</p>
+          </div>
         </div>
       </div>
     </>

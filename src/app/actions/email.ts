@@ -1,43 +1,31 @@
 'use server';
 
-import sgMail from "@sendgrid/mail";
-
+import { apiClient } from '@/lib/api/client';
 
 interface FormInputs {
-    name: string;
-    email: string;
-    message: string;
-  }
+  name: string;
+  email: string;
+  message: string;
+}
 
-const sendEmail = async( data: FormInputs) => {
+const sendEmail = async (data: FormInputs) => {
+  try {
+    const response = await apiClient.sendContactForm({
+      name: data.name,
+      email: data.email,
+      message: data.message,
+      subject: 'Nuevo mensaje desde Alanis.dev'
+    });
 
-    let body = `
-      <p>Someone sent you a message from Alanis.dev:</p>
-    `;
-  
-    for (const key in data) {
-      if (data.hasOwnProperty(key)) {
-        const value = data[key];
-        body += `<p>${key}: ${value}</p>`;
-      }
-    }
-  
-    const msg = {
-      to: "ealanisln@me.com",
-      from: "emmanuel@alanis.dev",
-      subject: "Website message - Alanis.dev",
-      html: body,
-    };
-  
-    sgMail.setApiKey(process.env.SEND_API_KEY || "");
-  
-    try {
-      await sgMail.send(msg);
+    if (response.success) {
       return "Tu mensaje ha sido enviado correctamente. :)"; 
-    } catch (error) {
-      throw new Error("Ha ocurrido un error al enviar el mensaje.");
+    } else {
+      throw new Error(response.message || "Error al enviar el mensaje");
     }
-
+  } catch (error) {
+    console.error('Error sending contact email:', error);
+    throw new Error("Ha ocurrido un error al enviar el mensaje.");
   }
+}
 
 export default sendEmail;

@@ -12,7 +12,7 @@ export interface ApiError {
   details?: any;
 }
 
-export interface PaginatedResponse<T> extends ApiResponse<T[]> {
+export interface PaginatedResponse<T> extends ApiResponse<T> {
   pagination: {
     page: number;
     limit: number;
@@ -23,7 +23,7 @@ export interface PaginatedResponse<T> extends ApiResponse<T[]> {
   };
 }
 
-// Quote related types
+// Quote related types - using generic interfaces compatible with external API
 export interface QuoteRequest {
   services: ServiceItem[];
   clientInfo: ClientInfo;
@@ -31,6 +31,14 @@ export interface QuoteRequest {
   timeline?: string;
   budget?: string;
   additionalNotes?: string;
+  clientType: 'startup' | 'pyme' | 'enterprise';
+  urgency: 'normal' | 'express' | 'urgent';
+  projectDetails?: {
+    description?: string;
+    deadline?: Date;
+    budget?: number;
+    requirements?: string[];
+  };
 }
 
 export interface ServiceItem {
@@ -43,15 +51,15 @@ export interface ServiceItem {
 }
 
 export interface ClientInfo {
-  name: string;
-  email: string;
+  name?: string;
+  email?: string;
   phone?: string;
   company?: string;
 }
 
 export interface QuoteResponse {
   id: string;
-  quoteNumber: string;
+  quoteNumber?: string;
   total: number;
   status: 'draft' | 'sent' | 'accepted' | 'rejected';
   validUntil: string;
@@ -59,6 +67,14 @@ export interface QuoteResponse {
   updatedAt: string;
   services: ServiceItem[];
   clientInfo: ClientInfo;
+  calculation?: {
+    subtotal: number;
+    discounts: number;
+    taxes: number;
+    total: number;
+    estimatedDelivery: number;
+    totalHours: number;
+  };
 }
 
 // Email types

@@ -6,7 +6,7 @@ import {
   ListQuotesResponse,
   QuoteResponse 
 } from '@/types/calculator/service-calculator.types';
-import { ApiResponse } from '@/lib/api/types';
+import { ApiResponse, PaginatedResponse } from '@/lib/api/types';
 
 interface UseQuotesOptions {
   page?: number;
@@ -30,7 +30,7 @@ export const useQuotes = (options: UseQuotesOptions = {}) => {
       if (options.clientType) searchParams.set('clientType', options.clientType);
 
       const url = `/quotes${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
-      return client.get<QuoteResponse[]>(url);
+      return client.fetchQuotes(options);
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
     enabled: true,
@@ -85,7 +85,7 @@ export const useQuotes = (options: UseQuotesOptions = {}) => {
 
   return {
     // Data
-    quotes: quotesQuery.data?.data || [],
+    quotes: Array.isArray(quotesQuery.data?.data) ? quotesQuery.data.data : [],
     pagination: quotesQuery.data?.pagination,
     
     // Loading states
