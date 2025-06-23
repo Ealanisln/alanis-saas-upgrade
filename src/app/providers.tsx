@@ -1,10 +1,26 @@
 "use client";
 import { ThemeProvider } from "next-themes";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState, useEffect } from "react"; // Good practice to include these here too
 
 export function Providers({ children }: { children: React.ReactNode }) {
   // Hydration safety for the Provider itself is also good practice
   const [mounted, setMounted] = useState(false);
+  
+  // Create a query client with sensible defaults
+  const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 5 * 60 * 1000, // 5 minutes
+        retry: 3,
+        refetchOnWindowFocus: false,
+      },
+      mutations: {
+        retry: 1,
+      },
+    },
+  }));
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -18,8 +34,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <ThemeProvider attribute="class" enableSystem={true} defaultTheme="system">
-      {children}
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider attribute="class" enableSystem={true} defaultTheme="system">
+        {children}
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }

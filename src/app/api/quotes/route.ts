@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
+import { ApiResponse, PaginatedResponse } from '@/lib/api/types';
 import { 
   CreateQuoteResponse, 
   ListQuotesResponse,
@@ -36,8 +37,9 @@ const CreateQuoteSchema = z.object({
 });
 
 // GET /api/quotes - List quotes with pagination
-export async function GET(request: NextRequest): Promise<NextResponse<ListQuotesResponse>> {
-  try {    const { searchParams } = new URL(request.url);
+export async function GET(request: NextRequest): Promise<NextResponse<ApiResponse<any>>> {
+  try {    
+    const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
     const status = searchParams.get('status');
@@ -94,25 +96,29 @@ export async function GET(request: NextRequest): Promise<NextResponse<ListQuotes
 
     return NextResponse.json({
       success: true,
+      message: 'Quotes retrieved successfully',
       data: transformedQuotes,
       pagination: {
         page,
         limit,
         total,
-        totalPages: Math.ceil(total / limit)
+        totalPages: Math.ceil(total / limit),
+        hasNext: page < Math.ceil(total / limit),
+        hasPrev: page > 1
       }
     });
   } catch (error) {
     console.error('Error fetching quotes:', error);
     return NextResponse.json({
       success: false,
-      error: 'Error interno del servidor'
+      message: 'Error interno del servidor',
+      data: null
     }, { status: 500 });
   }
 }
 
 // POST /api/quotes - Create new quote
-export async function POST(request: NextRequest): Promise<NextResponse<CreateQuoteResponse>> {
+export async function POST(request: NextRequest): Promise<NextResponse<ApiResponse<any>>> {
   try {
     const body = await request.json();
     const validatedData = CreateQuoteSchema.parse(body);
@@ -180,21 +186,23 @@ export async function POST(request: NextRequest): Promise<NextResponse<CreateQuo
 
     return NextResponse.json({
       success: true,
+      message: 'Quote created successfully',
       data: response
     }, { status: 201 });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({
         success: false,
-        error: 'Datos inválidos',
-        details: error.errors
+        message: 'Datos inválidos',
+        data: null
       }, { status: 400 });
     }
 
     console.error('Error creating quote:', error);
     return NextResponse.json({
       success: false,
-      error: 'Error interno del servidor'
+      message: 'Error interno del servidor',
+      data: null
     }, { status: 500 });
   }
 }
