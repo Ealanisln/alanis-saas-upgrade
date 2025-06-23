@@ -114,3 +114,34 @@ enum Role {
   admin
   user
 }
+
+// Quote model for service calculator
+model Quote {
+  id                  String   @id @default(uuid())
+  clientName          String?
+  clientEmail         String?
+  clientCompany       String?
+  clientPhone         String?
+  clientType          String   // 'startup', 'pyme', 'enterprise'
+  urgency             String   // 'normal', 'express', 'urgent'
+  services            Json     // Array of SelectedService objects
+  subtotal            Float
+  discounts           Float
+  taxes               Float
+  total               Float
+  estimatedDelivery   Int      // in weeks
+  totalHours          Int
+  projectDescription  String?
+  deadline            DateTime?
+  budget              Float?
+  requirements        String[] @default([])
+  status              String   @default("draft") // 'draft', 'sent', 'accepted', 'rejected', 'expired'
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  validUntil          DateTime
+
+  @@index([clientEmail])
+  @@index([status])
+  @@index([clientType])
+  @@index([createdAt])
+}
