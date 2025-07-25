@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "title": "Blog - Alanis",
+    "description": "Articles about web development, technology and programming best practices."
+  },
+  "title": "Blog",
+  "subtitle": "Articles and tutorials",
+  "description": "I share knowledge about web development, the latest technologies and programming best practices.",
+  "readMore": "Read more",
+  "publishedOn": "Published on",
+  "by": "by",
+  "category": "Category",
+  "tags": "Tags"
+} 

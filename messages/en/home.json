@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "title": "Alanis - Web Developer",
+    "description": "Full-stack developer specialized in creating robust, scalable and user-friendly web applications."
+  },
+  "hero": {
+    "title": "Creating Digital Experiences with Code",
+    "subtitle": "Specialized in creating modern web applications",
+    "description": "Full-stack developer specialized in creating robust, scalable and user-friendly web applications. From concept to deployment, I bring your ideas to life.",
+    "cta": "View My Projects",
+    "contact": "Contact Me"
+  }
+} 

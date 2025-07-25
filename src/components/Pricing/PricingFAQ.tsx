@@ -3,6 +3,7 @@
 "use client";
 import { useState } from "react";
 import SectionTitle from "../Common/SectionTitle";
+import { Link } from "@/lib/navigation";
 
 const PricingFAQ = () => {
   const [activeFaq, setActiveFaq] = useState(null);
@@ -126,12 +127,12 @@ const PricingFAQ = () => {
         </div>
 
         <div className="mt-14 flex justify-center">
-          <a
-            href="/contacto"
+          <Link
+            href="/contact"
             className="rounded-md bg-primary px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-primary/80"
           >
             ¿Más preguntas? Contáctanos
-          </a>
+          </Link>
         </div>
       </div>
 

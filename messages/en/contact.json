@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "title": "Contact - Alanis",
+    "description": "Do you have a project in mind? Contact me and let's work together to make your idea a reality."
+  },
+  "title": "Contact",
+  "subtitle": "Ready to work together?",
+  "description": "Do you have a project in mind? I'd love to hear about your idea and help you make it a reality.",
+  "form": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send message"
+  }
+} 

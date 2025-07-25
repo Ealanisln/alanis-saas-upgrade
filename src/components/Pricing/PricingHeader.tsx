@@ -1,5 +1,6 @@
 // src/components/Pricing/PricingHeader.tsx
 import Image from "next/image";
+import { Link } from "@/lib/navigation";
 
 const PricingHeader = () => {
   return (
@@ -28,12 +29,12 @@ const PricingHeader = () => {
                   </span>
                 </a>
                 
-                <a
-                  href="/contacto"
+                <Link
+                  href="/contact"
                   className="inline-flex items-center justify-center rounded-md border border-primary bg-transparent px-6 py-3 text-center text-base font-medium text-primary hover:bg-primary hover:text-white"
                 >
                   Consulta personalizada
-                </a>
+                </Link>
               </div>
             </div>
           </div>

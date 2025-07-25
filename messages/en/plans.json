@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "title": "Plans - Alanis",
+    "description": "Discover my web development plans and find the perfect option for your project."
+  },
+  "title": "Plans",
+  "subtitle": "Find the perfect plan for your project",
+  "description": "I offer different web development options tailored to your business needs.",
+  "popular": "Most popular",
+  "getStarted": "Get started",
+  "contactUs": "Contact us",
+  "features": "Features",
+  "included": "Included",
+  "notIncluded": "Not included"
+} 

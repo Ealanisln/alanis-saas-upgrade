@@ -1,0 +1,14 @@
+{
+  "loading": "Cargando...",
+  "error": "Error",
+  "success": "Éxito",
+  "submit": "Enviar",
+  "cancel": "Cancelar",
+  "save": "Guardar",
+  "edit": "Editar",
+  "delete": "Eliminar",
+  "back": "Volver",
+  "next": "Siguiente",
+  "close": "Cerrar",
+  "search": "Buscar"
+} 

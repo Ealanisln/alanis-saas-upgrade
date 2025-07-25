@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "title": "Portfolio - Alanis",
+    "description": "Explore my latest projects and discover how I can help you with your next web development project."
+  },
+  "title": "Portfolio",
+  "subtitle": "My latest projects",
+  "description": "A selection of projects I have worked on, showcasing different technologies and development approaches.",
+  "viewProject": "View project",
+  "viewCode": "View code",
+  "technologies": "Technologies"
+} 

@@ -277,11 +277,13 @@ export function generateBreadcrumbs(path: string) {
   return breadcrumbs;
 }
 
-export default {
+const seoUtils = {
   generateMetadata,
   generatePersonStructuredData,
   generateWebsiteStructuredData,
   generateArticleStructuredData,
   generateBreadcrumbs,
   defaultConfig,
-}; 
+};
+
+export default seoUtils; 
