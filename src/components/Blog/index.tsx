@@ -44,7 +44,7 @@ const Blog = async ({ locale = 'en' }: BlogProps = {}) => {
           center
         />
 
-        <Posts data={data} />
+        <Posts data={data} locale={locale} />
       </div>
     </section>
   );

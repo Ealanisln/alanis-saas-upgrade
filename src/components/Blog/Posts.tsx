@@ -7,9 +7,10 @@ import { SimpleBlogCard } from "@/types/simple-blog-card";
 
 interface PostsProps {
   data: SimpleBlogCard[];
+  locale: string;
 }
 
-const Posts = ({ data }: PostsProps) => {
+const Posts = ({ data, locale }: PostsProps) => {
   // Ordenar los posts del más reciente al más viejo
   const sortedPosts = [...data].sort((a, b) => 
     new Date(b._updatedAt).getTime() - new Date(a._updatedAt).getTime()
@@ -18,9 +19,9 @@ const Posts = ({ data }: PostsProps) => {
   return (
     <div className="grid grid-cols-1 gap-8 sm:gap-10 md:gap-12 sm:grid-cols-2 lg:grid-cols-3 p-2">
       {sortedPosts.map((post) => (
-        <Link 
-          key={post._id} 
-          href={`/blog/${post.slug.current}`}
+        <Link
+          key={post._id}
+          href={`/${locale}/blog/${post.slug.current}`}
           className="group transition-all duration-300 hover:translate-y-[-5px] mb-6"
         >
           <Card className="overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
