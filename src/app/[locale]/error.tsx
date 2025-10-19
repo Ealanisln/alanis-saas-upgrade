@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 
@@ -9,7 +10,7 @@ interface ErrorProps {
 }
 
 export default function LocaleError({ error, reset }: ErrorProps) {
-  const t = useTranslations('common');
+  // const t = useTranslations('common'); // TODO: Use translations for error messages
 
   useEffect(() => {
     // Log the error to an error reporting service
@@ -36,7 +37,7 @@ export default function LocaleError({ error, reset }: ErrorProps) {
           </svg>
         </div>
         <h1 className="mb-4 text-3xl font-bold text-black dark:text-white sm:text-4xl">
-          {t('error') || 'Something went wrong!'}
+          Something went wrong!
         </h1>
         <p className="mb-8 text-base text-body-color dark:text-body-color-dark">
           We apologize for the inconvenience. An unexpected error has occurred.
@@ -60,12 +61,12 @@ export default function LocaleError({ error, reset }: ErrorProps) {
           >
             Try again
           </button>
-          <a
+          <Link
             href="/"
             className="inline-flex items-center justify-center rounded-lg border border-primary px-7 py-3 text-center text-base font-medium text-primary hover:bg-primary/5 dark:border-white dark:text-white"
           >
             Go back home
-          </a>
+          </Link>
         </div>
       </div>
     </div>
