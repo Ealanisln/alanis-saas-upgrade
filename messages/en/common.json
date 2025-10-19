@@ -3,12 +3,14 @@
   "error": "Error",
   "success": "Success",
   "submit": "Submit",
-  "cancel": "Cancel",  
+  "cancel": "Cancel",
   "save": "Save",
   "edit": "Edit",
   "delete": "Delete",
   "back": "Back",
   "next": "Next",
   "close": "Close",
-  "search": "Search"
+  "search": "Search",
+  "retry": "Try again",
+  "backHome": "Go back home"
 } 

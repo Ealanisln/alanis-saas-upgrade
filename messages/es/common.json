@@ -10,5 +10,7 @@
   "back": "Volver",
   "next": "Siguiente",
   "close": "Cerrar",
-  "search": "Buscar"
+  "search": "Buscar",
+  "retry": "Intentar de nuevo",
+  "backHome": "Volver al inicio"
 } 
