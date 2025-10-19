@@ -29,18 +29,20 @@ export class ApiClient {
     this.client.interceptors.response.use(
       (response) => response.data,
       (error) => {
-        console.error('API Error:', error);
-        
+        if (process.env.NODE_ENV === 'development') {
+          console.error('API Error:', error);
+        }
+
         if (error.response?.status === 401) {
           this.handleUnauthorized();
         }
-        
+
         const apiError = error.response?.data || {
           success: false,
           message: error.message || 'Network error occurred',
           data: null
         };
-        
+
         return Promise.reject(apiError);
       }
     );

@@ -1,13 +1,13 @@
 // app/blog/[slug]/page.tsx
+import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
+import { portableTextComponents } from "@/components/Blog/PortableText";
 import { client, urlFor } from "@/sanity/lib/client";
 import { localizePost } from "@/sanity/lib/i18n";
 import { FullPost } from "@/types/simple-blog-card";
+import { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
-import { portableTextComponents } from "@/components/Blog/PortableText";
-import { Metadata, ResolvingMetadata } from "next";
 import { getTranslations } from 'next-intl/server';
-import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 
 export const revalidate = 30;
 
@@ -44,7 +44,7 @@ export async function generateMetadata(
   const post = localizePost(rawPost, locale);
 
   // Get the post image URL
-  const imageUrl = post.mainImage
+  const _imageUrl = post.mainImage
     ? urlFor(post.mainImage).width(1200).height(630).url()
     : "/opengraph-image";
 
@@ -59,7 +59,7 @@ export async function generateMetadata(
 
   return {
     title: `${title} | Alanis Dev Blog`,
-    description: description,
+    description,
     alternates: {
       canonical: `/${locale}/blog/${slug}`,
       languages: {

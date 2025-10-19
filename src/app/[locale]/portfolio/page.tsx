@@ -1,7 +1,7 @@
 // src/app/portafolio/page.tsx
+import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import SectionTitle from "@/components/Common/SectionTitle";
 import Modernportafolio from "@/components/Portfolio/ModernPortfolio";
-import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import projects from "@/data/projects";
 import { Metadata } from "next";
 

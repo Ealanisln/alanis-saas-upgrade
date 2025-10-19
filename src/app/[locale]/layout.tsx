@@ -1,8 +1,8 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { getTranslations, getMessages } from 'next-intl/server';
-import { NextIntlClientProvider } from 'next-intl';
 import { locales } from '@/config/i18n';
+import { NextIntlClientProvider } from 'next-intl';
+import { getTranslations, getMessages } from 'next-intl/server';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     openGraph: {
       type: "website",
       locale: locale === 'en' ? "en_US" : "es_ES",
-      url: `https://alanis.dev${locale === 'en' ? '' : '/' + locale}`,
+      url: `https://alanis.dev${locale === 'en' ? '' : `/${locale}`}`,
       siteName: "Alanis Dev",
       title: t('meta.title'),
       description: t('meta.description'),
@@ -82,7 +82,7 @@ export default async function LocaleLayout({
   children,
   params
 }: LocaleLayoutProps) {
-  const { locale } = await params;
+  const { locale: _locale } = await params;
   
   // Providing all messages to the client side is the easiest way to get started
   const messages = await getMessages();

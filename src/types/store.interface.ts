@@ -54,7 +54,7 @@ interface User {
 }
 
 // Interface for VerificationToken model
-interface VerificationToken {
+interface _VerificationToken {
   identifier: string;
   token: string;
   expires: Date;

@@ -83,7 +83,7 @@ export const useCartStore = create<State>()(
 
         const updatedCartProducts = cart.map((item) => {
           if (item.id === product.id) {
-            return { ...item, quantity: quantity };
+            return { ...item, quantity };
           }
           return item;
         });

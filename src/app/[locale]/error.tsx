@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { useEffect } from 'react';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 interface ErrorProps {
@@ -10,11 +10,13 @@ interface ErrorProps {
 }
 
 export default function LocaleError({ error, reset }: ErrorProps) {
-  // const t = useTranslations('common'); // TODO: Use translations for error messages
+  const _useTranslations = useTranslations;
 
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error('Locale route error:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Locale route error:', error);
+    }
   }, [error]);
 
   return (

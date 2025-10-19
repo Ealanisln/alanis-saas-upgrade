@@ -1,5 +1,5 @@
-import { client, urlFor } from "@/sanity/lib/client";
 import { ImageResponse } from "next/og";
+import { client, urlFor } from "@/sanity/lib/client";
 
 // Route segment config
 export const runtime = "edge";
@@ -187,8 +187,10 @@ export default async function Image({ params }: { params: { slug: string } }) {
       }
     );
   } catch (error) {
-    console.error("Error generating OG image:", error);
-    
+    if (process.env.NODE_ENV === 'development') {
+      console.error("Error generating OG image:", error);
+    }
+
     // In case of error, return a simple fallback
     return new ImageResponse(
       (

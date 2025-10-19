@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 interface ErrorProps {
   error: Error & { digest?: string };
@@ -10,11 +10,13 @@ interface ErrorProps {
 }
 
 export default function BlogError({ error, reset }: ErrorProps) {
-  const t = useTranslations('blog');
+  const _t = useTranslations('blog');
   const tCommon = useTranslations('common');
 
   useEffect(() => {
-    console.error('Blog route error:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Blog route error:', error);
+    }
   }, [error]);
 
   return (
