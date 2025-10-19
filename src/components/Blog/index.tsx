@@ -2,8 +2,9 @@ import { SimpleBlogCard } from "@/types/simple-blog-card";
 import SectionTitle from "../Common/SectionTitle";
 import Posts from "./Posts";
 import { client } from "@/sanity/lib/client";
+import { localizePost } from "@/sanity/lib/i18n";
 
-async function getData() {
+async function getData(locale: string) {
   const query = `
   *[_type == 'post'] {
     _id,
@@ -16,14 +17,20 @@ async function getData() {
       _id,
       name
     }
-  }  
+  }
   `;
   const data = await client.fetch(query);
-  return data;
+
+  // Localize all posts
+  return data.map((post: any) => localizePost(post, locale));
 }
 
-const Blog = async () => {
-  const data: SimpleBlogCard[] = await getData();
+interface BlogProps {
+  locale?: string;
+}
+
+const Blog = async ({ locale = 'en' }: BlogProps = {}) => {
+  const data: SimpleBlogCard[] = await getData(locale);
 
   return (
     <section

@@ -121,7 +121,7 @@ export default async function Home({ params }: HomePageProps) {
       <EcommerceSectionTwo /> */}
       {/* <Testimonials /> */}
       <Pricing />
-      <Blog />
+      <Blog locale={locale} />
       <Contact />
     </>
   );

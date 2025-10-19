@@ -48,11 +48,16 @@ export function getLocalizedValue<T = string>(
 export function localizePost(post: any, locale: string) {
   if (!post) return null;
 
+  // Extract localized values, ensuring we always return the proper type
+  const title = getLocalizedValue(post.title, locale) || post.title;
+  const smallDescription = getLocalizedValue(post.smallDescription, locale) || post.smallDescription;
+  const body = getLocalizedValue(post.body, locale) || post.body;
+
   return {
     ...post,
-    title: getLocalizedValue(post.title, locale),
-    smallDescription: getLocalizedValue(post.smallDescription, locale),
-    body: getLocalizedValue(post.body, locale),
+    title: typeof title === 'string' ? title : 'Untitled',
+    smallDescription: typeof smallDescription === 'string' ? smallDescription : '',
+    body: Array.isArray(body) ? body : [],
   };
 }
 
