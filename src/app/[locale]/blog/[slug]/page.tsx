@@ -129,9 +129,9 @@ export default async function BlogPostPage({
 
   // Ensure body is properly extracted (it should be an array of blocks, not an i18n object)
   // If it's still an i18n object structure, try to extract the value
-  let body = post.body;
+  let body: any = post.body;
   if (body && !Array.isArray(body) && typeof body === 'object' && 'value' in body) {
-    body = body.value;
+    body = (body as any).value;
   }
   if (!Array.isArray(body)) {
     body = [];
