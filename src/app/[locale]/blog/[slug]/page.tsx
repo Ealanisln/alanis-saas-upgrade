@@ -1,22 +1,25 @@
 // app/blog/[slug]/page.tsx
 import { client, urlFor } from "@/sanity/lib/client";
+import { localizePost } from "@/sanity/lib/i18n";
 import { FullPost } from "@/types/simple-blog-card";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import { portableTextComponents } from "@/components/Blog/PortableText";
 import { Metadata, ResolvingMetadata } from "next";
+import { getTranslations } from 'next-intl/server';
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 
 export const revalidate = 30;
 
 // Generate metadata for this page
 export async function generateMetadata(
-  { params }: { params: Promise<{ slug: string }> },
+  { params }: { params: Promise<{ slug: string; locale: string }> },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   // Await params since it's a Promise in Next.js 15
-  const { slug } = await params;
-  
+  const { slug, locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'blog' });
+
   // Get post data
   const query = `
     *[_type == "post" && slug.current == $slug][0] {
@@ -26,75 +29,86 @@ export async function generateMetadata(
       publishedAt,
       "author": author->name
     }`;
-  
-  const post = await client.fetch(query, { slug });
-  
+
+  const rawPost = await client.fetch(query, { slug });
+
   // If no post found, return default metadata
-  if (!post) {
+  if (!rawPost) {
     return {
       title: "Post not found",
       description: "The requested blog post could not be found",
     };
   }
 
+  // Localize the post
+  const post = localizePost(rawPost, locale);
+
   // Get the post image URL
-  const imageUrl = post.mainImage 
-    ? urlFor(post.mainImage).width(1200).height(630).url() 
+  const imageUrl = post.mainImage
+    ? urlFor(post.mainImage).width(1200).height(630).url()
     : "/opengraph-image";
-  
-  // Create a description from post.smallDescription or extract from body if needed
-  const description = post.smallDescription || "Artículo de blog por Alanis Dev";
-  
+
+  // Create a description from post.smallDescription
+  const description = post.smallDescription || t('meta.description');
+  const title = post.title || "Untitled";
+
   // Get parent metadata
   const previousImages = (await parent).openGraph?.images || [];
 
-  const postUrl = `https://alanis.dev/blog/${slug}`;
+  const postUrl = `https://alanis.dev/${locale}/blog/${slug}`;
 
   return {
-    title: `${post.title} | Alanis Dev Blog`,
+    title: `${title} | Alanis Dev Blog`,
     description: description,
     alternates: {
-      canonical: `/blog/${slug}`,
+      canonical: `/${locale}/blog/${slug}`,
+      languages: {
+        'en-US': `/en/blog/${slug}`,
+        'es-ES': `/es/blog/${slug}`,
+      },
     },
     openGraph: {
-      title: post.title,
+      title: title,
       description: description,
       type: "article",
+      locale: locale === 'en' ? "en_US" : "es_ES",
       url: postUrl,
       publishedTime: post.publishedAt || new Date().toISOString(),
       authors: [post.author || "Alanis Dev"],
       images: [
         {
-          url: `/blog/${slug}/opengraph-image`,
+          url: `/${locale}/blog/${slug}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: post.title,
+          alt: title,
         },
         ...previousImages,
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: post.title,
+      title: title,
       description: description,
-      images: [`/blog/${slug}/opengraph-image`],
+      images: [`/${locale}/blog/${slug}/opengraph-image`],
       creator: "@ealanisln",
     },
   };
 }
 
 // Define the page component
-export default async function BlogPostPage({ 
-  params 
-}: { 
-  params: Promise<{ slug: string }> 
+export default async function BlogPostPage({
+  params
+}: {
+  params: Promise<{ slug: string; locale: string }>
 }) {
   // Await params since it's a Promise in Next.js 15
-  const { slug } = await params;
-  
+  const { slug, locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'blog' });
+  const tNav = await getTranslations({ locale, namespace: 'navigation' });
+
   // Fetch post data
   const query = `
-    *[_type == "post" && slug.current == '${slug}'][0] {
+    *[_type == "post" && slug.current == $slug][0] {
       "currentSlug": slug.current,
       title,
       body,
@@ -103,17 +117,20 @@ export default async function BlogPostPage({
       publishedAt,
       "author": author->name
     }`;
-  
-  const post: FullPost = await client.fetch(query);
-  
+
+  const rawPost = await client.fetch(query, { slug });
+
+  // Localize the post
+  const post: FullPost = localizePost(rawPost, locale);
+
   // Format date for display and structured data
   const publishDate = post.publishedAt ? new Date(post.publishedAt).toISOString() : new Date().toISOString();
-  const formattedDate = post.publishedAt 
-    ? new Date(post.publishedAt).toLocaleDateString('es-ES', { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      }) 
+  const formattedDate = post.publishedAt
+    ? new Date(post.publishedAt).toLocaleDateString(locale === 'en' ? 'en-US' : 'es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
     : '';
 
   // Create structured data for Google
@@ -124,10 +141,11 @@ export default async function BlogPostPage({
     "image": post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : "https://alanis.dev/opengraph-image",
     "datePublished": publishDate,
     "dateModified": publishDate,
+    "inLanguage": locale === 'en' ? 'en-US' : 'es-ES',
     "author": {
       "@type": "Person",
       "name": post.author || "Alanis Dev",
-      "url": "https://alanis.dev/about"
+      "url": `https://alanis.dev/${locale}/about`
     },
     "publisher": {
       "@type": "Organization",
@@ -137,18 +155,18 @@ export default async function BlogPostPage({
         "url": "https://alanis.dev/images/logo.png"
       }
     },
-    "description": post.smallDescription || "Artículo de blog por Alanis Dev",
+    "description": post.smallDescription || t('meta.description'),
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://alanis.dev/blog/${post.currentSlug}`
+      "@id": `https://alanis.dev/${locale}/blog/${post.currentSlug}`
     }
   };
 
   // Breadcrumb items for structured data
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://alanis.dev' },
-    { name: 'Blog', url: 'https://alanis.dev/blog' },
-    { name: post.title, url: `https://alanis.dev/blog/${post.currentSlug}` }
+    { name: tNav('home'), url: `https://alanis.dev/${locale}` },
+    { name: t('title'), url: `https://alanis.dev/${locale}/blog` },
+    { name: post.title, url: `https://alanis.dev/${locale}/blog/${post.currentSlug}` }
   ];
 
   return (
@@ -158,10 +176,10 @@ export default async function BlogPostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      
+
       {/* Add breadcrumb structured data */}
       <BreadcrumbJsonLd items={breadcrumbItems} />
-      
+
       <section className="pb-[120px] pt-[150px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap justify-center">
@@ -171,14 +189,14 @@ export default async function BlogPostPage({
                   {post.title}
                 </span>
               </h1>
-              
+
               {/* Add publication date */}
               {formattedDate && (
                 <div className="mt-2 mb-6 text-base text-body-color dark:text-body-color-dark">
-                  Publicado el {formattedDate}
+                  {t('publishedOn')} {formattedDate}
                 </div>
               )}
-              
+
               {post.mainImage && (
                 <Image
                   src={urlFor(post.mainImage).url()}
@@ -190,8 +208,8 @@ export default async function BlogPostPage({
                 />
               )}
               <div className="prose prose-xl prose-blue mt-16 dark:prose-invert prose-li:marker:text-primary prose-a:text-primary">
-                <PortableText 
-                  value={post.body} 
+                <PortableText
+                  value={post.body}
                   components={portableTextComponents}
                 />
               </div>

@@ -3,37 +3,55 @@ import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import { client } from "@/sanity/lib/client";
 import { postPathsQuery } from "@/sanity/lib/queries";
+import { localizePost } from "@/sanity/lib/i18n";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
 import { Metadata } from "next";
+import { getTranslations } from 'next-intl/server';
 
-export const revalidate = 30; 
+export const revalidate = 30;
 
-export const metadata: Metadata = {
-  title: "Blog sobre Desarrollo Web | Alanis Dev",
-  description: "Descubre consejos, tutoriales y mejores prácticas sobre desarrollo web, Next.js, React, TypeScript y más. Artículos para desarrolladores de todos los niveles.",
-  openGraph: {
-    title: "Blog sobre Desarrollo Web | Alanis Dev",
-    description: "Descubre consejos, tutoriales y mejores prácticas sobre desarrollo web, Next.js, React, TypeScript y más.",
-    type: "website",
-    images: [
-      {
-        url: "/blog/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "Blog - Alanis Dev",
-      }
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Blog sobre Desarrollo Web | Alanis Dev",
-    description: "Descubre consejos, tutoriales y mejores prácticas sobre desarrollo web, Next.js, React, TypeScript y más.",
-    images: ["/blog/opengraph-image"],
-  },
-  alternates: {
-    canonical: "/blog",
-  }
-};
+// Generate dynamic metadata based on locale
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'blog' });
+
+  return {
+    title: t('meta.title'),
+    description: t('meta.description'),
+    openGraph: {
+      title: t('meta.title'),
+      description: t('meta.description'),
+      type: "website",
+      locale: locale === 'en' ? "en_US" : "es_ES",
+      url: `https://alanis.dev/${locale}/blog`,
+      images: [
+        {
+          url: `/${locale}/blog/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: t('meta.title'),
+        }
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t('meta.title'),
+      description: t('meta.description'),
+      images: [`/${locale}/blog/opengraph-image`],
+    },
+    alternates: {
+      canonical: `/${locale}/blog`,
+      languages: {
+        'en-US': '/en/blog',
+        'es-ES': '/es/blog',
+      },
+    }
+  };
+}
 
 // Prepare Next.js to know which routes already exist
 export async function generateStaticParams() {
@@ -42,39 +60,51 @@ export async function generateStaticParams() {
   return posts;
 }
 
-async function getData() {
+async function getData(locale: string) {
   const query = `
-  *[_type == 'post'] {
+  *[_type == 'post'] | order(publishedAt desc) {
     _id,
     _updatedAt,
     title,
     slug,
     mainImage,
     smallDescription,
+    publishedAt,
     author-> {
       _id,
       name
     }
-  }  
+  }
   `;
   const data = await client.fetch(query);
-  return data;
+
+  // Localize all posts
+  return data.map((post: any) => localizePost(post, locale));
 }
 
-export default async function Blog() {
-  const data: SimpleBlogCard[] = await getData();
+export default async function Blog({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'blog' });
+  const tNav = await getTranslations({ locale, namespace: 'navigation' });
+
+  const data: SimpleBlogCard[] = await getData(locale);
 
   // Create structured data for the blog listing
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "headline": "Blog sobre Desarrollo Web | Alanis Dev",
-    "description": "Descubre consejos, tutoriales y mejores prácticas sobre desarrollo web, Next.js, React, TypeScript y más.",
-    "url": "https://www.alanis.dev/blog",
+    "headline": t('meta.title'),
+    "description": t('meta.description'),
+    "url": `https://www.alanis.dev/${locale}/blog`,
+    "inLanguage": locale === 'en' ? 'en-US' : 'es-ES',
     "author": {
       "@type": "Person",
       "name": "Alanis Dev",
-      "url": "https://www.alanis.dev/about"
+      "url": `https://www.alanis.dev/${locale}/about`
     },
     "publisher": {
       "@type": "Organization",
@@ -87,8 +117,10 @@ export default async function Blog() {
     "blogPosts": data.map(post => ({
       "@type": "BlogPosting",
       "headline": post.title,
-      "url": `https://www.alanis.dev/blog/${post.slug?.current || ''}`,
+      "url": `https://www.alanis.dev/${locale}/blog/${post.slug?.current || ''}`,
       "dateModified": post._updatedAt,
+      "datePublished": post.publishedAt,
+      "inLanguage": locale === 'en' ? 'en-US' : 'es-ES',
       "author": {
         "@type": "Person",
         "name": post.author?.name || "Alanis Dev"
@@ -98,8 +130,8 @@ export default async function Blog() {
 
   // Breadcrumb items for structured data
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://www.alanis.dev' },
-    { name: 'Blog', url: 'https://www.alanis.dev/blog' }
+    { name: tNav('home'), url: `https://www.alanis.dev/${locale}` },
+    { name: t('title'), url: `https://www.alanis.dev/${locale}/blog` }
   ];
 
   return (
@@ -109,13 +141,13 @@ export default async function Blog() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      
+
       {/* Add breadcrumb structured data */}
       <BreadcrumbJsonLd items={breadcrumbItems} />
 
       <Breadcrumb
-        pageName="Articulos de blog"
-        description="Descubre cosas interesantes sobre el desarrollo web: lea artículos sobre la creación de sitios web y aplicaciones."
+        pageName={t('title')}
+        description={t('description')}
       />
        <section className="pb-8 md:pb-16 pt-8 md:pt-16">
        <div className="container mx-auto">

@@ -130,7 +130,10 @@ export const useQuotesLegacy = () => {
     createQuote: api.createQuote,
     getQuotes: async (params = {}) => {
       // This doesn't fit well with the new pattern, but for compatibility
-      console.warn('getQuotes is deprecated. Use the reactive queries instead.');
+      // Deprecated: Use the reactive queries instead
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('getQuotes is deprecated. Use the reactive queries instead.');
+      }
     },
     clearError: api.clearError,
     reset: api.reset

@@ -1,14 +1,21 @@
 /**
- * This configuration is used to for the Sanity Studio that’s mounted on the `/app/studio/[[...index]]/page.tsx` route
+ * This configuration is used to for the Sanity Studio that's mounted on the `/app/studio/[[...index]]/page.tsx` route
  */
 
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
+import { internationalizedArray } from "sanity-plugin-internationalized-array";
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from "@/sanity/env";
 import { schema } from "@/sanity/schema";
+
+// Define supported languages for internationalization
+const languages = [
+  { id: "en", title: "English", icon: () => "🇺🇸" },
+  { id: "es", title: "Spanish", icon: () => "🇪🇸" },
+];
 
 export default defineConfig({
   basePath: "/studio",
@@ -21,5 +28,15 @@ export default defineConfig({
     // Vision is a tool that lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
+    // Internationalization plugin for translatable fields
+    internationalizedArray({
+      languages,
+      defaultLanguages: ["en"],
+      fieldTypes: [
+        "string",
+        "text",
+        "blockContent",
+      ],
+    }),
   ],
 });

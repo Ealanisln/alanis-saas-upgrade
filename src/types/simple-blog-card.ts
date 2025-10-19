@@ -20,6 +20,7 @@ export interface SimpleBlogCard {
     _type: string;
   };
   mainImage?: MainImage;
+  publishedAt?: string;
 }
 
 export interface FullPost {

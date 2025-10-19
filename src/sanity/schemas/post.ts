@@ -8,21 +8,22 @@ export default defineType({
     defineField({
       name: 'title',
       title: 'Title',
-      type: 'string',
+      type: 'internationalizedArrayString',
     }),
     defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'title',
+        source: 'title.en',
         maxLength: 96,
       },
+      description: 'Slug is shared across all languages',
     }),
     defineField({
       name: 'smallDescription',
-      type: 'text',
-      title: 'Small Description'
+      title: 'Small Description',
+      type: 'internationalizedArrayText',
     }),
     defineField({
       name: 'author',
@@ -59,8 +60,16 @@ export default defineType({
     defineField({
       name: 'body',
       title: 'Body',
-      type: 'blockContent',
+      type: 'internationalizedArrayBlockContent',
     }),
+  ],
+
+  fieldsets: [
+    {
+      name: 'translations',
+      title: 'Translations',
+      options: { collapsible: true, collapsed: false }
+    }
   ],
 
   preview: {
@@ -68,11 +77,29 @@ export default defineType({
       title: 'title',
       author: 'author.name',
       media: 'mainImage',
-      description: 'smallDescription.name',
     },
     prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
+      const {author, title} = selection
+      // Get the English title or first available title
+      // Support both _key (from plugin) and language (from custom structure)
+      let displayTitle = 'Untitled';
+
+      if (typeof title === 'string') {
+        displayTitle = title;
+      } else if (Array.isArray(title)) {
+        const enTitle = title.find((t: any) => t._key === 'en' || t.language === 'en');
+        if (enTitle?.value) {
+          displayTitle = typeof enTitle.value === 'string' ? enTitle.value : JSON.stringify(enTitle.value);
+        } else if (title[0]?.value) {
+          displayTitle = typeof title[0].value === 'string' ? title[0].value : JSON.stringify(title[0].value);
+        }
+      }
+
+      return {
+        title: displayTitle,
+        subtitle: author && `by ${author}`,
+        media: selection.media
+      }
     },
   },
 })
