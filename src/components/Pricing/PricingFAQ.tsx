@@ -2,61 +2,31 @@
 
 "use client";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import SectionTitle from "../Common/SectionTitle";
 import { Link } from "@/lib/navigation";
 
 const PricingFAQ = () => {
+  const t = useTranslations("plans.faq");
   const [activeFaq, setActiveFaq] = useState(null);
 
   const handleFaqToggle = (id) => {
     setActiveFaq(activeFaq === id ? null : id);
   };
 
-  const faqData = [
-    {
-      id: 1,
-      question: "¿Cuánto tiempo tarda en completarse un proyecto?",
-      answer:
-        "El tiempo de desarrollo varía según la complejidad del proyecto. Para un sitio básico (plan Lite), generalmente tomamos de 1 a 2 semanas. Para proyectos más complejos (planes Basic y Plus), el tiempo puede ser de 3 a 6 semanas. Siempre trabajamos con un cronograma detallado que compartimos contigo al inicio del proyecto.",
-    },
-    {
-      id: 2,
-      question: "¿Puedo actualizar mi plan más adelante?",
-      answer:
-        "¡Absolutamente! Hemos diseñado nuestros planes para que sean escalables. Puedes comenzar con un plan más básico y, a medida que tu negocio crece, actualizar a un plan más completo. El proceso de actualización es sencillo y te ayudaremos a migrar todos tus contenidos y configuraciones.",
-    },
-    {
-      id: 3,
-      question: "¿Qué incluye exactamente el soporte técnico?",
-      answer:
-        "Nuestro soporte técnico incluye asistencia para resolver problemas técnicos, actualizaciones de seguridad, pequeñas modificaciones de contenido y asesoramiento general sobre el uso de tu sitio web. El nivel de soporte varía según el plan: email para el plan Lite, email y teléfono para el Basic, y soporte prioritario 24/7 para el Plus.",
-    },
-    {
-      id: 4,
-      question: "¿Los precios incluyen hosting y dominio?",
-      answer:
-        "Sí, todos nuestros planes incluyen hosting y dominio por un año. Después del primer año, hay una tarifa anual para renovar estos servicios. Te notificaremos con anticipación sobre las fechas de renovación y te proporcionaremos opciones para continuar con nuestros servicios de hosting o migrar a otro proveedor si lo prefieres.",
-    },
-    {
-      id: 5,
-      question: "¿Ofrecen planes personalizados fuera de estas opciones?",
-      answer:
-        "Sí, entendemos que cada negocio tiene necesidades únicas. Si ninguno de nuestros planes estándar se adapta perfectamente a tus requerimientos, podemos crear un plan personalizado específicamente para ti. Contáctanos para una consulta gratuita y te proporcionaremos una cotización detallada basada en tus necesidades específicas.",
-    },
-    {
-      id: 6,
-      question: "¿Cómo funciona el proceso de pago?",
-      answer:
-        "Requerimos un depósito inicial del 50% para comenzar el proyecto. El 50% restante se paga una vez que el proyecto está completo y antes de la publicación final. Para proyectos más grandes o personalizados, podemos acordar un plan de pagos en etapas. Aceptamos transferencias bancarias, tarjetas de crédito y PayPal.",
-    },
-  ];
+  // Get FAQ items from translations
+  const faqData = [0, 1, 2, 3, 4, 5].map((index) => ({
+    id: index + 1,
+    question: t(`items.${index}.question`),
+    answer: t(`items.${index}.answer`),
+  }));
 
   return (
     <section className="relative z-10 overflow-hidden bg-white pb-16 pt-16 dark:bg-black md:pb-20 md:pt-20 lg:pb-28 lg:pt-28">
       <div className="container">
         <SectionTitle
-          title="Preguntas Frecuentes"
-          paragraph="¿Tienes dudas sobre nuestros servicios? Aquí encontrarás respuestas a las preguntas más comunes."
+          title={t("title")}
+          paragraph={t("subtitle")}
           center
           width="665px"
         />
@@ -131,7 +101,7 @@ const PricingFAQ = () => {
             href="/contact"
             className="rounded-md bg-primary px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-primary/80"
           >
-            ¿Más preguntas? Contáctanos
+            {t("moreQuestions")}
           </Link>
         </div>
       </div>

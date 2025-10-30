@@ -41,5 +41,10 @@
         "description": "Our websites incorporate SEO best practices, which attracts more organic traffic from Google without incurring additional costs. We implement the best techniques, including Next.js optimization and comprehensive keyword research, to ensure high search engine rankings."
       }
     }
+  },
+  "techLabels": {
+    "frontend": "Front-end",
+    "backend": "Back-end",
+    "fullstack": "Full-stack"
   }
 } 

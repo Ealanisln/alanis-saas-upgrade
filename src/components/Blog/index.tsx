@@ -3,6 +3,7 @@ import SectionTitle from "../Common/SectionTitle";
 import Posts from "./Posts";
 import { client } from "@/sanity/lib/client";
 import { localizePost } from "@/sanity/lib/i18n";
+import { getTranslations } from "next-intl/server";
 
 async function getData(locale: string) {
   const query = `
@@ -31,6 +32,7 @@ interface BlogProps {
 
 const Blog = async ({ locale = 'en' }: BlogProps = {}) => {
   const data: SimpleBlogCard[] = await getData(locale);
+  const t = await getTranslations("blog.latest");
 
   return (
     <section
@@ -39,8 +41,8 @@ const Blog = async ({ locale = 'en' }: BlogProps = {}) => {
     >
       <div className="container">
         <SectionTitle
-          title="Mis últimas publicaciones"
-          paragraph="Descubre cosas nuevas sobre desarrollo web: lee artículos interesantes sobre la creación de sitios web y aplicaciones."
+          title={t("title")}
+          paragraph={t("description")}
           center
         />
 

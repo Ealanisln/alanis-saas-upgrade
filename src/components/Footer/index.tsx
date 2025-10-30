@@ -1,8 +1,10 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const Footer = () => {
+  const t = useTranslations("common.footer");
   const date = {
     currentYear: new Date().getFullYear(),
   };
@@ -33,7 +35,7 @@ const Footer = () => {
                   />
                 </Link>
                 <p className="mb-9 text-base leading-relaxed text-body-color dark:text-body-color-dark">
-                  Simplificando la web solo para ti.
+                  {t("tagline")}
                 </p>
                 <div className="flex items-center">
                   <a
@@ -99,7 +101,7 @@ const Footer = () => {
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
                 <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
-                  Enlaces Útiles
+                  {t("usefulLinks")}
                 </h2>
                 <ul>
                   <li>
@@ -107,7 +109,7 @@ const Footer = () => {
                       href="/blogs"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Blog
+                      {t("blog")}
                     </Link>
                   </li>
                   <li>
@@ -115,7 +117,7 @@ const Footer = () => {
                       href="/pricing"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Precios
+                      {t("pricing")}
                     </Link>
                   </li>
                   <li>
@@ -123,7 +125,7 @@ const Footer = () => {
                       href="/about"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Acerca de
+                      {t("about")}
                     </Link>
                   </li>
                 </ul>
@@ -133,7 +135,7 @@ const Footer = () => {
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
                 <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
-                  Términos
+                  {t("terms")}
                 </h2>
                 <ul>
                   <li>
@@ -141,7 +143,7 @@ const Footer = () => {
                       href="/terms"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Términos de Servicio
+                      {t("termsOfService")}
                     </Link>
                   </li>
                   <li>
@@ -149,7 +151,7 @@ const Footer = () => {
                       href="/privacy"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Política de Privacidad
+                      {t("privacyPolicy")}
                     </Link>
                   </li>
                   <li>
@@ -157,7 +159,7 @@ const Footer = () => {
                       href="/refund"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Política de Reembolso
+                      {t("refundPolicy")}
                     </Link>
                   </li>
                 </ul>
@@ -167,7 +169,7 @@ const Footer = () => {
             <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-3/12">
               <div className="mb-12 lg:mb-16">
                 <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
-                  Soporte y Ayuda
+                  {t("support")}
                 </h2>
                 <ul>
                   <li>
@@ -175,7 +177,7 @@ const Footer = () => {
                       href="/contact"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Abrir Ticket de Soporte
+                      {t("openTicket")}
                     </Link>
                   </li>
                   <li>
@@ -183,7 +185,7 @@ const Footer = () => {
                       href="/terms"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Términos de Uso
+                      {t("termsOfUse")}
                     </Link>
                   </li>
                   <li>
@@ -191,7 +193,7 @@ const Footer = () => {
                       href="/about"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Acerca de
+                      {t("about")}
                     </Link>
                   </li>
                 </ul>
@@ -202,7 +204,7 @@ const Footer = () => {
           <div className="h-px w-full bg-gradient-to-r from-transparent via-[#D2D8E183] to-transparent dark:via-[#959CB183]"></div>
           <div className="py-8">
             <p className="text-center text-base text-body-color dark:text-white">
-              Creado por Emmanuel con ❤️ {date.currentYear}
+              {t("createdBy")} ❤️ {date.currentYear}
             </p>
           </div>
         </div>

@@ -12,5 +12,20 @@
   "close": "Close",
   "search": "Search",
   "retry": "Try again",
-  "backHome": "Go back home"
+  "backHome": "Go back home",
+  "footer": {
+    "tagline": "Simplifying the web just for you.",
+    "usefulLinks": "Useful Links",
+    "terms": "Terms",
+    "support": "Support and Help",
+    "blog": "Blog",
+    "pricing": "Pricing",
+    "about": "About",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "refundPolicy": "Refund Policy",
+    "openTicket": "Open Support Ticket",
+    "termsOfUse": "Terms of Use",
+    "createdBy": "Created by Emmanuel with"
+  }
 } 

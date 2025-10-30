@@ -41,5 +41,10 @@
         "description": "Nuestros sitios web incorporan las mejores prácticas de SEO, lo que atrae más tráfico orgánico de Google sin incurrir en costos adicionales. Implementamos las mejores técnicas, incluida la optimización de Next.js y una exhaustiva investigación de palabras clave, para garantizar una alta clasificación en los resultados de búsqueda."
       }
     }
+  },
+  "techLabels": {
+    "frontend": "Front-end",
+    "backend": "Back-end",
+    "fullstack": "Full-stack"
   }
 } 

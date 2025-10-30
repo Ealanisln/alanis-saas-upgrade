@@ -10,5 +10,9 @@
   "publishedOn": "Publicado el",
   "by": "por",
   "category": "Categoría",
-  "tags": "Etiquetas"
+  "tags": "Etiquetas",
+  "latest": {
+    "title": "Mis últimas publicaciones",
+    "description": "Descubre cosas nuevas sobre desarrollo web: lee artículos interesantes sobre la creación de sitios web y aplicaciones."
+  }
 } 

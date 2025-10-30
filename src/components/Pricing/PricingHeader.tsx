@@ -1,8 +1,12 @@
 // src/components/Pricing/PricingHeader.tsx
+"use client";
 import Image from "next/image";
 import { Link } from "@/lib/navigation";
+import { useTranslations } from "next-intl";
 
 const PricingHeader = () => {
+  const t = useTranslations("plans.header");
+
   return (
     <section className="relative z-10 overflow-hidden bg-primary/5 py-16 md:py-20 lg:py-28">
       <div className="container">
@@ -10,10 +14,10 @@ const PricingHeader = () => {
           <div className="w-full px-4 lg:w-1/2">
             <div className="wow fadeInUp max-w-[600px]" data-wow-delay=".2s">
               <h1 className="mb-5 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
-                Impulsa tu negocio con una presencia web profesional
+                {t("title")}
               </h1>
               <p className="mb-8 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed md:text-xl">
-                Nuestros planes están diseñados para adaptarse a tu presupuesto y necesidades. Todos incluyen diseño moderno, código limpio y soporte personalizado.
+                {t("description")}
               </p>
 
               <div className="flex flex-wrap items-center">
@@ -21,19 +25,19 @@ const PricingHeader = () => {
                   href="#pricing"
                   className="mr-5 inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-center text-base font-medium text-white hover:bg-primary/90"
                 >
-                  Ver planes
+                  {t("viewPlans")}
                   <span className="pl-2">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M16.6663 10.8333L10.8329 16.6667L9.1663 15L12.9996 11.1667H3.33301V8.83333H12.9996L9.1663 5L10.8329 3.33333L16.6663 9.16667V10.8333Z" fill="white"/>
                     </svg>
                   </span>
                 </a>
-                
+
                 <Link
                   href="/contact"
                   className="inline-flex items-center justify-center rounded-md border border-primary bg-transparent px-6 py-3 text-center text-base font-medium text-primary hover:bg-primary hover:text-white"
                 >
-                  Consulta personalizada
+                  {t("consultation")}
                 </Link>
               </div>
             </div>

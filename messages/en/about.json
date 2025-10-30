@@ -5,5 +5,29 @@
   },
   "title": "About me",
   "subtitle": "My passion for web development",
-  "description": "I am a full-stack developer passionate about creating web applications that not only work well, but also provide an excellent user experience."
+  "description": "I am a full-stack developer passionate about creating web applications that not only work well, but also provide an excellent user experience.",
+  "section": {
+    "title": "The best solution for your business.",
+    "description": "Worried about technical matters? Don't worry, we'll provide you with the best solutions so your business runs smoothly. You'll always have the backing of our first-class experience.",
+    "features": {
+      "latestTech": "Latest technologies",
+      "scalable": "Fully scalable",
+      "worldClass": "World-class quality",
+      "affordable": "Affordable costs",
+      "bilingual": "Support in Spanish and English",
+      "friendly": "Ideal for people without technical knowledge"
+    },
+    "provenCode": {
+      "title": "Proven Code",
+      "description": "Our error-free code ensures optimal performance and functionality for your software applications. Trust our experienced team to deliver quality results without unexpected issues."
+    },
+    "firstClass": {
+      "title": "First-Class Support",
+      "description": "We're here to answer questions, clarify concerns, and provide solutions for a seamless experience."
+    },
+    "flexible": {
+      "title": "Flexible Plans",
+      "description": "If you need something special, don't worry; we'd be happy to assist you and offer the best option according to your needs."
+    }
+  }
 } 

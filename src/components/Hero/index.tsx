@@ -10,6 +10,7 @@ interface HeroSectionProps {
 
 export default async function HeroSection({ locale }: HeroSectionProps) {
   const t = await getTranslations({ locale, namespace: 'home.hero' });
+  const tLabels = await getTranslations({ locale, namespace: 'home.techLabels' });
 
   return (
     <div className="relative min-h-[100dvh] w-full bg-gradient-to-b from-blue-50/50 to-white dark:from-gray-900 dark:to-gray-dark">
@@ -48,19 +49,19 @@ export default async function HeroSection({ locale }: HeroSectionProps) {
                   <div className="flex items-center">
                     <Code className="mr-2 h-6 w-6 text-primary dark:text-white" />
                     <span className="text-sm font-medium text-black dark:text-white">
-                      Front-end
+                      {tLabels('frontend')}
                     </span>
                   </div>
                   <div className="flex items-center">
                     <Server className="mr-2 h-6 w-6 text-primary dark:text-white" />
                     <span className="text-sm font-medium text-black dark:text-white">
-                      Back-end
+                      {tLabels('backend')}
                     </span>
                   </div>
                   <div className="flex items-center">
                     <Zap className="mr-2 h-6 w-6 text-primary dark:text-white" />
                     <span className="text-sm font-medium text-black dark:text-white">
-                      Full-stack
+                      {tLabels('fullstack')}
                     </span>
                   </div>
                 </div>

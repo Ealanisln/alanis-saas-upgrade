@@ -11,5 +11,97 @@
   "contactUs": "Contáctanos",
   "features": "Características",
   "included": "Incluido",
-  "notIncluded": "No incluido"
+  "notIncluded": "No incluido",
+  "header": {
+    "title": "Impulsa tu negocio con una presencia web profesional",
+    "description": "Nuestros planes están diseñados para adaptarse a tu presupuesto y necesidades. Todos incluyen diseño moderno, código limpio y soporte personalizado.",
+    "viewPlans": "Ver planes",
+    "consultation": "Consulta personalizada"
+  },
+  "pricing": {
+    "title": "Elige el mejor plan para tus necesidades",
+    "subtitle": "Nuestro modelo de precios de tres niveles ofrece opciones para todos, ya seas un pequeño empresario o un usuario avanzado.",
+    "lite": {
+      "name": "Lite",
+      "subtitle": "Para pequeñas empresas y emprendedores",
+      "features": {
+        "pages": "1 - 5 páginas estáticas",
+        "design": "Diseño responsive básico",
+        "hosting": "Dominio y hosting por un año",
+        "ssl": "Certificado SSL",
+        "seo": "Optimización SEO básica",
+        "support": "Soporte por email"
+      }
+    },
+    "basic": {
+      "name": "Basic",
+      "subtitle": "Para negocios en crecimiento",
+      "features": {
+        "pages": "5 - 15 páginas estáticas",
+        "design": "Diseño responsive profesional",
+        "hosting": "Dominio premium y hosting",
+        "blog": "Blog integrado",
+        "seo": "SEO avanzado y Analytics",
+        "support": "Soporte por email y teléfono"
+      }
+    },
+    "plus": {
+      "name": "Plus",
+      "subtitle": "Solución completa para empresas",
+      "features": {
+        "pages": "Hasta 25 páginas dinámicas",
+        "design": "Diseño personalizado",
+        "cms": "CMS para gestión de contenido",
+        "ecommerce": "Ecommerce básico",
+        "integrations": "Integraciones avanzadas",
+        "support": "Soporte prioritario 24/7"
+      }
+    },
+    "cta": "Contrata ahora",
+    "services": {
+      "technical": {
+        "title": "Soporte Técnico",
+        "description": "Ofrecemos soporte técnico continuo para asegurarnos de que tu sitio web funcione correctamente en todo momento."
+      },
+      "updates": {
+        "title": "Actualizaciones Regulares",
+        "description": "Mantenemos tu sitio actualizado con las últimas tecnologías y tendencias para garantizar su seguridad y funcionalidad."
+      },
+      "customization": {
+        "title": "Personalización Total",
+        "description": "Adaptamos cada proyecto a tus necesidades específicas, garantizando que tu sitio web refleje la identidad de tu marca."
+      }
+    }
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "subtitle": "¿Tienes dudas sobre nuestros servicios? Aquí encontrarás respuestas a las preguntas más comunes.",
+    "moreQuestions": "¿Más preguntas? Contáctanos",
+    "items": [
+      {
+        "question": "¿Cuánto tiempo tarda en completarse un proyecto?",
+        "answer": "El tiempo de desarrollo varía según la complejidad y el plan elegido. Un plan Lite típicamente toma 2-3 semanas, un plan Basic 4-6 semanas, y un plan Plus 6-8 semanas. Proporcionaremos un cronograma detallado durante la consulta inicial."
+      },
+      {
+        "question": "¿Puedo actualizar mi plan más adelante?",
+        "answer": "¡Sí, absolutamente! Puedes actualizar tu plan en cualquier momento a medida que tu negocio crece. Te ayudaremos con la transición suave y nos aseguraremos de que todo tu contenido se preserve durante la actualización."
+      },
+      {
+        "question": "¿Qué incluye exactamente el soporte técnico?",
+        "answer": "El soporte técnico incluye solución de problemas, responder preguntas, aclarar inquietudes y proporcionar soluciones para una experiencia sin contratiempos. Los tiempos de respuesta varían según el plan: Lite (48 horas), Basic (24 horas), Plus (prioritario/inmediato)."
+      },
+      {
+        "question": "¿Los precios incluyen hosting y dominio?",
+        "answer": "Sí, todos los planes incluyen hosting y dominio para el primer año. Después del primer año, hay una tarifa de renovación anual para mantener tu sitio en línea, que comunicaremos con anticipación."
+      },
+      {
+        "question": "¿Ofrecen planes personalizados fuera de estas opciones?",
+        "answer": "¡Absolutamente! Si necesitas algo especial, no te preocupes; estaré encantado de asistirte y ofrecerte la mejor opción según tus necesidades. Contáctanos para un presupuesto personalizado."
+      },
+      {
+        "question": "¿Cómo funciona el proceso de pago?",
+        "answer": "Trabajamos con una estructura de pago flexible. Típicamente, requerimos un depósito del 50% para iniciar el proyecto y el 50% restante al completarse y con tu aprobación. Aceptamos varios métodos de pago para tu conveniencia."
+      }
+    ]
+  }
 } 

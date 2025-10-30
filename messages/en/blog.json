@@ -10,5 +10,9 @@
   "publishedOn": "Published on",
   "by": "by",
   "category": "Category",
-  "tags": "Tags"
+  "tags": "Tags",
+  "latest": {
+    "title": "My Latest Posts",
+    "description": "Discover new things about web development: read interesting articles about creating websites and applications."
+  }
 } 

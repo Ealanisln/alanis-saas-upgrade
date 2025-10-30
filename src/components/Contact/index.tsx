@@ -3,6 +3,7 @@
 import sendEmail from "@/app/actions/email";
 import { useForm, SubmitHandler } from "react-hook-form";
 import React, { useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface FormInputs {
   name: string;
@@ -11,6 +12,7 @@ interface FormInputs {
 }
 
 const Contact = () => {
+  const t = useTranslations("contact.form");
   const [message, setMessage] = useState(null);
 
   const {
@@ -34,7 +36,7 @@ const Contact = () => {
     } catch (error) {
       setMessage({
         type: "error",
-        text: "Oops, lo sentimos, hubo un error al enviar tu mensaje: " + error.message,
+        text: t("errorMessage") + " " + error.message,
       });
       // Clear the error message after 3 seconds
       setTimeout(() => {
@@ -54,10 +56,10 @@ const Contact = () => {
               "
             >
               <h2 className="mb-3 text-2xl font-bold text-black dark:text-white sm:text-3xl lg:text-2xl xl:text-3xl">
-                ¿Tienes alguna duda?
+                {t("title")}
               </h2>
               <p className="mb-12 text-base font-medium text-body-color">
-                Escribeme y me pondré en contacto lo mas pronto posible. 
+                {t("subtitle")}
               </p>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="-mx-4 flex flex-wrap">
@@ -67,15 +69,15 @@ const Contact = () => {
                         htmlFor="name"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
                       >
-                        Tu nombre
+                        {t("nameLabel")}
                       </label>
                       <input
                         {...register("name", { required: true })}
                         type="text"
-                        placeholder="Escribe aqui tu nombre"
+                        placeholder={t("namePlaceholder")}
                         className="w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                       />
-                      {errors.name && <span>Este campo es requerido</span>}
+                      {errors.name && <span>{t("required")}</span>}
                     </div>
                   </div>
                   <div className="w-full px-4 md:w-1/2">
@@ -84,15 +86,15 @@ const Contact = () => {
                         htmlFor="email"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
                       >
-                        Correo electrónico
+                        {t("emailLabel")}
                       </label>
                       <input
                         {...register("email", { required: true })}
                         type="email"
-                        placeholder="Escribe aqui tu correo"
+                        placeholder={t("emailPlaceholder")}
                         className="w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                       />
-                      {errors.email && <span>Este campo es requerido</span>}
+                      {errors.email && <span>{t("required")}</span>}
                     </div>
                   </div>
                   <div className="w-full px-4">
@@ -101,7 +103,7 @@ const Contact = () => {
                         htmlFor="message"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
                       >
-                        Tu mensaje
+                        {t("messageLabel")}
                       </label>
                       <textarea
                         {...register("message", {
@@ -110,12 +112,12 @@ const Contact = () => {
                         })}
                         name="message"
                         rows={5}
-                        placeholder="Escribe aqui tu mensaje"
+                        placeholder={t("messagePlaceholder")}
                         className="w-full resize-none rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                       >
                       </textarea>
-                      {errors.email && <span>Este campo es requerido - </span>}
-                      <span>Max: 500 caracteres</span>
+                      {errors.message && <span>{t("required")} - </span>}
+                      <span>{t("maxChars")}</span>
                     </div>
                   </div>
                   <div className="w-full px-4">
@@ -123,7 +125,7 @@ const Contact = () => {
                       type="submit"
                       className="rounded-xl bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark"
                     >
-                      Enviar mensaje
+                      {t("submit")}
                     </button>
                   </div>
                 </div>

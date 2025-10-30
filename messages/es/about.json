@@ -5,5 +5,29 @@
   },
   "title": "Acerca de mí",
   "subtitle": "Mi pasión por el desarrollo web",
-  "description": "Soy un desarrollador full-stack apasionado por crear aplicaciones web que no solo funcionen bien, sino que también brinden una excelente experiencia de usuario."
+  "description": "Soy un desarrollador full-stack apasionado por crear aplicaciones web que no solo funcionen bien, sino que también brinden una excelente experiencia de usuario.",
+  "section": {
+    "title": "La mejor solución para tu negocio.",
+    "description": "¿Te preocupan los asuntos técnicos? No te preocupes, te brindaremos las mejores soluciones para que tu negocio funcione sin problemas. Siempre contarás con el respaldo de nuestra experiencia de primer nivel.",
+    "features": {
+      "latestTech": "Las tecnologías más nuevas",
+      "scalable": "Completamente escalable",
+      "worldClass": "Calidad de clase mundial",
+      "affordable": "Costos accesibles",
+      "bilingual": "Soporte en español e inglés",
+      "friendly": "Ideal para personas sin conocimientos técnicos"
+    },
+    "provenCode": {
+      "title": "Código probado",
+      "description": "Nuestro código libre de errores garantiza un rendimiento y funcionalidad óptimos para tus aplicaciones de software. Confía en nuestro equipo experimentado para entregar resultados de calidad sin problemas inesperados."
+    },
+    "firstClass": {
+      "title": "Soporte de primer nivel",
+      "description": "Estoy aquí para responder preguntas, aclarar inquietudes y proporcionar soluciones para una experiencia sin contratiempos."
+    },
+    "flexible": {
+      "title": "Planes flexibles",
+      "description": "Si necesitas algo especial, no te preocupes; estaré encantado de asistirte y ofrecerte la mejor opción según tus necesidades."
+    }
+  }
 } 

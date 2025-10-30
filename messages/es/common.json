@@ -12,5 +12,20 @@
   "close": "Cerrar",
   "search": "Buscar",
   "retry": "Intentar de nuevo",
-  "backHome": "Volver al inicio"
+  "backHome": "Volver al inicio",
+  "footer": {
+    "tagline": "Simplificando la web solo para ti.",
+    "usefulLinks": "Enlaces Útiles",
+    "terms": "Términos",
+    "support": "Soporte y Ayuda",
+    "blog": "Blog",
+    "pricing": "Precios",
+    "about": "Acerca de",
+    "termsOfService": "Términos de Servicio",
+    "privacyPolicy": "Política de Privacidad",
+    "refundPolicy": "Política de Reembolso",
+    "openTicket": "Abrir Ticket de Soporte",
+    "termsOfUse": "Términos de Uso",
+    "createdBy": "Creado por Emmanuel con"
+  }
 } 
