@@ -1,11 +1,16 @@
 {
   "meta": {
-    "title": "Contact - Alanis",
-    "description": "Do you have a project in mind? Contact me and let's work together to make your idea a reality."
+    "title": "Contact | Let's talk about your project - Alanis Dev",
+    "description": "Do you have a project in mind? Contact me for a free consultation. Specialized in web development with Next.js, React and TypeScript. Let's make your idea a reality!",
+    "keywords": ["contact", "web development", "free consultation", "Next.js", "React", "TypeScript", "web projects", "software development"]
   },
   "title": "Contact",
   "subtitle": "Ready to work together?",
   "description": "Do you have a project in mind? I'd love to hear about your idea and help you make it a reality.",
+  "breadcrumb": {
+    "title": "Contact",
+    "description": "I'd love to hear about your project!"
+  },
   "form": {
     "title": "Have any questions?",
     "subtitle": "Write to me and I'll get back to you as soon as possible.",
@@ -24,5 +29,17 @@
     "email": "Email",
     "message": "Message",
     "send": "Send message"
+  },
+  "jsonLd": {
+    "name": "Contact - Alanis Dev",
+    "description": "Do you have a project in mind? Contact me for a free consultation. Specialized in web development with Next.js, React and TypeScript. Let's make your idea a reality!"
+  },
+  "newsletter": {
+    "title": "Subscribe to receive future updates",
+    "description": "Stay updated with the latest news and updates about web development and my projects.",
+    "namePlaceholder": "Enter your name",
+    "emailPlaceholder": "Enter your email",
+    "submit": "Subscribe",
+    "disclaimer": "No spam guaranteed, So please don't send any spam mail."
   }
 } 

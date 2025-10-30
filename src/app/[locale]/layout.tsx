@@ -82,13 +82,13 @@ export default async function LocaleLayout({
   children,
   params
 }: LocaleLayoutProps) {
-  const { locale: _locale } = await params;
-  
-  // Providing all messages to the client side is the easiest way to get started
-  const messages = await getMessages();
+  const { locale } = await params;
+
+  // Providing all messages to the client side with explicit locale
+  const messages = await getMessages({ locale });
 
   return (
-    <NextIntlClientProvider messages={messages}>
+    <NextIntlClientProvider messages={messages} locale={locale}>
       <Header />
       <main className="flex-1">
         {children}

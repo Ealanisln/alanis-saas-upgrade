@@ -13,6 +13,19 @@
   "search": "Search",
   "retry": "Try again",
   "backHome": "Go back home",
+  "home": "Home",
+  "notFound": {
+    "title": "Page not found",
+    "message": "You can go back to",
+    "homeLink": "Home"
+  },
+  "breadcrumbs": {
+    "home": "Home",
+    "about": "About me",
+    "plans": "Plans and Pricing",
+    "portfolio": "Portfolio",
+    "contact": "Contact"
+  },
   "footer": {
     "tagline": "Simplifying the web just for you.",
     "usefulLinks": "Useful Links",

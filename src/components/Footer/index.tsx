@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { useTranslations } from "next-intl";
 
 const Footer = () => {
@@ -106,7 +106,7 @@ const Footer = () => {
                 <ul>
                   <li>
                     <Link
-                      href="/blogs"
+                      href="/blog"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
                       {t("blog")}
@@ -114,7 +114,7 @@ const Footer = () => {
                   </li>
                   <li>
                     <Link
-                      href="/pricing"
+                      href="/plans"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
                       {t("pricing")}

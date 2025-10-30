@@ -1,45 +1,65 @@
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import AboutSectionOne from "@/components/About/AboutSectionOne";
 import AboutSectionTwo from "@/components/About/AboutSectionTwo";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 
-export const metadata: Metadata = {
-  title: "Acerca de mí | Emmanuel Alanis - Desarrollador Web",
-  description: "Conoce a Emmanuel Alanis, desarrollador web mexicano especializado en React, Next.js y TypeScript. Apasionado por crear aplicaciones modernas y ayudar a otros desarrolladores a crecer.",
-  keywords: ["Emmanuel Alanis", "desarrollador web", "programador mexicano", "React", "Next.js", "TypeScript", "full-stack developer"],
-  openGraph: {
-    title: "Acerca de mí | Emmanuel Alanis - Desarrollador Web",
-    description: "Conoce a Emmanuel Alanis, desarrollador web mexicano especializado en React, Next.js y TypeScript. Apasionado por crear aplicaciones modernas y ayudar a otros desarrolladores a crecer.",
-    type: "profile",
-    images: [
-      {
-        url: "/about/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "Acerca de Emmanuel Alanis - Desarrollador Web",
-      }
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Acerca de mí | Emmanuel Alanis - Desarrollador Web",
-    description: "Conoce a Emmanuel Alanis, desarrollador web mexicano especializado en React, Next.js y TypeScript.",
-    images: ["/about/opengraph-image"],
-  },
-  alternates: {
-    canonical: "/about",
-  }
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "about.meta" });
 
-const AboutPage = () => {
-  // Create structured data for the About page
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: ["Emmanuel Alanis", "web developer", "React", "Next.js", "TypeScript", "full-stack developer"],
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      type: "profile",
+      images: [
+        {
+          url: "/about/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: t("title"),
+        }
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: ["/about/opengraph-image"],
+    },
+    alternates: {
+      canonical: `/${locale}/about`,
+    }
+  };
+}
+
+const AboutPage = async ({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) => {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "about.hero" });
+  const tBreadcrumbs = await getTranslations({ locale, namespace: "common.breadcrumbs" });
+
+  // Create structured data for the About page with locale-specific description
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Emmanuel Alanis",
     "alternateName": "Alanis Dev",
-    "description": "Desarrollador web mexicano especializado en React, Next.js y TypeScript",
+    "description": locale === "es"
+      ? "Desarrollador web mexicano especializado en React, Next.js y TypeScript"
+      : "Mexican web developer specialized in React, Next.js and TypeScript",
     "url": "https://www.alanis.dev/about",
     "image": "https://www.alanis.dev/about/opengraph-image",
     "sameAs": [
@@ -68,10 +88,10 @@ const AboutPage = () => {
     ]
   };
 
-  // Breadcrumb items for structured data
+  // Breadcrumb items for structured data with translations
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://www.alanis.dev' },
-    { name: 'Acerca de mí', url: 'https://www.alanis.dev/about' }
+    { name: tBreadcrumbs('home'), url: 'https://www.alanis.dev' },
+    { name: tBreadcrumbs('about'), url: 'https://www.alanis.dev/about' }
   ];
 
   return (
@@ -81,13 +101,13 @@ const AboutPage = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      
+
       {/* Add breadcrumb structured data */}
       <BreadcrumbJsonLd items={breadcrumbItems} />
 
       <Breadcrumb
-        pageName="Acerca de mí"
-        description="👋 ¡Hola! Soy Emmanuel, un desarrollador web 🇲🇽 mexicano. Tengo una pasión por desarrollar aplicaciones web modernas 🌎 y estoy constantemente aprendiendo algo nuevo. Además, disfruto ayudar a otros a crecer y desarrollarse junto a mí. 👨🏽‍💻"
+        pageName={t('title')}
+        description={t('description')}
       />
       <AboutSectionOne />
       <AboutSectionTwo />

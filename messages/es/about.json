@@ -6,6 +6,10 @@
   "title": "Acerca de mí",
   "subtitle": "Mi pasión por el desarrollo web",
   "description": "Soy un desarrollador full-stack apasionado por crear aplicaciones web que no solo funcionen bien, sino que también brinden una excelente experiencia de usuario.",
+  "hero": {
+    "title": "Acerca de mí",
+    "description": "👋 ¡Hola! Soy Emmanuel, un desarrollador web 🇲🇽 mexicano. Tengo una pasión por desarrollar aplicaciones web modernas 🌐 y estoy constantemente aprendiendo algo nuevo. Además, disfruto ayudar a otros a crecer y desarrollarse junto a mí. 🧱"
+  },
   "section": {
     "title": "La mejor solución para tu negocio.",
     "description": "¿Te preocupan los asuntos técnicos? No te preocupes, te brindaremos las mejores soluciones para que tu negocio funcione sin problemas. Siempre contarás con el respaldo de nuestra experiencia de primer nivel.",

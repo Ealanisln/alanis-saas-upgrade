@@ -58,7 +58,23 @@
       }
     },
     "cta": "Contrata ahora",
+    "featuresSection": {
+      "title": "Todo lo que necesitas para tu presencia online",
+      "description": "Nuestros planes están diseñados para ofrecerte un completo conjunto de características premium que harán que tu sitio web destaque."
+    },
     "services": {
+      "responsive": {
+        "title": "Diseño Responsive",
+        "description": "Todos nuestros sitios web se ven geniales en cualquier dispositivo, desde smartphones hasta computadoras de escritorio."
+      },
+      "seo": {
+        "title": "Optimización SEO",
+        "description": "Mejoramos la visibilidad de tu sitio web en los motores de búsqueda para atraer más visitantes cualificados."
+      },
+      "fastLoading": {
+        "title": "Carga Rápida",
+        "description": "Optimizamos el rendimiento de tu sitio web para que cargue rápidamente, mejorando la experiencia del usuario y el SEO."
+      },
       "technical": {
         "title": "Soporte Técnico",
         "description": "Ofrecemos soporte técnico continuo para asegurarnos de que tu sitio web funcione correctamente en todo momento."
