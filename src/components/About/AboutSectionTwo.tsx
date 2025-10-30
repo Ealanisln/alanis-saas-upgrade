@@ -1,6 +1,9 @@
+"use client";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const AboutSectionTwo = () => {
+  const t = useTranslations("about.section");
   return (
     <section className="py-16 md:py-20 lg:py-28">
       <div className="container">
@@ -28,33 +31,26 @@ const AboutSectionTwo = () => {
             <div className="wow fadeInUp max-w-[470px]" data-wow-delay=".2s">
               <div className="mb-9">
                 <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                  Código probado
+                  {t("provenCode.title")}
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                  Nuestro código libre de errores garantiza un rendimiento y
-                  funcionalidad óptimos para tus aplicaciones de software.
-                  Confía en nuestro equipo experimentado para entregar
-                  resultados de calidad sin problemas inesperados.
+                  {t("provenCode.description")}
                 </p>
               </div>
               <div className="mb-9">
                 <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                  Soporte de primer nivel
+                  {t("firstClass.title")}
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                  Estoy aquí para responder preguntas, aclarar inquietudes y
-                  proporcionar soluciones para una experiencia sin
-                  contratiempos.
+                  {t("firstClass.description")}
                 </p>
               </div>
               <div className="mb-1">
                 <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                  Planes flexibles
+                  {t("flexible.title")}
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                  Si necesitas algo especial, no te preocupes; estaré encantado
-                  de asistirte y ofrecerte la mejor opción según tus
-                  necesidades. 
+                  {t("flexible.description")}
                 </p>
               </div>
             </div>

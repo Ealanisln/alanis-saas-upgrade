@@ -1,6 +1,8 @@
+"use client";
 import { createCheckoutSession } from "@/app/actions/stripe";
 import { CURRENCY } from "@/config";
 import { formatAmountForStripe } from "@/lib/utils/stripe-helpers";
+import { useTranslations } from "next-intl";
 
 const PricingBox = (props: {
   price: number;
@@ -9,6 +11,7 @@ const PricingBox = (props: {
   children: React.ReactNode;
 }) => {
   const { price, packageName, subtitle, children } = props;
+  const t = useTranslations("plans.pricing");
 
   const handleCheckout = async () => {
     const unitAmount = formatAmountForStripe(price, CURRENCY);
@@ -37,7 +40,7 @@ const PricingBox = (props: {
               className="flex w-full items-center justify-center rounded-md bg-primary p-3 text-base font-semibold text-white transition duration-300 ease-in-out hover:bg-opacity-90 hover:shadow-signUp"
               type="submit"
             >
-             Contrata ahora
+              {t("cta")}
             </button>
           </form>
         </div>

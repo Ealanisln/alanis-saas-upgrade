@@ -58,7 +58,23 @@
       }
     },
     "cta": "Get started",
+    "featuresSection": {
+      "title": "Everything you need for your online presence",
+      "description": "Our plans are designed to offer you a complete set of premium features that will make your website stand out."
+    },
     "services": {
+      "responsive": {
+        "title": "Responsive Design",
+        "description": "All our websites look great on any device, from smartphones to desktop computers."
+      },
+      "seo": {
+        "title": "SEO Optimization",
+        "description": "We improve your website's visibility in search engines to attract more qualified visitors."
+      },
+      "fastLoading": {
+        "title": "Fast Loading",
+        "description": "We optimize your website's performance to load quickly, improving user experience and SEO."
+      },
       "technical": {
         "title": "Technical Support",
         "description": "We offer continuous technical support to ensure your website works correctly at all times."

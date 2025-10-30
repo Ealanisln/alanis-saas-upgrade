@@ -1,7 +1,8 @@
 {
   "meta": {
-    "title": "Portafolio - Alanis",
-    "description": "Explora mis proyectos más recientes y descubre cómo puedo ayudarte con tu próximo desarrollo web."
+    "title": "Portafolio | Proyectos de Desarrollo Web - Alanis Dev",
+    "description": "Explora mis proyectos más recientes: aplicaciones web modernas, e-commerce, SaaS y APIs desarrollados con Next.js, React, TypeScript y las últimas tecnologías web.",
+    "keywords": ["portafolio", "proyectos web", "Next.js", "React", "TypeScript", "desarrollo web", "aplicaciones modernas", "SaaS", "e-commerce"]
   },
   "title": "Portafolio",
   "subtitle": "Mis proyectos más recientes",
@@ -10,8 +11,18 @@
   "viewCode": "Ver código",
   "technologies": "Tecnologías",
   "hero": {
-    "title": "Mis Proyectos Destacados",
-    "description": "Descubre el poder de Next.js con mis últimos proyectos, donde la tecnología de vanguardia y las experiencias de usuario se fusionan a la perfección."
+    "badge": "Portafolio",
+    "title": "Mis Proyectos",
+    "titleHighlight": "Destacados",
+    "description": "Descubre el poder de Next.js con mis últimos proyectos, donde la tecnología de vanguardia y las experiencias de usuario se fusionan a la perfección.",
+    "viewProjects": "Ver Proyectos",
+    "contact": "Contactar"
+  },
+  "section": {
+    "title": "Proyectos Recientes",
+    "subtitle": "Portafolio",
+    "paragraph": "Descubre cómo puedo ayudarte a crear experiencias digitales de alto impacto con las tecnologías más modernas del mercado.",
+    "highlight": "Recientes"
   },
   "featured": {
     "title": "Proyectos Destacados",
@@ -20,5 +31,42 @@
   "recent": {
     "title": "Proyectos Recientes",
     "description": "Descubre cómo puedo ayudarte a crear experiencias digitales de alto impacto con las tecnologías más modernas del mercado."
+  },
+  "card": {
+    "moreCount": "+{count} más",
+    "viewProject": "Ver Proyecto",
+    "code": "Código"
+  },
+  "modal": {
+    "technologiesUsed": "Tecnologías Utilizadas",
+    "viewProject": "Ver Proyecto",
+    "viewCode": "Ver Código"
+  },
+  "index": {
+    "title": "Nuestros últimos trabajos",
+    "description": "Descubre el poder de NextJS con nuestros últimos proyectos, donde la tecnología de vanguardia y las experiencias de usuario se fusionan a la perfección."
+  },
+  "projects": {
+    "showing": "Mostrando {count} proyecto",
+    "showingPlural": "Mostrando {count} proyectos",
+    "filteredBy": "Filtrado por {count} tecnología",
+    "filteredByPlural": "Filtrado por {count} tecnologías",
+    "clearFilters": "Limpiar filtros",
+    "noProjectsFound": "No se encontraron proyectos",
+    "noProjectsDescription": "No hay proyectos que coincidan con los filtros seleccionados. Intenta con otra combinación de tecnologías.",
+    "showAll": "Mostrar todos los proyectos",
+    "featured": "Destacado",
+    "demo": "Demo",
+    "code": "Código",
+    "aboutProject": "Acerca del proyecto",
+    "technologiesUsed": "Tecnologías utilizadas",
+    "viewLive": "Ver proyecto en vivo",
+    "viewSource": "Ver código fuente"
+  },
+  "jsonLd": {
+    "name": "Portafolio - Proyectos de Desarrollo Web",
+    "description": "Explora mis proyectos más recientes: aplicaciones web modernas, e-commerce, SaaS y APIs desarrollados con Next.js, React, TypeScript y las últimas tecnologías web.",
+    "mainEntityName": "Proyectos de Desarrollo Web",
+    "mainEntityDescription": "Colección de proyectos web desarrollados con tecnologías modernas"
   }
 } 

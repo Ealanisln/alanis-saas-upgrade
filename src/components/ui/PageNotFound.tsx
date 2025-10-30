@@ -1,17 +1,20 @@
+"use client";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { titleFont } from "@/config/fonts";
+import { useTranslations } from "next-intl";
 
 export const PageNotFound = () => {
+  const t = useTranslations("common");
   return (
     <div className="flex flex-col-reverse md:flex-row h-[800px] w-full justify-center items-center align-middle">
       <div className="text-center px-5 mx-5">
         <h2 className={`${titleFont.className} antialiased text-8xl`}>404</h2>
-        <p className="font-semibold text-xl">Página no encontrada</p>
+        <p className="font-semibold text-xl">{t("notFound.title")}</p>
         <p className="font-light">
-          <span>Puedes regresar al</span>
+          <span>{t("notFound.message")} </span>
           <Link href="/" className="font-normal hover:underline transition-all">
-            Inicio
+            {t("notFound.homeLink")}
           </Link>
         </p>
       </div>

@@ -6,6 +6,10 @@
   "title": "About me",
   "subtitle": "My passion for web development",
   "description": "I am a full-stack developer passionate about creating web applications that not only work well, but also provide an excellent user experience.",
+  "hero": {
+    "title": "About me",
+    "description": "👋 Hello! I'm Emmanuel, a Mexican web developer 🇲🇽. I have a passion for developing modern web applications 🌐 and I'm constantly learning something new. Also, I enjoy helping others grow and develop alongside me. 🧱"
+  },
   "section": {
     "title": "The best solution for your business.",
     "description": "Worried about technical matters? Don't worry, we'll provide you with the best solutions so your business runs smoothly. You'll always have the backing of our first-class experience.",

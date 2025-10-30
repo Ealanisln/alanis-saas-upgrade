@@ -1,46 +1,65 @@
-// src/app/portafolio/page.tsx
+// src/app/[locale]/portfolio/page.tsx
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import SectionTitle from "@/components/Common/SectionTitle";
 import Modernportafolio from "@/components/Portfolio/ModernPortfolio";
 import projects from "@/data/projects";
 
-export const metadata: Metadata = {
-  title: "portafolio | Proyectos de Desarrollo Web - Alanis Dev",
-  description: "Explora mis proyectos más recientes: aplicaciones web modernas, e-commerce, SaaS y APIs desarrollados con Next.js, React, TypeScript y las últimas tecnologías web.",
-  keywords: ["portafolio", "proyectos web", "desarrollo web", "Next.js", "React", "TypeScript", "aplicaciones web", "e-commerce", "SaaS"],
-  openGraph: {
-    title: "portafolio | Proyectos de Desarrollo Web - Alanis Dev",
-    description: "Explora mis proyectos más recientes: aplicaciones web modernas, e-commerce, SaaS y APIs desarrollados con Next.js, React, TypeScript y las últimas tecnologías web.",
-    type: "website",
-    images: [
-      {
-        url: "/portafolio/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "portafolio - Proyectos de Alanis Dev",
-      }
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "portafolio | Proyectos de Desarrollo Web - Alanis Dev",
-    description: "Explora mis proyectos más recientes desarrollados con las últimas tecnologías web.",
-    images: ["/portafolio/opengraph-image"],
-  },
-  alternates: {
-    canonical: "/portafolio",
-  }
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "portfolio.meta" });
 
-const portafolioPage = () => {
-  // Create structured data for the portafolio page
+  return {
+    title: t("title"),
+    description: t("description"),
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      type: "website",
+      images: [
+        {
+          url: "/portfolio/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: t("title"),
+        }
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: ["/portfolio/opengraph-image"],
+    },
+    alternates: {
+      canonical: `/${locale}/portfolio`,
+    }
+  };
+}
+
+const PortfolioPage = async ({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) => {
+  const { locale } = await params;
+  const tHero = await getTranslations({ locale, namespace: "portfolio.hero" });
+  const tSection = await getTranslations({ locale, namespace: "portfolio.section" });
+  const tJsonLd = await getTranslations({ locale, namespace: "portfolio.jsonLd" });
+  const tBreadcrumbs = await getTranslations({ locale, namespace: "common.breadcrumbs" });
+
+  // Create structured data for the portfolio page with locale-specific content
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "portafolio - Proyectos de Desarrollo Web",
-    "description": "Explora mis proyectos más recientes: aplicaciones web modernas, e-commerce, SaaS y APIs desarrollados con Next.js, React, TypeScript y las últimas tecnologías web.",
-    "url": "https://www.alanis.dev/portafolio",
+    "name": tJsonLd("name"),
+    "description": tJsonLd("description"),
+    "url": "https://www.alanis.dev/portfolio",
     "author": {
       "@type": "Person",
       "name": "Emmanuel Alanis",
@@ -56,15 +75,15 @@ const portafolioPage = () => {
     },
     "mainEntity": {
       "@type": "ItemList",
-      "name": "Proyectos de Desarrollo Web",
-      "description": "Colección de proyectos web desarrollados con tecnologías modernas"
+      "name": tJsonLd("mainEntityName"),
+      "description": tJsonLd("mainEntityDescription")
     }
   };
 
-  // Breadcrumb items for structured data
+  // Breadcrumb items for structured data with translations
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://www.alanis.dev' },
-    { name: 'portafolio', url: 'https://www.alanis.dev/portafolio' }
+    { name: tBreadcrumbs('home'), url: 'https://www.alanis.dev' },
+    { name: tBreadcrumbs('portfolio'), url: 'https://www.alanis.dev/portfolio' }
   ];
 
   return (
@@ -74,7 +93,7 @@ const portafolioPage = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      
+
       {/* Add breadcrumb structured data */}
       <BreadcrumbJsonLd items={breadcrumbItems} />
 
@@ -85,64 +104,63 @@ const portafolioPage = () => {
           <div className="absolute -top-40 -right-20 h-96 w-96 rounded-full bg-blue-600/20 blur-3xl"></div>
           <div className="absolute top-1/2 left-1/4 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl"></div>
           <div className="absolute -bottom-40 left-20 h-80 w-80 rounded-full bg-blue-400/20 blur-3xl"></div>
-          
+
           {/* Code-like decorative elements */}
           <div className="absolute top-20 left-10 h-20 w-20 rotate-12 rounded-md border border-blue-400/20 opacity-20"></div>
           <div className="absolute bottom-20 right-10 h-32 w-32 -rotate-12 rounded-md border border-indigo-400/20 opacity-20"></div>
           <div className="absolute top-1/3 right-1/3 h-16 w-16 rounded-md border border-blue-300/20 opacity-20"></div>
         </div>
-        
+
         <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center text-white">
             <span className="inline-block rounded-full bg-blue-500/20 px-4 py-1.5 text-sm font-semibold tracking-wide text-blue-200 mb-6">
-              Portafolio
+              {tHero("badge")}
             </span>
-            
+
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-blue-200">
-              Mis Proyectos <span className="text-blue-300">Destacados</span>
+              {tHero("title")} <span className="text-blue-300">{tHero("titleHighlight")}</span>
             </h1>
-            
+
             <p className="text-lg md:text-xl text-blue-100/90 max-w-3xl mx-auto mb-10">
-              Descubre el poder de Next.js con mis últimos proyectos, donde la tecnología de vanguardia 
-              y las experiencias de usuario se fusionan a la perfección.
+              {tHero("description")}
             </p>
-            
+
             <div className="flex flex-wrap justify-center gap-4">
-              <a 
-                href="#portafolio-grid" 
+              <a
+                href="#portfolio-grid"
                 className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-medium transition-all duration-300 shadow-lg hover:shadow-blue-600/20 hover:-translate-y-1"
               >
-                Ver Proyectos
+                {tHero("viewProjects")}
               </a>
-              <a 
-                href="mailto:contact@example.com" 
+              <a
+                href="mailto:contact@example.com"
                 className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-transparent hover:bg-white/10 text-white border border-blue-400/30 font-medium transition-all duration-300"
               >
-                Contactar
+                {tHero("contact")}
               </a>
             </div>
           </div>
         </div>
       </section>
-      
-      {/* Main portafolio Section */}
-      <section 
-        id="portafolio-grid" 
+
+      {/* Main Portfolio Section */}
+      <section
+        id="portfolio-grid"
         className="relative bg-white dark:bg-gray-900 py-20 md:py-24 lg:py-28"
       >
         {/* Decorative Elements */}
         <div className="absolute right-0 top-0 w-24 h-24 bg-blue-50 dark:bg-blue-900/20 rounded-bl-full opacity-70"></div>
         <div className="absolute left-0 bottom-0 w-24 h-24 bg-indigo-50 dark:bg-indigo-900/20 rounded-tr-full opacity-70"></div>
-        
+
         <div className="container relative px-4 sm:px-6 lg:px-8">
           <SectionTitle
-            title="Proyectos Recientes"
-            subtitle="Portafolio"
-            paragraph="Descubre cómo puedo ayudarte a crear experiencias digitales de alto impacto con las tecnologías más modernas del mercado."
+            title={tSection("title")}
+            subtitle={tSection("subtitle")}
+            paragraph={tSection("paragraph")}
             center
-            highlight="Recientes"
+            highlight={tSection("highlight")}
           />
-          
+
           <div className="mt-12 sm:mt-16">
             <Modernportafolio projects={projects} />
           </div>
@@ -152,4 +170,4 @@ const portafolioPage = () => {
   );
 };
 
-export default portafolioPage;
+export default PortfolioPage;

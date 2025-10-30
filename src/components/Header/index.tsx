@@ -2,9 +2,9 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/lib/navigation";
 import { ShoppingCartIcon } from "lucide-react";
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/lib/navigation';
@@ -15,16 +15,16 @@ import ThemeToggler from "./ThemeToggler";
 const Header = () => {
   const t = useTranslations('navigation');
   const locale = useLocale();
-  
-  // Updated menu data with translations
-  const menuData = [
+
+  // Memoized menu data with translations - prevents unnecessary recreations
+  const menuData = useMemo(() => [
     { id: 1, title: t('home'), path: '/', newTab: false },
     { id: 2, title: t('about'), path: '/about', newTab: false },
     { id: 3, title: t('portfolio'), path: '/portfolio', newTab: false },
     { id: 4, title: t('blog'), path: '/blog', newTab: false },
     { id: 5, title: t('plans'), path: '/plans', newTab: false },
     { id: 6, title: t('contact'), path: '/contact', newTab: false },
-  ];
+  ], [t]);
 
   // Navbar toggle
   const [navbarOpen, setNavbarOpen] = useState(false);
@@ -155,24 +155,14 @@ const Header = () => {
                   </ul>
                 </nav>
               </div>
-              {status === "authenticated" ? (
-                <div className="flex items-center justify-end pr-4 lg:pr-0">
-                  {/* <Link
-                    href="/profile"
-                    className="hidden px-14 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
-                  >
-                    My profile
-                  </Link>
-                  <button
-                    className="ease-in-up hidden rounded-xl bg-primary px-8 py-3 text-base font-medium text-white shadow-btn transition duration-300 hover:bg-opacity-90 hover:shadow-btn-hover md:block md:px-9 lg:px-6 xl:px-9"
-                    onClick={() => signOut()}
-                  >
-                    Sign out
-                  </button> */}
-                  <div className="px-4">
-                    <ThemeToggler />
-                  </div>
-                  <div className="pr-14">
+              <div className="flex items-center justify-end pr-4 lg:pr-0">
+                <div className="px-4">
+                  <ThemeToggler />
+                </div>
+                <div className="px-4">
+                  <LanguageSwitcher />
+                </div>
+                <div className="pr-4">
                   <Link
                     href={
                       totalItemsInCart === 0 && loaded ? "/empty" : "/shop/cart"
@@ -185,36 +175,11 @@ const Header = () => {
                           {totalItemsInCart}
                         </span>
                       )}
-
                       <ShoppingCartIcon className="h-5 w-5" />
                     </div>
                   </Link>
-                  </div>
                 </div>
-              ) : (
-                <>
-                  <div className="flex items-center justify-end pr-16 lg:pr-0">
-                    {/* <Link
-                      href="/auth/login"
-                      className="hidden px-14 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
-                    >
-                      Sign In
-                    </Link>
-                    <Link
-                      href="/auth/signup"
-                      className="ease-in-up hidden rounded-xl bg-primary px-8 py-3 text-base font-medium text-white shadow-btn transition duration-300 hover:bg-opacity-90 hover:shadow-btn-hover md:block md:px-9 lg:px-6 xl:px-9"
-                    >
-                      Sign Up
-                    </Link> */}
-                    <div className="px-4">
-                      <ThemeToggler />
-                    </div>
-                    <div className="px-4">
-                      <LanguageSwitcher />
-                    </div>
-                  </div>
-                </>
-              )}
+              </div>
             </div>
           </div>
         </div>

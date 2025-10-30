@@ -13,6 +13,19 @@
   "search": "Buscar",
   "retry": "Intentar de nuevo",
   "backHome": "Volver al inicio",
+  "home": "Inicio",
+  "notFound": {
+    "title": "Página no encontrada",
+    "message": "Puedes regresar al",
+    "homeLink": "Inicio"
+  },
+  "breadcrumbs": {
+    "home": "Inicio",
+    "about": "Acerca de mí",
+    "plans": "Planes y Precios",
+    "portfolio": "Portafolio",
+    "contact": "Contacto"
+  },
   "footer": {
     "tagline": "Simplificando la web solo para ti.",
     "usefulLinks": "Enlaces Útiles",

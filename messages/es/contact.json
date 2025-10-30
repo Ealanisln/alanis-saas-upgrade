@@ -1,11 +1,16 @@
 {
   "meta": {
-    "title": "Contacto - Alanis",
-    "description": "¿Tienes un proyecto en mente? Contáctame y trabajemos juntos para hacer realidad tu idea."
+    "title": "Contacto | Hablemos de tu proyecto - Alanis Dev",
+    "description": "¿Tienes un proyecto en mente? Contáctame para una consulta gratuita. Especializado en desarrollo web con Next.js, React y TypeScript. ¡Hagamos realidad tu idea!",
+    "keywords": ["contacto", "desarrollo web", "consulta gratuita", "Next.js", "React", "TypeScript", "proyectos web", "desarrollo de software"]
   },
   "title": "Contacto",
   "subtitle": "¿Listo para trabajar juntos?",
   "description": "¿Tienes un proyecto en mente? Me encantaría escuchar sobre tu idea y ayudarte a hacerla realidad.",
+  "breadcrumb": {
+    "title": "Contacto",
+    "description": "¡Me encantaría saber acerca de tu proyecto!"
+  },
   "form": {
     "title": "¿Tienes alguna duda?",
     "subtitle": "Escríbeme y me pondré en contacto lo más pronto posible.",
@@ -24,5 +29,17 @@
     "email": "Correo electrónico",
     "message": "Mensaje",
     "send": "Enviar mensaje"
+  },
+  "jsonLd": {
+    "name": "Contacto - Alanis Dev",
+    "description": "¿Tienes un proyecto en mente? Contáctame para una consulta gratuita. Especializado en desarrollo web con Next.js, React y TypeScript. ¡Hagamos realidad tu idea!"
+  },
+  "newsletter": {
+    "title": "Suscríbete para recibir actualizaciones",
+    "description": "Mantente actualizado con las últimas noticias y actualizaciones sobre desarrollo web y mis proyectos.",
+    "namePlaceholder": "Escribe tu nombre",
+    "emailPlaceholder": "Escribe tu correo",
+    "submit": "Suscribirse",
+    "disclaimer": "Sin spam garantizado, por favor no envíes correo basura."
   }
 } 

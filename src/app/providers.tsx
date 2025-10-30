@@ -26,11 +26,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, []);
 
   if (!mounted) {
-    // Return null or a loading state until mounted
-    // Prevents hydration mismatch for the provider children
-    // You might need to adjust your RootLayout if null causes issues
-    // e.g., return <html...><body...>{null}</body></html>
-     return null;
+    // Render children in SSR to prevent hydration mismatch
+    // ThemeProvider and QueryClient will hydrate on client side
+    return <>{children}</>;
   }
 
   return (

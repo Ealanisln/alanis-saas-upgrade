@@ -1,8 +1,12 @@
 // src/components/Pricing/PricingFeatures.tsx
+"use client";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import SectionTitle from "../Common/SectionTitle";
 
 const PricingFeatures = () => {
+  const t = useTranslations("plans.pricing");
+
   const features = [
     {
       icon: (
@@ -14,8 +18,8 @@ const PricingFeatures = () => {
           <path d="M10 25H7.5C6.12 25 5 26.12 5 27.5C5 28.88 6.12 30 7.5 30H10V25Z"></path>
         </svg>
       ),
-      title: "Diseño Responsive",
-      description: "Todos nuestros sitios web se ven geniales en cualquier dispositivo, desde smartphones hasta computadoras de escritorio.",
+      title: t("services.responsive.title"),
+      description: t("services.responsive.description"),
     },
     {
       icon: (
@@ -26,8 +30,8 @@ const PricingFeatures = () => {
           <path d="M26.875 22.5C26.875 22.8114 26.7565 23.1099 26.5473 23.3348C26.338 23.5597 26.0501 23.6895 25.7401 23.693L25.625 23.6992C23.4762 23.7156 21.3742 24.3494 19.5496 25.5234C17.725 26.6974 16.2551 28.3617 15.3 30.3125C15.1887 30.5651 14.9948 30.77 14.7524 30.8907C14.51 31.0113 14.2341 31.0406 13.9715 30.9729C13.7089 30.9052 13.4759 30.7444 13.312 30.5196C13.1481 30.2949 13.0629 30.0204 13.0715 29.7402C13.1113 28.4373 13.4024 27.1536 13.9316 25.9506C14.4608 24.7477 15.219 23.6477 16.1659 22.7061C17.1128 21.7646 18.2323 21.0013 19.4543 20.4593C20.6763 19.9172 21.9819 19.6063 23.3069 19.5426C23.5778 19.5264 23.8458 19.5926 24.0737 19.7315C24.3016 19.8704 24.4779 20.0747 24.5785 20.3153C24.679 20.5559 24.6991 20.8212 24.6353 21.0743C24.5716 21.3275 24.4274 21.555 24.225 21.7266C23.89 22.0156 23.6916 22.4195 23.6673 22.8516C23.6431 23.2837 23.7948 23.7064 24.0893 24.0281C24.384 24.3499 24.798 24.5461 25.2429 24.5788C25.6879 24.6115 26.1271 24.4784 26.47 24.2078C26.6 24.1048 26.751 24.0279 26.9135 23.982C27.0761 23.9362 27.2468 23.9224 27.415 23.9413C27.5832 23.9602 27.7455 24.0115 27.8912 24.0921C28.037 24.1727 28.1635 24.2809 28.2625 24.4094C28.3615 24.5379 28.4308 24.684 28.4663 24.8394C28.5019 24.9948 28.5029 25.1559 28.4693 25.3116C28.4358 25.4674 28.3683 25.6142 28.2709 25.7437C28.1735 25.8732 28.0483 25.9826 27.9036 26.0645C27.4841 26.3145 27.0016 26.4459 26.51 26.445C26.1899 26.442 25.8743 26.5115 25.5858 26.6486L25.4895 26.6988C25.7883 24.3981 25.1524 22.0805 23.7246 20.306C23.5705 20.1286 23.4822 19.902 23.473 19.6671C23.4639 19.4322 23.5343 19.1996 23.6739 19.0111C23.8135 18.8226 24.0133 18.6903 24.241 18.6359C24.4686 18.5815 24.7075 18.6084 24.9165 18.7127C26.1999 19.3941 27.2351 20.4623 27.8758 21.761C27.9609 21.9271 28.0009 22.112 27.9917 22.298C27.9826 22.4839 27.9246 22.6635 27.8237 22.8206C27.6881 23.0389 27.471 23.1992 27.2171 23.2701C27.1104 23.2989 27.0004 23.3133 26.89 23.3133L26.875 22.5Z"></path>
         </svg>
       ),
-      title: "Optimización SEO",
-      description: "Mejoramos la visibilidad de tu sitio web en los motores de búsqueda para atraer más visitantes cualificados.",
+      title: t("services.seo.title"),
+      description: t("services.seo.description"),
     },
     {
       icon: (
@@ -38,8 +42,8 @@ const PricingFeatures = () => {
           <path d="M17.5 13.75C18.2373 13.75 18.9544 13.978 19.5556 14.399C20.1568 14.82 20.6108 15.4151 20.8594 16.1075C21.108 16.7999 21.1387 17.5544 20.9471 18.2652C20.7554 18.976 20.35 19.607 19.7877 20.0623C19.2254 20.5176 18.5211 20.7662 17.789 20.7761C17.0568 20.786 16.3458 20.5567 15.7702 20.1176C15.1946 19.6785 14.771 19.0591 14.5592 18.355C14.3473 17.6508 14.3562 16.8969 14.5846 16.198C14.8964 15.2392 15.6035 14.4533 16.5159 14.0099C17.4282 13.5665 18.4808 13.5047 19.4382 13.8382C19.9485 14.025 20.4124 14.3173 20.8 14.6937L17.5 18.125V13.75Z"></path>
         </svg>
       ),
-      title: "Carga Rápida",
-      description: "Optimizamos el rendimiento de tu sitio web para que cargue rápidamente, mejorando la experiencia del usuario y el SEO.",
+      title: t("services.fastLoading.title"),
+      description: t("services.fastLoading.description"),
     },
     {
       icon: (
@@ -49,8 +53,8 @@ const PricingFeatures = () => {
           <path opacity="0.5" d="M32.0591 15.0573L32.0691 15.0473C32.2991 14.8173 32.4291 14.5073 32.4291 14.1973C32.4291 13.8873 32.2991 13.5773 32.0691 13.3473C31.8391 13.1173 31.5291 12.9873 31.2191 12.9873C30.9091 12.9873 30.5991 13.1173 30.3691 13.3473L30.3591 13.3573C28.9491 14.7673 25.8391 15.3473 23.4291 13.4773V13.4773C23.2291 13.2973 22.9891 13.1873 22.7291 13.1473C22.4691 13.1073 22.2091 13.1473 21.9691 13.2473C21.7291 13.3573 21.5291 13.5273 21.3891 13.7473C21.2491 13.9673 21.1791 14.2173 21.1891 14.4773C21.2991 16.5473 20.9291 17.9673 20.0691 18.6973C19.0691 19.5573 17.4891 19.2973 16.5891 18.6973C16.1891 18.3973 16.0091 18.0773 15.9491 17.7573C15.8691 17.4373 15.9091 17.0573 16.0491 16.6773C16.3291 15.8773 16.9491 15.1273 17.3691 14.9673C17.5091 14.9073 17.6291 14.7673 17.6691 14.6073C17.7091 14.4473 17.6891 14.2773 17.6091 14.1373L14.9491 9.35729C14.8691 9.22729 14.7291 9.13729 14.5691 9.10729C14.4091 9.08729 14.2491 9.11729 14.1191 9.21729C11.2691 11.2173 9.42914 14.1773 8.19914 14.0573C6.99914 13.9273 5.99914 10.7073 6.56914 6.55729C6.60914 6.21729 6.39914 5.88729 6.05914 5.77729C5.72914 5.67729 5.35914 5.81729 5.16914 6.11729C1.56914 11.5873 1.76914 19.8073 5.82914 24.8473C9.88914 29.8773 17.4891 31.4373 23.9191 29.0673C30.3491 26.6973 33.6991 20.1573 32.1791 13.7773L32.0591 15.0573Z"></path>
         </svg>
       ),
-      title: "Soporte Técnico",
-      description: "Ofrecemos soporte técnico continuo para asegurarnos de que tu sitio web funcione correctamente en todo momento.",
+      title: t("services.technical.title"),
+      description: t("services.technical.description"),
     },
     {
       icon: (
@@ -60,8 +64,8 @@ const PricingFeatures = () => {
           <path d="M31.05 27.0626C30.5951 27.8506 30.0493 28.5749 29.4375 29.2251C28.625 29.975 27.7125 30.6 26.725 31.075L29.025 33.3749C29.4818 33.8102 30.0758 34.0549 30.7023 34.0668C31.3288 34.0787 31.9321 33.8568 32.4059 33.442C32.8797 33.0272 33.1939 32.4453 33.2897 31.7989C33.3855 31.1525 33.2553 30.4912 32.9256 29.9366L31.05 27.0626Z"></path>
         </svg>
       ),
-      title: "Actualizaciones Regulares",
-      description: "Mantenemos tu sitio web actualizado con las últimas tecnologías y tendencias para garantizar su seguridad y funcionamiento.",
+      title: t("services.updates.title"),
+      description: t("services.updates.description"),
     },
     {
       icon: (
@@ -74,8 +78,8 @@ const PricingFeatures = () => {
           <path d="M11 31.25C17.7655 31.25 23.25 25.7655 23.25 19C23.25 12.2345 17.7655 6.75 11 6.75C4.2345 6.75 -1.25 12.2345 -1.25 19C-1.25 25.7655 4.2345 31.25 11 31.25Z"></path>
         </svg>
       ),
-      title: "Personalización Total",
-      description: "Adaptamos cada proyecto a tus necesidades específicas, garantizando que tu sitio web refleje la identidad de tu marca.",
+      title: t("services.customization.title"),
+      description: t("services.customization.description"),
     },
   ];
 
@@ -83,8 +87,8 @@ const PricingFeatures = () => {
     <section className="py-16 md:py-20 lg:py-28 bg-gray-50 dark:bg-gray-800">
       <div className="container">
         <SectionTitle
-          title="Todo lo que necesitas para tu presencia online"
-          paragraph="Nuestros planes están diseñados para ofrecerte un completo conjunto de características premium que harán que tu sitio web destaque."
+          title={t("featuresSection.title")}
+          paragraph={t("featuresSection.description")}
           center
           width="665px"
         />
