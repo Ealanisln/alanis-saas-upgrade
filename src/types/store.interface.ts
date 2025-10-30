@@ -54,7 +54,7 @@ interface User {
 }
 
 // Interface for VerificationToken model
-interface VerificationToken {
+interface _VerificationToken {
   identifier: string;
   token: string;
   expires: Date;
@@ -129,9 +129,9 @@ interface Order {
 
 export interface CartProduct {
   id: string;
-  slug: string;
+  slug?: string;
   title: string;
   price: number;
   quantity: number;
-  image: string;
+  image?: string;
 }

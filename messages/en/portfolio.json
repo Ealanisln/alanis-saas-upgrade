@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "title": "Portfolio - Alanis",
+    "description": "Explore my latest projects and discover how I can help you with your next web development project."
+  },
+  "title": "Portfolio",
+  "subtitle": "My latest projects",
+  "description": "A selection of projects I have worked on, showcasing different technologies and development approaches.",
+  "viewProject": "View project",
+  "viewCode": "View code",
+  "technologies": "Technologies",
+  "hero": {
+    "title": "My Featured Projects",
+    "description": "Discover the power of Next.js with my latest projects, where cutting-edge technology and user experience merge to perfection."
+  },
+  "featured": {
+    "title": "Featured Projects",
+    "description": "A selection of my most recent work, built with the latest technologies and best practices"
+  },
+  "recent": {
+    "title": "Recent Projects",
+    "description": "Discover how I can help you create high-impact digital experiences with the most modern technologies on the market."
+  }
+} 

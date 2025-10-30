@@ -1,9 +1,12 @@
+import { getTranslations } from "next-intl/server";
+import { client } from "@/sanity/lib/client";
+import { localizePost } from "@/sanity/lib/i18n";
+import type { SanityPost } from "@/sanity/lib/types";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
 import SectionTitle from "../Common/SectionTitle";
 import Posts from "./Posts";
-import { client } from "@/sanity/lib/client";
 
-async function getData() {
+async function getData(locale: string) {
   const query = `
   *[_type == 'post'] {
     _id,
@@ -16,14 +19,21 @@ async function getData() {
       _id,
       name
     }
-  }  
+  }
   `;
   const data = await client.fetch(query);
-  return data;
+
+  // Localize all posts
+  return data.map((post: SanityPost) => localizePost(post, locale));
 }
 
-const Blog = async () => {
-  const data: SimpleBlogCard[] = await getData();
+interface BlogProps {
+  locale?: string;
+}
+
+const Blog = async ({ locale = 'en' }: BlogProps = {}) => {
+  const data: SimpleBlogCard[] = await getData(locale);
+  const t = await getTranslations("blog.latest");
 
   return (
     <section
@@ -32,12 +42,12 @@ const Blog = async () => {
     >
       <div className="container">
         <SectionTitle
-          title="Mis últimas publicaciones"
-          paragraph="Descubre cosas nuevas sobre desarrollo web: lee artículos interesantes sobre la creación de sitios web y aplicaciones."
+          title={t("title")}
+          paragraph={t("description")}
           center
         />
 
-        <Posts data={data} />
+        <Posts data={data} locale={locale} />
       </div>
     </section>
   );

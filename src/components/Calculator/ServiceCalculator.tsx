@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Calculator } from 'lucide-react';
+import { useQuotes } from '@/hooks/useQuotes';
 import { 
   SelectedService, 
   ClientType, 
@@ -9,13 +10,12 @@ import {
   QuoteCalculation,
   QuoteRequest 
 } from '@/types/calculator/service-calculator.types';
-import { serviceCategories } from './service-config';
-import { quoteCalculator } from './quote-calculator';
-import { ServiceCard } from './ServiceCard';
-import { QuoteSummary } from './QuoteSummary';
 import { ProjectConfiguration } from './ProjectConfiguration';
+import { quoteCalculator } from './quote-calculator';
 import { QuoteFormModal } from './QuoteFormModal';
-import { useQuotes } from '@/hooks/useQuotes';
+import { QuoteSummary } from './QuoteSummary';
+import { serviceCategories } from './service-config';
+import { ServiceCard } from './ServiceCard';
 
 const ServiceCalculator: React.FC = () => {
   const [selectedServices, setSelectedServices] = useState<SelectedService[]>([]);

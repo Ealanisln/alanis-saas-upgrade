@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "title": "Alanis - Web Developer",
+    "description": "Full-stack developer specialized in creating robust, scalable and user-friendly web applications."
+  },
+  "hero": {
+    "title": "Creating Digital Experiences with Code",
+    "subtitle": "Specialized in creating modern web applications",
+    "description": "Full-stack developer specialized in creating robust, scalable and user-friendly web applications. From concept to deployment, I bring your ideas to life.",
+    "cta": "View My Projects",
+    "contact": "Contact Me"
+  },
+  "features": {
+    "title": "Key Benefits",
+    "subtitle": "Advantages",
+    "highlight": "benefits",
+    "paragraph": "Our web developments are Google-compatible, so you can enjoy enhanced SEO benefits, meaning Google will provide you with better visibility among others without paying more.",
+    "items": {
+      "mobileOptimized": {
+        "title": "Mobile-Optimized Designs",
+        "description": "All our web designs are fully responsive and optimized for mobile devices, ensuring your website looks and functions perfectly on all devices."
+      },
+      "customDesigns": {
+        "title": "High-Quality Custom Designs",
+        "description": "I create unique designs specific to your brand. This ensures your website looks different and better than others in your sector."
+      },
+      "staticPages": {
+        "title": "Static Pages",
+        "description": "Our web design allows you to create as many static pages as you need, we have different plans according to your needs. This means you can easily expand your website as your business grows, without worrying about technical limitations."
+      },
+      "latestTech": {
+        "title": "Latest Technologies",
+        "description": "We use the latest web development technologies to ensure your website is fast, compatible with any device, and scalable. We are experts in using Next.js, a powerful web development framework."
+      },
+      "customizable": {
+        "title": "Fully Customizable",
+        "description": "Unleash your creativity and customize your website to perfection with our fully customizable features! No limits!"
+      },
+      "seoOptimization": {
+        "title": "SEO Optimization",
+        "description": "Our websites incorporate SEO best practices, which attracts more organic traffic from Google without incurring additional costs. We implement the best techniques, including Next.js optimization and comprehensive keyword research, to ensure high search engine rankings."
+      }
+    }
+  },
+  "techLabels": {
+    "frontend": "Front-end",
+    "backend": "Back-end",
+    "fullstack": "Full-stack"
+  }
+} 

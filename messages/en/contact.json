@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "title": "Contact - Alanis",
+    "description": "Do you have a project in mind? Contact me and let's work together to make your idea a reality."
+  },
+  "title": "Contact",
+  "subtitle": "Ready to work together?",
+  "description": "Do you have a project in mind? I'd love to hear about your idea and help you make it a reality.",
+  "form": {
+    "title": "Have any questions?",
+    "subtitle": "Write to me and I'll get back to you as soon as possible.",
+    "nameLabel": "Your name",
+    "namePlaceholder": "Enter your name here",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "Enter your email here",
+    "messageLabel": "Your message",
+    "messagePlaceholder": "Enter your message here",
+    "maxChars": "Max: 500 characters",
+    "submit": "Send message",
+    "required": "This field is required",
+    "successMessage": "Message sent successfully!",
+    "errorMessage": "Oops, sorry, there was an error sending your message:",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send message"
+  }
+} 

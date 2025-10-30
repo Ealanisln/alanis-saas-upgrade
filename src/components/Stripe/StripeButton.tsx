@@ -1,9 +1,9 @@
 "use client";
 
+import { createCheckoutSession } from "@/app/actions/stripe";
 import { CURRENCY } from "@/config";
 import { formatAmountForStripe } from "@/lib/utils/stripe-helpers";
 import { Button } from "../ui/button";
-import { createCheckoutSession } from "@/app/actions/stripe";
 
 interface Props {
   amount: number;
@@ -13,7 +13,7 @@ interface Props {
 const StripeButton = ({ amount, name }: Props) => {
   const handleCheckout = async () => {
     const unitAmount = formatAmountForStripe(amount, CURRENCY);
-    await createCheckoutSession(unitAmount, name);
+    await createCheckoutSession(unitAmount, name || 'Service');
   };
 
   return (

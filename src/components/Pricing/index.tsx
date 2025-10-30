@@ -1,57 +1,60 @@
 // src/components/Pricing/index.tsx
 
 "use client";
+import { useTranslations } from "next-intl";
 import SectionTitle from "../Common/SectionTitle";
 import OfferList from "./OfferList";
 import PricingBox from "./PricingBox";
 
 const Pricing = () => {
+  const t = useTranslations("plans.pricing");
+
   return (
     <section id="pricing" className="relative z-10 py-16 md:py-20 lg:py-28">
       <div className="container">
         <SectionTitle
-          title="Elige el mejor plan para tus necesidades."
-          paragraph="Nuestro modelo de precios de tres niveles ofrece opciones para todos, ya seas un pequeño empresario o un usuario avanzado."
+          title={t("title")}
+          paragraph={t("subtitle")}
           center
           width="665px"
         />
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3 mt-8 md:mt-12">
           <PricingBox
-            packageName="Lite"
+            packageName={t("lite.name")}
             price={6500}
-            subtitle="Para pequeñas empresas y emprendedores"
+            subtitle={t("lite.subtitle")}
           >
-            <OfferList text="1 - 5 páginas estáticas" status="active" />
-            <OfferList text="Diseño responsive básico" status="active" />
-            <OfferList text="Dominio y hosting por un año" status="active" />
-            <OfferList text="Certificado SSL" status="active" />
-            <OfferList text="Optimización SEO básica" status="active" />
-            <OfferList text="Soporte por email" status="active" />
+            <OfferList text={t("lite.features.pages")} status="active" />
+            <OfferList text={t("lite.features.design")} status="active" />
+            <OfferList text={t("lite.features.hosting")} status="active" />
+            <OfferList text={t("lite.features.ssl")} status="active" />
+            <OfferList text={t("lite.features.seo")} status="active" />
+            <OfferList text={t("lite.features.support")} status="active" />
           </PricingBox>
           <PricingBox
-            packageName="Basic"
+            packageName={t("basic.name")}
             price={8500}
-            subtitle="Para negocios en crecimiento"
+            subtitle={t("basic.subtitle")}
           >
-            <OfferList text="5 - 15 páginas estáticas" status="active" />
-            <OfferList text="Diseño responsive profesional" status="active" />
-            <OfferList text="Dominio premium y hosting" status="active" />
-            <OfferList text="Blog integrado" status="active" />
-            <OfferList text="SEO avanzado y Analytics" status="active" />
-            <OfferList text="Soporte por email y teléfono" status="active" />
+            <OfferList text={t("basic.features.pages")} status="active" />
+            <OfferList text={t("basic.features.design")} status="active" />
+            <OfferList text={t("basic.features.hosting")} status="active" />
+            <OfferList text={t("basic.features.blog")} status="active" />
+            <OfferList text={t("basic.features.seo")} status="active" />
+            <OfferList text={t("basic.features.support")} status="active" />
           </PricingBox>
           <PricingBox
-            packageName="Plus"
+            packageName={t("plus.name")}
             price={12500}
-            subtitle="Solución completa para empresas"
+            subtitle={t("plus.subtitle")}
           >
-            <OfferList text="Hasta 25 páginas dinámicas" status="active" />
-            <OfferList text="Diseño personalizado" status="active" />
-            <OfferList text="CMS para gestión de contenido" status="active" />
-            <OfferList text="Ecommerce básico" status="active" />
-            <OfferList text="Integraciones avanzadas" status="active" />
-            <OfferList text="Soporte prioritario 24/7" status="active" />
+            <OfferList text={t("plus.features.pages")} status="active" />
+            <OfferList text={t("plus.features.design")} status="active" />
+            <OfferList text={t("plus.features.cms")} status="active" />
+            <OfferList text={t("plus.features.ecommerce")} status="active" />
+            <OfferList text={t("plus.features.integrations")} status="active" />
+            <OfferList text={t("plus.features.support")} status="active" />
           </PricingBox>
         </div>
       </div>

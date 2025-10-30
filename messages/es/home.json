@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "title": "Alanis - Desarrollador Web",
+    "description": "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar."
+  },
+  "hero": {
+    "title": "Creando Experiencias Digitales con Código",
+    "subtitle": "Especializado en crear aplicaciones web modernas",
+    "description": "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar. Desde el concepto hasta el despliegue, doy vida a tus ideas.",
+    "cta": "Ver Mis Proyectos",
+    "contact": "Escríbeme"
+  },
+  "features": {
+    "title": "Principales beneficios",
+    "subtitle": "Ventajas",
+    "highlight": "beneficios",
+    "paragraph": "Nuestros desarrollos web son compatibles con Google, asi que puedes disfrutar de beneficios de SEO mejorados, lo que significa que Google te brindará una mejor visibilidad entre los demás sin pagar más.",
+    "items": {
+      "mobileOptimized": {
+        "title": "Diseños Optimizados para Móviles",
+        "description": "Todos nuestros diseños web son completamente responsivos y están optimizados para dispositivos móviles, lo que garantiza que tu sitio web se vea y funcione perfectamente en todos los dispositivos."
+      },
+      "customDesigns": {
+        "title": "Diseños Personalizados de Alta Calidad",
+        "description": "Creo diseños únicos específicos para tu marca. Esto asegura que tu sitio web se vea diferente y mejor que los demás en tu sector."
+      },
+      "staticPages": {
+        "title": "Páginas Estáticas",
+        "description": "Nuestro diseño web te permite crear tantas páginas estáticas como necesites, contamos con diferentes planes según tus necesidades. Esto significa que puedes expandir fácilmente tu sitio web a medida que tu negocio crece, sin preocuparte por limitaciones técnicas."
+      },
+      "latestTech": {
+        "title": "Últimas Tecnologías",
+        "description": "Utilizamos las últimas tecnologías de desarrollo web para garantizar que tu sitio web sea rápido, compatible con cualquier dispositivo y escalable. Somos expertos en el uso de Next.js, un poderoso framework de desarrollo web."
+      },
+      "customizable": {
+        "title": "Totalmente Personalizable",
+        "description": "¡Da rienda suelta a tu creatividad y personaliza tu sitio web a la perfección con nuestras funciones totalmente personalizables! ¡Sin límites!"
+      },
+      "seoOptimization": {
+        "title": "Optimización SEO",
+        "description": "Nuestros sitios web incorporan las mejores prácticas de SEO, lo que atrae más tráfico orgánico de Google sin incurrir en costos adicionales. Implementamos las mejores técnicas, incluida la optimización de Next.js y una exhaustiva investigación de palabras clave, para garantizar una alta clasificación en los resultados de búsqueda."
+      }
+    }
+  },
+  "techLabels": {
+    "frontend": "Front-end",
+    "backend": "Back-end",
+    "fullstack": "Full-stack"
+  }
+} 

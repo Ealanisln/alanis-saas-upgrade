@@ -1,6 +1,7 @@
 'use client';
 
 import { FC, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Project } from '@/lib/types';
 import ProjectCard from './ProjectCard';
 import ProjectModal from './ProjectModal';
@@ -10,6 +11,7 @@ interface portafolioProps {
 }
 
 const Modernportafolio: FC<portafolioProps> = ({ projects }) => {
+  const t = useTranslations('portfolio.featured');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -29,10 +31,10 @@ const Modernportafolio: FC<portafolioProps> = ({ projects }) => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-              Proyectos Destacados
+              {t('title')}
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Una selección de mis trabajos más recientes, construidos con las últimas tecnologías y mejores prácticas
+              {t('description')}
             </p>
           </div>
 

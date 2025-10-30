@@ -9,6 +9,7 @@ export default defineType({
       name: 'name',
       title: 'Name',
       type: 'string',
+      description: 'Name is shared across all languages',
     }),
     defineField({
       name: 'slug',
@@ -18,6 +19,7 @@ export default defineType({
         source: 'name',
         maxLength: 96,
       },
+      description: 'Slug is shared across all languages',
     }),
     defineField({
       name: 'image',
@@ -37,17 +39,18 @@ export default defineType({
     defineField({
       name: 'bio',
       title: 'Bio',
-      type: 'array',
-      of: [
-        {
-          title: 'Block',
-          type: 'block',
-          styles: [{title: 'Normal', value: 'normal'}],
-          lists: [],
-        },
-      ],
+      type: 'internationalizedArrayText',
     }),
   ],
+
+  fieldsets: [
+    {
+      name: 'translations',
+      title: 'Translations',
+      options: { collapsible: true, collapsed: false }
+    }
+  ],
+
   preview: {
     select: {
       title: 'name',

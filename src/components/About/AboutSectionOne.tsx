@@ -1,6 +1,8 @@
 // src/components/About/AboutSectionOne.tsx
 
+"use client";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import SectionTitle from "../Common/SectionTitle";
 
 const checkIcon = (
@@ -14,6 +16,8 @@ interface ListProps {
 }
 
 const AboutSectionOne = () => {
+  const t = useTranslations("about.section");
+
   const List = ({ text }: ListProps) => (
     <p className="mb-5 flex items-center text-lg font-medium text-body-color">
       <span className="mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md bg-primary bg-opacity-10 text-primary">
@@ -30,8 +34,8 @@ const AboutSectionOne = () => {
           <div className="-mx-4 flex flex-wrap items-center">
             <div className="w-full px-4 pb-12 lg:w-1/2 lg:pb-0">
               <SectionTitle
-                title="La mejor solución para tu negocio."
-                paragraph="¿Te preocupan los asuntos técnicos? No te preocupes, te aseguramos que te brindaremos las mejores soluciones para que tu negocio funcione sin problemas. Siempre contarás con el respaldo de nuestra experiencia de primer nivel."
+                title={t("title")}
+                paragraph={t("description")}
                 mb="44px"
               />
 
@@ -41,15 +45,15 @@ const AboutSectionOne = () => {
               >
                 <div className="mx-[-12px] flex flex-wrap">
                   <div className="w-full px-3 sm:w-1/2 lg:w-full xl:w-1/2">
-                    <List text="Las tecnologías mas nuevas" />
-                    <List text="Completamente escalable" />
-                    <List text="Calidad de clase mundial" />
+                    <List text={t("features.latestTech")} />
+                    <List text={t("features.scalable")} />
+                    <List text={t("features.worldClass")} />
                   </div>
 
                   <div className="w-full px-3 sm:w-1/2 lg:w-full xl:w-1/2">
-                    <List text="Costos accesibles." />
-                    <List text="Soporte en español e inglés." />
-                    <List text="Ideal para personas sin conocimientos técnicos" />
+                    <List text={t("features.affordable")} />
+                    <List text={t("features.bilingual")} />
+                    <List text={t("features.friendly")} />
                   </div>
                 </div>
               </div>

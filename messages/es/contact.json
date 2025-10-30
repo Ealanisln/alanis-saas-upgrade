@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "title": "Contacto - Alanis",
+    "description": "¿Tienes un proyecto en mente? Contáctame y trabajemos juntos para hacer realidad tu idea."
+  },
+  "title": "Contacto",
+  "subtitle": "¿Listo para trabajar juntos?",
+  "description": "¿Tienes un proyecto en mente? Me encantaría escuchar sobre tu idea y ayudarte a hacerla realidad.",
+  "form": {
+    "title": "¿Tienes alguna duda?",
+    "subtitle": "Escríbeme y me pondré en contacto lo más pronto posible.",
+    "nameLabel": "Tu nombre",
+    "namePlaceholder": "Escribe aquí tu nombre",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "Escribe aquí tu correo",
+    "messageLabel": "Tu mensaje",
+    "messagePlaceholder": "Escribe aquí tu mensaje",
+    "maxChars": "Máx: 500 caracteres",
+    "submit": "Enviar mensaje",
+    "required": "Este campo es requerido",
+    "successMessage": "¡Mensaje enviado exitosamente!",
+    "errorMessage": "Oops, lo sentimos, hubo un error al enviar tu mensaje:",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "message": "Mensaje",
+    "send": "Enviar mensaje"
+  }
+} 

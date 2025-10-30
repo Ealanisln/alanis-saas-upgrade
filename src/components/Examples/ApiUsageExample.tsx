@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useQuotes } from '@/hooks/useQuotes';
-import { useApi } from '@/hooks/useApi';
-import { QuoteRequest } from '@/types/calculator/service-calculator.types';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { useApi } from '@/hooks/useApi';
+import { useQuotes } from '@/hooks/useQuotes';
+import { QuoteRequest } from '@/types/calculator/service-calculator.types';
 
 /**
  * Example component demonstrating the new API client usage
@@ -65,7 +65,9 @@ export const ApiUsageExample: React.FC = () => {
 
     try {
       const result = await createQuote(exampleQuote);
-      console.log('Quote created:', result);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Quote created:', result);
+      }
     } catch (error) {
       console.error('Error creating quote:', error);
     }
@@ -84,7 +86,9 @@ export const ApiUsageExample: React.FC = () => {
         subject: emailData.subject,
         content: emailData.content
       });
-      console.log('Email sent:', result);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Email sent:', result);
+      }
       setEmailData({ to: [''], subject: '', content: '' });
     } catch (error) {
       console.error('Error sending email:', error);
@@ -96,7 +100,9 @@ export const ApiUsageExample: React.FC = () => {
     try {
       // Direct API call example
       const response = await client.get('/quotes');
-      console.log('Direct API response:', response);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Direct API response:', response);
+      }
     } catch (error) {
       console.error('Direct API error:', error);
     }

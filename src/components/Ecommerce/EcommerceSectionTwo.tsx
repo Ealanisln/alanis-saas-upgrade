@@ -1,8 +1,7 @@
 "use client";
 
+import React, { useState } from "react";
 import Image from "next/image";
-import { useState } from "react";
-import React from "react";
 
 interface FeatureProps {
   icon: React.ReactNode;

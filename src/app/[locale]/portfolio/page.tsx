@@ -1,9 +1,9 @@
 // src/app/portafolio/page.tsx
+import { Metadata } from "next";
+import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import SectionTitle from "@/components/Common/SectionTitle";
 import Modernportafolio from "@/components/Portfolio/ModernPortfolio";
-import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import projects from "@/data/projects";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "portafolio | Proyectos de Desarrollo Web - Alanis Dev",

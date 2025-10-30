@@ -1,7 +1,8 @@
+import { Inter } from "next/font/google";
+import { headers } from "next/headers";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ScrollToTop from "@/components/ScrollToTop";
-import { Inter } from "next/font/google";
 import "node_modules/react-modal-video/css/modal-video.css";
 import "../styles/index.css";
 import { Providers } from "./providers";
@@ -19,80 +20,20 @@ export const viewport = {
   viewportFit: "cover",
 };
 
-// Metadata configuration with metadataBase
-export const metadata = {
-  metadataBase: new URL('https://alanis.dev'),
-  title: {
-    default: "Alanis - Web Developer",
-    template: "%s | Alanis Dev"
-  },
-  description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
-  keywords: ["desarrollo web", "programación", "javascript", "typescript", "react", "next.js", "full-stack"],
-  authors: [{ name: "Alanis Dev" }],
-  creator: "Alanis Dev",
-  publisher: "Alanis Dev",
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-icon.png",
-  },
-  alternates: {
-    canonical: '/',
-    languages: {
-      'es-ES': '/',
-    },
-  },
-  openGraph: {
-    type: "website",
-    locale: "es_ES",
-    url: "https://alanis.dev",
-    siteName: "Alanis Dev",
-    title: "Alanis - Web Developer",
-    description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
-    images: [
-      {
-        url: "/og-alanis-web-dev.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Alanis - Web Developer",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Alanis - Web Developer",
-    description: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
-    images: ["/og-alanis-web-dev.jpg"],
-    creator: "@ealanisln",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  verification: {
-    google: "verification_token", // Replace with your actual verification token
-  },
-};
-
-export default function RootLayout({
-  children,
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
+}
+
+export default async function RootLayout({
+  children
+}: RootLayoutProps) {
+  // Get the locale from the headers set by middleware
+  const headersList = await headers();
+  const locale = headersList.get('x-locale') || 'en';
+
   return (
-    <html suppressHydrationWarning lang="es" className="scroll-smooth">
+    <html lang={locale} suppressHydrationWarning className="scroll-smooth">
       <head>
-        <Script
-          defer
-          src="https://analytics-omega-nine.vercel.app/script.js"
-          data-website-id="ff7f7fca-11fa-497f-814a-ee473d935868"
-          strategy="afterInteractive"
-        />
         {/* Add meta tag specifically for iOS */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -100,14 +41,17 @@ export default function RootLayout({
         <meta name="theme-color" content="#0F172A" media="(prefers-color-scheme: dark)" />
       </head>
       <body className={`bg-[#FCFCFC] dark:bg-black ${inter.className} antialiased text-body-color overflow-x-hidden`}>
+        <Script
+          defer
+          src="https://analytics-omega-nine.vercel.app/script.js"
+          data-website-id="ff7f7fca-11fa-497f-814a-ee473d935868"
+          strategy="afterInteractive"
+        />
+        
         <Providers>
           <div className="flex min-h-[100dvh] flex-col">
-            <Header />
-            <main className="flex-1">
-              {children}
-            </main>
+            {children}
             <Analytics />
-            <Footer />
             <ScrollToTop />
           </div>
         </Providers>
