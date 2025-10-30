@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import React, { useState } from "react";
@@ -12,9 +11,14 @@ interface FormInputs {
   message: string;
 }
 
+interface Message {
+  type: "success" | "error";
+  text: string;
+}
+
 const Contact = () => {
   const t = useTranslations("contact.form");
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState<Message | null>(null);
 
   const {
     register,
@@ -35,9 +39,11 @@ const Contact = () => {
         reset();
       }, 3000);
     } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : t("errorMessage");
       setMessage({
         type: "error",
-        text: `${t("errorMessage")  } ${  error.message}`,
+        text: `${t("errorMessage")} ${errorMessage}`,
       });
       // Clear the error message after 3 seconds
       setTimeout(() => {
