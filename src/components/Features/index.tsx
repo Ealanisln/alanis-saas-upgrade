@@ -2,8 +2,8 @@
 
 import { useTranslations } from 'next-intl';
 import SectionTitle from "../Common/SectionTitle";
-import SingleFeature from "./SingleFeature";
 import featuresData from "./featuresData";
+import SingleFeature from "./SingleFeature";
 
 const Features = () => {
   const t = useTranslations('home.features');

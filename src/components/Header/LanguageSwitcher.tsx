@@ -1,7 +1,7 @@
 "use client";
 
-import { useLocale, useTranslations } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { locales, localeConfig, defaultLocale } from '@/config/i18n';
 
 export default function LanguageSwitcher() {

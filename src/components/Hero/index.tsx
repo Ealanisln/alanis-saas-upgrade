@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { ArrowRight, Code, Server, Zap } from "lucide-react";
-import { Link } from "@/lib/navigation";
 import { getTranslations } from 'next-intl/server';
+import { Button } from "@/components/ui/button";
+import { Link } from "@/lib/navigation";
 
 interface HeroSectionProps {
   locale: string;

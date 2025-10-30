@@ -1,7 +1,7 @@
+import { Metadata } from "next";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import Contact from "@/components/Contact";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contacto | Hablemos de tu proyecto - Alanis Dev",

@@ -1,6 +1,6 @@
-import { client } from "@/sanity/lib/client";
 import { MetadataRoute } from "next";
 import { locales, defaultLocale } from "@/config/i18n";
+import { client } from "@/sanity/lib/client";
 
 // Function to fetch all blog posts
 async function getAllPosts() {

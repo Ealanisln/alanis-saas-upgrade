@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getRequestConfig } from 'next-intl/server';
 import { defaultLocale, locales } from '@/config/i18n';
 

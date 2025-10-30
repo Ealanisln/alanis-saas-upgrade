@@ -2,14 +2,14 @@
 
 import React, { useState } from 'react';
 import { X, User, Mail, Building2, Phone, FileText, Calendar, DollarSign } from 'lucide-react';
-import { QuoteRequest, QuoteCalculation } from '@/types/calculator/service-calculator.types';
+import { QuoteRequest, QuoteCalculation, SelectedService } from '@/types/calculator/service-calculator.types';
 
 interface QuoteFormModalProps {
   isOpen: boolean;
   onCloseAction: () => void;
   onSubmit: (request: QuoteRequest) => Promise<void>;
   quote: QuoteCalculation;
-  services: any[];
+  services: SelectedService[];
   clientType: string;
   urgency: string;
   loading?: boolean;

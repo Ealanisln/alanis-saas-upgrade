@@ -2,6 +2,15 @@
  * Helper functions for extracting localized content from Sanity
  */
 
+import type {
+  SanityPost,
+  SanityCategory,
+  SanityAuthor,
+  LocalizedPost,
+  LocalizedCategory,
+  LocalizedAuthor
+} from './types';
+
 /**
  * Extract a localized value from an internationalized array field
  * @param field - The internationalized array field from Sanity
@@ -45,7 +54,7 @@ export function getLocalizedValue<T = string>(
  * @param locale - The desired locale
  * @returns The post with localized content
  */
-export function localizePost(post: any, locale: string) {
+export function localizePost(post: SanityPost, locale: string): LocalizedPost | null {
   if (!post) return null;
 
   // Extract localized values, ensuring we always return the proper type
@@ -58,7 +67,7 @@ export function localizePost(post: any, locale: string) {
     title: typeof title === 'string' ? title : 'Untitled',
     smallDescription: typeof smallDescription === 'string' ? smallDescription : '',
     body: Array.isArray(body) ? body : [],
-  };
+  } as LocalizedPost;
 }
 
 /**
@@ -67,14 +76,14 @@ export function localizePost(post: any, locale: string) {
  * @param locale - The desired locale
  * @returns The category with localized content
  */
-export function localizeCategory(category: any, locale: string) {
+export function localizeCategory(category: SanityCategory, locale: string): LocalizedCategory | null {
   if (!category) return null;
 
   return {
     ...category,
-    title: getLocalizedValue(category.title, locale),
+    title: getLocalizedValue(category.title, locale) || '',
     description: getLocalizedValue(category.description, locale),
-  };
+  } as LocalizedCategory;
 }
 
 /**
@@ -83,13 +92,13 @@ export function localizeCategory(category: any, locale: string) {
  * @param locale - The desired locale
  * @returns The author with localized content
  */
-export function localizeAuthor(author: any, locale: string) {
+export function localizeAuthor(author: SanityAuthor, locale: string): LocalizedAuthor | null {
   if (!author) return null;
 
   return {
     ...author,
     bio: getLocalizedValue(author.bio, locale),
-  };
+  } as LocalizedAuthor;
 }
 
 /**
@@ -98,8 +107,8 @@ export function localizeAuthor(author: any, locale: string) {
  * @param locale - The locale to check
  * @returns true if the field has a translation for the locale
  */
-export function hasTranslation(
-  field: Array<{ _key?: string; language?: string; value: any }> | undefined,
+export function hasTranslation<T = unknown>(
+  field: Array<{ _key?: string; language?: string; value: T }> | undefined,
   locale: string
 ): boolean {
   if (!field || !Array.isArray(field)) {

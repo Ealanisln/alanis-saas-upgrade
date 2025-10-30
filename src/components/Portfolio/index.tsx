@@ -1,10 +1,10 @@
+import projects from "@/data/projects";
 import SectionTitle from "../Common/SectionTitle";
-import { PortafolioProjects } from "./Projects";
+import Modernportafolio from "./ModernPortfolio";
 import ProjectCard from "./ProjectCard";
 import ProjectModal from "./ProjectModal";
+import { PortafolioProjects } from "./Projects";
 import TechBadge from "./TechBadge";
-import Modernportafolio from "./ModernPortfolio";
-import projects from "@/data/projects";
 
 const portafolio = () => {
 

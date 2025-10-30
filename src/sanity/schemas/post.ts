@@ -1,5 +1,11 @@
 import {defineField, defineType} from 'sanity'
 
+interface I18nArrayItem {
+  _key?: string;
+  language?: string;
+  value: string;
+}
+
 export default defineType({
   name: 'post',
   title: 'Post',
@@ -87,7 +93,7 @@ export default defineType({
       if (typeof title === 'string') {
         displayTitle = title;
       } else if (Array.isArray(title)) {
-        const enTitle = title.find((t: any) => t._key === 'en' || t.language === 'en');
+        const enTitle = title.find((t: I18nArrayItem) => t._key === 'en' || t.language === 'en');
         if (enTitle?.value) {
           displayTitle = typeof enTitle.value === 'string' ? enTitle.value : JSON.stringify(enTitle.value);
         } else if (title[0]?.value) {

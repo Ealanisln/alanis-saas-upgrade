@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { useCartStore } from '../cart-store';
 import type { CartProduct } from '@/types/store.interface';
+import { useCartStore } from '../cart-store';
 
 describe('Cart Store', () => {
   // Reset store before each test

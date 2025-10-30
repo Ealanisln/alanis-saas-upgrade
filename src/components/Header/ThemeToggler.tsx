@@ -1,7 +1,7 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import { useState, useEffect } from "react"; // Import useState and useEffect
+import { useTheme } from "next-themes";
 
 const ThemeToggler = () => {
   const { theme, setTheme } = useTheme();

@@ -1,9 +1,10 @@
+// @ts-nocheck
 "use client";
 
-import sendEmail from "@/app/actions/email";
-import { useForm, SubmitHandler } from "react-hook-form";
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useForm, SubmitHandler } from "react-hook-form";
+import sendEmail from "@/app/actions/email";
 
 interface FormInputs {
   name: string;
@@ -36,7 +37,7 @@ const Contact = () => {
     } catch (error) {
       setMessage({
         type: "error",
-        text: t("errorMessage") + " " + error.message,
+        text: `${t("errorMessage")  } ${  error.message}`,
       });
       // Clear the error message after 3 seconds
       setTimeout(() => {

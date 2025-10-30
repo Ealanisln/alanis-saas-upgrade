@@ -1,4 +1,12 @@
 import axios, { AxiosInstance } from 'axios';
+import type {
+  ApiResponse,
+  QuoteRequest,
+  QuoteResponse,
+  EmailRequest,
+  EmailResponse,
+  PaginatedResponse
+} from './types';
 
 export class ApiClient {
   private client: AxiosInstance;
@@ -62,19 +70,19 @@ export class ApiClient {
   }
 
   // Generic methods
-  async get<T>(endpoint: string, params?: Record<string, any>): Promise<any> {
+  async get<T = unknown>(endpoint: string, params?: Record<string, unknown>): Promise<T> {
     return this.client.get(endpoint, { params });
   }
 
-  async post<T>(endpoint: string, data?: any): Promise<any> {
+  async post<T = unknown>(endpoint: string, data?: unknown): Promise<T> {
     return this.client.post(endpoint, data);
   }
 
-  async put<T>(endpoint: string, data?: any): Promise<any> {
+  async put<T = unknown>(endpoint: string, data?: unknown): Promise<T> {
     return this.client.put(endpoint, data);
   }
 
-  async delete<T>(endpoint: string): Promise<any> {
+  async delete<T = unknown>(endpoint: string): Promise<T> {
     return this.client.delete(endpoint);
   }
 
@@ -84,32 +92,32 @@ export class ApiClient {
     limit?: number;
     status?: string;
     clientType?: string;
-  }): Promise<any> {
-    return this.get('/quotes', params);
+  }): Promise<PaginatedResponse<QuoteResponse[]>> {
+    return this.get<PaginatedResponse<QuoteResponse[]>>('/quotes', params);
   }
 
-  async createQuote(request: any): Promise<any> {
-    return this.post('/quotes', request);
+  async createQuote(request: QuoteRequest): Promise<ApiResponse<QuoteResponse>> {
+    return this.post<ApiResponse<QuoteResponse>>('/quotes', request);
   }
 
-  async getQuote(id: string): Promise<any> {
-    return this.get(`/quotes/${id}`);
+  async getQuote(id: string): Promise<ApiResponse<QuoteResponse>> {
+    return this.get<ApiResponse<QuoteResponse>>(`/quotes/${id}`);
   }
 
-  async updateQuote(id: string, request: any): Promise<any> {
-    return this.put(`/quotes/${id}`, request);
+  async updateQuote(id: string, request: Partial<QuoteRequest>): Promise<ApiResponse<QuoteResponse>> {
+    return this.put<ApiResponse<QuoteResponse>>(`/quotes/${id}`, request);
   }
 
-  async deleteQuote(id: string): Promise<any> {
-    return this.delete(`/quotes/${id}`);
+  async deleteQuote(id: string): Promise<ApiResponse<{ id: string }>> {
+    return this.delete<ApiResponse<{ id: string }>>(`/quotes/${id}`);
   }
 
-  async sendEmail(request: any): Promise<any> {
-    return this.post('/emails/send', request);
+  async sendEmail(request: EmailRequest): Promise<ApiResponse<EmailResponse>> {
+    return this.post<ApiResponse<EmailResponse>>('/emails/send', request);
   }
 
-  async syncWithInvoiceNinja(quoteData: any): Promise<any> {
-    return this.post('/quotes/sync/invoice-ninja', quoteData);
+  async syncWithInvoiceNinja(quoteData: QuoteRequest): Promise<ApiResponse<{ invoiceId: string; success: boolean }>> {
+    return this.post<ApiResponse<{ invoiceId: string; success: boolean }>>('/quotes/sync/invoice-ninja', quoteData);
   }
 
   async sendContactForm(data: {
@@ -117,12 +125,12 @@ export class ApiClient {
     email: string;
     message: string;
     subject?: string;
-  }): Promise<any> {
-    return this.post('/contact', data);
+  }): Promise<ApiResponse<{ success: boolean; messageId?: string }>> {
+    return this.post<ApiResponse<{ success: boolean; messageId?: string }>>('/contact', data);
   }
 
-  async healthCheck(): Promise<any> {
-    return this.get('/health');
+  async healthCheck(): Promise<ApiResponse<{ status: string; timestamp: string }>> {
+    return this.get<ApiResponse<{ status: string; timestamp: string }>>('/health');
   }
 }
 

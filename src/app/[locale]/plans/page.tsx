@@ -1,10 +1,10 @@
 // src/app/planes/page.tsx
+import type { Metadata } from "next";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import Pricing from "@/components/Pricing";
 import PricingFAQ from "@/components/Pricing/PricingFAQ";
 import PricingFeatures from "@/components/Pricing/PricingFeatures";
 import PricingHeader from "@/components/Pricing/PricingHeader";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Planes y Precios | Desarrollo Web - Alanis Dev",

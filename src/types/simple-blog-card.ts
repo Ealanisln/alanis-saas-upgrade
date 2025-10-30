@@ -3,9 +3,14 @@ interface Author {
   name: string;
 }
 
+interface ImageAsset {
+  _ref: string;
+  _type: 'reference';
+}
+
 interface MainImage {
   alt: string;
-  asset: any; // You might want to create a separate interface for the 'image' type
+  asset: ImageAsset;
   _type: string;
 }
 
@@ -47,8 +52,14 @@ export interface FullPost {
   _updatedAt?: string;
 }
 
+interface MarkDef {
+  _key: string;
+  _type: string;
+  [key: string]: unknown;
+}
+
 interface Block {
-  markDefs: any[];
+  markDefs: MarkDef[];
   children: Child[];
   _type: 'block';
   style: 'normal';
@@ -58,6 +69,6 @@ interface Block {
 interface Child {
   _type: 'span';
   text: string;
-  marks: any[];
+  marks: string[];
   _key: string;
 }

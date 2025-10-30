@@ -1,8 +1,8 @@
+import { NextIntlClientProvider } from 'next-intl';
+import { getTranslations, getMessages } from 'next-intl/server';
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { locales } from '@/config/i18n';
-import { NextIntlClientProvider } from 'next-intl';
-import { getTranslations, getMessages } from 'next-intl/server';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;

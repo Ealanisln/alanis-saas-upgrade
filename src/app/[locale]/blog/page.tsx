@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+import { getTranslations } from 'next-intl/server';
 import Posts from "@/components/Blog/Posts";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
@@ -5,8 +7,6 @@ import { client } from "@/sanity/lib/client";
 import { localizePost } from "@/sanity/lib/i18n";
 import { postPathsQuery } from "@/sanity/lib/queries";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
-import { Metadata } from "next";
-import { getTranslations } from 'next-intl/server';
 
 export const revalidate = 30;
 

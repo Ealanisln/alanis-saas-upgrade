@@ -1,5 +1,5 @@
-import PrintObject from "@/components/Checkout/PrintObject";
 import type { JSX } from "react";
+import PrintObject from "@/components/Checkout/PrintObject";
 
 // Mock data structure for checkout session (replace with API call when needed)
 interface CheckoutSession {

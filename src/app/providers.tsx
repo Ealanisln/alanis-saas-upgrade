@@ -1,7 +1,7 @@
 "use client";
-import { ThemeProvider } from "next-themes";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState, useEffect } from "react"; // Good practice to include these here too
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ThemeProvider } from "next-themes";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   // Hydration safety for the Provider itself is also good practice

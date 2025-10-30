@@ -1,13 +1,14 @@
 // app/blog/[slug]/page.tsx
-import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import { PortableText } from "@portabletext/react";
+import { Metadata, ResolvingMetadata } from "next";
+import { getTranslations } from 'next-intl/server';
 import { portableTextComponents } from "@/components/Blog/PortableText";
+import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import { client, urlFor } from "@/sanity/lib/client";
 import { localizePost } from "@/sanity/lib/i18n";
 import { FullPost } from "@/types/simple-blog-card";
-import { Metadata, ResolvingMetadata } from "next";
-import Image from "next/image";
-import { PortableText } from "@portabletext/react";
-import { getTranslations } from 'next-intl/server';
 
 export const revalidate = 30;
 
@@ -43,6 +44,14 @@ export async function generateMetadata(
   // Localize the post
   const post = localizePost(rawPost, locale);
 
+  // Handle null post (shouldn't happen if rawPost exists, but satisfy TypeScript)
+  if (!post) {
+    return {
+      title: "Post not found",
+      description: "The requested blog post could not be found",
+    };
+  }
+
   // Get the post image URL
   const _imageUrl = post.mainImage
     ? urlFor(post.mainImage).width(1200).height(630).url()
@@ -68,13 +77,13 @@ export async function generateMetadata(
       },
     },
     openGraph: {
-      title: title,
-      description: description,
+      title,
+      description,
       type: "article",
       locale: locale === 'en' ? "en_US" : "es_ES",
       url: postUrl,
       publishedTime: post.publishedAt || new Date().toISOString(),
-      authors: [post.author || "Alanis Dev"],
+      authors: [typeof post.author === 'object' ? post.author.name : (post.author || "Alanis Dev")],
       images: [
         {
           url: `/${locale}/blog/${slug}/opengraph-image`,
@@ -87,8 +96,8 @@ export async function generateMetadata(
     },
     twitter: {
       card: "summary_large_image",
-      title: title,
-      description: description,
+      title,
+      description,
       images: [`/${locale}/blog/${slug}/opengraph-image`],
       creator: "@ealanisln",
     },
@@ -120,8 +129,18 @@ export default async function BlogPostPage({
 
   const rawPost = await client.fetch(query, { slug });
 
+  // Return 404 if post not found
+  if (!rawPost) {
+    notFound();
+  }
+
   // Localize the post
-  const post: FullPost = localizePost(rawPost, locale);
+  const post = localizePost(rawPost, locale);
+
+  // Handle null post (shouldn't happen if rawPost exists, but satisfy TypeScript)
+  if (!post) {
+    notFound();
+  }
 
   // Ensure we have string values for title and description
   const title = (typeof post.title === 'string' ? post.title : "Untitled");
@@ -169,10 +188,10 @@ export default async function BlogPostPage({
         "url": "https://alanis.dev/images/logo.png"
       }
     },
-    "description": description,
+    description,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://alanis.dev/${locale}/blog/${post.currentSlug}`
+      "@id": `https://alanis.dev/${locale}/blog/${slug}`
     }
   };
 
@@ -180,7 +199,7 @@ export default async function BlogPostPage({
   const breadcrumbItems = [
     { name: tNav('home'), url: `https://alanis.dev/${locale}` },
     { name: t('title'), url: `https://alanis.dev/${locale}/blog` },
-    { name: title, url: `https://alanis.dev/${locale}/blog/${post.currentSlug}` }
+    { name: title, url: `https://alanis.dev/${locale}/blog/${slug}` }
   ];
 
   return (

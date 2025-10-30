@@ -1,6 +1,6 @@
 import { createCheckoutSession } from "@/app/actions/stripe";
-import { formatAmountForStripe } from "@/lib/utils/stripe-helpers";
 import { CURRENCY } from "@/config";
+import { formatAmountForStripe } from "@/lib/utils/stripe-helpers";
 
 const PricingBox = (props: {
   price: number;

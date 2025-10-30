@@ -1,9 +1,10 @@
+import { getTranslations } from "next-intl/server";
+import { client } from "@/sanity/lib/client";
+import { localizePost } from "@/sanity/lib/i18n";
+import type { SanityPost } from "@/sanity/lib/types";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
 import SectionTitle from "../Common/SectionTitle";
 import Posts from "./Posts";
-import { client } from "@/sanity/lib/client";
-import { localizePost } from "@/sanity/lib/i18n";
-import { getTranslations } from "next-intl/server";
 
 async function getData(locale: string) {
   const query = `
@@ -23,7 +24,7 @@ async function getData(locale: string) {
   const data = await client.fetch(query);
 
   // Localize all posts
-  return data.map((post: any) => localizePost(post, locale));
+  return data.map((post: SanityPost) => localizePost(post, locale));
 }
 
 interface BlogProps {

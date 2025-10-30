@@ -60,7 +60,7 @@ const internationalizeField = (value: any) => {
   return [
     {
       _key: DEFAULT_LANGUAGE,
-      value: value,
+      value,
     },
   ];
 };

@@ -3,14 +3,14 @@
 "use client";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import SectionTitle from "../Common/SectionTitle";
 import { Link } from "@/lib/navigation";
+import SectionTitle from "../Common/SectionTitle";
 
 const PricingFAQ = () => {
   const t = useTranslations("plans.faq");
-  const [activeFaq, setActiveFaq] = useState(null);
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
-  const handleFaqToggle = (id) => {
+  const handleFaqToggle = (id: number) => {
     setActiveFaq(activeFaq === id ? null : id);
   };
 

@@ -1,11 +1,10 @@
 // src/components/portafolio/Projects.tsx
 "use client";
 
-import { ExternalLink, Github, Info, ArrowRight, Code, Eye } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
-
+import { ExternalLink, Github, Info, ArrowRight, Code, Eye } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {

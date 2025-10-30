@@ -1,5 +1,5 @@
-import { Brand } from "@/types/brand";
 import Image from "next/image";
+import { Brand } from "@/types/brand";
 import brandsData from "./brandsData";
 
 const Brands = () => {

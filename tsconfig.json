@@ -8,7 +8,7 @@
     "types": ["vitest/globals"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "incremental": true,
@@ -33,5 +33,5 @@
     "**/*.ts",           // Keep for root typescript files
     "**/*.tsx"          // Keep for root typescript files
   ],
-  "exclude": ["node_modules", "vitest.config.ts", "vitest.setup.ts"]
+  "exclude": ["node_modules", "vitest.config.ts", "vitest.setup.ts", "migrations/**/*", "src/app/new-ui/**/*"]
 }

@@ -1,7 +1,7 @@
 "use client";
 
-import TypewriterComponent from "typewriter-effect";
 import React from 'react'
+import TypewriterComponent from "typewriter-effect";
 
 const TitleTypewriter = () => {
   return (

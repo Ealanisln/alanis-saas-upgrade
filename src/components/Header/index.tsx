@@ -2,15 +2,15 @@
 
 "use client";
 
-import Image from "next/image";
-import { useCartStore } from "@/store";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import ThemeToggler from "./ThemeToggler";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { ShoppingCartIcon } from "lucide-react";
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/lib/navigation';
+import { useCartStore } from "@/store";
 import LanguageSwitcher from './LanguageSwitcher';
+import ThemeToggler from "./ThemeToggler";
 
 const Header = () => {
   const t = useTranslations('navigation');
@@ -52,7 +52,7 @@ const Header = () => {
 
   // submenu handler
   const [openIndex, setOpenIndex] = useState(-1);
-  const handleSubmenu = (index) => {
+  const handleSubmenu = (index: number) => {
     if (openIndex === index) {
       setOpenIndex(-1);
     } else {

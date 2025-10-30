@@ -1,7 +1,7 @@
 // src/components/Blog/PortableText.tsx
 import React from 'react';
-import { PortableTextComponents } from '@portabletext/react';
 import Image from 'next/image';
+import { PortableTextComponents } from '@portabletext/react';
 import CodeBlock from './CodeBlock';
 
 export const portableTextComponents: PortableTextComponents = {
