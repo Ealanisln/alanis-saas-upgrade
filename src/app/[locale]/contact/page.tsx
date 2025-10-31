@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import Contact from "@/components/Contact";
+import { generateLocalizedUrl } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -56,13 +57,13 @@ const ContactPage = async ({
     "@type": "ContactPage",
     "name": tJsonLd("name"),
     "description": tJsonLd("description"),
-    "url": "https://www.alanis.dev/contact",
+    "url": generateLocalizedUrl(locale, '/contact'),
     "mainEntity": {
       "@type": "Person",
       "name": "Emmanuel Alanis",
       "jobTitle": "Full-Stack Developer",
       "email": "contact@alanis.dev",
-      "url": "https://www.alanis.dev",
+      "url": generateLocalizedUrl(locale, '/'),
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "customer service",
@@ -73,8 +74,8 @@ const ContactPage = async ({
 
   // Breadcrumb items for structured data with translations
   const breadcrumbItems = [
-    { name: tBreadcrumbs('home'), url: 'https://www.alanis.dev' },
-    { name: tBreadcrumbs('contact'), url: 'https://www.alanis.dev/contact' }
+    { name: tBreadcrumbs('home'), url: generateLocalizedUrl(locale, '/') },
+    { name: tBreadcrumbs('contact'), url: generateLocalizedUrl(locale, '/contact') }
   ];
 
   return (

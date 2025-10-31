@@ -6,6 +6,7 @@ import Pricing from "@/components/Pricing";
 import PricingFAQ from "@/components/Pricing/PricingFAQ";
 import PricingFeatures from "@/components/Pricing/PricingFeatures";
 import PricingHeader from "@/components/Pricing/PricingHeader";
+import { generateLocalizedUrl } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -59,11 +60,11 @@ export default async function PricingPage({
     "@type": "Service",
     "name": tJsonLd('name'),
     "description": tJsonLd('description'),
-    "url": "https://www.alanis.dev/planes",
+    "url": generateLocalizedUrl(locale, '/plans'),
     "provider": {
       "@type": "Person",
       "name": "Emmanuel Alanis",
-      "url": "https://www.alanis.dev/about"
+      "url": generateLocalizedUrl(locale, '/about')
     },
     "offers": [
       {
@@ -105,8 +106,8 @@ export default async function PricingPage({
 
   // Breadcrumb items for structured data with translations
   const breadcrumbItems = [
-    { name: tBreadcrumbs('home'), url: 'https://www.alanis.dev' },
-    { name: tBreadcrumbs('plans'), url: 'https://www.alanis.dev/planes' }
+    { name: tBreadcrumbs('home'), url: generateLocalizedUrl(locale, '/') },
+    { name: tBreadcrumbs('plans'), url: generateLocalizedUrl(locale, '/plans') }
   ];
 
   return (

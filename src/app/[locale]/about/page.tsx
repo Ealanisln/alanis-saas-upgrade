@@ -4,7 +4,7 @@ import AboutSectionOne from "@/components/About/AboutSectionOne";
 import AboutSectionTwo from "@/components/About/AboutSectionTwo";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
-import { generateAlternates } from "@/lib/seo";
+import { generateAlternates, generateLocalizedUrl } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -58,7 +58,7 @@ const AboutPage = async ({
     "name": "Emmanuel Alanis",
     "alternateName": "Alanis Dev",
     "description": tJsonLd('description'),
-    "url": "https://www.alanis.dev/about",
+    "url": generateLocalizedUrl(locale, '/about'),
     "image": "https://www.alanis.dev/about/opengraph-image",
     "sameAs": [
       "https://github.com/alanisdev",
@@ -88,8 +88,8 @@ const AboutPage = async ({
 
   // Breadcrumb items for structured data with translations
   const breadcrumbItems = [
-    { name: tBreadcrumbs('home'), url: 'https://www.alanis.dev' },
-    { name: tBreadcrumbs('about'), url: 'https://www.alanis.dev/about' }
+    { name: tBreadcrumbs('home'), url: generateLocalizedUrl(locale, '/') },
+    { name: tBreadcrumbs('about'), url: generateLocalizedUrl(locale, '/about') }
   ];
 
   return (
