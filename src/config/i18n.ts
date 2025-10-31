@@ -18,10 +18,10 @@ export const localeConfig = {
 
 // Navigation paths that need translation
 export const navigationPaths = {
-  home: { en: '/en', es: '/es' },
-  about: { en: '/en/about', es: '/es/about' },
-  portfolio: { en: '/en/portfolio', es: '/es/portfolio' },
-  blog: { en: '/en/blog', es: '/es/blog' },
-  plans: { en: '/en/plans', es: '/es/plans' },
-  contact: { en: '/en/contact', es: '/es/contact' },
+  home: { en: '/', es: '/es' },
+  about: { en: '/about', es: '/es/about' },
+  portfolio: { en: '/portfolio', es: '/es/portfolio' },
+  blog: { en: '/blog', es: '/es/blog' },
+  plans: { en: '/plans', es: '/es/plans' },
+  contact: { en: '/contact', es: '/es/contact' },
 } as const; 

@@ -7,6 +7,7 @@ import { client } from "@/sanity/lib/client";
 import { localizePost } from "@/sanity/lib/i18n";
 import { postPathsQuery } from "@/sanity/lib/queries";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
+import { generateAlternates } from "@/lib/seo";
 
 export const revalidate = 30;
 
@@ -43,13 +44,7 @@ export async function generateMetadata({
       description: t('meta.description'),
       images: [`/${locale}/blog/opengraph-image`],
     },
-    alternates: {
-      canonical: `/${locale}/blog`,
-      languages: {
-        'en-US': '/en/blog',
-        'es-ES': '/es/blog',
-      },
-    }
+    alternates: generateAlternates(locale, '/blog')
   };
 }
 
