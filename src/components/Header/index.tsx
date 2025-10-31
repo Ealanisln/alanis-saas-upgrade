@@ -4,11 +4,9 @@
 
 import { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
-import { usePathname } from "@/lib/navigation";
-import { ShoppingCartIcon } from "lucide-react";
 import { useTranslations, useLocale } from 'next-intl';
-import { Link } from '@/lib/navigation';
-import { useCartStore } from "@/store";
+
+import { Link, usePathname } from "@/lib/navigation";
 import LanguageSwitcher from './LanguageSwitcher';
 import ThemeToggler from "./ThemeToggler";
 
@@ -60,15 +58,7 @@ const Header = () => {
     }
   };
 
-  const totalItemsInCart = useCartStore((state) => state.getTotalItems());
-
   const usePathName = usePathname();
-
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
 
   return (
     <>
@@ -76,7 +66,7 @@ const Header = () => {
         className={`header left-0 top-0 z-40 flex w-full items-center ${
           sticky
             ? "fixed z-[9999] bg-white !bg-opacity-80 shadow-sticky backdrop-blur-sm transition dark:bg-gray-dark dark:shadow-sticky-dark"
-            : "relative bg-transparent" 
+            : "relative bg-transparent"
         }`}
       >
         <div className="container">
@@ -85,7 +75,7 @@ const Header = () => {
               <Link
                 href="/"
                 className={`header-logo block w-full ${
-                  sticky ? "py-5 lg:py-2" : "py-8"
+                  sticky ? "py-6 lg:py-3" : "py-8"
                 } `}
               >
                 <Image
@@ -152,32 +142,19 @@ const Header = () => {
                         </Link>
                       </li>
                     ))}
+                    {/* Language Switcher in Mobile Menu */}
+                    <li className="border-t border-body-color/20 pt-4 mt-2 lg:hidden">
+                      <LanguageSwitcher />
+                    </li>
                   </ul>
                 </nav>
               </div>
               <div className="flex items-center justify-end pr-4 lg:pr-0">
-                <div className="px-4">
+                <div className="pl-0 pr-16 lg:px-4">
                   <ThemeToggler />
                 </div>
-                <div className="px-4">
+                <div className="hidden px-4 lg:block">
                   <LanguageSwitcher />
-                </div>
-                <div className="pr-4">
-                  <Link
-                    href={
-                      totalItemsInCart === 0 && loaded ? "/empty" : "/shop/cart"
-                    }
-                    className="mx-2"
-                  >
-                    <div className="relative">
-                      {loaded && totalItemsInCart > 0 && (
-                        <span className="absolute -right-2 -top-2 rounded-full bg-blue-700 px-1 text-xs font-bold text-white fade-in">
-                          {totalItemsInCart}
-                        </span>
-                      )}
-                      <ShoppingCartIcon className="h-5 w-5" />
-                    </div>
-                  </Link>
                 </div>
               </div>
             </div>

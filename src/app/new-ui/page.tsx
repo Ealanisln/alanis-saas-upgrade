@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import React, { useState } from 'react';
@@ -202,8 +201,40 @@ const ModernUIExample = () => {
 
 export default ModernUIExample;
 
+// Tipos de componentes auxiliares
+interface NavItemProps {
+  icon: string;
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}
+
+interface StatCardProps {
+  title: string;
+  value: string;
+  change: string;
+  positive: boolean;
+  color: 'primary' | 'info' | 'warning' | 'success' | 'danger';
+}
+
+interface ProjectRowProps {
+  name: string;
+  client: string;
+  status: string;
+  statusColor: 'info' | 'success' | 'warning' | 'danger';
+  date: string;
+}
+
+interface ActivityItemProps {
+  avatar: string;
+  name: string;
+  action: string;
+  target: string;
+  time: string;
+}
+
 // Componentes auxiliares
-const NavItem = ({ icon, label, active, onClick }) => (
+const NavItem = ({ icon, label, active, onClick }: NavItemProps) => (
   <button 
     className={`w-full flex items-center px-3 py-2 rounded-lg mb-1 ${
       active 
@@ -224,7 +255,7 @@ const NavItem = ({ icon, label, active, onClick }) => (
   </button>
 );
 
-const StatCard = ({ title, value, change, positive, color }) => {
+const StatCard = ({ title, value, change, positive, color }: StatCardProps) => {
   const getBackgroundColor = () => {
     switch(color) {
       case 'primary': return 'bg-primary-50';
@@ -272,7 +303,7 @@ const StatCard = ({ title, value, change, positive, color }) => {
   );
 };
 
-const ProjectRow = ({ name, client, status, statusColor, date }) => {
+const ProjectRow = ({ name, client, status, statusColor, date }: ProjectRowProps) => {
   const getStatusColor = () => {
     switch(statusColor) {
       case 'info': return 'bg-info-50 text-info-700';
@@ -297,7 +328,7 @@ const ProjectRow = ({ name, client, status, statusColor, date }) => {
   );
 };
 
-const ActivityItem = ({ avatar, name, action, target, time }) => (
+const ActivityItem = ({ avatar, name, action, target, time }: ActivityItemProps) => (
   <div className="flex items-start pb-4 mb-4 border-b border-neutral-200 last:border-0 last:mb-0 last:pb-0">
     <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-800 flex items-center justify-center font-medium mr-3">
       {avatar}
