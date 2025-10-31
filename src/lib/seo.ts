@@ -247,6 +247,31 @@ export function generateArticleStructuredData(article: {
 }
 
 /**
+ * Generates proper alternates (canonical + hreflang) for multi-language pages
+ * @param locale - Current locale ('en' or 'es')
+ * @param path - Path without locale prefix (e.g., '/about', '/blog/post-slug')
+ * @returns Alternates object with canonical and language links
+ */
+export function generateAlternates(locale: string, path: string) {
+  const baseUrl = defaultConfig.siteUrl;
+
+  // Ensure path starts with /
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+
+  // For English (default locale), use root path. For Spanish, add /es prefix
+  const localePath = locale === 'en' ? normalizedPath : `/es${normalizedPath}`;
+
+  return {
+    canonical: `${baseUrl}${localePath}`,
+    languages: {
+      'en': `${baseUrl}${normalizedPath}`,
+      'es': `${baseUrl}/es${normalizedPath}`,
+      'x-default': `${baseUrl}${normalizedPath}`, // Default to English
+    }
+  };
+}
+
+/**
  * Generates breadcrumb items for common pages
  */
 export function generateBreadcrumbs(path: string) {
@@ -282,6 +307,7 @@ const seoUtils = {
   generatePersonStructuredData,
   generateWebsiteStructuredData,
   generateArticleStructuredData,
+  generateAlternates,
   generateBreadcrumbs,
   defaultConfig,
 };

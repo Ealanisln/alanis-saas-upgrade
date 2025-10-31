@@ -7,6 +7,7 @@ import { client } from "@/sanity/lib/client";
 import { localizePost } from "@/sanity/lib/i18n";
 import { postPathsQuery } from "@/sanity/lib/queries";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
+import { generateAlternates } from "@/lib/seo";
 
 export const revalidate = 30;
 
@@ -43,13 +44,7 @@ export async function generateMetadata({
       description: t('meta.description'),
       images: [`/${locale}/blog/opengraph-image`],
     },
-    alternates: {
-      canonical: `/${locale}/blog`,
-      languages: {
-        'en-US': '/en/blog',
-        'es-ES': '/es/blog',
-      },
-    }
+    alternates: generateAlternates(locale, '/blog')
   };
 }
 
@@ -80,16 +75,6 @@ async function getData(locale: string) {
 
   // Localize all posts
   const localized = data.map((post: any) => localizePost(post, locale));
-
-  // Debug: Log the first post to see the structure
-  if (process.env.NODE_ENV === 'development' && localized.length > 0) {
-    console.log('First post after localization:', {
-      title: localized[0].title,
-      titleType: typeof localized[0].title,
-      smallDescription: localized[0].smallDescription,
-      descType: typeof localized[0].smallDescription
-    });
-  }
 
   return localized;
 }

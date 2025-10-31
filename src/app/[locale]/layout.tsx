@@ -3,6 +3,7 @@ import { getTranslations, getMessages } from 'next-intl/server';
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { locales } from '@/config/i18n';
+import { generateAlternates } from '@/lib/seo';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -32,13 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       icon: "/favicon.ico",
       apple: "/apple-icon.png",
     },
-    alternates: {
-      canonical: locale === 'en' ? '/' : `/${locale}`,
-      languages: {
-        'en-US': '/',
-        'es-ES': '/es',
-      },
-    },
+    alternates: generateAlternates(locale, '/'),
     openGraph: {
       type: "website",
       locale: locale === 'en' ? "en_US" : "es_ES",

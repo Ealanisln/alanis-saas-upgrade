@@ -4,6 +4,7 @@ import AboutSectionOne from "@/components/About/AboutSectionOne";
 import AboutSectionTwo from "@/components/About/AboutSectionTwo";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
+import { generateAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -36,9 +37,7 @@ export async function generateMetadata({
       description: t("description"),
       images: ["/about/opengraph-image"],
     },
-    alternates: {
-      canonical: `/${locale}/about`,
-    }
+    alternates: generateAlternates(locale, '/about')
   };
 }
 

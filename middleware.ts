@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
-import { defaultLocale, locales } from './src/config/i18n';
+import { defaultLocale, locales, type Locale } from './src/config/i18n';
 
 const intlMiddleware = createMiddleware({
   // A list of all locales that are supported
@@ -9,8 +9,8 @@ const intlMiddleware = createMiddleware({
   // Used when no locale matches
   defaultLocale,
 
-  // Change to 'always' since we want explicit locale prefixes
-  localePrefix: 'always',
+  // Use 'as-needed' to omit prefix for default locale (English)
+  localePrefix: 'as-needed',
 
   // Enable automatic locale detection based on Accept-Language header
   localeDetection: true
@@ -24,25 +24,30 @@ export default function middleware(request: NextRequest) {
     // Get the preferred language from the Accept-Language header
     const acceptLanguage = request.headers.get('accept-language');
 
-    // Simple language detection
-    let detectedLocale: typeof locales[number] = defaultLocale;
-
-    if (acceptLanguage) {
-      // Check if Spanish is preferred
-      if (acceptLanguage.toLowerCase().includes('es')) {
-        detectedLocale = 'es' as const;
-      }
-      // English is already the default
+    // Check if Spanish is preferred
+    if (acceptLanguage && acceptLanguage.toLowerCase().includes('es')) {
+      // Redirect to Spanish version
+      const url = request.nextUrl.clone();
+      url.pathname = '/es';
+      return NextResponse.redirect(url);
     }
-
-    // Redirect to the detected locale
-    const url = request.nextUrl.clone();
-    url.pathname = `/${detectedLocale}`;
-    return NextResponse.redirect(url);
+    // For English (default), let next-intl middleware handle it
+    // It will serve content at '/' without redirecting
   }
 
   // For all other requests, use the next-intl middleware
-  return intlMiddleware(request);
+  const response = intlMiddleware(request);
+
+  // Detect locale from pathname and add to headers for root layout
+  let locale: Locale = defaultLocale;
+  if (pathname.startsWith('/es')) {
+    locale = 'es';
+  }
+
+  // Set x-locale header for the root layout to use
+  response.headers.set('x-locale', locale);
+
+  return response;
 }
 
 export const config = {

@@ -9,6 +9,7 @@ import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import { client, urlFor } from "@/sanity/lib/client";
 import { localizePost } from "@/sanity/lib/i18n";
 import { FullPost } from "@/types/simple-blog-card";
+import { generateAlternates } from "@/lib/seo";
 
 export const revalidate = 30;
 
@@ -69,13 +70,7 @@ export async function generateMetadata(
   return {
     title: `${title} | Alanis Dev Blog`,
     description,
-    alternates: {
-      canonical: `/${locale}/blog/${slug}`,
-      languages: {
-        'en-US': `/en/blog/${slug}`,
-        'es-ES': `/es/blog/${slug}`,
-      },
-    },
+    alternates: generateAlternates(locale, `/blog/${slug}`),
     openGraph: {
       title,
       description,
