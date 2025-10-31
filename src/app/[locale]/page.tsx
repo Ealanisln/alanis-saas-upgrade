@@ -40,11 +40,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function Home({ params }: HomePageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home' });
+  const tJsonLd = await getTranslations({ locale, namespace: 'home.jsonLd' });
+
   // Create structured data for the home page
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "name": "Alanis Dev - Desarrollo Web",
+    "name": tJsonLd('name'),
     "description": t('meta.description'),
     "url": "https://www.alanis.dev",
     "logo": "https://www.alanis.dev/images/logo.png",
@@ -59,40 +61,40 @@ export default async function Home({ params }: HomePageProps) {
     "founder": {
       "@type": "Person",
       "name": "Emmanuel Alanis",
-      "jobTitle": "Full-Stack Developer",
+      "jobTitle": tJsonLd('jobTitle'),
       "url": "https://www.alanis.dev/about"
     },
-    "serviceType": "Web Development",
+    "serviceType": tJsonLd('serviceType'),
     "areaServed": {
       "@type": "Country",
       "name": "Mexico"
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Servicios de Desarrollo Web",
+      "name": tJsonLd('offerCatalog.name'),
       "itemListElement": [
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Desarrollo de Aplicaciones Web",
-            "description": "Aplicaciones web modernas con Next.js y React"
+            "name": tJsonLd('offerCatalog.services.0.name'),
+            "description": tJsonLd('offerCatalog.services.0.description')
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "E-commerce",
-            "description": "Tiendas en línea completas y funcionales"
+            "name": tJsonLd('offerCatalog.services.1.name'),
+            "description": tJsonLd('offerCatalog.services.1.description')
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Landing Pages",
-            "description": "Páginas de aterrizaje optimizadas para conversión"
+            "name": tJsonLd('offerCatalog.services.2.name'),
+            "description": tJsonLd('offerCatalog.services.2.description')
           }
         }
       ]
