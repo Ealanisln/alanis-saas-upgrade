@@ -20,44 +20,74 @@
   },
   "pricing": {
     "title": "Elige el mejor plan para tus necesidades",
-    "subtitle": "Nuestro modelo de precios de tres niveles ofrece opciones para todos, ya seas un pequeño empresario o un usuario avanzado.",
-    "lite": {
-      "name": "Lite",
-      "subtitle": "Para pequeñas empresas y emprendedores",
+    "subtitle": "Nuestro modelo de cuatro niveles sirve a todos, desde emprendedores individuales hasta empresas corporativas. Todos los planes incluyen diseño moderno, código de calidad profesional y soporte personalizado.",
+    "mostPopular": "Más Popular",
+    "starter": {
+      "name": "Starter",
+      "subtitle": "Perfecto para emprendedores y nuevos negocios",
       "features": {
         "pages": "1 - 5 páginas estáticas",
-        "design": "Diseño responsive básico",
+        "design": "Diseño responsive moderno",
         "hosting": "Dominio y hosting por un año",
         "ssl": "Certificado SSL",
         "seo": "Optimización SEO básica",
-        "support": "Soporte por email"
+        "support": "Soporte por email (48hr de respuesta)",
+        "delivery": "Entrega en 2-3 semanas"
       }
     },
-    "basic": {
-      "name": "Basic",
-      "subtitle": "Para negocios en crecimiento",
+    "business": {
+      "name": "Business",
+      "subtitle": "Ideal para PYMEs en crecimiento",
       "features": {
-        "pages": "5 - 15 páginas estáticas",
-        "design": "Diseño responsive profesional",
+        "pages": "5 - 15 páginas con CMS",
+        "design": "Diseño personalizado profesional",
         "hosting": "Dominio premium y hosting",
-        "blog": "Blog integrado",
+        "blog": "Sanity CMS con blog",
         "seo": "SEO avanzado y Analytics",
-        "support": "Soporte por email y teléfono"
+        "support": "Soporte por email y teléfono (24hr)",
+        "delivery": "Entrega en 4-6 semanas"
       }
     },
-    "plus": {
-      "name": "Plus",
-      "subtitle": "Solución completa para empresas",
+    "professional": {
+      "name": "Professional",
+      "subtitle": "Aplicaciones web personalizadas con poder",
       "features": {
-        "pages": "Hasta 25 páginas dinámicas",
-        "design": "Diseño personalizado",
-        "cms": "CMS para gestión de contenido",
-        "ecommerce": "Ecommerce básico",
-        "integrations": "Integraciones avanzadas",
-        "support": "Soporte prioritario 24/7"
+        "app": "Aplicación web personalizada",
+        "database": "Integración de base de datos (PostgreSQL)",
+        "auth": "Sistema de autenticación de usuarios",
+        "dashboard": "Panel de administración",
+        "api": "Endpoints de API REST",
+        "support": "Soporte prioritario (12hr de respuesta)",
+        "delivery": "Entrega en 6-8 semanas"
       }
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "subtitle": "Plataformas de E-commerce y SaaS",
+      "features": {
+        "platform": "Plataforma completa de e-commerce O SaaS",
+        "payment": "Integración de pagos (Stripe/Square)",
+        "inventory": "Gestión de inventario",
+        "analytics": "Dashboard de analíticas avanzadas",
+        "testing": "Testing comprehensivo (Jest + Playwright)",
+        "support": "Soporte dedicado (inmediato)",
+        "delivery": "Entrega en 8-12 semanas"
+      }
+    },
+    "custom": {
+      "title": "¿Necesitas algo más complejo?",
+      "subtitle": "SaaS multi-tenant, integraciones empresariales, o desarrollo continuo",
+      "cta": "Solicitar cotización personalizada",
+      "features": [
+        "Arquitectura multi-tenant",
+        "Seguridad y cumplimiento avanzado",
+        "Características en tiempo real",
+        "Múltiples integraciones",
+        "Retainer de desarrollo continuo"
+      ]
     },
     "cta": "Contrata ahora",
+    "currencyNote": "El precio final puede ajustarse automáticamente a tu moneda local al momento del pago.",
     "featuresSection": {
       "title": "Todo lo que necesitas para tu presencia online",
       "description": "Nuestros planes están diseñados para ofrecerte un completo conjunto de características premium que harán que tu sitio web destaque."
@@ -96,7 +126,7 @@
     "items": [
       {
         "question": "¿Cuánto tiempo tarda en completarse un proyecto?",
-        "answer": "El tiempo de desarrollo varía según la complejidad y el plan elegido. Un plan Lite típicamente toma 2-3 semanas, un plan Basic 4-6 semanas, y un plan Plus 6-8 semanas. Proporcionaremos un cronograma detallado durante la consulta inicial."
+        "answer": "El tiempo de desarrollo varía por plan: Starter (2-3 semanas), Business (4-6 semanas), Professional (6-8 semanas), y Enterprise (8-12 semanas). Los proyectos SaaS personalizados se planifican individualmente. Proporcionaremos un cronograma detallado durante la consulta inicial."
       },
       {
         "question": "¿Puedo actualizar mi plan más adelante?",
@@ -104,7 +134,7 @@
       },
       {
         "question": "¿Qué incluye exactamente el soporte técnico?",
-        "answer": "El soporte técnico incluye solución de problemas, responder preguntas, aclarar inquietudes y proporcionar soluciones para una experiencia sin contratiempos. Los tiempos de respuesta varían según el plan: Lite (48 horas), Basic (24 horas), Plus (prioritario/inmediato)."
+        "answer": "El soporte técnico incluye solución de problemas, responder preguntas, aclarar inquietudes y proporcionar soluciones para una experiencia sin contratiempos. Los tiempos de respuesta varían según el plan: Starter (48 horas), Business (24 horas), Professional (12 horas prioritario), Enterprise (soporte dedicado inmediato)."
       },
       {
         "question": "¿Los precios incluyen hosting y dominio?",

@@ -41,7 +41,7 @@ const EcommerceSectionOne = () => {
               >
                 <div className="mx-[-12px] flex flex-wrap">
                   <div className="w-full px-3 sm:w-1/2 lg:w-full xl:w-1/2">
-                    <List text="Carrito de compras optimizado" />
+                    <List text="Catálogo de productos optimizado" />
                     <List text="Gestión de inventario en tiempo real" />
                     <List text="Pasarelas de pago seguras" />
                   </div>

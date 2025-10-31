@@ -4,47 +4,47 @@
     "description": "Full-stack developer specialized in creating robust, scalable and user-friendly web applications."
   },
   "hero": {
-    "title": "Creating Digital Experiences with Code",
-    "subtitle": "Specialized in creating modern web applications",
-    "description": "Full-stack developer specialized in creating robust, scalable and user-friendly web applications. From concept to deployment, I bring your ideas to life.",
+    "title": "Full-stack developer",
+    "subtitle": "Specialized in creating scalable, enterprise-grade applications with modern technologies.",
+    "description": "From payment processing to multi-tenant systems, I turn complex business requirements into elegant solutions.",
     "cta": "View My Projects",
-    "contact": "Contact Me"
+    "contact": "Let's Connect"
   },
   "features": {
-    "title": "Key Benefits",
-    "subtitle": "Advantages",
+    "title": "Advantages",
+    "subtitle": "Benefits",
     "highlight": "benefits",
-    "paragraph": "Our web developments are Google-compatible, so you can enjoy enhanced SEO benefits, meaning Google will provide you with better visibility among others without paying more.",
+    "paragraph": "Our web solutions are built with the latest full-stack technologies to achieve optimal performance, security, and SEO visibility. Each project is tailored for scalability, maintainability, and business growth.",
     "items": {
-      "mobileOptimized": {
-        "title": "Mobile-Optimized Designs",
-        "description": "All our web designs are fully responsive and optimized for mobile devices, ensuring your website looks and functions perfectly on all devices."
+      "enterpriseArchitecture": {
+        "title": "Enterprise-Grade Architecture",
+        "description": "All our platforms are built with clean, scalable, and secure architectures. We use modern frameworks like Next.js 15 and React 19, ensuring enterprise-level performance and reliability."
       },
-      "customDesigns": {
-        "title": "High-Quality Custom Designs",
-        "description": "I create unique designs specific to your brand. This ensures your website looks different and better than others in your sector."
+      "saasEcommerce": {
+        "title": "Custom SaaS & E‑Commerce Solutions",
+        "description": "We specialize in building multi-tenant SaaS and e-commerce platforms with advanced features like automated billing, real-time inventory, and payment integrations using Stripe and Square."
       },
-      "staticPages": {
-        "title": "Static Pages",
-        "description": "Our web design allows you to create as many static pages as you need, we have different plans according to your needs. This means you can easily expand your website as your business grows, without worrying about technical limitations."
+      "highPerformance": {
+        "title": "High‑Performance & SEO Optimized",
+        "description": "Our websites are crafted following Next.js best practices and SEO-optimized rendering strategies, ensuring top Core Web Vitals and enhanced Google visibility right out of the box."
       },
-      "latestTech": {
-        "title": "Latest Technologies",
-        "description": "We use the latest web development technologies to ensure your website is fast, compatible with any device, and scalable. We are experts in using Next.js, a powerful web development framework."
+      "realTime": {
+        "title": "Real‑Time Capabilities",
+        "description": "From live order tracking to instant notifications, we implement real-time functionalities with technologies like Supabase, Upstash Redis, and WebSockets for instant data synchronization."
       },
-      "customizable": {
-        "title": "Fully Customizable",
-        "description": "Unleash your creativity and customize your website to perfection with our fully customizable features! No limits!"
+      "modernDevelopment": {
+        "title": "Modern Development Practices",
+        "description": "We follow a full TDD approach using Jest and Playwright, CI/CD pipelines, and robust monitoring with Sentry and Vercel Analytics to guarantee production-ready deployments."
       },
-      "seoOptimization": {
-        "title": "SEO Optimization",
-        "description": "Our websites incorporate SEO best practices, which attracts more organic traffic from Google without incurring additional costs. We implement the best techniques, including Next.js optimization and comprehensive keyword research, to ensure high search engine rankings."
+      "customizableScalable": {
+        "title": "Fully Customizable & Scalable",
+        "description": "Each solution is tailored to your exact business needs — easily expandable, ready for thousands of users, and fully customizable at every level of the stack."
       }
     }
   },
   "techLabels": {
-    "frontend": "Front-end",
-    "backend": "Back-end",
-    "fullstack": "Full-stack"
+    "typescript": "TypeScript",
+    "react": "React",
+    "nextjs": "Next.js"
   }
 } 
