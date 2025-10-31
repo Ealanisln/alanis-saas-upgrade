@@ -272,6 +272,39 @@ export function generateAlternates(locale: string, path: string) {
 }
 
 /**
+ * Generates a localized URL with proper locale prefix
+ * @param locale - Current locale ('en' or 'es')
+ * @param path - Path without locale prefix (e.g., '/about', '/blog')
+ * @returns Full URL with locale prefix (English at root, Spanish at /es)
+ * @example
+ * generateLocalizedUrl('en', '/about') // Returns: 'https://alanis.dev/about'
+ * generateLocalizedUrl('es', '/about') // Returns: 'https://alanis.dev/es/about'
+ */
+export function generateLocalizedUrl(locale: string, path: string): string {
+  const baseUrl = defaultConfig.siteUrl;
+
+  // Ensure path starts with /
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+
+  // For English (default locale), use root path. For Spanish, add /es prefix
+  const localePath = locale === 'en' ? normalizedPath : `/es${normalizedPath}`;
+
+  return `${baseUrl}${localePath}`;
+}
+
+/**
+ * Converts locale string to proper locale code for metadata
+ * @param locale - Current locale ('en' or 'es')
+ * @returns Locale code in format 'en_US' or 'es_ES'
+ * @example
+ * getLocaleCode('en') // Returns: 'en_US'
+ * getLocaleCode('es') // Returns: 'es_ES'
+ */
+export function getLocaleCode(locale: string): string {
+  return locale === 'en' ? 'en_US' : 'es_ES';
+}
+
+/**
  * Generates breadcrumb items for common pages
  */
 export function generateBreadcrumbs(path: string) {

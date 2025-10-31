@@ -6,6 +6,7 @@ import Contact from "@/components/Contact";
 import Features from "@/components/Features";
 import HeroSection from "@/components/Hero/index";
 import Pricing from "@/components/Pricing";
+import { generateLocalizedUrl } from "@/lib/seo";
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -48,7 +49,7 @@ export default async function Home({ params }: HomePageProps) {
     "@type": "ProfessionalService",
     "name": tJsonLd('name'),
     "description": t('meta.description'),
-    "url": "https://www.alanis.dev",
+    "url": generateLocalizedUrl(locale, '/'),
     "logo": "https://www.alanis.dev/images/logo.png",
     "image": "https://www.alanis.dev/opengraph-image",
     "telephone": "+52-XXX-XXX-XXXX", // Replace with actual phone
@@ -62,7 +63,7 @@ export default async function Home({ params }: HomePageProps) {
       "@type": "Person",
       "name": "Emmanuel Alanis",
       "jobTitle": tJsonLd('jobTitle'),
-      "url": "https://www.alanis.dev/about"
+      "url": generateLocalizedUrl(locale, '/about')
     },
     "serviceType": tJsonLd('serviceType'),
     "areaServed": {
