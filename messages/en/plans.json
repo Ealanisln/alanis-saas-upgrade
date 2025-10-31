@@ -20,44 +20,74 @@
   },
   "pricing": {
     "title": "Choose the best plan for your needs",
-    "subtitle": "Our three-tier pricing model offers options for everyone, whether you're a small business or an advanced user.",
-    "lite": {
-      "name": "Lite",
-      "subtitle": "For small businesses and entrepreneurs",
+    "subtitle": "Our four-tier pricing model serves everyone, from solopreneurs to enterprise businesses. All plans include modern design, production-grade code, and personalized support.",
+    "mostPopular": "Most Popular",
+    "starter": {
+      "name": "Starter",
+      "subtitle": "Perfect for solopreneurs and new businesses",
       "features": {
         "pages": "1 - 5 static pages",
-        "design": "Basic responsive design",
+        "design": "Modern responsive design",
         "hosting": "Domain and hosting for one year",
         "ssl": "SSL certificate",
         "seo": "Basic SEO optimization",
-        "support": "Email support"
+        "support": "Email support (48hr response)",
+        "delivery": "2-3 weeks delivery"
       }
     },
-    "basic": {
-      "name": "Basic",
-      "subtitle": "For growing businesses",
+    "business": {
+      "name": "Business",
+      "subtitle": "Ideal for growing SMEs",
       "features": {
-        "pages": "5 - 15 static pages",
-        "design": "Professional responsive design",
+        "pages": "5 - 15 pages with CMS",
+        "design": "Professional custom design",
         "hosting": "Premium domain and hosting",
-        "blog": "Integrated blog",
+        "blog": "Sanity CMS with blog",
         "seo": "Advanced SEO and Analytics",
-        "support": "Email and phone support"
+        "support": "Email and phone support (24hr)",
+        "delivery": "4-6 weeks delivery"
       }
     },
-    "plus": {
-      "name": "Plus",
-      "subtitle": "Complete solution for businesses",
+    "professional": {
+      "name": "Professional",
+      "subtitle": "Custom web applications with power",
       "features": {
-        "pages": "Up to 25 dynamic pages",
-        "design": "Personalized design",
-        "cms": "CMS for content management",
-        "ecommerce": "Basic ecommerce",
-        "integrations": "Advanced integrations",
-        "support": "Priority 24/7 support"
+        "app": "Custom web application",
+        "database": "Database integration (PostgreSQL)",
+        "auth": "User authentication system",
+        "dashboard": "Admin dashboard",
+        "api": "REST API endpoints",
+        "support": "Priority support (12hr response)",
+        "delivery": "6-8 weeks delivery"
       }
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "subtitle": "E-commerce and SaaS platforms",
+      "features": {
+        "platform": "Full e-commerce OR SaaS platform",
+        "payment": "Payment integration (Stripe/Square)",
+        "inventory": "Inventory management",
+        "analytics": "Advanced analytics dashboard",
+        "testing": "Comprehensive testing (Jest + Playwright)",
+        "support": "Dedicated support (immediate)",
+        "delivery": "8-12 weeks delivery"
+      }
+    },
+    "custom": {
+      "title": "Need something more complex?",
+      "subtitle": "Multi-tenant SaaS, enterprise integrations, or ongoing development",
+      "cta": "Get custom quote",
+      "features": [
+        "Multi-tenant architecture",
+        "Advanced security & compliance",
+        "Real-time features",
+        "Multiple integrations",
+        "Ongoing development retainer"
+      ]
     },
     "cta": "Get started",
+    "currencyNote": "Final price may be automatically adjusted to your local currency at checkout.",
     "featuresSection": {
       "title": "Everything you need for your online presence",
       "description": "Our plans are designed to offer you a complete set of premium features that will make your website stand out."
@@ -96,7 +126,7 @@
     "items": [
       {
         "question": "How long does it take to complete a project?",
-        "answer": "Development time varies depending on the complexity and plan chosen. A Lite plan typically takes 2-3 weeks, a Basic plan 4-6 weeks, and a Plus plan 6-8 weeks. We'll provide a detailed timeline during the initial consultation."
+        "answer": "Development time varies by plan: Starter (2-3 weeks), Business (4-6 weeks), Professional (6-8 weeks), and Enterprise (8-12 weeks). Custom SaaS projects are scoped individually. We provide a detailed timeline during the initial consultation."
       },
       {
         "question": "Can I upgrade my plan later?",
@@ -104,7 +134,7 @@
       },
       {
         "question": "What exactly does technical support include?",
-        "answer": "Technical support includes troubleshooting, answering questions, clarifying concerns, and providing solutions for a seamless experience. Response times vary by plan: Lite (48 hours), Basic (24 hours), Plus (priority/immediate)."
+        "answer": "Technical support includes troubleshooting, answering questions, clarifying concerns, and providing solutions for a seamless experience. Response times vary by plan: Starter (48 hours), Business (24 hours), Professional (12 hours priority), Enterprise (immediate dedicated support)."
       },
       {
         "question": "Do the prices include hosting and domain?",

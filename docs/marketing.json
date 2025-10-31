@@ -1,0 +1,200 @@
+{
+  "projects": [
+    {
+      "id": "destino-sf",
+      "name": "Destino SF",
+      "status": "production",
+      "tagline": "Full-Stack E-Commerce Platform for Specialty Foods",
+      "description": "A comprehensive e-commerce solution for a San Francisco specialty food business, featuring real-time inventory management, seamless payment processing, and automated order fulfillment.",
+      "category": "E-Commerce",
+      "techStack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Prisma",
+        "PostgreSQL",
+        "Square API",
+        "Supabase",
+        "Shippo",
+        "Twilio",
+        "Sentry",
+        "Google Maps API",
+        "TanStack Query"
+      ],
+      "keyFeatures": [
+        "Square payment integration with real-time inventory synchronization",
+        "Live order tracking and management system",
+        "Automated shipping via Shippo integration",
+        "SMS notifications through Twilio",
+        "Comprehensive admin dashboard with analytics",
+        "Full E2E test coverage using Playwright"
+      ],
+      "highlights": [
+        "Real-time inventory sync",
+        "Multiple payment integrations",
+        "Automated fulfillment",
+        "Enterprise-grade testing"
+      ]
+    },
+    {
+      "id": "ready-set",
+      "name": "Ready Set",
+      "status": "production",
+      "tagline": "Enterprise On-Demand Courier Platform",
+      "description": "A sophisticated multi-tenant delivery platform serving the Bay Area, specializing in food safety compliant and HIPAA certified courier services with advanced tracking capabilities.",
+      "category": "Logistics & Delivery",
+      "techStack": [
+        "Next.js 15",
+        "TypeScript",
+        "PostgreSQL",
+        "Prisma",
+        "Stripe",
+        "Supabase",
+        "Sanity CMS",
+        "TanStack Query",
+        "Vercel Analytics"
+      ],
+      "keyFeatures": [
+        "Multi-tenant courier management architecture",
+        "Stripe subscription and payment processing",
+        "Headless CMS integration with Sanity",
+        "Real-time delivery tracking system",
+        "Role-based access control (RBAC)",
+        "Comprehensive testing suite (Jest + Playwright)"
+      ],
+      "highlights": [
+        "HIPAA certified deliveries",
+        "Food safety compliance",
+        "Multi-tenant SaaS",
+        "Enterprise security"
+      ]
+    },
+    {
+      "id": "vet-family",
+      "name": "Vet Family",
+      "version": "1.2.0",
+      "status": "production",
+      "tagline": "Complete Veterinary Clinic Management System",
+      "description": "A full-featured practice management platform for veterinary clinics, streamlining patient records, appointments, billing, inventory, and preventive care scheduling.",
+      "category": "Healthcare SaaS",
+      "techStack": [
+        "Next.js 15",
+        "React 19",
+        "PostgreSQL",
+        "Prisma ORM",
+        "TypeScript",
+        "Kinde Auth",
+        "TailwindCSS",
+        "Radix UI",
+        "Sanity CMS",
+        "Cloudinary"
+      ],
+      "coreFeatures": [
+        "Comprehensive user and pet profile management",
+        "Medical history tracking with weight monitoring",
+        "Appointment scheduling and management",
+        "Integrated billing system",
+        "Automated vaccination and deworming schedules",
+        "Multi-role user support (clients, staff, admins)"
+      ],
+      "advancedFeatures": [
+        "In-app changelog system with notification banner",
+        "Soft delete with restore functionality",
+        "Automatic weight tracking in medical records",
+        "36+ inventory categories for medicines and supplies",
+        "Enhanced admin interface with collapsible navigation",
+        "Full ACID compliance with referential integrity"
+      ],
+      "highlights": [
+        "Multi-tenant architecture",
+        "Automated preventive care",
+        "Comprehensive inventory",
+        "Type-safe database operations"
+      ]
+    },
+    {
+      "id": "vetify",
+      "name": "Vetify",
+      "status": "production",
+      "tagline": "Enterprise Multi-Tenant Veterinary SaaS Platform",
+      "description": "A sophisticated subscription-based veterinary practice management platform with WhatsApp communication, advanced security features, and comprehensive multi-tenant isolation.",
+      "category": "Healthcare SaaS",
+      "techStack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "PostgreSQL",
+        "Prisma ORM",
+        "Kinde Auth",
+        "Stripe",
+        "Supabase",
+        "Upstash Redis",
+        "Sentry",
+        "Framer Motion",
+        "Playwright"
+      ],
+      "keyFeatures": [
+        "Multi-tenant SaaS architecture with tenant isolation",
+        "Subscription management with 30-day free trials",
+        "WhatsApp client communication integration",
+        "Comprehensive appointment and patient management",
+        "Advanced inventory tracking system",
+        "Real-time health records and vaccination tracking"
+      ],
+      "securityFeatures": [
+        "Row Level Security (RLS) with PostgreSQL",
+        "Rate limiting via Upstash Redis",
+        "CSRF protection with token validation",
+        "Comprehensive security headers",
+        "Zod-based input validation",
+        "Audit logging for security events",
+        "Automated tenant data isolation"
+      ],
+      "subscriptionSystem": {
+        "trialPeriod": "30 days free",
+        "plans": [
+          { "name": "Básico", "price": "$599/month" },
+          { "name": "Profesional", "price": "$1,199/month" },
+          { "name": "Corporativo", "price": "$5,000/month" }
+        ],
+        "features": [
+          "Subscription-based feature gating",
+          "Middleware-enforced access control",
+          "Automatic duplicate prevention",
+          "Integrated billing portal"
+        ]
+      },
+      "highlights": [
+        "Enterprise-grade security",
+        "Full test coverage (Jest + Playwright)",
+        "Automated subscription management",
+        "Production-ready deployment",
+        "Comprehensive documentation"
+      ]
+    }
+  ],
+  "technicalHighlights": {
+    "frameworks": ["Next.js 15", "React 19"],
+    "languages": ["TypeScript"],
+    "databases": ["PostgreSQL", "Prisma ORM"],
+    "authentication": ["Kinde Auth"],
+    "payments": ["Stripe", "Square"],
+    "infrastructure": ["Supabase", "Vercel", "Upstash Redis"],
+    "testing": ["Jest", "Playwright", "React Testing Library"],
+    "monitoring": ["Sentry", "Vercel Analytics"]
+  },
+  "expertiseAreas": [
+    "Full-Stack Development",
+    "Multi-Tenant SaaS Architecture",
+    "E-Commerce Solutions",
+    "Healthcare Software",
+    "Payment Integration",
+    "Real-Time Systems",
+    "Enterprise Security",
+    "Subscription Management",
+    "API Integration",
+    "Database Design",
+    "Performance Optimization",
+    "Test-Driven Development"
+  ]
+}

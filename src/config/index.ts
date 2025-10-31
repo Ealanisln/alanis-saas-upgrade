@@ -1,1 +1,1 @@
-export const CURRENCY = "mxn";
+export const CURRENCY = "usd";

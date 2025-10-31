@@ -4,47 +4,47 @@
     "description": "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar."
   },
   "hero": {
-    "title": "Creando Experiencias Digitales con Código",
-    "subtitle": "Especializado en crear aplicaciones web modernas",
-    "description": "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar. Desde el concepto hasta el despliegue, doy vida a tus ideas.",
+    "title": "Desarrollador full-stack",
+    "subtitle": "Especializado en crear aplicaciones escalables y de nivel empresarial con tecnologías modernas.",
+    "description": "Desde procesamiento de pagos hasta sistemas multi-tenant, convierto requisitos complejos en soluciones elegantes.",
     "cta": "Ver Mis Proyectos",
-    "contact": "Escríbeme"
+    "contact": "Conectemos"
   },
   "features": {
-    "title": "Principales beneficios",
-    "subtitle": "Ventajas",
+    "title": "Ventajas",
+    "subtitle": "Beneficios",
     "highlight": "beneficios",
-    "paragraph": "Nuestros desarrollos web son compatibles con Google, asi que puedes disfrutar de beneficios de SEO mejorados, lo que significa que Google te brindará una mejor visibilidad entre los demás sin pagar más.",
+    "paragraph": "Desarrollamos soluciones web modernas y escalables utilizando las últimas tecnologías full‑stack. Nuestros proyectos están optimizados para ofrecer un rendimiento excepcional, máxima seguridad y una visibilidad SEO superior, impulsando el crecimiento de tu negocio.",
     "items": {
-      "mobileOptimized": {
-        "title": "Diseños Optimizados para Móviles",
-        "description": "Todos nuestros diseños web son completamente responsivos y están optimizados para dispositivos móviles, lo que garantiza que tu sitio web se vea y funcione perfectamente en todos los dispositivos."
+      "enterpriseArchitecture": {
+        "title": "Arquitectura de Nivel Empresarial",
+        "description": "Construimos plataformas con arquitecturas limpias, seguras y escalables. Utilizamos frameworks modernos como Next.js 15 y React 19, garantizando un rendimiento y fiabilidad de nivel empresarial."
       },
-      "customDesigns": {
-        "title": "Diseños Personalizados de Alta Calidad",
-        "description": "Creo diseños únicos específicos para tu marca. Esto asegura que tu sitio web se vea diferente y mejor que los demás en tu sector."
+      "saasEcommerce": {
+        "title": "Soluciones Personalizadas SaaS y E‑Commerce",
+        "description": "Creamos plataformas SaaS y e‑commerce multi‑tenant completamente personalizadas, con funciones avanzadas como facturación automatizada, inventario en tiempo real e integraciones con Stripe y Square."
       },
-      "staticPages": {
-        "title": "Páginas Estáticas",
-        "description": "Nuestro diseño web te permite crear tantas páginas estáticas como necesites, contamos con diferentes planes según tus necesidades. Esto significa que puedes expandir fácilmente tu sitio web a medida que tu negocio crece, sin preocuparte por limitaciones técnicas."
+      "highPerformance": {
+        "title": "Alto Rendimiento y Optimización SEO",
+        "description": "Diseñamos sitios y aplicaciones optimizados desde el núcleo, aplicando las mejores prácticas de Next.js y técnicas SEO avanzadas para lograr un posicionamiento orgánico superior y una carga ultrarrápida."
       },
-      "latestTech": {
-        "title": "Últimas Tecnologías",
-        "description": "Utilizamos las últimas tecnologías de desarrollo web para garantizar que tu sitio web sea rápido, compatible con cualquier dispositivo y escalable. Somos expertos en el uso de Next.js, un poderoso framework de desarrollo web."
+      "realTime": {
+        "title": "Capacidades en Tiempo Real",
+        "description": "Implementamos funcionalidades de comunicación instantánea, rastreo en vivo y actualizaciones dinámicas utilizando tecnologías como Supabase, Upstash Redis y WebSockets."
       },
-      "customizable": {
-        "title": "Totalmente Personalizable",
-        "description": "¡Da rienda suelta a tu creatividad y personaliza tu sitio web a la perfección con nuestras funciones totalmente personalizables! ¡Sin límites!"
+      "modernDevelopment": {
+        "title": "Prácticas de Desarrollo Modernas",
+        "description": "Aplicamos un enfoque de desarrollo basado en pruebas (TDD) con Jest y Playwright, integrando CI/CD automatizado y monitoreo en producción a través de Sentry y Vercel Analytics."
       },
-      "seoOptimization": {
-        "title": "Optimización SEO",
-        "description": "Nuestros sitios web incorporan las mejores prácticas de SEO, lo que atrae más tráfico orgánico de Google sin incurrir en costos adicionales. Implementamos las mejores técnicas, incluida la optimización de Next.js y una exhaustiva investigación de palabras clave, para garantizar una alta clasificación en los resultados de búsqueda."
+      "customizableScalable": {
+        "title": "Totalmente Personalizable y Escalable",
+        "description": "Cada solución se adapta a las necesidades de tu negocio. Nuestros sistemas son fáciles de escalar, flexibles y totalmente personalizables tanto en diseño como en funcionalidad."
       }
     }
   },
   "techLabels": {
-    "frontend": "Front-end",
-    "backend": "Back-end",
-    "fullstack": "Full-stack"
+    "typescript": "TypeScript",
+    "react": "React",
+    "nextjs": "Next.js"
   }
 } 

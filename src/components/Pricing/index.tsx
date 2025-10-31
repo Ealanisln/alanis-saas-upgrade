@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import SectionTitle from "../Common/SectionTitle";
 import OfferList from "./OfferList";
 import PricingBox from "./PricingBox";
+import CustomQuoteSection from "./CustomQuoteSection";
 
 const Pricing = () => {
   const t = useTranslations("plans.pricing");
@@ -19,43 +20,72 @@ const Pricing = () => {
           width="665px"
         />
 
-        <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3 mt-8 md:mt-12">
+        <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-4 mt-8 md:mt-12 items-stretch">
           <PricingBox
-            packageName={t("lite.name")}
-            price={6500}
-            subtitle={t("lite.subtitle")}
+            packageName={t("starter.name")}
+            price={500}
+            subtitle={t("starter.subtitle")}
           >
-            <OfferList text={t("lite.features.pages")} status="active" />
-            <OfferList text={t("lite.features.design")} status="active" />
-            <OfferList text={t("lite.features.hosting")} status="active" />
-            <OfferList text={t("lite.features.ssl")} status="active" />
-            <OfferList text={t("lite.features.seo")} status="active" />
-            <OfferList text={t("lite.features.support")} status="active" />
+            <OfferList text={t("starter.features.pages")} status="active" />
+            <OfferList text={t("starter.features.design")} status="active" />
+            <OfferList text={t("starter.features.hosting")} status="active" />
+            <OfferList text={t("starter.features.ssl")} status="active" />
+            <OfferList text={t("starter.features.seo")} status="active" />
+            <OfferList text={t("starter.features.support")} status="active" />
+            <OfferList text={t("starter.features.delivery")} status="active" />
           </PricingBox>
           <PricingBox
-            packageName={t("basic.name")}
-            price={8500}
-            subtitle={t("basic.subtitle")}
+            packageName={t("business.name")}
+            price={850}
+            subtitle={t("business.subtitle")}
           >
-            <OfferList text={t("basic.features.pages")} status="active" />
-            <OfferList text={t("basic.features.design")} status="active" />
-            <OfferList text={t("basic.features.hosting")} status="active" />
-            <OfferList text={t("basic.features.blog")} status="active" />
-            <OfferList text={t("basic.features.seo")} status="active" />
-            <OfferList text={t("basic.features.support")} status="active" />
+            <OfferList text={t("business.features.pages")} status="active" />
+            <OfferList text={t("business.features.design")} status="active" />
+            <OfferList text={t("business.features.hosting")} status="active" />
+            <OfferList text={t("business.features.blog")} status="active" />
+            <OfferList text={t("business.features.seo")} status="active" />
+            <OfferList text={t("business.features.support")} status="active" />
+            <OfferList text={t("business.features.delivery")} status="active" />
           </PricingBox>
           <PricingBox
-            packageName={t("plus.name")}
-            price={12500}
-            subtitle={t("plus.subtitle")}
+            packageName={t("professional.name")}
+            price={2000}
+            subtitle={t("professional.subtitle")}
+            popular
           >
-            <OfferList text={t("plus.features.pages")} status="active" />
-            <OfferList text={t("plus.features.design")} status="active" />
-            <OfferList text={t("plus.features.cms")} status="active" />
-            <OfferList text={t("plus.features.ecommerce")} status="active" />
-            <OfferList text={t("plus.features.integrations")} status="active" />
-            <OfferList text={t("plus.features.support")} status="active" />
+            <OfferList text={t("professional.features.app")} status="active" />
+            <OfferList text={t("professional.features.database")} status="active" />
+            <OfferList text={t("professional.features.auth")} status="active" />
+            <OfferList text={t("professional.features.dashboard")} status="active" />
+            <OfferList text={t("professional.features.api")} status="active" />
+            <OfferList text={t("professional.features.support")} status="active" />
+            <OfferList text={t("professional.features.delivery")} status="active" />
           </PricingBox>
+          <PricingBox
+            packageName={t("enterprise.name")}
+            price={4200}
+            subtitle={t("enterprise.subtitle")}
+          >
+            <OfferList text={t("enterprise.features.platform")} status="active" />
+            <OfferList text={t("enterprise.features.payment")} status="active" />
+            <OfferList text={t("enterprise.features.inventory")} status="active" />
+            <OfferList text={t("enterprise.features.analytics")} status="active" />
+            <OfferList text={t("enterprise.features.testing")} status="active" />
+            <OfferList text={t("enterprise.features.support")} status="active" />
+            <OfferList text={t("enterprise.features.delivery")} status="active" />
+          </PricingBox>
+        </div>
+
+        {/* Currency conversion note */}
+        <div className="mt-6 text-center">
+          <p className="text-sm text-body-color dark:text-gray-400 opacity-75">
+            {t("currencyNote")}
+          </p>
+        </div>
+
+        {/* Custom Quote Section */}
+        <div className="mt-16">
+          <CustomQuoteSection />
         </div>
       </div>
 

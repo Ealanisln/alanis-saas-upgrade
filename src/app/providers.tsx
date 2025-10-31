@@ -1,12 +1,9 @@
 "use client";
-import { useState, useEffect } from "react"; // Good practice to include these here too
+import { useState } from "react";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from "next-themes";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  // Hydration safety for the Provider itself is also good practice
-  const [mounted, setMounted] = useState(false);
-  
   // Create a query client with sensible defaults
   const [queryClient] = useState(() => new QueryClient({
     defaultOptions: {
@@ -20,16 +17,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
       },
     },
   }));
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    // Render children in SSR to prevent hydration mismatch
-    // ThemeProvider and QueryClient will hydrate on client side
-    return <>{children}</>;
-  }
 
   return (
     <QueryClientProvider client={queryClient}>

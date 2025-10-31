@@ -71,34 +71,46 @@ export default async function PricingPage({
     "offers": [
       {
         "@type": "Offer",
-        "name": locale === "es" ? "Plan Básico" : "Basic Plan",
+        "name": locale === "es" ? "Starter" : "Starter",
+        "price": "9000 MXN",
         "description": locale === "es"
-          ? "Ideal para proyectos pequeños y landing pages"
-          : "Ideal for small projects and landing pages",
+          ? "Perfecto para emprendedores y nuevos negocios"
+          : "Perfect for solopreneurs and new businesses",
         "category": "Web Development"
       },
       {
         "@type": "Offer",
-        "name": locale === "es" ? "Plan Profesional" : "Professional Plan",
+        "name": locale === "es" ? "Business" : "Business",
+        "price": "15000 MXN",
         "description": locale === "es"
-          ? "Perfecto para aplicaciones web medianas"
-          : "Perfect for medium web applications",
+          ? "Ideal para PYMEs en crecimiento"
+          : "Ideal for growing SMEs",
         "category": "Web Development"
       },
       {
         "@type": "Offer",
-        "name": locale === "es" ? "Plan Premium" : "Premium Plan",
+        "name": locale === "es" ? "Professional" : "Professional",
+        "price": "35000 MXN",
         "description": locale === "es"
-          ? "Para aplicaciones web complejas y e-commerce"
-          : "For complex web applications and e-commerce",
+          ? "Aplicaciones web personalizadas con poder"
+          : "Custom web applications with power",
         "category": "Web Development"
       },
       {
         "@type": "Offer",
-        "name": locale === "es" ? "Plan Personalizado" : "Custom Plan",
+        "name": locale === "es" ? "Enterprise" : "Enterprise",
+        "price": "75000 MXN",
         "description": locale === "es"
-          ? "Soluciones a medida para proyectos únicos"
-          : "Custom solutions for unique projects",
+          ? "Plataformas de E-commerce y SaaS"
+          : "E-commerce and SaaS platforms",
+        "category": "Web Development"
+      },
+      {
+        "@type": "Offer",
+        "name": locale === "es" ? "Personalizado" : "Custom",
+        "description": locale === "es"
+          ? "SaaS multi-tenant, integraciones empresariales y desarrollo continuo"
+          : "Multi-tenant SaaS, enterprise integrations, and ongoing development",
         "category": "Web Development"
       }
     ]

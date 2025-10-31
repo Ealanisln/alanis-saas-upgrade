@@ -83,7 +83,7 @@ export async function generateMetadata(
       locale: locale === 'en' ? "en_US" : "es_ES",
       url: postUrl,
       publishedTime: post.publishedAt || new Date().toISOString(),
-      authors: [typeof post.author === 'object' ? post.author.name : (post.author || "Alanis Dev")],
+      authors: [typeof post.author === 'string' ? post.author : "Alanis Dev"],
       images: [
         {
           url: `/${locale}/blog/${slug}/opengraph-image`,
@@ -148,13 +148,11 @@ export default async function BlogPostPage({
 
   // Ensure body is properly extracted (it should be an array of blocks, not an i18n object)
   // If it's still an i18n object structure, try to extract the value
-  let body: any = post.body;
+  let body: unknown = post.body;
   if (body && !Array.isArray(body) && typeof body === 'object' && 'value' in body) {
-    body = (body as any).value;
+    body = (body as { value: unknown }).value;
   }
-  if (!Array.isArray(body)) {
-    body = [];
-  }
+  const bodyBlocks = Array.isArray(body) ? body : [];
 
   // Format date for display and structured data
   const publishDate = post.publishedAt ? new Date(post.publishedAt).toISOString() : new Date().toISOString();
@@ -242,7 +240,7 @@ export default async function BlogPostPage({
               )}
               <div className="prose prose-xl prose-blue mt-16 dark:prose-invert prose-li:marker:text-primary prose-a:text-primary">
                 <PortableText
-                  value={body}
+                  value={bodyBlocks}
                   components={portableTextComponents}
                 />
               </div>

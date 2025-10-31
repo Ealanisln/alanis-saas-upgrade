@@ -10,7 +10,7 @@ const Features = () => {
 
   // Create feature items with translations
   const translatedFeatures = featuresData.map((feature, index) => {
-    const featureKeys = ['mobileOptimized', 'customDesigns', 'staticPages', 'latestTech', 'customizable', 'seoOptimization'];
+    const featureKeys = ['enterpriseArchitecture', 'saasEcommerce', 'highPerformance', 'realTime', 'modernDevelopment', 'customizableScalable'];
     const featureKey = featureKeys[index];
 
     return {

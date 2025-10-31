@@ -2,32 +2,43 @@
 import { createCheckoutSession } from "@/app/actions/stripe";
 import { CURRENCY } from "@/config";
 import { formatAmountForStripe } from "@/lib/utils/stripe-helpers";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 const PricingBox = (props: {
   price: number;
   packageName: string;
   subtitle: string;
   children: React.ReactNode;
+  popular?: boolean;
 }) => {
-  const { price, packageName, subtitle, children } = props;
+  const { price, packageName, subtitle, children, popular = false } = props;
   const t = useTranslations("plans.pricing");
+  const locale = useLocale();
 
   const handleCheckout = async () => {
     const unitAmount = formatAmountForStripe(price, CURRENCY);
-    await createCheckoutSession(unitAmount, packageName);
+    await createCheckoutSession(unitAmount, packageName, locale);
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full flex flex-col">
       <div
-        className="wow fadeInUp relative z-10 rounded-md bg-white px-8 py-10 shadow-three hover:shadow-one dark:bg-gray-dark dark:shadow-two dark:hover:shadow-gray-dark transition-shadow duration-300"
+        className={`wow fadeInUp relative z-10 rounded-md bg-white px-8 py-10 shadow-three hover:shadow-one dark:bg-gray-dark dark:shadow-two dark:hover:shadow-gray-dark transition-shadow duration-300 flex flex-col h-full ${
+          popular ? "border-2 border-primary" : ""
+        }`}
         data-wow-delay=".1s"
       >
+        {popular && (
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+            <span className="inline-block rounded-full bg-primary px-4 py-1 text-sm font-semibold text-white">
+              {t("mostPopular")}
+            </span>
+          </div>
+        )}
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-3xl font-bold text-black dark:text-white">
-            $<span className="amount">{price}</span>
-            <span className="text-sm font-medium ml-1">MXN</span>
+            $<span className="amount">{price.toLocaleString()}</span>
+            <span className="text-sm font-medium ml-1">USD</span>
           </h3>
           <h4 className="text-xl font-bold text-dark dark:text-white">
             {packageName}
@@ -44,7 +55,7 @@ const PricingBox = (props: {
             </button>
           </form>
         </div>
-        <div className="space-y-4">{children}</div>
+        <div className="space-y-4 flex-grow">{children}</div>
         <div className="absolute bottom-0 right-0 z-[-1]">
           <svg
             width="179"

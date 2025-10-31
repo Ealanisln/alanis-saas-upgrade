@@ -1,11 +1,10 @@
-// @ts-nocheck
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ApiResponse, PaginatedResponse } from '@/lib/api/types';
 import {
   QuoteRequest,
-  CreateQuoteResponse, 
+  CreateQuoteResponse,
   ListQuotesResponse,
-  QuoteResponse 
+  QuoteResponse
 } from '@/types/calculator/service-calculator.types';
 import { useApi } from './useApi';
 
@@ -40,7 +39,7 @@ export const useQuotes = (options: UseQuotesOptions = {}) => {
   // Mutation for creating a new quote
   const createQuoteMutation = useMutation({
     mutationFn: async (request: QuoteRequest): Promise<QuoteResponse> => {
-      const response = await client.post<QuoteResponse>('/quotes', {
+      const response = await client.post<ApiResponse<QuoteResponse>>('/quotes', {
         clientName: request.clientInfo?.name,
         clientEmail: request.clientInfo?.email,
         clientCompany: request.clientInfo?.company,
@@ -75,8 +74,8 @@ export const useQuotes = (options: UseQuotesOptions = {}) => {
 
   // Mutation for syncing with Invoice Ninja
   const syncWithInvoiceNinjaMutation = useMutation({
-    mutationFn: async (quoteData: any) => {
-      const response = await client.post('/quotes/invoice-ninja', quoteData);
+    mutationFn: async (quoteData: QuoteResponse) => {
+      const response = await client.post<ApiResponse<QuoteResponse>>('/quotes/invoice-ninja', quoteData);
       if (!response.success) {
         throw new Error(response.message || 'Error syncing with Invoice Ninja');
       }
@@ -95,9 +94,9 @@ export const useQuotes = (options: UseQuotesOptions = {}) => {
     syncing: syncWithInvoiceNinjaMutation.isPending,
     
     // Error states
-    error: quotesQuery.error?.message || 
-           createQuoteMutation.error?.message || 
-           syncWithInvoiceNinjaMutation.error?.message || 
+    error: (quotesQuery.error instanceof Error ? quotesQuery.error.message : null) ||
+           (createQuoteMutation.error instanceof Error ? createQuoteMutation.error.message : null) ||
+           (syncWithInvoiceNinjaMutation.error instanceof Error ? syncWithInvoiceNinjaMutation.error.message : null) ||
            null,
     
     // Actions
