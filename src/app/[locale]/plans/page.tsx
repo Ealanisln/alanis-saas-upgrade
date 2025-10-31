@@ -6,7 +6,7 @@ import Pricing from "@/components/Pricing";
 import PricingFAQ from "@/components/Pricing/PricingFAQ";
 import PricingFeatures from "@/components/Pricing/PricingFeatures";
 import PricingHeader from "@/components/Pricing/PricingHeader";
-import { generateLocalizedUrl } from "@/lib/seo";
+import { generateLocalizedUrl, getLocaleCode } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -24,6 +24,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("description"),
       type: "website",
+      locale: getLocaleCode(locale),
       images: [
         {
           url: "/plans/opengraph-image",

@@ -6,7 +6,7 @@ import Contact from "@/components/Contact";
 import Features from "@/components/Features";
 import HeroSection from "@/components/Hero/index";
 import Pricing from "@/components/Pricing";
-import { generateLocalizedUrl } from "@/lib/seo";
+import { generateLocalizedUrl, getLocaleCode } from "@/lib/seo";
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       title: t('meta.title'),
       description: t('meta.description'),
       type: "website",
+      locale: getLocaleCode(locale),
       images: ["/opengraph-image"],
     },
     twitter: {

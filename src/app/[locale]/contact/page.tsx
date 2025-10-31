@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import Contact from "@/components/Contact";
-import { generateLocalizedUrl } from "@/lib/seo";
+import { generateLocalizedUrl, getLocaleCode } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -20,6 +20,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("description"),
       type: "website",
+      locale: getLocaleCode(locale),
       images: [
         {
           url: "/contact/opengraph-image",

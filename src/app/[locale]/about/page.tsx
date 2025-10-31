@@ -4,7 +4,7 @@ import AboutSectionOne from "@/components/About/AboutSectionOne";
 import AboutSectionTwo from "@/components/About/AboutSectionTwo";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
-import { generateAlternates, generateLocalizedUrl } from "@/lib/seo";
+import { generateAlternates, generateLocalizedUrl, getLocaleCode } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -22,6 +22,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("description"),
       type: "profile",
+      locale: getLocaleCode(locale),
       images: [
         {
           url: "/about/opengraph-image",
