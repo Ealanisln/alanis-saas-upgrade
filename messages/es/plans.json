@@ -1,7 +1,8 @@
 {
   "meta": {
     "title": "Planes - Alanis",
-    "description": "Descubre mis planes de desarrollo web y encuentra la opción perfecta para tu proyecto."
+    "description": "Descubre mis planes de desarrollo web y encuentra la opción perfecta para tu proyecto.",
+    "keywords": ["planes", "precios", "desarrollo web", "cotización", "Next.js", "React", "TypeScript", "diseño web"]
   },
   "title": "Planes",
   "subtitle": "Encuentra el plan perfecto para tu proyecto",
@@ -116,6 +117,32 @@
       "customization": {
         "title": "Personalización Total",
         "description": "Adaptamos cada proyecto a tus necesidades específicas, garantizando que tu sitio web refleje la identidad de tu marca."
+      }
+    }
+  },
+  "jsonLd": {
+    "name": "Servicios de Desarrollo Web",
+    "description": "Planes y precios para desarrollo web con Next.js, React y TypeScript",
+    "offers": {
+      "starter": {
+        "name": "Starter",
+        "description": "Perfecto para emprendedores y nuevos negocios"
+      },
+      "business": {
+        "name": "Business",
+        "description": "Ideal para PYMEs en crecimiento"
+      },
+      "professional": {
+        "name": "Professional",
+        "description": "Aplicaciones web personalizadas con poder"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Plataformas de E-commerce y SaaS"
+      },
+      "custom": {
+        "name": "Personalizado",
+        "description": "SaaS multi-tenant, integraciones empresariales y desarrollo continuo"
       }
     }
   },

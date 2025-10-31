@@ -6,6 +6,8 @@ import Contact from "@/components/Contact";
 import Features from "@/components/Features";
 import HeroSection from "@/components/Hero/index";
 import Pricing from "@/components/Pricing";
+import { generateLocalizedUrl, getLocaleCode, generateAlternates } from "@/lib/seo";
+import { siteConfig } from "@/config/i18n";
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -14,15 +16,16 @@ interface HomePageProps {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home' });
-  
+
   return {
     title: t('meta.title'),
     description: t('meta.description'),
-    keywords: ["desarrollo web", "programación", "javascript", "typescript", "react", "next.js", "full-stack"],
+    keywords: t.raw('meta.keywords'),
     openGraph: {
       title: t('meta.title'),
       description: t('meta.description'),
       type: "website",
+      locale: getLocaleCode(locale),
       images: ["/opengraph-image"],
     },
     twitter: {
@@ -31,26 +34,25 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       description: t('meta.description'),
       images: ["/opengraph-image"],
     },
-    alternates: {
-      canonical: locale === 'en' ? "/" : `/${locale}`,
-    }
+    alternates: generateAlternates(locale, '/')
   };
 }
 
 export default async function Home({ params }: HomePageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home' });
+  const tJsonLd = await getTranslations({ locale, namespace: 'home.jsonLd' });
+
   // Create structured data for the home page
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "name": "Alanis Dev - Desarrollo Web",
+    "name": tJsonLd('name'),
     "description": t('meta.description'),
-    "url": "https://www.alanis.dev",
-    "logo": "https://www.alanis.dev/images/logo.png",
-    "image": "https://www.alanis.dev/opengraph-image",
-    "telephone": "+52-XXX-XXX-XXXX", // Replace with actual phone
-    "email": "contact@alanis.dev",
+    "url": generateLocalizedUrl(locale, '/'),
+    "logo": `${siteConfig.url}${siteConfig.images.logo}`,
+    "image": `${siteConfig.url}${siteConfig.images.ogImage}`,
+    "email": siteConfig.contact.email,
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "MX",
@@ -58,49 +60,49 @@ export default async function Home({ params }: HomePageProps) {
     },
     "founder": {
       "@type": "Person",
-      "name": "Emmanuel Alanis",
-      "jobTitle": "Full-Stack Developer",
-      "url": "https://www.alanis.dev/about"
+      "name": siteConfig.author,
+      "jobTitle": tJsonLd('jobTitle'),
+      "url": generateLocalizedUrl(locale, '/about')
     },
-    "serviceType": "Web Development",
+    "serviceType": tJsonLd('serviceType'),
     "areaServed": {
       "@type": "Country",
       "name": "Mexico"
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Servicios de Desarrollo Web",
+      "name": tJsonLd('offerCatalog.name'),
       "itemListElement": [
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Desarrollo de Aplicaciones Web",
-            "description": "Aplicaciones web modernas con Next.js y React"
+            "name": tJsonLd('offerCatalog.services.0.name'),
+            "description": tJsonLd('offerCatalog.services.0.description')
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "E-commerce",
-            "description": "Tiendas en línea completas y funcionales"
+            "name": tJsonLd('offerCatalog.services.1.name'),
+            "description": tJsonLd('offerCatalog.services.1.description')
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Landing Pages",
-            "description": "Páginas de aterrizaje optimizadas para conversión"
+            "name": tJsonLd('offerCatalog.services.2.name'),
+            "description": tJsonLd('offerCatalog.services.2.description')
           }
         }
       ]
     },
     "sameAs": [
-      "https://github.com/alanisdev",
-      "https://linkedin.com/in/alanisdev",
-      "https://twitter.com/alanisdev"
+      siteConfig.social.github,
+      siteConfig.social.linkedin,
+      siteConfig.social.twitter
     ]
   };
 

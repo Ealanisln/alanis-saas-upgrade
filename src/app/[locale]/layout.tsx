@@ -3,6 +3,7 @@ import { getTranslations, getMessages } from 'next-intl/server';
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { locales } from '@/config/i18n';
+import { generateAlternates } from '@/lib/seo';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -16,7 +17,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home' });
-  
+
   return {
     metadataBase: new URL('https://alanis.dev'),
     title: {
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       template: `%s | Alanis Dev`
     },
     description: t('meta.description'),
-    keywords: ["desarrollo web", "programación", "javascript", "typescript", "react", "next.js", "full-stack"],
+    keywords: t.raw('meta.keywords'),
     authors: [{ name: "Alanis Dev" }],
     creator: "Alanis Dev",
     publisher: "Alanis Dev",
@@ -32,13 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       icon: "/favicon.ico",
       apple: "/apple-icon.png",
     },
-    alternates: {
-      canonical: locale === 'en' ? '/' : `/${locale}`,
-      languages: {
-        'en-US': '/',
-        'es-ES': '/es',
-      },
-    },
+    alternates: generateAlternates(locale, '/'),
     openGraph: {
       type: "website",
       locale: locale === 'en' ? "en_US" : "es_ES",

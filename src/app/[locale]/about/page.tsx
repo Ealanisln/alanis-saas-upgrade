@@ -4,6 +4,8 @@ import AboutSectionOne from "@/components/About/AboutSectionOne";
 import AboutSectionTwo from "@/components/About/AboutSectionTwo";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
+import { generateAlternates, generateLocalizedUrl, getLocaleCode } from "@/lib/seo";
+import { siteConfig } from "@/config/i18n";
 
 export async function generateMetadata({
   params,
@@ -16,11 +18,12 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("description"),
-    keywords: ["Emmanuel Alanis", "web developer", "React", "Next.js", "TypeScript", "full-stack developer"],
+    keywords: t.raw("keywords"),
     openGraph: {
       title: t("title"),
       description: t("description"),
       type: "profile",
+      locale: getLocaleCode(locale),
       images: [
         {
           url: "/about/opengraph-image",
@@ -36,9 +39,7 @@ export async function generateMetadata({
       description: t("description"),
       images: ["/about/opengraph-image"],
     },
-    alternates: {
-      canonical: `/${locale}/about`,
-    }
+    alternates: generateAlternates(locale, '/about')
   };
 }
 
@@ -50,27 +51,26 @@ const AboutPage = async ({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "about.hero" });
   const tBreadcrumbs = await getTranslations({ locale, namespace: "common.breadcrumbs" });
+  const tJsonLd = await getTranslations({ locale, namespace: "about.jsonLd" });
 
   // Create structured data for the About page with locale-specific description
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "Emmanuel Alanis",
-    "alternateName": "Alanis Dev",
-    "description": locale === "es"
-      ? "Desarrollador web mexicano especializado en React, Next.js y TypeScript"
-      : "Mexican web developer specialized in React, Next.js and TypeScript",
-    "url": "https://www.alanis.dev/about",
-    "image": "https://www.alanis.dev/about/opengraph-image",
+    "name": siteConfig.author,
+    "alternateName": siteConfig.name,
+    "description": tJsonLd('description'),
+    "url": generateLocalizedUrl(locale, '/about'),
+    "image": `${siteConfig.url}/about/opengraph-image`,
     "sameAs": [
-      "https://github.com/alanisdev",
-      "https://linkedin.com/in/alanisdev",
-      "https://twitter.com/alanisdev"
+      siteConfig.social.github,
+      siteConfig.social.linkedin,
+      siteConfig.social.twitter
     ],
-    "jobTitle": "Full-Stack Developer",
+    "jobTitle": tJsonLd('jobTitle'),
     "worksFor": {
       "@type": "Organization",
-      "name": "Freelance"
+      "name": tJsonLd('worksFor')
     },
     "nationality": {
       "@type": "Country",
@@ -90,8 +90,8 @@ const AboutPage = async ({
 
   // Breadcrumb items for structured data with translations
   const breadcrumbItems = [
-    { name: tBreadcrumbs('home'), url: 'https://www.alanis.dev' },
-    { name: tBreadcrumbs('about'), url: 'https://www.alanis.dev/about' }
+    { name: tBreadcrumbs('home'), url: generateLocalizedUrl(locale, '/') },
+    { name: tBreadcrumbs('about'), url: generateLocalizedUrl(locale, '/about') }
   ];
 
   return (

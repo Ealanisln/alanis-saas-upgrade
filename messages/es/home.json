@@ -1,7 +1,8 @@
 {
   "meta": {
     "title": "Alanis - Desarrollador Web",
-    "description": "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar."
+    "description": "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
+    "keywords": ["desarrollo web", "programación", "javascript", "typescript", "react", "next.js", "full-stack", "Emmanuel Alanis"]
   },
   "hero": {
     "title": "Desarrollador full-stack",
@@ -46,5 +47,27 @@
     "typescript": "TypeScript",
     "react": "React",
     "nextjs": "Next.js"
+  },
+  "jsonLd": {
+    "name": "Alanis Dev - Desarrollo Web",
+    "jobTitle": "Desarrollador Full-Stack",
+    "serviceType": "Desarrollo Web",
+    "offerCatalog": {
+      "name": "Servicios de Desarrollo Web",
+      "services": [
+        {
+          "name": "Desarrollo de Aplicaciones Web",
+          "description": "Aplicaciones web modernas con Next.js y React"
+        },
+        {
+          "name": "E-commerce",
+          "description": "Tiendas en línea completas y funcionales"
+        },
+        {
+          "name": "Landing Pages",
+          "description": "Páginas de aterrizaje optimizadas para conversión"
+        }
+      ]
+    }
   }
 } 

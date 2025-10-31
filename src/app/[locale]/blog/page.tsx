@@ -7,6 +7,7 @@ import { client } from "@/sanity/lib/client";
 import { localizePost } from "@/sanity/lib/i18n";
 import { postPathsQuery } from "@/sanity/lib/queries";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
+import { generateAlternates, generateLocalizedUrl } from "@/lib/seo";
 
 export const revalidate = 30;
 
@@ -27,7 +28,7 @@ export async function generateMetadata({
       description: t('meta.description'),
       type: "website",
       locale: locale === 'en' ? "en_US" : "es_ES",
-      url: `https://alanis.dev/${locale}/blog`,
+      url: generateLocalizedUrl(locale, '/blog'),
       images: [
         {
           url: `/${locale}/blog/opengraph-image`,
@@ -43,13 +44,7 @@ export async function generateMetadata({
       description: t('meta.description'),
       images: [`/${locale}/blog/opengraph-image`],
     },
-    alternates: {
-      canonical: `/${locale}/blog`,
-      languages: {
-        'en-US': '/en/blog',
-        'es-ES': '/es/blog',
-      },
-    }
+    alternates: generateAlternates(locale, '/blog')
   };
 }
 
@@ -81,16 +76,6 @@ async function getData(locale: string) {
   // Localize all posts
   const localized = data.map((post: any) => localizePost(post, locale));
 
-  // Debug: Log the first post to see the structure
-  if (process.env.NODE_ENV === 'development' && localized.length > 0) {
-    console.log('First post after localization:', {
-      title: localized[0].title,
-      titleType: typeof localized[0].title,
-      smallDescription: localized[0].smallDescription,
-      descType: typeof localized[0].smallDescription
-    });
-  }
-
   return localized;
 }
 
@@ -111,12 +96,12 @@ export default async function Blog({
     "@type": "Blog",
     "headline": t('meta.title'),
     "description": t('meta.description'),
-    "url": `https://www.alanis.dev/${locale}/blog`,
+    "url": generateLocalizedUrl(locale, '/blog'),
     "inLanguage": locale === 'en' ? 'en-US' : 'es-ES',
     "author": {
       "@type": "Person",
       "name": "Alanis Dev",
-      "url": `https://www.alanis.dev/${locale}/about`
+      "url": generateLocalizedUrl(locale, '/about')
     },
     "publisher": {
       "@type": "Organization",
@@ -129,7 +114,7 @@ export default async function Blog({
     "blogPosts": data.map(post => ({
       "@type": "BlogPosting",
       "headline": post.title,
-      "url": `https://www.alanis.dev/${locale}/blog/${post.slug?.current || ''}`,
+      "url": generateLocalizedUrl(locale, `/blog/${post.slug?.current || ''}`),
       "dateModified": post._updatedAt,
       "datePublished": post.publishedAt,
       "inLanguage": locale === 'en' ? 'en-US' : 'es-ES',
@@ -142,8 +127,8 @@ export default async function Blog({
 
   // Breadcrumb items for structured data
   const breadcrumbItems = [
-    { name: tNav('home'), url: `https://www.alanis.dev/${locale}` },
-    { name: t('title'), url: `https://www.alanis.dev/${locale}/blog` }
+    { name: tNav('home'), url: generateLocalizedUrl(locale, '/') },
+    { name: t('title'), url: generateLocalizedUrl(locale, '/blog') }
   ];
 
   return (

@@ -3,6 +3,8 @@ import { getTranslations } from "next-intl/server";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import Contact from "@/components/Contact";
+import { generateLocalizedUrl, getLocaleCode, generateAlternates } from "@/lib/seo";
+import { siteConfig } from "@/config/i18n";
 
 export async function generateMetadata({
   params,
@@ -19,6 +21,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("description"),
       type: "website",
+      locale: getLocaleCode(locale),
       images: [
         {
           url: "/contact/opengraph-image",
@@ -34,9 +37,7 @@ export async function generateMetadata({
       description: t("description"),
       images: ["/contact/opengraph-image"],
     },
-    alternates: {
-      canonical: `/${locale}/contact`,
-    }
+    alternates: generateAlternates(locale, '/contact')
   };
 }
 
@@ -56,13 +57,13 @@ const ContactPage = async ({
     "@type": "ContactPage",
     "name": tJsonLd("name"),
     "description": tJsonLd("description"),
-    "url": "https://www.alanis.dev/contact",
+    "url": generateLocalizedUrl(locale, '/contact'),
     "mainEntity": {
       "@type": "Person",
-      "name": "Emmanuel Alanis",
+      "name": siteConfig.author,
       "jobTitle": "Full-Stack Developer",
-      "email": "contact@alanis.dev",
-      "url": "https://www.alanis.dev",
+      "email": siteConfig.contact.email,
+      "url": generateLocalizedUrl(locale, '/'),
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "customer service",
@@ -73,8 +74,8 @@ const ContactPage = async ({
 
   // Breadcrumb items for structured data with translations
   const breadcrumbItems = [
-    { name: tBreadcrumbs('home'), url: 'https://www.alanis.dev' },
-    { name: tBreadcrumbs('contact'), url: 'https://www.alanis.dev/contact' }
+    { name: tBreadcrumbs('home'), url: generateLocalizedUrl(locale, '/') },
+    { name: tBreadcrumbs('contact'), url: generateLocalizedUrl(locale, '/contact') }
   ];
 
   return (

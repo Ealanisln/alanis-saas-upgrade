@@ -5,6 +5,8 @@ import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import SectionTitle from "@/components/Common/SectionTitle";
 import Modernportafolio from "@/components/Portfolio/ModernPortfolio";
 import projects from "@/data/projects";
+import { generateLocalizedUrl, getLocaleCode, generateAlternates } from "@/lib/seo";
+import { siteConfig } from "@/config/i18n";
 
 export async function generateMetadata({
   params,
@@ -21,6 +23,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("description"),
       type: "website",
+      locale: getLocaleCode(locale),
       images: [
         {
           url: "/portfolio/opengraph-image",
@@ -36,9 +39,7 @@ export async function generateMetadata({
       description: t("description"),
       images: ["/portfolio/opengraph-image"],
     },
-    alternates: {
-      canonical: `/${locale}/portfolio`,
-    }
+    alternates: generateAlternates(locale, '/portfolio')
   };
 }
 
@@ -59,18 +60,18 @@ const PortfolioPage = async ({
     "@type": "CollectionPage",
     "name": tJsonLd("name"),
     "description": tJsonLd("description"),
-    "url": "https://www.alanis.dev/portfolio",
+    "url": generateLocalizedUrl(locale, '/portfolio'),
     "author": {
       "@type": "Person",
-      "name": "Emmanuel Alanis",
-      "url": "https://www.alanis.dev/about"
+      "name": siteConfig.author,
+      "url": generateLocalizedUrl(locale, '/about')
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Alanis Dev",
+      "name": siteConfig.name,
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.alanis.dev/images/logo.png"
+        "url": `${siteConfig.url}${siteConfig.images.logo}`
       }
     },
     "mainEntity": {
@@ -82,8 +83,8 @@ const PortfolioPage = async ({
 
   // Breadcrumb items for structured data with translations
   const breadcrumbItems = [
-    { name: tBreadcrumbs('home'), url: 'https://www.alanis.dev' },
-    { name: tBreadcrumbs('portfolio'), url: 'https://www.alanis.dev/portfolio' }
+    { name: tBreadcrumbs('home'), url: generateLocalizedUrl(locale, '/') },
+    { name: tBreadcrumbs('portfolio'), url: generateLocalizedUrl(locale, '/portfolio') }
   ];
 
   return (
@@ -133,7 +134,7 @@ const PortfolioPage = async ({
                 {tHero("viewProjects")}
               </a>
               <a
-                href="mailto:contact@example.com"
+                href={`mailto:${siteConfig.contact.email}`}
                 className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-transparent hover:bg-white/10 text-white border border-blue-400/30 font-medium transition-all duration-300"
               >
                 {tHero("contact")}

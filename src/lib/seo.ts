@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { siteConfig, isValidLocale, type Locale } from "@/config/i18n";
 
 interface SEOConfig {
   title: string;
@@ -14,8 +15,8 @@ interface SEOConfig {
 }
 
 const defaultConfig = {
-  siteName: "Alanis Dev",
-  siteUrl: "https://alanis.dev",
+  siteName: siteConfig.name,
+  siteUrl: siteConfig.url,
   defaultTitle: "Alanis - Web Developer",
   defaultDescription: "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
   twitterHandle: "@ealanisln",
@@ -106,15 +107,15 @@ export function generatePersonStructuredData() {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "Emmanuel Alanis",
-    "alternateName": "Alanis Dev",
+    "name": siteConfig.author,
+    "alternateName": siteConfig.name,
     "description": "Desarrollador web mexicano especializado en React, Next.js y TypeScript",
-    "url": `${defaultConfig.siteUrl}/about`,
-    "image": `${defaultConfig.siteUrl}/about/opengraph-image`,
+    "url": `${siteConfig.url}/about`,
+    "image": `${siteConfig.url}/about/opengraph-image`,
     "sameAs": [
-      "https://github.com/alanisdev",
-      "https://linkedin.com/in/alanisdev",
-      "https://twitter.com/alanisdev"
+      siteConfig.social.github,
+      siteConfig.social.linkedin,
+      siteConfig.social.twitter
     ],
     "jobTitle": "Full-Stack Developer",
     "worksFor": {
@@ -147,11 +148,10 @@ export function generateWebsiteStructuredData() {
     "@type": "ProfessionalService",
     "name": "Alanis Dev - Desarrollo Web",
     "description": defaultConfig.defaultDescription,
-    "url": defaultConfig.siteUrl,
-    "logo": `${defaultConfig.siteUrl}/images/logo.png`,
-    "image": `${defaultConfig.siteUrl}/opengraph-image`,
-    "telephone": "+52-XXX-XXX-XXXX", // Replace with actual phone
-    "email": "contact@alanis.dev",
+    "url": siteConfig.url,
+    "logo": `${siteConfig.url}${siteConfig.images.logo}`,
+    "image": `${siteConfig.url}${siteConfig.images.ogImage}`,
+    "email": siteConfig.contact.email,
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "MX",
@@ -159,9 +159,9 @@ export function generateWebsiteStructuredData() {
     },
     "founder": {
       "@type": "Person",
-      "name": "Emmanuel Alanis",
+      "name": siteConfig.author,
       "jobTitle": "Full-Stack Developer",
-      "url": `${defaultConfig.siteUrl}/about`
+      "url": `${siteConfig.url}/about`
     },
     "serviceType": "Web Development",
     "areaServed": {
@@ -199,9 +199,9 @@ export function generateWebsiteStructuredData() {
       ]
     },
     "sameAs": [
-      "https://github.com/alanisdev",
-      "https://linkedin.com/in/alanisdev",
-      "https://twitter.com/alanisdev"
+      siteConfig.social.github,
+      siteConfig.social.linkedin,
+      siteConfig.social.twitter
     ]
   };
 }
@@ -229,39 +229,123 @@ export function generateArticleStructuredData(article: {
     "dateModified": article.modifiedTime || article.publishedTime,
     "author": {
       "@type": "Person",
-      "name": article.author || "Emmanuel Alanis",
-      "url": `${defaultConfig.siteUrl}/about`
+      "name": article.author || siteConfig.author,
+      "url": `${siteConfig.url}/about`
     },
     "publisher": {
       "@type": "Organization",
-      "name": defaultConfig.siteName,
+      "name": siteConfig.name,
       "logo": {
         "@type": "ImageObject",
-        "url": `${defaultConfig.siteUrl}/images/logo.png`
+        "url": `${siteConfig.url}${siteConfig.images.logo}`
       }
     },
-    "image": article.image || `${defaultConfig.siteUrl}/blog/opengraph-image`,
+    "image": article.image || `${siteConfig.url}/blog/opengraph-image`,
     "articleSection": article.section || "Web Development",
     "inLanguage": "es-ES"
   };
 }
 
 /**
+ * Generates proper alternates (canonical + hreflang) for multi-language pages
+ * @param locale - Current locale ('en' or 'es')
+ * @param path - Path without locale prefix (e.g., '/about', '/blog/post-slug')
+ * @returns Alternates object with canonical and language links
+ * @throws Error if locale is invalid
+ */
+export function generateAlternates(locale: string, path: string) {
+  // Validate locale
+  if (!isValidLocale(locale)) {
+    throw new Error(`Invalid locale: ${locale}. Must be one of: en, es`);
+  }
+
+  const baseUrl = siteConfig.url;
+
+  // Ensure path starts with /
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+
+  // For English (default locale), use root path. For Spanish, add /es prefix
+  const localePath = locale === 'en' ? normalizedPath : `/es${normalizedPath}`;
+
+  return {
+    canonical: `${baseUrl}${localePath}`,
+    languages: {
+      'en': `${baseUrl}${normalizedPath}`,
+      'es': `${baseUrl}/es${normalizedPath}`,
+      'x-default': `${baseUrl}${normalizedPath}`, // Default to English
+    }
+  };
+}
+
+/**
+ * Generates a localized URL with proper locale prefix
+ * @param locale - Current locale ('en' or 'es')
+ * @param path - Path without locale prefix (e.g., '/about', '/blog')
+ * @returns Full URL with locale prefix (English at root, Spanish at /es)
+ * @throws Error if locale is invalid
+ * @example
+ * generateLocalizedUrl('en', '/about') // Returns: 'https://alanis.dev/about'
+ * generateLocalizedUrl('es', '/about') // Returns: 'https://alanis.dev/es/about'
+ */
+export function generateLocalizedUrl(locale: string, path: string): string {
+  // Validate locale
+  if (!isValidLocale(locale)) {
+    throw new Error(`Invalid locale: ${locale}. Must be one of: en, es`);
+  }
+
+  const baseUrl = siteConfig.url;
+
+  // Ensure path starts with /
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+
+  // For English (default locale), use root path. For Spanish, add /es prefix
+  const localePath = locale === 'en' ? normalizedPath : `/es${normalizedPath}`;
+
+  return `${baseUrl}${localePath}`;
+}
+
+/**
+ * Converts locale string to proper locale code for metadata
+ * @param locale - Current locale ('en' or 'es')
+ * @returns Locale code in format 'en_US' or 'es_ES'
+ * @throws Error if locale is invalid
+ * @example
+ * getLocaleCode('en') // Returns: 'en_US'
+ * getLocaleCode('es') // Returns: 'es_ES'
+ */
+export function getLocaleCode(locale: string): string {
+  // Validate locale
+  if (!isValidLocale(locale)) {
+    throw new Error(`Invalid locale: ${locale}. Must be one of: en, es`);
+  }
+
+  const localeMap: Record<Locale, string> = {
+    'en': 'en_US',
+    'es': 'es_ES',
+  };
+
+  return localeMap[locale as Locale];
+}
+
+/**
  * Generates breadcrumb items for common pages
+ * @deprecated Use translation files for breadcrumb names instead
+ * This function is kept for backward compatibility but should not be used for new code
  */
 export function generateBreadcrumbs(path: string) {
   const breadcrumbs = [
-    { name: 'Inicio', url: defaultConfig.siteUrl }
+    { name: 'Home', url: siteConfig.url }
   ];
 
   const pathSegments = path.split('/').filter(Boolean);
-  
+
   const pathMap: Record<string, string> = {
-    'about': 'Acerca de mí',
-    'portafolio': 'portafolio',
-    'contacto': 'Contacto',
-    'planes': 'Planes y Precios',
-    'blog': 'Blog'
+    'about': 'About',
+    'portfolio': 'Portfolio',
+    'contact': 'Contact',
+    'plans': 'Plans',
+    'blog': 'Blog',
+    'es': 'ES' // Locale prefix
   };
 
   let currentPath = '';
@@ -270,7 +354,7 @@ export function generateBreadcrumbs(path: string) {
     const name = pathMap[segment] || segment;
     breadcrumbs.push({
       name,
-      url: `${defaultConfig.siteUrl}${currentPath}`
+      url: `${siteConfig.url}${currentPath}`
     });
   });
 
@@ -282,6 +366,7 @@ const seoUtils = {
   generatePersonStructuredData,
   generateWebsiteStructuredData,
   generateArticleStructuredData,
+  generateAlternates,
   generateBreadcrumbs,
   defaultConfig,
 };

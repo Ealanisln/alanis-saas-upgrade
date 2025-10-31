@@ -9,6 +9,7 @@ import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import { client, urlFor } from "@/sanity/lib/client";
 import { localizePost } from "@/sanity/lib/i18n";
 import { FullPost } from "@/types/simple-blog-card";
+import { generateAlternates, generateLocalizedUrl } from "@/lib/seo";
 
 export const revalidate = 30;
 
@@ -64,18 +65,12 @@ export async function generateMetadata(
   // Get parent metadata
   const previousImages = (await parent).openGraph?.images || [];
 
-  const postUrl = `https://alanis.dev/${locale}/blog/${slug}`;
+  const postUrl = generateLocalizedUrl(locale, `/blog/${slug}`);
 
   return {
     title: `${title} | Alanis Dev Blog`,
     description,
-    alternates: {
-      canonical: `/${locale}/blog/${slug}`,
-      languages: {
-        'en-US': `/en/blog/${slug}`,
-        'es-ES': `/es/blog/${slug}`,
-      },
-    },
+    alternates: generateAlternates(locale, `/blog/${slug}`),
     openGraph: {
       title,
       description,
@@ -176,7 +171,7 @@ export default async function BlogPostPage({
     "author": {
       "@type": "Person",
       "name": post.author || "Alanis Dev",
-      "url": `https://alanis.dev/${locale}/about`
+      "url": generateLocalizedUrl(locale, '/about')
     },
     "publisher": {
       "@type": "Organization",
@@ -189,15 +184,15 @@ export default async function BlogPostPage({
     description,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://alanis.dev/${locale}/blog/${slug}`
+      "@id": generateLocalizedUrl(locale, `/blog/${slug}`)
     }
   };
 
   // Breadcrumb items for structured data
   const breadcrumbItems = [
-    { name: tNav('home'), url: `https://alanis.dev/${locale}` },
-    { name: t('title'), url: `https://alanis.dev/${locale}/blog` },
-    { name: title, url: `https://alanis.dev/${locale}/blog/${slug}` }
+    { name: tNav('home'), url: generateLocalizedUrl(locale, '/') },
+    { name: t('title'), url: generateLocalizedUrl(locale, '/blog') },
+    { name: title, url: generateLocalizedUrl(locale, `/blog/${slug}`) }
   ];
 
   return (
