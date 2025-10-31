@@ -5,6 +5,7 @@ import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import SectionTitle from "@/components/Common/SectionTitle";
 import Modernportafolio from "@/components/Portfolio/ModernPortfolio";
 import projects from "@/data/projects";
+import { generateLocalizedUrl, getLocaleCode } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -21,6 +22,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("description"),
       type: "website",
+      locale: getLocaleCode(locale),
       images: [
         {
           url: "/portfolio/opengraph-image",
@@ -59,11 +61,11 @@ const PortfolioPage = async ({
     "@type": "CollectionPage",
     "name": tJsonLd("name"),
     "description": tJsonLd("description"),
-    "url": "https://www.alanis.dev/portfolio",
+    "url": generateLocalizedUrl(locale, '/portfolio'),
     "author": {
       "@type": "Person",
       "name": "Emmanuel Alanis",
-      "url": "https://www.alanis.dev/about"
+      "url": generateLocalizedUrl(locale, '/about')
     },
     "publisher": {
       "@type": "Organization",
@@ -82,8 +84,8 @@ const PortfolioPage = async ({
 
   // Breadcrumb items for structured data with translations
   const breadcrumbItems = [
-    { name: tBreadcrumbs('home'), url: 'https://www.alanis.dev' },
-    { name: tBreadcrumbs('portfolio'), url: 'https://www.alanis.dev/portfolio' }
+    { name: tBreadcrumbs('home'), url: generateLocalizedUrl(locale, '/') },
+    { name: tBreadcrumbs('portfolio'), url: generateLocalizedUrl(locale, '/portfolio') }
   ];
 
   return (

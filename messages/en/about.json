@@ -1,7 +1,8 @@
 {
   "meta": {
     "title": "About me - Alanis",
-    "description": "Learn more about my experience as a full-stack developer and my passion for creating exceptional web applications."
+    "description": "Learn more about my experience as a full-stack developer and my passion for creating exceptional web applications.",
+    "keywords": ["Emmanuel Alanis", "web developer", "React", "Next.js", "TypeScript", "full-stack developer", "software engineer"]
   },
   "title": "About me",
   "subtitle": "My passion for web development",
@@ -33,5 +34,10 @@
       "title": "Flexible Plans",
       "description": "If you need something special, don't worry; we'd be happy to assist you and offer the best option according to your needs."
     }
+  },
+  "jsonLd": {
+    "description": "Mexican web developer specialized in React, Next.js and TypeScript",
+    "jobTitle": "Full-Stack Developer",
+    "worksFor": "Freelance"
   }
 } 
