@@ -49,6 +49,7 @@ const AboutPage = async ({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "about.hero" });
   const tBreadcrumbs = await getTranslations({ locale, namespace: "common.breadcrumbs" });
+  const tJsonLd = await getTranslations({ locale, namespace: "about.jsonLd" });
 
   // Create structured data for the About page with locale-specific description
   const jsonLd = {
@@ -56,9 +57,7 @@ const AboutPage = async ({
     "@type": "Person",
     "name": "Emmanuel Alanis",
     "alternateName": "Alanis Dev",
-    "description": locale === "es"
-      ? "Desarrollador web mexicano especializado en React, Next.js y TypeScript"
-      : "Mexican web developer specialized in React, Next.js and TypeScript",
+    "description": tJsonLd('description'),
     "url": "https://www.alanis.dev/about",
     "image": "https://www.alanis.dev/about/opengraph-image",
     "sameAs": [
@@ -66,10 +65,10 @@ const AboutPage = async ({
       "https://linkedin.com/in/alanisdev",
       "https://twitter.com/alanisdev"
     ],
-    "jobTitle": "Full-Stack Developer",
+    "jobTitle": tJsonLd('jobTitle'),
     "worksFor": {
       "@type": "Organization",
-      "name": "Freelance"
+      "name": tJsonLd('worksFor')
     },
     "nationality": {
       "@type": "Country",
