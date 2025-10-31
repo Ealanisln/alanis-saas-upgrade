@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
-import { defaultLocale, locales, type Locale } from './src/config/i18n';
+import { defaultLocale, locales, isValidLocale, type Locale } from './src/config/i18n';
 
 const intlMiddleware = createMiddleware({
   // A list of all locales that are supported
@@ -26,7 +26,7 @@ export default function middleware(request: NextRequest) {
 
     // Check if Spanish is preferred
     if (acceptLanguage && acceptLanguage.toLowerCase().includes('es')) {
-      // Redirect to Spanish version
+      // Redirect to Spanish version (preserving the root path)
       const url = request.nextUrl.clone();
       url.pathname = '/es';
       return NextResponse.redirect(url);
@@ -38,13 +38,19 @@ export default function middleware(request: NextRequest) {
   // For all other requests, use the next-intl middleware
   const response = intlMiddleware(request);
 
-  // Detect locale from pathname and add to headers for root layout
+  // Detect and validate locale from pathname
   let locale: Locale = defaultLocale;
-  if (pathname.startsWith('/es')) {
-    locale = 'es';
+
+  // Extract potential locale from pathname (e.g., /es/about -> 'es')
+  const pathSegments = pathname.split('/').filter(Boolean);
+  const potentialLocale = pathSegments[0];
+
+  // Validate the locale using isValidLocale
+  if (potentialLocale && isValidLocale(potentialLocale)) {
+    locale = potentialLocale;
   }
 
-  // Set x-locale header for the root layout to use
+  // Set x-locale header for the root layout to use (if needed)
   response.headers.set('x-locale', locale);
 
   return response;

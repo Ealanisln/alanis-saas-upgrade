@@ -5,6 +5,7 @@ import AboutSectionTwo from "@/components/About/AboutSectionTwo";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import { generateAlternates, generateLocalizedUrl, getLocaleCode } from "@/lib/seo";
+import { siteConfig } from "@/config/i18n";
 
 export async function generateMetadata({
   params,
@@ -56,15 +57,15 @@ const AboutPage = async ({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "Emmanuel Alanis",
-    "alternateName": "Alanis Dev",
+    "name": siteConfig.author,
+    "alternateName": siteConfig.name,
     "description": tJsonLd('description'),
     "url": generateLocalizedUrl(locale, '/about'),
-    "image": "https://www.alanis.dev/about/opengraph-image",
+    "image": `${siteConfig.url}/about/opengraph-image`,
     "sameAs": [
-      "https://github.com/alanisdev",
-      "https://linkedin.com/in/alanisdev",
-      "https://twitter.com/alanisdev"
+      siteConfig.social.github,
+      siteConfig.social.linkedin,
+      siteConfig.social.twitter
     ],
     "jobTitle": tJsonLd('jobTitle'),
     "worksFor": {

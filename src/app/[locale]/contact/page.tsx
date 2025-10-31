@@ -3,7 +3,8 @@ import { getTranslations } from "next-intl/server";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import Contact from "@/components/Contact";
-import { generateLocalizedUrl, getLocaleCode } from "@/lib/seo";
+import { generateLocalizedUrl, getLocaleCode, generateAlternates } from "@/lib/seo";
+import { siteConfig } from "@/config/i18n";
 
 export async function generateMetadata({
   params,
@@ -36,9 +37,7 @@ export async function generateMetadata({
       description: t("description"),
       images: ["/contact/opengraph-image"],
     },
-    alternates: {
-      canonical: `/${locale}/contact`,
-    }
+    alternates: generateAlternates(locale, '/contact')
   };
 }
 
@@ -61,9 +60,9 @@ const ContactPage = async ({
     "url": generateLocalizedUrl(locale, '/contact'),
     "mainEntity": {
       "@type": "Person",
-      "name": "Emmanuel Alanis",
+      "name": siteConfig.author,
       "jobTitle": "Full-Stack Developer",
-      "email": "contact@alanis.dev",
+      "email": siteConfig.contact.email,
       "url": generateLocalizedUrl(locale, '/'),
       "contactPoint": {
         "@type": "ContactPoint",

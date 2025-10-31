@@ -6,7 +6,8 @@ import Contact from "@/components/Contact";
 import Features from "@/components/Features";
 import HeroSection from "@/components/Hero/index";
 import Pricing from "@/components/Pricing";
-import { generateLocalizedUrl, getLocaleCode } from "@/lib/seo";
+import { generateLocalizedUrl, getLocaleCode, generateAlternates } from "@/lib/seo";
+import { siteConfig } from "@/config/i18n";
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -33,9 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       description: t('meta.description'),
       images: ["/opengraph-image"],
     },
-    alternates: {
-      canonical: locale === 'en' ? "/" : `/${locale}`,
-    }
+    alternates: generateAlternates(locale, '/')
   };
 }
 
@@ -51,10 +50,9 @@ export default async function Home({ params }: HomePageProps) {
     "name": tJsonLd('name'),
     "description": t('meta.description'),
     "url": generateLocalizedUrl(locale, '/'),
-    "logo": "https://www.alanis.dev/images/logo.png",
-    "image": "https://www.alanis.dev/opengraph-image",
-    "telephone": "+52-XXX-XXX-XXXX", // Replace with actual phone
-    "email": "contact@alanis.dev",
+    "logo": `${siteConfig.url}${siteConfig.images.logo}`,
+    "image": `${siteConfig.url}${siteConfig.images.ogImage}`,
+    "email": siteConfig.contact.email,
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "MX",
@@ -62,7 +60,7 @@ export default async function Home({ params }: HomePageProps) {
     },
     "founder": {
       "@type": "Person",
-      "name": "Emmanuel Alanis",
+      "name": siteConfig.author,
       "jobTitle": tJsonLd('jobTitle'),
       "url": generateLocalizedUrl(locale, '/about')
     },
@@ -102,9 +100,9 @@ export default async function Home({ params }: HomePageProps) {
       ]
     },
     "sameAs": [
-      "https://github.com/alanisdev",
-      "https://linkedin.com/in/alanisdev",
-      "https://twitter.com/alanisdev"
+      siteConfig.social.github,
+      siteConfig.social.linkedin,
+      siteConfig.social.twitter
     ]
   };
 
