@@ -17,7 +17,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home' });
-  
+
   return {
     metadataBase: new URL('https://alanis.dev'),
     title: {
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       template: `%s | Alanis Dev`
     },
     description: t('meta.description'),
-    keywords: ["desarrollo web", "programación", "javascript", "typescript", "react", "next.js", "full-stack"],
+    keywords: t.raw('meta.keywords'),
     authors: [{ name: "Alanis Dev" }],
     creator: "Alanis Dev",
     publisher: "Alanis Dev",

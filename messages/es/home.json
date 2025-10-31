@@ -1,7 +1,8 @@
 {
   "meta": {
     "title": "Alanis - Desarrollador Web",
-    "description": "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar."
+    "description": "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
+    "keywords": ["desarrollo web", "programación", "javascript", "typescript", "react", "next.js", "full-stack", "Emmanuel Alanis"]
   },
   "hero": {
     "title": "Desarrollador full-stack",

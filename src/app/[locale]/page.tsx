@@ -15,11 +15,11 @@ interface HomePageProps {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home' });
-  
+
   return {
     title: t('meta.title'),
     description: t('meta.description'),
-    keywords: ["desarrollo web", "programación", "javascript", "typescript", "react", "next.js", "full-stack"],
+    keywords: t.raw('meta.keywords'),
     openGraph: {
       title: t('meta.title'),
       description: t('meta.description'),

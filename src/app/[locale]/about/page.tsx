@@ -17,7 +17,7 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("description"),
-    keywords: ["Emmanuel Alanis", "web developer", "React", "Next.js", "TypeScript", "full-stack developer"],
+    keywords: t.raw("keywords"),
     openGraph: {
       title: t("title"),
       description: t("description"),

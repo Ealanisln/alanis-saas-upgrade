@@ -1,7 +1,8 @@
 {
   "meta": {
     "title": "Planes - Alanis",
-    "description": "Descubre mis planes de desarrollo web y encuentra la opción perfecta para tu proyecto."
+    "description": "Descubre mis planes de desarrollo web y encuentra la opción perfecta para tu proyecto.",
+    "keywords": ["planes", "precios", "desarrollo web", "cotización", "Next.js", "React", "TypeScript", "diseño web"]
   },
   "title": "Planes",
   "subtitle": "Encuentra el plan perfecto para tu proyecto",

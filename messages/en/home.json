@@ -1,7 +1,8 @@
 {
   "meta": {
     "title": "Alanis - Web Developer",
-    "description": "Full-stack developer specialized in creating robust, scalable and user-friendly web applications."
+    "description": "Full-stack developer specialized in creating robust, scalable and user-friendly web applications.",
+    "keywords": ["web development", "programming", "javascript", "typescript", "react", "next.js", "full-stack", "Emmanuel Alanis"]
   },
   "hero": {
     "title": "Full-stack developer",

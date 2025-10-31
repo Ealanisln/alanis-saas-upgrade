@@ -1,7 +1,8 @@
 {
   "meta": {
     "title": "Acerca de mí - Alanis",
-    "description": "Conoce más sobre mi experiencia como desarrollador full-stack y mi pasión por crear aplicaciones web excepcionales."
+    "description": "Conoce más sobre mi experiencia como desarrollador full-stack y mi pasión por crear aplicaciones web excepcionales.",
+    "keywords": ["Emmanuel Alanis", "desarrollador web", "React", "Next.js", "TypeScript", "desarrollador full-stack", "ingeniero de software"]
   },
   "title": "Acerca de mí",
   "subtitle": "Mi pasión por el desarrollo web",

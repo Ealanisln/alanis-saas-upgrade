@@ -1,7 +1,8 @@
 {
   "meta": {
     "title": "About me - Alanis",
-    "description": "Learn more about my experience as a full-stack developer and my passion for creating exceptional web applications."
+    "description": "Learn more about my experience as a full-stack developer and my passion for creating exceptional web applications.",
+    "keywords": ["Emmanuel Alanis", "web developer", "React", "Next.js", "TypeScript", "full-stack developer", "software engineer"]
   },
   "title": "About me",
   "subtitle": "My passion for web development",
