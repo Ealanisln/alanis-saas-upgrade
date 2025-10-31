@@ -76,16 +76,6 @@ async function getData(locale: string) {
   // Localize all posts
   const localized = data.map((post: any) => localizePost(post, locale));
 
-  // Debug: Log the first post to see the structure
-  if (process.env.NODE_ENV === 'development' && localized.length > 0) {
-    console.log('First post after localization:', {
-      title: localized[0].title,
-      titleType: typeof localized[0].title,
-      smallDescription: localized[0].smallDescription,
-      descType: typeof localized[0].smallDescription
-    });
-  }
-
   return localized;
 }
 
