@@ -33,5 +33,10 @@
       "title": "Flexible Plans",
       "description": "If you need something special, don't worry; we'd be happy to assist you and offer the best option according to your needs."
     }
+  },
+  "jsonLd": {
+    "description": "Mexican web developer specialized in React, Next.js and TypeScript",
+    "jobTitle": "Full-Stack Developer",
+    "worksFor": "Freelance"
   }
 } 

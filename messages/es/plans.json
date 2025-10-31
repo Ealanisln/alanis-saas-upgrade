@@ -119,6 +119,32 @@
       }
     }
   },
+  "jsonLd": {
+    "name": "Servicios de Desarrollo Web",
+    "description": "Planes y precios para desarrollo web con Next.js, React y TypeScript",
+    "offers": {
+      "starter": {
+        "name": "Starter",
+        "description": "Perfecto para emprendedores y nuevos negocios"
+      },
+      "business": {
+        "name": "Business",
+        "description": "Ideal para PYMEs en crecimiento"
+      },
+      "professional": {
+        "name": "Professional",
+        "description": "Aplicaciones web personalizadas con poder"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Plataformas de E-commerce y SaaS"
+      },
+      "custom": {
+        "name": "Personalizado",
+        "description": "SaaS multi-tenant, integraciones empresariales y desarrollo continuo"
+      }
+    }
+  },
   "faq": {
     "title": "Preguntas Frecuentes",
     "subtitle": "¿Tienes dudas sobre nuestros servicios? Aquí encontrarás respuestas a las preguntas más comunes.",

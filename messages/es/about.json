@@ -33,5 +33,10 @@
       "title": "Planes flexibles",
       "description": "Si necesitas algo especial, no te preocupes; estaré encantado de asistirte y ofrecerte la mejor opción según tus necesidades."
     }
+  },
+  "jsonLd": {
+    "description": "Desarrollador web mexicano especializado en React, Next.js y TypeScript",
+    "jobTitle": "Desarrollador Full-Stack",
+    "worksFor": "Freelance"
   }
 } 

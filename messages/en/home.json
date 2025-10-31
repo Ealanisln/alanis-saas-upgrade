@@ -46,5 +46,27 @@
     "typescript": "TypeScript",
     "react": "React",
     "nextjs": "Next.js"
+  },
+  "jsonLd": {
+    "name": "Alanis Dev - Web Development",
+    "jobTitle": "Full-Stack Developer",
+    "serviceType": "Web Development",
+    "offerCatalog": {
+      "name": "Web Development Services",
+      "services": [
+        {
+          "name": "Web Application Development",
+          "description": "Modern web applications with Next.js and React"
+        },
+        {
+          "name": "E-commerce",
+          "description": "Complete and functional online stores"
+        },
+        {
+          "name": "Landing Pages",
+          "description": "Landing pages optimized for conversion"
+        }
+      ]
+    }
   }
 } 
