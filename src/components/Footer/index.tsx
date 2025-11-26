@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
-import { Link } from "@/lib/navigation";
 import { useTranslations } from "next-intl";
+import { Link } from "@/lib/navigation";
 
 const Footer = () => {
   const t = useTranslations("common.footer");

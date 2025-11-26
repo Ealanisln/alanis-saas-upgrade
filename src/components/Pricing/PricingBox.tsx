@@ -1,8 +1,8 @@
 "use client";
+import { useTranslations, useLocale } from "next-intl";
 import { createCheckoutSession } from "@/app/actions/stripe";
 import { CURRENCY } from "@/config";
 import { formatAmountForStripe } from "@/lib/utils/stripe-helpers";
-import { useTranslations, useLocale } from "next-intl";
 
 const PricingBox = (props: {
   price: number;
@@ -21,9 +21,9 @@ const PricingBox = (props: {
   };
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="flex h-full w-full flex-col">
       <div
-        className={`wow fadeInUp relative z-10 rounded-md bg-white px-8 py-10 shadow-three hover:shadow-one dark:bg-gray-dark dark:shadow-two dark:hover:shadow-gray-dark transition-shadow duration-300 flex flex-col h-full ${
+        className={`wow fadeInUp relative z-10 flex h-full flex-col rounded-md bg-white px-8 py-10 shadow-three transition-shadow duration-300 hover:shadow-one dark:bg-gray-dark dark:shadow-two dark:hover:shadow-gray-dark ${
           popular ? "border-2 border-primary" : ""
         }`}
         data-wow-delay=".1s"
@@ -35,16 +35,18 @@ const PricingBox = (props: {
             </span>
           </div>
         )}
-        <div className="flex items-center justify-between mb-4">
+        <div className="mb-4 flex items-center justify-between">
           <h3 className="text-3xl font-bold text-black dark:text-white">
             $<span className="amount">{price.toLocaleString()}</span>
-            <span className="text-sm font-medium ml-1">USD</span>
+            <span className="ml-1 text-sm font-medium">USD</span>
           </h3>
           <h4 className="text-xl font-bold text-dark dark:text-white">
             {packageName}
           </h4>
         </div>
-        <p className="mb-8 text-base text-body-color dark:text-gray-300">{subtitle}</p>
+        <p className="mb-8 text-base text-body-color dark:text-gray-300">
+          {subtitle}
+        </p>
         <div className="mb-8 border-b border-body-color border-opacity-10 pb-8 dark:border-white dark:border-opacity-10">
           <form action={handleCheckout}>
             <button
@@ -55,7 +57,7 @@ const PricingBox = (props: {
             </button>
           </form>
         </div>
-        <div className="space-y-4 flex-grow">{children}</div>
+        <div className="flex-grow space-y-4">{children}</div>
         <div className="absolute bottom-0 right-0 z-[-1]">
           <svg
             width="179"

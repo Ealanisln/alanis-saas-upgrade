@@ -1,11 +1,12 @@
 // src/components/Pricing/index.tsx
 
 "use client";
+
 import { useTranslations } from "next-intl";
 import SectionTitle from "../Common/SectionTitle";
+import CustomQuoteSection from "./CustomQuoteSection";
 import OfferList from "./OfferList";
 import PricingBox from "./PricingBox";
-import CustomQuoteSection from "./CustomQuoteSection";
 
 const Pricing = () => {
   const t = useTranslations("plans.pricing");
@@ -20,7 +21,7 @@ const Pricing = () => {
           width="665px"
         />
 
-        <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-4 mt-8 md:mt-12 items-stretch">
+        <div className="mt-8 grid grid-cols-1 items-stretch gap-x-8 gap-y-10 md:mt-12 md:grid-cols-2 lg:grid-cols-4">
           <PricingBox
             packageName={t("starter.name")}
             price={500}
@@ -54,31 +55,64 @@ const Pricing = () => {
             popular
           >
             <OfferList text={t("professional.features.app")} status="active" />
-            <OfferList text={t("professional.features.database")} status="active" />
+            <OfferList
+              text={t("professional.features.database")}
+              status="active"
+            />
             <OfferList text={t("professional.features.auth")} status="active" />
-            <OfferList text={t("professional.features.dashboard")} status="active" />
+            <OfferList
+              text={t("professional.features.dashboard")}
+              status="active"
+            />
             <OfferList text={t("professional.features.api")} status="active" />
-            <OfferList text={t("professional.features.support")} status="active" />
-            <OfferList text={t("professional.features.delivery")} status="active" />
+            <OfferList
+              text={t("professional.features.support")}
+              status="active"
+            />
+            <OfferList
+              text={t("professional.features.delivery")}
+              status="active"
+            />
           </PricingBox>
           <PricingBox
             packageName={t("enterprise.name")}
             price={4200}
             subtitle={t("enterprise.subtitle")}
           >
-            <OfferList text={t("enterprise.features.platform")} status="active" />
-            <OfferList text={t("enterprise.features.payment")} status="active" />
-            <OfferList text={t("enterprise.features.inventory")} status="active" />
-            <OfferList text={t("enterprise.features.analytics")} status="active" />
-            <OfferList text={t("enterprise.features.testing")} status="active" />
-            <OfferList text={t("enterprise.features.support")} status="active" />
-            <OfferList text={t("enterprise.features.delivery")} status="active" />
+            <OfferList
+              text={t("enterprise.features.platform")}
+              status="active"
+            />
+            <OfferList
+              text={t("enterprise.features.payment")}
+              status="active"
+            />
+            <OfferList
+              text={t("enterprise.features.inventory")}
+              status="active"
+            />
+            <OfferList
+              text={t("enterprise.features.analytics")}
+              status="active"
+            />
+            <OfferList
+              text={t("enterprise.features.testing")}
+              status="active"
+            />
+            <OfferList
+              text={t("enterprise.features.support")}
+              status="active"
+            />
+            <OfferList
+              text={t("enterprise.features.delivery")}
+              status="active"
+            />
           </PricingBox>
         </div>
 
         {/* Currency conversion note */}
         <div className="mt-6 text-center">
-          <p className="text-sm text-body-color dark:text-gray-400 opacity-75">
+          <p className="text-sm text-body-color opacity-75 dark:text-gray-400">
             {t("currencyNote")}
           </p>
         </div>

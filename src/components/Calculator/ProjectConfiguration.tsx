@@ -1,6 +1,9 @@
-import React from 'react';
-import { Building2, Rocket, Zap } from 'lucide-react';
-import { ClientType, UrgencyLevel } from '@/types/calculator/service-calculator.types';
+import React from "react";
+import { Building2, Rocket, Zap } from "lucide-react";
+import {
+  ClientType,
+  UrgencyLevel,
+} from "@/types/calculator/service-calculator.types";
 
 interface ProjectConfigurationProps {
   clientType: ClientType;
@@ -11,92 +14,105 @@ interface ProjectConfigurationProps {
 
 const clientTypeOptions = [
   {
-    value: 'startup' as ClientType,
-    label: 'Startup',
-    description: '15% descuento',
-    icon: <Rocket className="w-4 h-4" />,
-    color: 'text-green-600'
+    value: "startup" as ClientType,
+    label: "Startup",
+    description: "15% descuento",
+    icon: <Rocket className="h-4 w-4" />,
+    color: "text-green-600",
   },
   {
-    value: 'pyme' as ClientType,
-    label: 'PyME',
-    description: 'precio estándar',
-    icon: <Building2 className="w-4 h-4" />,
-    color: 'text-blue-600'
+    value: "pyme" as ClientType,
+    label: "PyME",
+    description: "precio estándar",
+    icon: <Building2 className="h-4 w-4" />,
+    color: "text-blue-600",
   },
   {
-    value: 'enterprise' as ClientType,
-    label: 'Empresa',
-    description: '10% premium',
-    icon: <Building2 className="w-4 h-4" />,
-    color: 'text-purple-600'
-  }
+    value: "enterprise" as ClientType,
+    label: "Empresa",
+    description: "10% premium",
+    icon: <Building2 className="h-4 w-4" />,
+    color: "text-purple-600",
+  },
 ];
 
 const urgencyOptions = [
   {
-    value: 'normal' as UrgencyLevel,
-    label: 'Normal',
-    description: 'tiempo estándar',
-    color: 'text-gray-600'
+    value: "normal" as UrgencyLevel,
+    label: "Normal",
+    description: "tiempo estándar",
+    color: "text-gray-600",
   },
   {
-    value: 'express' as UrgencyLevel,
-    label: 'Express',
-    description: '+50%, -30% tiempo',
-    color: 'text-orange-600'
+    value: "express" as UrgencyLevel,
+    label: "Express",
+    description: "+50%, -30% tiempo",
+    color: "text-orange-600",
   },
   {
-    value: 'urgent' as UrgencyLevel,
-    label: 'Urgente',
-    description: '+100%, -50% tiempo',
-    color: 'text-red-600'
-  }
+    value: "urgent" as UrgencyLevel,
+    label: "Urgente",
+    description: "+100%, -50% tiempo",
+    color: "text-red-600",
+  },
 ];
 
 export const ProjectConfiguration: React.FC<ProjectConfigurationProps> = ({
   clientType,
   urgency,
   onClientTypeChange,
-  onUrgencyChange
+  onUrgencyChange,
 }) => {
   return (
-    <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-6">Configuración del Proyecto</h3>
-      
-      <div className="grid md:grid-cols-2 gap-6">
+    <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
+      <h3 className="mb-6 text-lg font-semibold text-gray-900">
+        Configuración del Proyecto
+      </h3>
+
+      <div className="grid gap-6 md:grid-cols-2">
         {/* Client Type */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-3">
+        <div role="radiogroup" aria-labelledby="client-type-label">
+          <span
+            id="client-type-label"
+            className="mb-3 block text-sm font-medium text-gray-700"
+          >
             Tipo de Cliente
-          </label>
+          </span>
           <div className="space-y-2">
             {clientTypeOptions.map((option) => (
               <label
                 key={option.value}
-                className="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-white hover:border-blue-300 cursor-pointer transition-all"
+                className="flex cursor-pointer items-center rounded-lg border border-gray-200 p-3 transition-all hover:border-blue-300 hover:bg-white"
               >
                 <input
                   type="radio"
                   name="clientType"
                   value={option.value}
                   checked={clientType === option.value}
-                  onChange={(e) => onClientTypeChange(e.target.value as ClientType)}
+                  onChange={(e) =>
+                    onClientTypeChange(e.target.value as ClientType)
+                  }
                   className="sr-only"
                 />
-                <div className={`w-4 h-4 rounded-full border-2 mr-3 flex items-center justify-center ${
-                  clientType === option.value 
-                    ? 'border-blue-600 bg-blue-600' 
-                    : 'border-gray-300'
-                }`}>
+                <div
+                  className={`mr-3 flex h-4 w-4 items-center justify-center rounded-full border-2 ${
+                    clientType === option.value
+                      ? "border-blue-600 bg-blue-600"
+                      : "border-gray-300"
+                  }`}
+                >
                   {clientType === option.value && (
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <div className="h-2 w-2 rounded-full bg-white"></div>
                   )}
                 </div>
                 <span className={`mr-2 ${option.color}`}>{option.icon}</span>
                 <div className="flex-1">
-                  <span className="font-medium text-gray-900">{option.label}</span>
-                  <span className="text-sm text-gray-500 ml-2">({option.description})</span>
+                  <span className="font-medium text-gray-900">
+                    {option.label}
+                  </span>
+                  <span className="ml-2 text-sm text-gray-500">
+                    ({option.description})
+                  </span>
                 </div>
               </label>
             ))}
@@ -104,37 +120,48 @@ export const ProjectConfiguration: React.FC<ProjectConfigurationProps> = ({
         </div>
 
         {/* Urgency */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-3">
+        <div role="radiogroup" aria-labelledby="urgency-label">
+          <span
+            id="urgency-label"
+            className="mb-3 block text-sm font-medium text-gray-700"
+          >
             Nivel de Urgencia
-          </label>
+          </span>
           <div className="space-y-2">
             {urgencyOptions.map((option) => (
               <label
                 key={option.value}
-                className="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-white hover:border-blue-300 cursor-pointer transition-all"
+                className="flex cursor-pointer items-center rounded-lg border border-gray-200 p-3 transition-all hover:border-blue-300 hover:bg-white"
               >
                 <input
                   type="radio"
                   name="urgency"
                   value={option.value}
                   checked={urgency === option.value}
-                  onChange={(e) => onUrgencyChange(e.target.value as UrgencyLevel)}
+                  onChange={(e) =>
+                    onUrgencyChange(e.target.value as UrgencyLevel)
+                  }
                   className="sr-only"
                 />
-                <div className={`w-4 h-4 rounded-full border-2 mr-3 flex items-center justify-center ${
-                  urgency === option.value 
-                    ? 'border-blue-600 bg-blue-600' 
-                    : 'border-gray-300'
-                }`}>
+                <div
+                  className={`mr-3 flex h-4 w-4 items-center justify-center rounded-full border-2 ${
+                    urgency === option.value
+                      ? "border-blue-600 bg-blue-600"
+                      : "border-gray-300"
+                  }`}
+                >
                   {urgency === option.value && (
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <div className="h-2 w-2 rounded-full bg-white"></div>
                   )}
                 </div>
-                <Zap className={`w-4 h-4 mr-2 ${option.color}`} />
+                <Zap className={`mr-2 h-4 w-4 ${option.color}`} />
                 <div className="flex-1">
-                  <span className="font-medium text-gray-900">{option.label}</span>
-                  <span className="text-sm text-gray-500 ml-2">({option.description})</span>
+                  <span className="font-medium text-gray-900">
+                    {option.label}
+                  </span>
+                  <span className="ml-2 text-sm text-gray-500">
+                    ({option.description})
+                  </span>
                 </div>
               </label>
             ))}

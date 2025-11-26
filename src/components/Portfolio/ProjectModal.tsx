@@ -1,10 +1,16 @@
-'use client';
+"use client";
 
-import { FC, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { X, ExternalLink, Github, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Project } from '@/lib/types';
-import TechBadge from './TechBadge';
+import { FC, useEffect, useState } from "react";
+import Image from "next/image";
+import {
+  X,
+  ExternalLink,
+  Github,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import { Project } from "@/lib/types";
+import TechBadge from "./TechBadge";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -17,67 +23,75 @@ const ProjectModal: FC<ProjectModalProps> = ({ project, isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === "Escape") onClose();
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      return () => document.removeEventListener('keydown', handleEscape);
+      document.addEventListener("keydown", handleEscape);
+      return () => document.removeEventListener("keydown", handleEscape);
     }
   }, [isOpen, onClose]);
 
   if (!isOpen || !project) return null;
 
   const nextImage = () => {
-    setCurrentImageIndex((prev) => 
-      prev === project.images.length - 1 ? 0 : prev + 1
+    setCurrentImageIndex((prev) =>
+      prev === project.images.length - 1 ? 0 : prev + 1,
     );
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) => 
-      prev === 0 ? project.images.length - 1 : prev - 1
+    setCurrentImageIndex((prev) =>
+      prev === 0 ? project.images.length - 1 : prev - 1,
     );
   };
 
   return (
     <>
       {/* Backdrop */}
-      <div 
-        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 animate-fadeIn"
+      <div
+        className="animate-fadeIn fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
         onClick={onClose}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") onClose();
+        }}
+        role="button"
+        tabIndex={0}
+        aria-label="Close modal"
       />
-      
+
       {/* Modal */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
-        <div 
-          className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden pointer-events-auto animate-slideUp"
-          onClick={(e) => e.stopPropagation()}
+      <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div
+          className="animate-slideUp pointer-events-auto relative max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-2xl bg-white shadow-2xl dark:bg-gray-900"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
         >
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-800 transition-colors"
+            className="absolute right-4 top-4 z-10 rounded-full bg-white/90 p-2 transition-colors hover:bg-white dark:bg-gray-800/90 dark:hover:bg-gray-800"
             aria-label="Close modal"
           >
-            <X className="w-5 h-5" />
+            <X className="h-5 w-5" />
           </button>
 
-          <div className="flex flex-col md:flex-row h-full">
+          <div className="flex h-full flex-col md:flex-row">
             {/* Image Section */}
-            <div className="relative w-full md:w-1/2 h-64 md:h-auto bg-gray-100 dark:bg-gray-800">
+            <div className="relative h-64 w-full bg-gray-100 dark:bg-gray-800 md:h-auto md:w-1/2">
               <Image
                 src={project.images[currentImageIndex].src}
                 alt={project.images[currentImageIndex].alt}
@@ -85,35 +99,35 @@ const ProjectModal: FC<ProjectModalProps> = ({ project, isOpen, onClose }) => {
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
-              
+
               {/* Image Navigation */}
               {project.images.length > 1 && (
                 <>
                   <button
                     onClick={prevImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/90 dark:bg-gray-900/90 hover:bg-white dark:hover:bg-gray-900 transition-colors"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 transition-colors hover:bg-white dark:bg-gray-900/90 dark:hover:bg-gray-900"
                     aria-label="Previous image"
                   >
-                    <ChevronLeft className="w-6 h-6" />
+                    <ChevronLeft className="h-6 w-6" />
                   </button>
                   <button
                     onClick={nextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/90 dark:bg-gray-900/90 hover:bg-white dark:hover:bg-gray-900 transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 transition-colors hover:bg-white dark:bg-gray-900/90 dark:hover:bg-gray-900"
                     aria-label="Next image"
                   >
-                    <ChevronRight className="w-6 h-6" />
+                    <ChevronRight className="h-6 w-6" />
                   </button>
-                  
+
                   {/* Image Indicators */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                  <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
                     {project.images.map((_, index) => (
                       <button
                         key={index}
                         onClick={() => setCurrentImageIndex(index)}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                          index === currentImageIndex 
-                            ? 'bg-white w-8' 
-                            : 'bg-white/50 hover:bg-white/75'
+                        className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                          index === currentImageIndex
+                            ? "w-8 bg-white"
+                            : "bg-white/50 hover:bg-white/75"
                         }`}
                         aria-label={`Go to image ${index + 1}`}
                       />
@@ -124,18 +138,21 @@ const ProjectModal: FC<ProjectModalProps> = ({ project, isOpen, onClose }) => {
             </div>
 
             {/* Content Section */}
-            <div className="flex-1 p-8 overflow-y-auto">
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            <div className="flex-1 overflow-y-auto p-8">
+              <h2
+                id="modal-title"
+                className="mb-4 text-3xl font-bold text-gray-900 dark:text-white"
+              >
                 {project.title}
               </h2>
-              
-              <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+
+              <p className="mb-6 leading-relaxed text-gray-600 dark:text-gray-400">
                 {project.description}
               </p>
 
               {/* Technologies */}
               <div className="mb-8">
-                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 uppercase tracking-wider">
+                <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-white">
                   Tecnologías Utilizadas
                 </h3>
                 <div className="flex flex-wrap gap-2">
@@ -146,23 +163,23 @@ const ProjectModal: FC<ProjectModalProps> = ({ project, isOpen, onClose }) => {
               </div>
 
               {/* Links */}
-              <div className="flex gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+              <div className="flex gap-4 border-t border-gray-200 pt-6 dark:border-gray-700">
                 <a
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700"
                 >
-                  <ExternalLink className="w-5 h-5" />
+                  <ExternalLink className="h-5 w-5" />
                   Ver Proyecto
                 </a>
                 <a
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 py-3 px-6 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-white font-medium rounded-xl transition-colors"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gray-200 px-6 py-3 font-medium text-gray-900 transition-colors hover:bg-gray-300 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                 >
-                  <Github className="w-5 h-5" />
+                  <Github className="h-5 w-5" />
                   Ver Código
                 </a>
               </div>
@@ -174,4 +191,4 @@ const ProjectModal: FC<ProjectModalProps> = ({ project, isOpen, onClose }) => {
   );
 };
 
-export default ProjectModal; 
+export default ProjectModal;
