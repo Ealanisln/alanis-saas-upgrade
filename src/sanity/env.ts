@@ -10,8 +10,14 @@ export const useCdn = false;
 
 // Helper to check if Sanity is properly configured
 export function isSanityConfigured(): boolean {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
+
+  // Check that values exist and are not CI placeholder values
   return Boolean(
-    process.env.NEXT_PUBLIC_SANITY_PROJECT_ID &&
-      process.env.NEXT_PUBLIC_SANITY_DATASET,
+    projectId &&
+      dataset &&
+      projectId !== "ci-placeholder" &&
+      !projectId.includes("placeholder"),
   );
 }
