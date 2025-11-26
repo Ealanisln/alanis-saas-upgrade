@@ -4,13 +4,10 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // SEO Redirects: Handle legacy URLs and enforce locale structure
+  // SEO Redirects: Handle legacy URLs only
+  // NOTE: /en/* redirects are handled by next-intl middleware, not here
   async redirects() {
     return [
-      // Enforce English at root (no /en/ prefix)
-      { source: '/en', destination: '/', permanent: true },
-      { source: '/en/:path*', destination: '/:path*', permanent: true },
-
       // Legacy nested route redirects
       { source: '/about/portfolio', destination: '/portfolio', permanent: true },
       { source: '/about/plans', destination: '/plans', permanent: true },

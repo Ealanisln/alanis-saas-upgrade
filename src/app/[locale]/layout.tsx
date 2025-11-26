@@ -1,8 +1,9 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getTranslations, getMessages } from 'next-intl/server';
+import { getTranslations, getMessages, setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { locales } from '@/config/i18n';
+import { routing } from '@/i18n/routing';
 import { generateAlternates } from '@/lib/seo';
 
 interface LocaleLayoutProps {
@@ -11,11 +12,17 @@ interface LocaleLayoutProps {
 }
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return routing.locales.map((locale) => ({ locale }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+
+  // Validate locale - return empty metadata for invalid locales
+  if (!routing.locales.includes(locale as typeof routing.locales[number])) {
+    return {};
+  }
+
   const t = await getTranslations({ locale, namespace: 'home' });
 
   return {
@@ -78,6 +85,14 @@ export default async function LocaleLayout({
   params
 }: LocaleLayoutProps) {
   const { locale } = await params;
+
+  // Validate locale - show 404 for invalid locales (e.g., /about being caught as locale='about')
+  if (!routing.locales.includes(locale as typeof routing.locales[number])) {
+    notFound();
+  }
+
+  // Enable static rendering
+  setRequestLocale(locale);
 
   // Providing all messages to the client side with explicit locale
   const messages = await getMessages({ locale });
