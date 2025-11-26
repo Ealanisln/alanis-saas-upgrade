@@ -4,6 +4,26 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // SEO Redirects: Handle legacy URLs only
+  // NOTE: /en/* redirects are handled by next-intl middleware, not here
+  async redirects() {
+    return [
+      // Legacy nested route redirects
+      { source: '/about/portfolio', destination: '/portfolio', permanent: true },
+      { source: '/about/plans', destination: '/plans', permanent: true },
+
+      // Spanish route variants
+      { source: '/portafolio', destination: '/es/portfolio', permanent: true },
+      { source: '/portafolio/:path*', destination: '/es/portfolio', permanent: true },
+      { source: '/planes', destination: '/es/plans', permanent: true },
+
+      // Handle missing pages (redirect to contact)
+      { source: '/es/refund', destination: '/es/contact', permanent: true },
+      { source: '/refund', destination: '/contact', permanent: true },
+      { source: '/terms', destination: '/contact', permanent: true },
+    ];
+  },
+
   images: {
     // Note: 'domains' is deprecated, use 'remotePatterns' instead
     remotePatterns: [

@@ -27,7 +27,7 @@ export const localeConfig = {
 
 // Site configuration pulled from environment variables
 export const siteConfig = {
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://alanis.dev',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.alanis.dev',
   name: 'Alanis Dev',
   author: 'Emmanuel Alanis',
   contact: {

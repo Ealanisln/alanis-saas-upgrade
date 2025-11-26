@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { locales, defaultLocale } from "@/config/i18n";
+import { locales, defaultLocale, siteConfig } from "@/config/i18n";
 import { client } from "@/sanity/lib/client";
 
 // Function to fetch all blog posts
@@ -14,7 +14,7 @@ async function getAllPosts() {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://alanis.dev";
+  const baseUrl = siteConfig.url;
   
   // Get all blog posts
   const posts = await getAllPosts();
