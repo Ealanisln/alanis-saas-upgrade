@@ -1,24 +1,25 @@
 "use client";
+
 import Image from "next/image";
-import { Link } from "@/lib/navigation";
-import { titleFont } from "@/config/fonts";
 import { useTranslations } from "next-intl";
+import { titleFont } from "@/config/fonts";
+import { Link } from "@/lib/navigation";
 
 export const PageNotFound = () => {
   const t = useTranslations("common");
   return (
-    <div className="flex flex-col-reverse md:flex-row h-[800px] w-full justify-center items-center align-middle">
-      <div className="text-center px-5 mx-5">
-        <h2 className={`${titleFont.className} antialiased text-8xl`}>404</h2>
-        <p className="font-semibold text-xl">{t("notFound.title")}</p>
+    <div className="flex h-[800px] w-full flex-col-reverse items-center justify-center align-middle md:flex-row">
+      <div className="mx-5 px-5 text-center">
+        <h2 className={`${titleFont.className} text-8xl antialiased`}>404</h2>
+        <p className="text-xl font-semibold">{t("notFound.title")}</p>
         <p className="font-light">
           <span>{t("notFound.message")} </span>
-          <Link href="/" className="font-normal hover:underline transition-all">
+          <Link href="/" className="font-normal transition-all hover:underline">
             {t("notFound.homeLink")}
           </Link>
         </p>
       </div>
-      <div className="px-5 mx-5">
+      <div className="mx-5 px-5">
         <Image
           src="/images/fatty-corgi.jpg"
           alt="Dog corgi sad"

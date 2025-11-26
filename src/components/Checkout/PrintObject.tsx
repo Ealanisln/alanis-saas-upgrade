@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -19,6 +19,7 @@ interface PaymentObject {
   };
   payment_method_types?: string[];
   amount_total?: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
@@ -28,9 +29,10 @@ export default function PrintObject({
   content: PaymentObject;
 }): React.ReactElement {
   const formattedContent: string = JSON.stringify(content, null, 2);
-  const [loggedFields, setLoggedFields] = useState<string[]>([]);
+  const [_loggedFields, _setLoggedFields] = useState<string[]>([]);
 
   function filterFields(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     obj: any,
     fieldsToFilter: string[],
     prefix: string = "",

@@ -4,25 +4,26 @@
 
 import { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
-import { useTranslations, useLocale } from 'next-intl';
-
+import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/lib/navigation";
-import LanguageSwitcher from './LanguageSwitcher';
+import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeToggler from "./ThemeToggler";
 
 const Header = () => {
-  const t = useTranslations('navigation');
-  const locale = useLocale();
+  const t = useTranslations("navigation");
 
   // Memoized menu data with translations - prevents unnecessary recreations
-  const menuData = useMemo(() => [
-    { id: 1, title: t('home'), path: '/', newTab: false },
-    { id: 2, title: t('about'), path: '/about', newTab: false },
-    { id: 3, title: t('portfolio'), path: '/portfolio', newTab: false },
-    { id: 4, title: t('blog'), path: '/blog', newTab: false },
-    { id: 5, title: t('plans'), path: '/plans', newTab: false },
-    { id: 6, title: t('contact'), path: '/contact', newTab: false },
-  ], [t]);
+  const menuData = useMemo(
+    () => [
+      { id: 1, title: t("home"), path: "/", newTab: false },
+      { id: 2, title: t("about"), path: "/about", newTab: false },
+      { id: 3, title: t("portfolio"), path: "/portfolio", newTab: false },
+      { id: 4, title: t("blog"), path: "/blog", newTab: false },
+      { id: 5, title: t("plans"), path: "/plans", newTab: false },
+      { id: 6, title: t("contact"), path: "/contact", newTab: false },
+    ],
+    [t],
+  );
 
   // Navbar toggle
   const [navbarOpen, setNavbarOpen] = useState(false);
@@ -43,14 +44,14 @@ const Header = () => {
     window.addEventListener("scroll", handleStickyNavbar);
   });
 
-    // Close the menu when a link is clicked
-    const handleLinkClick = () => {
-      setNavbarOpen(false);
-    };
+  // Close the menu when a link is clicked
+  const handleLinkClick = () => {
+    setNavbarOpen(false);
+  };
 
   // submenu handler
   const [openIndex, setOpenIndex] = useState(-1);
-  const handleSubmenu = (index: number) => {
+  const _handleSubmenu = (index: number) => {
     if (openIndex === index) {
       setOpenIndex(-1);
     } else {
@@ -104,17 +105,17 @@ const Header = () => {
                 >
                   <span
                     className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white ${
-                      navbarOpen ? " top-[7px] rotate-45" : " "
+                      navbarOpen ? "top-[7px] rotate-45" : " "
                     }`}
                   />
                   <span
                     className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white ${
-                      navbarOpen ? "opacity-0 " : " "
+                      navbarOpen ? "opacity-0" : " "
                     }`}
                   />
                   <span
                     className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white ${
-                      navbarOpen ? " top-[-8px] -rotate-45" : " "
+                      navbarOpen ? "top-[-8px] -rotate-45" : " "
                     }`}
                   />
                 </button>
@@ -143,7 +144,7 @@ const Header = () => {
                       </li>
                     ))}
                     {/* Language Switcher in Mobile Menu */}
-                    <li className="border-t border-body-color/20 pt-4 mt-2 lg:hidden">
+                    <li className="mt-2 border-t border-body-color/20 pt-4 lg:hidden">
                       <LanguageSwitcher />
                     </li>
                   </ul>

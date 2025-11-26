@@ -1,50 +1,50 @@
 import { Metadata } from "next";
-import { getTranslations } from 'next-intl/server';
+import { getTranslations } from "next-intl/server";
 import Posts from "@/components/Blog/Posts";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
+import { generateAlternates, generateLocalizedUrl } from "@/lib/seo";
 import { client } from "@/sanity/lib/client";
 import { localizePost } from "@/sanity/lib/i18n";
 import { postPathsQuery } from "@/sanity/lib/queries";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
-import { generateAlternates, generateLocalizedUrl } from "@/lib/seo";
 
 export const revalidate = 30;
 
 // Generate dynamic metadata based on locale
 export async function generateMetadata({
-  params
+  params,
 }: {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'blog' });
+  const t = await getTranslations({ locale, namespace: "blog" });
 
   return {
-    title: t('meta.title'),
-    description: t('meta.description'),
+    title: t("meta.title"),
+    description: t("meta.description"),
     openGraph: {
-      title: t('meta.title'),
-      description: t('meta.description'),
+      title: t("meta.title"),
+      description: t("meta.description"),
       type: "website",
-      locale: locale === 'en' ? "en_US" : "es_ES",
-      url: generateLocalizedUrl(locale, '/blog'),
+      locale: locale === "en" ? "en_US" : "es_ES",
+      url: generateLocalizedUrl(locale, "/blog"),
       images: [
         {
           url: `/${locale}/blog/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: t('meta.title'),
-        }
+          alt: t("meta.title"),
+        },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: t('meta.title'),
-      description: t('meta.description'),
+      title: t("meta.title"),
+      description: t("meta.description"),
       images: [`/${locale}/blog/opengraph-image`],
     },
-    alternates: generateAlternates(locale, '/blog')
+    alternates: generateAlternates(locale, "/blog"),
   };
 }
 
@@ -74,19 +74,20 @@ async function getData(locale: string) {
   const data = await client.fetch(query);
 
   // Localize all posts
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const localized = data.map((post: any) => localizePost(post, locale));
 
   return localized;
 }
 
 export default async function Blog({
-  params
+  params,
 }: {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'blog' });
-  const tNav = await getTranslations({ locale, namespace: 'navigation' });
+  const t = await getTranslations({ locale, namespace: "blog" });
+  const tNav = await getTranslations({ locale, namespace: "navigation" });
 
   const data: SimpleBlogCard[] = await getData(locale);
 
@@ -94,41 +95,41 @@ export default async function Blog({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "headline": t('meta.title'),
-    "description": t('meta.description'),
-    "url": generateLocalizedUrl(locale, '/blog'),
-    "inLanguage": locale === 'en' ? 'en-US' : 'es-ES',
-    "author": {
+    headline: t("meta.title"),
+    description: t("meta.description"),
+    url: generateLocalizedUrl(locale, "/blog"),
+    inLanguage: locale === "en" ? "en-US" : "es-ES",
+    author: {
       "@type": "Person",
-      "name": "Alanis Dev",
-      "url": generateLocalizedUrl(locale, '/about')
+      name: "Alanis Dev",
+      url: generateLocalizedUrl(locale, "/about"),
     },
-    "publisher": {
+    publisher: {
       "@type": "Organization",
-      "name": "Alanis Dev",
-      "logo": {
+      name: "Alanis Dev",
+      logo: {
         "@type": "ImageObject",
-        "url": "https://www.alanis.dev/images/logo.png"
-      }
+        url: "https://www.alanis.dev/images/logo.png",
+      },
     },
-    "blogPosts": data.map(post => ({
+    blogPosts: data.map((post) => ({
       "@type": "BlogPosting",
-      "headline": post.title,
-      "url": generateLocalizedUrl(locale, `/blog/${post.slug?.current || ''}`),
-      "dateModified": post._updatedAt,
-      "datePublished": post.publishedAt,
-      "inLanguage": locale === 'en' ? 'en-US' : 'es-ES',
-      "author": {
+      headline: post.title,
+      url: generateLocalizedUrl(locale, `/blog/${post.slug?.current || ""}`),
+      dateModified: post._updatedAt,
+      datePublished: post.publishedAt,
+      inLanguage: locale === "en" ? "en-US" : "es-ES",
+      author: {
         "@type": "Person",
-        "name": post.author?.name || "Alanis Dev"
-      }
-    }))
+        name: post.author?.name || "Alanis Dev",
+      },
+    })),
   };
 
   // Breadcrumb items for structured data
   const breadcrumbItems = [
-    { name: tNav('home'), url: generateLocalizedUrl(locale, '/') },
-    { name: t('title'), url: generateLocalizedUrl(locale, '/blog') }
+    { name: tNav("home"), url: generateLocalizedUrl(locale, "/") },
+    { name: t("title"), url: generateLocalizedUrl(locale, "/blog") },
   ];
 
   return (
@@ -142,16 +143,13 @@ export default async function Blog({
       {/* Add breadcrumb structured data */}
       <BreadcrumbJsonLd items={breadcrumbItems} />
 
-      <Breadcrumb
-        pageName={t('title')}
-        description={t('description')}
-      />
-       <section className="pb-8 md:pb-16 pt-8 md:pt-16">
-       <div className="container mx-auto">
-       <div className="-mx-4 flex flex-wrap justify-center">
-        <Posts data={data} locale={locale} />
-      </div>
-      </div>
+      <Breadcrumb pageName={t("title")} description={t("description")} />
+      <section className="pb-8 pt-8 md:pb-16 md:pt-16">
+        <div className="container mx-auto">
+          <div className="-mx-4 flex flex-wrap justify-center">
+            <Posts data={data} locale={locale} />
+          </div>
+        </div>
       </section>
     </>
   );

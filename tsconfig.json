@@ -3,7 +3,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]  // Updated to point to src directory
+      "@/*": ["./src/*"] // Updated to point to src directory
     },
     "types": ["vitest/globals"],
     "allowJs": true,
@@ -27,11 +27,18 @@
   },
   "include": [
     "next-env.d.ts",
-    ".next/types/**/*.ts", 
-    "src/**/*.ts",        // Updated to look in src directory
-    "src/**/*.tsx",       // Updated to look in src directory
-    "**/*.ts",           // Keep for root typescript files
-    "**/*.tsx"          // Keep for root typescript files
+    ".next/types/**/*.ts",
+    "src/**/*.ts", // Updated to look in src directory
+    "src/**/*.tsx", // Updated to look in src directory
+    "**/*.ts", // Keep for root typescript files
+    "**/*.tsx" // Keep for root typescript files
   ],
-  "exclude": ["node_modules", "vitest.config.ts", "vitest.setup.ts", "migrations/**/*", "src/app/new-ui/**/*"]
+  "exclude": [
+    "node_modules",
+    "vitest.config.ts",
+    "vitest.setup.ts",
+    "migrations/**/*",
+    "src/app/new-ui/**/*",
+    "e2e/**/*"
+  ]
 }

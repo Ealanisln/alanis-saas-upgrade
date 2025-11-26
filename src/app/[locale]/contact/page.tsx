@@ -3,8 +3,12 @@ import { getTranslations } from "next-intl/server";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import Contact from "@/components/Contact";
-import { generateLocalizedUrl, getLocaleCode, generateAlternates } from "@/lib/seo";
 import { siteConfig } from "@/config/i18n";
+import {
+  generateLocalizedUrl,
+  getLocaleCode,
+  generateAlternates,
+} from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -28,7 +32,7 @@ export async function generateMetadata({
           width: 1200,
           height: 630,
           alt: t("title"),
-        }
+        },
       ],
     },
     twitter: {
@@ -37,7 +41,7 @@ export async function generateMetadata({
       description: t("description"),
       images: ["/contact/opengraph-image"],
     },
-    alternates: generateAlternates(locale, '/contact')
+    alternates: generateAlternates(locale, "/contact"),
   };
 }
 
@@ -47,35 +51,48 @@ const ContactPage = async ({
   params: Promise<{ locale: string }>;
 }) => {
   const { locale } = await params;
-  const tBreadcrumb = await getTranslations({ locale, namespace: "contact.breadcrumb" });
-  const tJsonLd = await getTranslations({ locale, namespace: "contact.jsonLd" });
-  const tBreadcrumbs = await getTranslations({ locale, namespace: "common.breadcrumbs" });
+  const tBreadcrumb = await getTranslations({
+    locale,
+    namespace: "contact.breadcrumb",
+  });
+  const tJsonLd = await getTranslations({
+    locale,
+    namespace: "contact.jsonLd",
+  });
+  const tBreadcrumbs = await getTranslations({
+    locale,
+    namespace: "common.breadcrumbs",
+  });
 
   // Create structured data for the Contact page with locale-specific content
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    "name": tJsonLd("name"),
-    "description": tJsonLd("description"),
-    "url": generateLocalizedUrl(locale, '/contact'),
-    "mainEntity": {
+    name: tJsonLd("name"),
+    description: tJsonLd("description"),
+    url: generateLocalizedUrl(locale, "/contact"),
+    mainEntity: {
       "@type": "Person",
-      "name": siteConfig.author,
-      "jobTitle": "Full-Stack Developer",
-      "email": siteConfig.contact.email,
-      "url": generateLocalizedUrl(locale, '/'),
-      "contactPoint": {
+      name: siteConfig.author,
+      jobTitle: "Full-Stack Developer",
+      email: siteConfig.contact.email,
+      url: generateLocalizedUrl(locale, "/"),
+      contactPoint: {
         "@type": "ContactPoint",
-        "contactType": "customer service",
-        "availableLanguage": locale === "en" ? ["English", "Spanish"] : ["Español", "Inglés"]
-      }
-    }
+        contactType: "customer service",
+        availableLanguage:
+          locale === "en" ? ["English", "Spanish"] : ["Español", "Inglés"],
+      },
+    },
   };
 
   // Breadcrumb items for structured data with translations
   const breadcrumbItems = [
-    { name: tBreadcrumbs('home'), url: generateLocalizedUrl(locale, '/') },
-    { name: tBreadcrumbs('contact'), url: generateLocalizedUrl(locale, '/contact') }
+    { name: tBreadcrumbs("home"), url: generateLocalizedUrl(locale, "/") },
+    {
+      name: tBreadcrumbs("contact"),
+      url: generateLocalizedUrl(locale, "/contact"),
+    },
   ];
 
   return (
