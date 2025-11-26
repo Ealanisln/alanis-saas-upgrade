@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
-import { client, urlFor } from "@/sanity/lib/client";
+import { safeFetchSingle, urlFor } from "@/sanity/lib/client";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 // Route segment config
 export const runtime = "edge";
@@ -12,6 +13,14 @@ export const size = {
   height: 630,
 };
 
+// Type for blog post OG image data
+interface OGPostData {
+  title: string;
+  mainImage?: SanityImageSource;
+  author?: string;
+  smallDescription?: string;
+}
+
 // Image generation
 export default async function Image({ params }: { params: { slug: string } }) {
   try {
@@ -22,8 +31,10 @@ export default async function Image({ params }: { params: { slug: string } }) {
       "author": author->name,
       smallDescription
     }`;
-    
-    const post = await client.fetch(query, { slug: params.slug });
+
+    const post = await safeFetchSingle<OGPostData>(query, {
+      slug: params.slug,
+    });
 
     // If no post found, return fallback
     if (!post) {
@@ -53,13 +64,13 @@ export default async function Image({ params }: { params: { slug: string } }) {
         ),
         {
           ...size,
-        }
+        },
       );
     }
 
     // Use post image if available, otherwise use a default background
-    const imageUrl = post.mainImage 
-      ? urlFor(post.mainImage).width(1200).height(630).url() 
+    const imageUrl = post.mainImage
+      ? urlFor(post.mainImage).width(1200).height(630).url()
       : null;
 
     return new ImageResponse(
@@ -70,7 +81,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
             flexDirection: "column",
             width: "100%",
             height: "100%",
-            background: imageUrl 
+            background: imageUrl
               ? `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${imageUrl})`
               : "linear-gradient(135deg, #1E3282 0%, #2D48A8 30%, #3D5FD0 70%, #4F7AFA 100%)",
             backgroundSize: "cover",
@@ -94,7 +105,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
               }}
             />
           )}
-          
+
           {/* Content Container */}
           <div
             style={{
@@ -123,7 +134,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
             >
               alanis.dev
             </div>
-            
+
             {/* Main Title */}
             <h1
               style={{
@@ -139,7 +150,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
             >
               {post.title}
             </h1>
-            
+
             {/* Author and Blog Label */}
             <div
               style={{
@@ -184,10 +195,10 @@ export default async function Image({ params }: { params: { slug: string } }) {
       ),
       {
         ...size,
-      }
+      },
     );
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       console.error("Error generating OG image:", error);
     }
 
@@ -202,7 +213,8 @@ export default async function Image({ params }: { params: { slug: string } }) {
             justifyContent: "center",
             width: "100%",
             height: "100%",
-            background: "linear-gradient(135deg, #1E3282 0%, #2D48A8 30%, #3D5FD0 70%, #4F7AFA 100%)",
+            background:
+              "linear-gradient(135deg, #1E3282 0%, #2D48A8 30%, #3D5FD0 70%, #4F7AFA 100%)",
             color: "white",
             fontSize: "48px",
             fontWeight: "bold",
@@ -225,7 +237,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
               `,
             }}
           />
-          
+
           <div style={{ position: "relative", zIndex: 1 }}>
             <h1>Alanis Dev Blog</h1>
             <p style={{ fontSize: "32px", marginTop: "20px" }}>
@@ -239,7 +251,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
       ),
       {
         ...size,
-      }
+      },
     );
   }
-} 
+}

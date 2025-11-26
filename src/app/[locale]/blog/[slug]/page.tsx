@@ -7,8 +7,9 @@ import { getTranslations } from "next-intl/server";
 import { portableTextComponents } from "@/components/Blog/PortableText";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import { generateAlternates, generateLocalizedUrl } from "@/lib/seo";
-import { client, urlFor } from "@/sanity/lib/client";
+import { urlFor, safeFetchSingle } from "@/sanity/lib/client";
 import { localizePost } from "@/sanity/lib/i18n";
+import type { SanityPost } from "@/sanity/lib/types";
 
 export const revalidate = 30;
 
@@ -31,7 +32,7 @@ export async function generateMetadata(
       "author": author->name
     }`;
 
-  const rawPost = await client.fetch(query, { slug });
+  const rawPost = await safeFetchSingle<SanityPost>(query, { slug });
 
   // If no post found, return default metadata
   if (!rawPost) {
@@ -124,7 +125,7 @@ export default async function BlogPostPage({
       "author": author->name
     }`;
 
-  const rawPost = await client.fetch(query, { slug });
+  const rawPost = await safeFetchSingle<SanityPost>(query, { slug });
 
   // Return 404 if post not found
   if (!rawPost) {

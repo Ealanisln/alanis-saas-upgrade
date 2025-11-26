@@ -4,9 +4,8 @@ import Posts from "@/components/Blog/Posts";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import { generateAlternates, generateLocalizedUrl } from "@/lib/seo";
-import { client } from "@/sanity/lib/client";
+import { safeFetch } from "@/sanity/lib/client";
 import { localizePost } from "@/sanity/lib/i18n";
-import { postPathsQuery } from "@/sanity/lib/queries";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
 
 export const revalidate = 30;
@@ -50,12 +49,14 @@ export async function generateMetadata({
 
 // Prepare Next.js to know which routes already exist
 export async function generateStaticParams() {
-  // Important, use the plain Sanity Client here
-  const posts = await client.fetch(postPathsQuery);
-  return posts;
+  // Use safeFetch to handle CI builds without Sanity credentials
+  const posts = await safeFetch(
+    `*[_type == "post" && defined(slug.current)][].slug.current`,
+  );
+  return posts.map((slug) => ({ slug }));
 }
 
-async function getData(locale: string) {
+async function getData(locale: string): Promise<SimpleBlogCard[]> {
   const query = `
   *[_type == 'post'] | order(publishedAt desc) {
     _id,
@@ -71,11 +72,13 @@ async function getData(locale: string) {
     }
   }
   `;
-  const data = await client.fetch(query);
+  const data = await safeFetch(query);
 
-  // Localize all posts
+  // Localize all posts and filter out nulls
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const localized = data.map((post: any) => localizePost(post, locale));
+  const localized = data
+    .map((post: any) => localizePost(post, locale))
+    .filter((post) => post !== null) as SimpleBlogCard[];
 
   return localized;
 }
