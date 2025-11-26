@@ -19,6 +19,12 @@ const intlMiddleware = createMiddleware({
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Handle malformed URLs with encoded special characters (crawlers sometimes generate these)
+  // Return 404 for URLs containing $, &, or other suspicious encoded characters
+  if (/%24|%26|%3C|%3E/.test(pathname) || /[$&<>]/.test(pathname)) {
+    return new NextResponse(null, { status: 404 });
+  }
+
   // Check if the request is for the root path
   if (pathname === '/') {
     // Get the preferred language from the Accept-Language header
@@ -67,7 +73,8 @@ export const config = {
      * - favicon.ico (favicon file)
      * - sitemap.xml, robots.txt (SEO files)
      * - studio (Sanity Studio)
+     * - opengraph-image (OG image generation routes)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|studio).*)'
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|studio|.*opengraph-image.*).*)'
   ]
 }; 
