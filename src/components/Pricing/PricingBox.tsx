@@ -21,87 +21,67 @@ const PricingBox = (props: {
   };
 
   return (
-    <div className="flex h-full w-full flex-col">
+    <div
+      className={`flex h-full w-full flex-col transition-transform duration-300 ${
+        popular ? "lg:z-10 lg:scale-105" : ""
+      }`}
+    >
       <div
-        className={`wow fadeInUp relative z-10 flex h-full flex-col rounded-md bg-white px-8 py-10 shadow-three transition-shadow duration-300 hover:shadow-one dark:bg-gray-dark dark:shadow-two dark:hover:shadow-gray-dark ${
-          popular ? "border-2 border-primary" : ""
+        className={`relative flex h-full flex-col rounded-2xl px-6 py-8 transition-all duration-300 sm:px-8 sm:py-10 ${
+          popular
+            ? "border-2 border-primary/50 bg-white/80 shadow-[0_8px_32px_rgba(79,122,250,0.25)] backdrop-blur-xl dark:border-primary/30 dark:bg-gray-900/70 dark:shadow-[0_8px_32px_rgba(79,122,250,0.15)]"
+            : "border border-gray-200/50 bg-white/70 shadow-xl backdrop-blur-xl hover:shadow-2xl dark:border-white/10 dark:bg-gray-900/60 dark:hover:border-white/20"
         }`}
-        data-wow-delay=".1s"
       >
         {popular && (
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-            <span className="inline-block rounded-full bg-primary px-4 py-1 text-sm font-semibold text-white">
+          <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+            <span className="inline-block rounded-full border border-primary/20 bg-primary/90 px-4 py-1.5 text-sm font-semibold text-white shadow-lg backdrop-blur-sm">
               {t("mostPopular")}
             </span>
           </div>
         )}
-        <div className="mb-4 flex items-center justify-between">
-          <h3 className="text-3xl font-bold text-black dark:text-white">
-            $<span className="amount">{price.toLocaleString()}</span>
-            <span className="ml-1 text-sm font-medium">USD</span>
+
+        {/* Plan Name */}
+        <h4 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+          {packageName}
+        </h4>
+
+        {/* Price */}
+        <div className="mb-4">
+          <h3 className="text-4xl font-bold text-gray-900 dark:text-white">
+            ${price.toLocaleString()}
+            <span className="ml-1 text-base font-medium text-gray-500 dark:text-gray-400">
+              USD
+            </span>
           </h3>
-          <h4 className="text-xl font-bold text-dark dark:text-white">
-            {packageName}
-          </h4>
         </div>
-        <p className="mb-8 text-base text-body-color dark:text-gray-300">
+
+        {/* Subtitle */}
+        <p className="mb-6 min-h-[40px] text-sm text-gray-600 dark:text-gray-400">
           {subtitle}
         </p>
-        <div className="mb-8 border-b border-body-color border-opacity-10 pb-8 dark:border-white dark:border-opacity-10">
+
+        {/* CTA Button */}
+        <div className="mb-6">
           <form action={handleCheckout}>
             <button
-              className="flex w-full items-center justify-center rounded-md bg-primary p-3 text-base font-semibold text-white transition duration-300 ease-in-out hover:bg-opacity-90 hover:shadow-signUp"
+              className={`flex w-full items-center justify-center rounded-xl px-6 py-3.5 text-base font-semibold transition-all duration-300 ${
+                popular
+                  ? "bg-primary text-white shadow-lg shadow-primary/25 hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30"
+                  : "border border-gray-300 bg-white/50 text-gray-900 hover:border-primary hover:bg-primary hover:text-white dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:border-primary dark:hover:bg-primary"
+              }`}
               type="submit"
             >
               {t("cta")}
             </button>
           </form>
         </div>
-        <div className="flex-grow space-y-4">{children}</div>
-        <div className="absolute bottom-0 right-0 z-[-1]">
-          <svg
-            width="179"
-            height="158"
-            viewBox="0 0 179 158"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              opacity="0.5"
-              d="M75.0002 63.256C115.229 82.3657 136.011 137.496 141.374 162.673C150.063 203.47 207.217 197.755 202.419 167.738C195.393 123.781 137.273 90.3579 75.0002 63.256Z"
-              fill="url(#paint0_linear_70:153)"
-            />
-            <path
-              opacity="0.3"
-              d="M178.255 0.150879C129.388 56.5969 134.648 155.224 143.387 197.482C157.547 265.958 65.9705 295.709 53.1024 246.401C34.2588 174.197 100.939 83.7223 178.255 0.150879Z"
-              fill="url(#paint1_linear_70:153)"
-            />
-            <defs>
-              <linearGradient
-                id="paint0_linear_70:153"
-                x1="69.6694"
-                y1="29.9033"
-                x2="196.108"
-                y2="83.2919"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#4A6CF7" stopOpacity="0.62" />
-                <stop offset="1" stopColor="#4A6CF7" stopOpacity="0" />
-              </linearGradient>
-              <linearGradient
-                id="paint1_linear_70:153"
-                x1="165.348"
-                y1="-75.4466"
-                x2="-3.75136"
-                y2="103.645"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#4A6CF7" stopOpacity="0.62" />
-                <stop offset="1" stopColor="#4A6CF7" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
+
+        {/* Divider */}
+        <div className="mb-6 border-t border-gray-200/50 dark:border-white/10" />
+
+        {/* Features */}
+        <div className="flex-grow space-y-3">{children}</div>
       </div>
     </div>
   );

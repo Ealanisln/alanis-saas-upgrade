@@ -13,7 +13,13 @@ const Pricing = () => {
 
   return (
     <section id="pricing" className="relative z-10 py-16 md:py-20 lg:py-28">
-      <div className="container">
+      {/* Gradient background orbs for glassmorphism effect */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -left-40 top-0 h-[500px] w-[500px] rounded-full bg-primary/10 blur-3xl dark:bg-primary/5" />
+        <div className="absolute -right-40 bottom-0 h-[500px] w-[500px] rounded-full bg-accent/10 blur-3xl dark:bg-accent/5" />
+      </div>
+
+      <div className="container relative">
         <SectionTitle
           title={t("title")}
           paragraph={t("subtitle")}
@@ -21,7 +27,7 @@ const Pricing = () => {
           width="665px"
         />
 
-        <div className="mt-8 grid grid-cols-1 items-stretch gap-x-8 gap-y-10 md:mt-12 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid grid-cols-1 items-stretch gap-6 overflow-visible md:mt-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-4 xl:gap-6">
           <PricingBox
             packageName={t("starter.name")}
             price={500}
@@ -111,8 +117,8 @@ const Pricing = () => {
         </div>
 
         {/* Currency conversion note */}
-        <div className="mt-6 text-center">
-          <p className="text-sm text-body-color opacity-75 dark:text-gray-400">
+        <div className="mt-8 text-center">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             {t("currencyNote")}
           </p>
         </div>
@@ -121,61 +127,6 @@ const Pricing = () => {
         <div className="mt-16">
           <CustomQuoteSection />
         </div>
-      </div>
-
-      <div className="absolute bottom-0 left-0 z-[-1]">
-        <svg
-          width="239"
-          height="601"
-          viewBox="0 0 239 601"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            opacity="0.3"
-            x="-184.451"
-            y="600.973"
-            width="196"
-            height="541.607"
-            rx="2"
-            transform="rotate(-128.7 -184.451 600.973)"
-            fill="url(#paint0_linear_93:235)"
-          />
-          <rect
-            opacity="0.3"
-            x="-188.201"
-            y="385.272"
-            width="59.7544"
-            height="541.607"
-            rx="2"
-            transform="rotate(-128.7 -188.201 385.272)"
-            fill="url(#paint1_linear_93:235)"
-          />
-          <defs>
-            <linearGradient
-              id="paint0_linear_93:235"
-              x1="-90.1184"
-              y1="420.414"
-              x2="-90.1184"
-              y2="1131.65"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#4A6CF7" />
-              <stop offset="1" stopColor="#4A6CF7" stopOpacity="0" />
-            </linearGradient>
-            <linearGradient
-              id="paint1_linear_93:235"
-              x1="-159.441"
-              y1="204.714"
-              x2="-159.441"
-              y2="915.952"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#4A6CF7" />
-              <stop offset="1" stopColor="#4A6CF7" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-        </svg>
       </div>
     </section>
   );
