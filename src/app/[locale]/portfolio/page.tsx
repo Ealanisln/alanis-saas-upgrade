@@ -2,8 +2,7 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
-import SectionTitle from "@/components/Common/SectionTitle";
-import Modernportafolio from "@/components/Portfolio/ModernPortfolio";
+import ModernPortfolio from "@/components/Portfolio/ModernPortfolio";
 import { siteConfig } from "@/config/i18n";
 import projects from "@/data/projects";
 import {
@@ -104,87 +103,45 @@ const PortfolioPage = async ({
   ];
 
   return (
-    <>
-      {/* Add JSON-LD structured data */}
+    <div className="min-h-screen bg-background">
+      {/* JSON-LD structured data for SEO - content from trusted translation files */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Add breadcrumb structured data */}
       <BreadcrumbJsonLd items={breadcrumbItems} />
 
-      {/* Hero Section with Gradient Background */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-900 via-indigo-900 to-blue-950 py-20 md:py-28 lg:py-32">
-        {/* Animated Particles/Shapes Background */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute -right-20 -top-40 h-96 w-96 rounded-full bg-blue-600/20 blur-3xl"></div>
-          <div className="absolute left-1/4 top-1/2 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl"></div>
-          <div className="absolute -bottom-40 left-20 h-80 w-80 rounded-full bg-blue-400/20 blur-3xl"></div>
-
-          {/* Code-like decorative elements */}
-          <div className="absolute left-10 top-20 h-20 w-20 rotate-12 rounded-md border border-blue-400/20 opacity-20"></div>
-          <div className="absolute bottom-20 right-10 h-32 w-32 -rotate-12 rounded-md border border-indigo-400/20 opacity-20"></div>
-          <div className="absolute right-1/3 top-1/3 h-16 w-16 rounded-md border border-blue-300/20 opacity-20"></div>
-        </div>
-
-        <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl text-center text-white">
-            <span className="mb-6 inline-block rounded-full bg-blue-500/20 px-4 py-1.5 text-sm font-semibold tracking-wide text-blue-200">
-              {tHero("badge")}
-            </span>
-
-            <h1 className="mb-6 bg-gradient-to-r from-white via-blue-100 to-blue-200 bg-clip-text text-4xl font-bold text-transparent md:text-5xl lg:text-6xl">
-              {tHero("title")}{" "}
-              <span className="text-blue-300">{tHero("titleHighlight")}</span>
-            </h1>
-
-            <p className="mx-auto mb-10 max-w-3xl text-lg text-blue-100/90 md:text-xl">
-              {tHero("description")}
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href="#portfolio-grid"
-                className="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-3 font-medium text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-blue-500 hover:shadow-blue-600/20"
-              >
-                {tHero("viewProjects")}
-              </a>
-              <a
-                href={`mailto:${siteConfig.contact.email}`}
-                className="inline-flex items-center justify-center rounded-full border border-blue-400/30 bg-transparent px-6 py-3 font-medium text-white transition-all duration-300 hover:bg-white/10"
-              >
-                {tHero("contact")}
-              </a>
-            </div>
-          </div>
+      {/* Hero Section - Clean & Minimal */}
+      <section className="container mx-auto px-6 py-16 md:py-20">
+        <div className="max-w-3xl">
+          <span className="mb-4 inline-block rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur-sm">
+            {tHero("badge")}
+          </span>
+          <h1 className="mb-6 text-4xl font-bold leading-tight text-gray-900 dark:text-white md:text-5xl">
+            {tHero("title")}{" "}
+            <span className="text-primary">{tHero("titleHighlight")}</span>
+          </h1>
+          <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
+            {tHero("description")}
+          </p>
         </div>
       </section>
 
-      {/* Main Portfolio Section */}
-      <section
-        id="portfolio-grid"
-        className="relative bg-white py-20 dark:bg-gray-900 md:py-24 lg:py-28"
-      >
-        {/* Decorative Elements */}
-        <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-full bg-blue-50 opacity-70 dark:bg-blue-900/20"></div>
-        <div className="absolute bottom-0 left-0 h-24 w-24 rounded-tr-full bg-indigo-50 opacity-70 dark:bg-indigo-900/20"></div>
-
-        <div className="container relative px-4 sm:px-6 lg:px-8">
-          <SectionTitle
-            title={tSection("title")}
-            subtitle={tSection("subtitle")}
-            paragraph={tSection("paragraph")}
-            center
-            highlight={tSection("highlight")}
-          />
-
-          <div className="mt-12 sm:mt-16">
-            <Modernportafolio projects={projects} />
-          </div>
+      {/* Projects Section */}
+      <section id="portfolio-grid" className="container mx-auto px-6 pb-20">
+        <div className="mb-12">
+          <h2 className="mb-3 text-3xl font-bold text-gray-900 dark:text-white">
+            {tSection("title")}
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400">
+            {tSection("subtitle")}
+          </p>
         </div>
+
+        <ModernPortfolio projects={projects} locale={locale} />
       </section>
-    </>
+    </div>
   );
 };
 

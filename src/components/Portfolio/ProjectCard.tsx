@@ -1,20 +1,54 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, useState, useRef, useCallback } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
 import { Project } from "@/lib/types";
-import TechBadge from "./TechBadge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 interface ProjectCardProps {
   project: Project;
-  onClick: () => void;
+  locale: string;
 }
 
-const ProjectCard: FC<ProjectCardProps> = ({ project, onClick }) => {
+const ProjectCard: FC<ProjectCardProps> = ({ project, locale }) => {
+  const t = useTranslations("portfolio.card");
+  const lang = (locale === "es" ? "es" : "en") as "en" | "es";
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showOverlay, setShowOverlay] = useState(false);
+  const overlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const startOverlayTimeout = useCallback(() => {
+    if (overlayTimeoutRef.current) {
+      clearTimeout(overlayTimeoutRef.current);
+    }
+    overlayTimeoutRef.current = setTimeout(() => {
+      setShowOverlay(false);
+    }, 1500);
+  }, []);
+
+  const handleImageMouseEnter = useCallback(() => {
+    setShowOverlay(true);
+    startOverlayTimeout();
+  }, [startOverlayTimeout]);
+
+  const handleImageMouseMove = useCallback(() => {
+    setShowOverlay(true);
+    startOverlayTimeout();
+  }, [startOverlayTimeout]);
+
+  const handleImageMouseLeave = useCallback(() => {
+    if (overlayTimeoutRef.current) {
+      clearTimeout(overlayTimeoutRef.current);
+    }
+    setShowOverlay(false);
+  }, []);
 
   const nextImage = (e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     setCurrentImageIndex((prev) =>
       prev === project.images.length - 1 ? 0 : prev + 1,
@@ -22,125 +56,131 @@ const ProjectCard: FC<ProjectCardProps> = ({ project, onClick }) => {
   };
 
   const prevImage = (e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     setCurrentImageIndex((prev) =>
       prev === 0 ? project.images.length - 1 : prev - 1,
     );
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      onClick();
-    }
-  };
-
   return (
-    <div
-      className="group relative transform cursor-pointer overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl dark:bg-gray-900"
-      onClick={onClick}
-      onKeyDown={handleKeyDown}
-      role="button"
-      tabIndex={0}
-      aria-label={`View project: ${project.title}`}
-    >
+    <Card className="group overflow-hidden border border-gray-200/50 bg-white/70 shadow-xl backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 hover:shadow-2xl dark:border-white/10 dark:bg-gray-900/60 dark:hover:border-white/20">
       {/* Image Carousel */}
-      <div className="relative h-64 overflow-hidden bg-gray-100 dark:bg-gray-800">
-        <div className="relative h-full w-full">
-          <Image
-            src={project.images[currentImageIndex].src}
-            alt={project.images[currentImageIndex].alt}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+      <div
+        className="relative aspect-video overflow-hidden bg-muted"
+        onMouseEnter={handleImageMouseEnter}
+        onMouseMove={handleImageMouseMove}
+        onMouseLeave={handleImageMouseLeave}
+      >
+        <Image
+          src={project.images[currentImageIndex].src}
+          alt={project.images[currentImageIndex].alt}
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
 
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        {/* Gradient overlay on hover - auto-hides after 1.5s */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/30 to-transparent transition-opacity duration-300 ${
+            showOverlay ? "opacity-100" : "opacity-0"
+          }`}
+        />
 
-          {/* Image Navigation */}
-          {project.images.length > 1 && (
-            <>
-              <button
-                onClick={prevImage}
-                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:bg-gray-900/80"
-                aria-label="Previous image"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                onClick={nextImage}
-                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:bg-gray-900/80"
-                aria-label="Next image"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
+        {/* Image Navigation */}
+        {project.images.length > 1 && (
+          <>
+            <button
+              onClick={prevImage}
+              className={`absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-1.5 shadow-lg backdrop-blur-sm transition-all duration-200 hover:scale-110 hover:bg-white dark:bg-gray-900/80 dark:hover:bg-gray-900 ${
+                showOverlay ? "opacity-100" : "opacity-0"
+              }`}
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="h-4 w-4 text-gray-700 dark:text-gray-200" />
+            </button>
+            <button
+              onClick={nextImage}
+              className={`absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-1.5 shadow-lg backdrop-blur-sm transition-all duration-200 hover:scale-110 hover:bg-white dark:bg-gray-900/80 dark:hover:bg-gray-900 ${
+                showOverlay ? "opacity-100" : "opacity-0"
+              }`}
+              aria-label="Next image"
+            >
+              <ChevronRight className="h-4 w-4 text-gray-700 dark:text-gray-200" />
+            </button>
 
-              {/* Image Indicators */}
-              <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1">
-                {project.images.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${
-                      index === currentImageIndex
-                        ? "w-4 bg-white"
-                        : "bg-white/50"
-                    }`}
-                  />
-                ))}
-              </div>
-            </>
-          )}
-        </div>
+            {/* Image Indicators */}
+            <div
+              className={`absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5 rounded-full bg-white/20 px-2 py-1 backdrop-blur-sm transition-opacity duration-200 ${
+                showOverlay ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              {project.images.map((_, index) => (
+                <div
+                  key={index}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    index === currentImageIndex
+                      ? "w-4 bg-primary shadow-sm shadow-primary/50"
+                      : "w-1.5 bg-white/60"
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
-      {/* Content */}
-      <div className="p-6">
-        <h3 className="mb-3 line-clamp-2 text-xl font-bold text-gray-900 dark:text-white">
-          {project.title}
+      <CardContent className="p-6">
+        <h3 className="mb-2 text-balance text-xl font-semibold text-gray-900 dark:text-white">
+          {project.title[lang]}
         </h3>
-
-        <p className="mb-4 line-clamp-3 text-gray-600 dark:text-gray-400">
-          {project.description}
+        <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+          {project.description[lang]}
         </p>
 
         {/* Technologies */}
         <div className="mb-4 flex flex-wrap gap-2">
-          {project.technologies.slice(0, 3).map((tech) => (
-            <TechBadge key={tech} tech={tech} />
+          {project.technologies.map((tech) => (
+            <Badge
+              key={tech}
+              variant="secondary"
+              className="border border-primary/20 bg-primary/10 text-xs font-medium text-primary backdrop-blur-sm transition-colors hover:bg-primary/20 dark:border-primary/30 dark:bg-primary/20 dark:text-primary-foreground"
+            >
+              {tech}
+            </Badge>
           ))}
-          {project.technologies.length > 3 && (
-            <span className="px-3 py-1 text-xs font-medium text-gray-500">
-              +{project.technologies.length - 3} más
-            </span>
-          )}
         </div>
 
-        {/* Links */}
-        <div className="flex gap-4 border-t border-gray-200 pt-4 dark:border-gray-700">
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="flex items-center gap-2 text-sm font-medium text-blue-600 transition-colors hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2">
+          <Button
+            size="sm"
+            asChild
+            className="flex-1 bg-primary/90 text-white shadow-lg shadow-primary/25 backdrop-blur-sm transition-all duration-200 hover:bg-primary hover:shadow-xl hover:shadow-primary/30"
           >
-            <ExternalLink className="h-4 w-4" />
-            Ver Proyecto
-          </a>
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="flex items-center gap-2 text-sm font-medium text-gray-600 transition-colors hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="mr-2 h-4 w-4" />
+              {t("viewProject")}
+            </a>
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            asChild
+            className="border-gray-200/50 bg-white/50 text-gray-700 backdrop-blur-sm transition-all duration-200 hover:border-primary/50 hover:bg-white/80 dark:border-white/10 dark:bg-gray-900/50 dark:text-gray-200 dark:hover:border-primary/50"
           >
-            <Github className="h-4 w-4" />
-            Código
-          </a>
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t("code")}
+            >
+              <Github className="h-4 w-4" />
+            </a>
+          </Button>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 
