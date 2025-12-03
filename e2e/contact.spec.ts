@@ -4,14 +4,14 @@ test.describe("Contact Page", () => {
   test.describe("English locale", () => {
     test("should load the contact page", async ({ page }) => {
       await page.goto("/contact");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       await expect(page).toHaveTitle(/Contact|Alanis/i);
     });
 
     test("should display the contact form", async ({ page }) => {
       await page.goto("/contact");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Check for form element
       const form = page.locator("form");
@@ -20,7 +20,7 @@ test.describe("Contact Page", () => {
 
     test("should have required form fields", async ({ page }) => {
       await page.goto("/contact");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Check for common contact form fields
       const nameInput = page.locator(
@@ -43,7 +43,7 @@ test.describe("Contact Page", () => {
 
     test("should show validation errors on empty submit", async ({ page }) => {
       await page.goto("/contact");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Find and click submit button
       const submitButton = page.locator(
@@ -72,7 +72,7 @@ test.describe("Contact Page", () => {
 
     test("should have accessible form labels", async ({ page }) => {
       await page.goto("/contact");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Check that inputs have associated labels
       const inputs = page.locator('input:not([type="hidden"]), textarea');
@@ -100,14 +100,14 @@ test.describe("Contact Page", () => {
   test.describe("Spanish locale", () => {
     test("should load the Spanish contact page", async ({ page }) => {
       await page.goto("/es/contact");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       await expect(page).toHaveTitle(/Contact|Contacto|Alanis/i);
     });
 
     test("should display form with Spanish labels", async ({ page }) => {
       await page.goto("/es/contact");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       const form = page.locator("form");
       await expect(form).toBeVisible();

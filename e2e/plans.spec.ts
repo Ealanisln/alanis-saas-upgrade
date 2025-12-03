@@ -4,14 +4,14 @@ test.describe("Plans/Pricing Page", () => {
   test.describe("English locale", () => {
     test("should load the plans page", async ({ page }) => {
       await page.goto("/plans");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       await expect(page).toHaveTitle(/Plans|Pricing|Alanis/i);
     });
 
     test("should display pricing tiers", async ({ page }) => {
       await page.goto("/plans");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Look for pricing cards/tiers
       const pricingCards = page.locator(
@@ -25,7 +25,7 @@ test.describe("Plans/Pricing Page", () => {
 
     test("should display pricing information", async ({ page }) => {
       await page.goto("/plans");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Look for price elements (currency symbols, numbers)
       const priceElements = page.locator(
@@ -39,7 +39,7 @@ test.describe("Plans/Pricing Page", () => {
 
     test("should have CTA buttons on pricing cards", async ({ page }) => {
       await page.goto("/plans");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Look for call-to-action buttons
       const ctaButtons = page.locator(
@@ -53,7 +53,7 @@ test.describe("Plans/Pricing Page", () => {
 
     test("should display FAQ section if available", async ({ page }) => {
       await page.goto("/plans");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Look for FAQ section
       const faqSection = page.locator(
@@ -83,14 +83,14 @@ test.describe("Plans/Pricing Page", () => {
   test.describe("Spanish locale", () => {
     test("should load the Spanish plans page", async ({ page }) => {
       await page.goto("/es/plans");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       await expect(page).toHaveTitle(/Plans|Planes|Pricing|Precios|Alanis/i);
     });
 
     test("should display Spanish content", async ({ page }) => {
       await page.goto("/es/plans");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       const html = page.locator("html");
       await expect(html).toHaveAttribute("lang", "es");

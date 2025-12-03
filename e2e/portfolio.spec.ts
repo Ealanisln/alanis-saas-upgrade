@@ -4,14 +4,14 @@ test.describe("Portfolio Page", () => {
   test.describe("English locale", () => {
     test("should load the portfolio page", async ({ page }) => {
       await page.goto("/portfolio");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       await expect(page).toHaveTitle(/Portfolio|Projects|Alanis/i);
     });
 
     test("should display portfolio hero section", async ({ page }) => {
       await page.goto("/portfolio");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       const mainContent = page.locator("main");
       await expect(mainContent).toBeVisible();
@@ -19,7 +19,7 @@ test.describe("Portfolio Page", () => {
 
     test("should display project cards or empty state", async ({ page }) => {
       await page.goto("/portfolio");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Look for project cards
       const projectCards = page.locator(
@@ -36,7 +36,7 @@ test.describe("Portfolio Page", () => {
       page,
     }) => {
       await page.goto("/portfolio");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Find clickable project elements
       const projectCard = page
@@ -74,7 +74,7 @@ test.describe("Portfolio Page", () => {
   test.describe("Spanish locale", () => {
     test("should load the Spanish portfolio page", async ({ page }) => {
       await page.goto("/es/portfolio");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       await expect(page).toHaveTitle(
         /Portfolio|Portafolio|Projects|Proyectos|Alanis/i,
@@ -83,7 +83,7 @@ test.describe("Portfolio Page", () => {
 
     test("should display Spanish content", async ({ page }) => {
       await page.goto("/es/portfolio");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       const html = page.locator("html");
       await expect(html).toHaveAttribute("lang", "es");

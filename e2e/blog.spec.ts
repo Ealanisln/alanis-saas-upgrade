@@ -4,7 +4,7 @@ test.describe("Blog Page", () => {
   test.describe("English locale", () => {
     test("should load the blog listing page", async ({ page }) => {
       await page.goto("/blog");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Page should load without errors
       await expect(page).toHaveTitle(/Blog|Alanis/i);
@@ -12,7 +12,7 @@ test.describe("Blog Page", () => {
 
     test("should display blog posts or empty state", async ({ page }) => {
       await page.goto("/blog");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Check for either blog posts or an empty state message
       const mainContent = page.locator("main");
@@ -38,7 +38,7 @@ test.describe("Blog Page", () => {
       page,
     }) => {
       await page.goto("/blog");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Find first blog post link
       const postLink = page.locator('a[href*="/blog/"]').first();
@@ -46,7 +46,7 @@ test.describe("Blog Page", () => {
 
       if (hasPost) {
         await postLink.click();
-        await page.waitForLoadState("networkidle");
+        await page.waitForLoadState("load");
 
         // Should be on a blog post page
         expect(page.url()).toMatch(/\/blog\/.+/);
@@ -61,14 +61,14 @@ test.describe("Blog Page", () => {
   test.describe("Spanish locale", () => {
     test("should load the Spanish blog listing page", async ({ page }) => {
       await page.goto("/es/blog");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       await expect(page).toHaveTitle(/Blog|Alanis/i);
     });
 
     test("should display Spanish content", async ({ page }) => {
       await page.goto("/es/blog");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Check the html lang attribute
       const html = page.locator("html");

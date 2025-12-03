@@ -16,7 +16,7 @@ test.describe("Home Page", () => {
     test("should display hero section", async ({ page }) => {
       await page.goto("/");
       // Wait for the page to fully load
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
       // Check for main heading or hero section
       const mainContent = page.locator("main");
       await expect(mainContent).toBeVisible();
