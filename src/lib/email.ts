@@ -12,7 +12,7 @@ interface CustomerConfirmationData {
 }
 
 interface InternalNotificationData {
-  type: 'new_payment' | 'payment_failed' | 'refund';
+  type: "new_payment" | "payment_failed" | "refund";
   service: string;
   customer: string | null;
   amount: number | null;
@@ -22,9 +22,9 @@ interface InternalNotificationData {
 /**
  * Send confirmation email to customer
  */
-export async function sendCustomerConfirmationEmail(data: CustomerConfirmationData) {
-  console.log('📧 Sending confirmation email to:', data.to);
-
+export async function sendCustomerConfirmationEmail(
+  _data: CustomerConfirmationData,
+) {
   // TODO: Implement with your email service
   // Example with Resend:
   /*
@@ -46,25 +46,17 @@ export async function sendCustomerConfirmationEmail(data: CustomerConfirmationDa
   });
   */
 
-  // For now, just log
-  console.log('Email data:', {
-    to: data.to,
-    name: data.name,
-    service: data.service,
-    amount: `$${(data.amount || 0) / 100} USD`,
-    sessionId: data.sessionId,
-  });
-
   return { success: true };
 }
 
 /**
  * Send internal notification to your team
  */
-export async function sendInternalNotification(data: InternalNotificationData) {
-  console.log('🔔 Sending internal notification');
-
-  const recipientEmail = process.env.EMAIL_TO || 'contact@alanis.dev';
+export async function sendInternalNotification(
+  _data: InternalNotificationData,
+) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _recipientEmail = process.env.EMAIL_TO || "contact@alanis.dev";
 
   // TODO: Implement with your email service
   // Example with Resend:
@@ -86,14 +78,6 @@ export async function sendInternalNotification(data: InternalNotificationData) {
     `
   });
   */
-
-  // For now, just log
-  console.log('Notification data:', {
-    type: data.type,
-    service: data.service,
-    customer: data.customer,
-    amount: `$${(data.amount || 0) / 100} USD`,
-  });
 
   return { success: true };
 }

@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
-import { useTranslations } from 'next-intl';
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/lib/navigation";
 
@@ -11,8 +11,8 @@ interface HeroSectionProps {
   locale: string;
 }
 
-export default function HeroSection({ locale }: HeroSectionProps) {
-  const t = useTranslations('home.hero');
+export default function HeroSection({ locale: _locale }: HeroSectionProps) {
+  const t = useTranslations("home.hero");
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -55,9 +55,9 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
         {/* Animated gradient mesh */}
         <div className="absolute inset-0 opacity-50">
-          <div className="absolute left-[10%] top-[20%] h-[500px] w-[500px] animate-blob rounded-full bg-gradient-to-r from-primary/30 to-blue-400/30 mix-blend-multiply blur-3xl filter dark:mix-blend-lighten"></div>
-          <div className="animation-delay-2000 absolute right-[10%] top-[10%] h-[500px] w-[500px] animate-blob rounded-full bg-gradient-to-r from-purple-400/30 to-pink-400/30 mix-blend-multiply blur-3xl filter dark:mix-blend-lighten"></div>
-          <div className="animation-delay-4000 absolute bottom-[20%] left-[20%] h-[500px] w-[500px] animate-blob rounded-full bg-gradient-to-r from-blue-400/30 to-primary/30 mix-blend-multiply blur-3xl filter dark:mix-blend-lighten"></div>
+          <div className="animate-blob absolute left-[10%] top-[20%] h-[500px] w-[500px] rounded-full bg-gradient-to-r from-primary/30 to-blue-400/30 mix-blend-multiply blur-3xl filter dark:mix-blend-lighten"></div>
+          <div className="animation-delay-2000 animate-blob absolute right-[10%] top-[10%] h-[500px] w-[500px] rounded-full bg-gradient-to-r from-purple-400/30 to-pink-400/30 mix-blend-multiply blur-3xl filter dark:mix-blend-lighten"></div>
+          <div className="animation-delay-4000 animate-blob absolute bottom-[20%] left-[20%] h-[500px] w-[500px] rounded-full bg-gradient-to-r from-blue-400/30 to-primary/30 mix-blend-multiply blur-3xl filter dark:mix-blend-lighten"></div>
         </div>
       </div>
 
@@ -77,21 +77,21 @@ export default function HeroSection({ locale }: HeroSectionProps) {
                   className="text-5xl font-bold tracking-tight text-black dark:text-white sm:text-6xl lg:text-7xl"
                   variants={itemVariants}
                 >
-                  {t('title')}
+                  {t("title")}
                 </motion.h1>
 
                 <motion.p
                   className="mt-4 text-xl text-body-color dark:text-body-color-dark sm:text-2xl"
                   variants={itemVariants}
                 >
-                  {t('subtitle')}
+                  {t("subtitle")}
                 </motion.p>
 
                 <motion.p
                   className="mt-6 text-lg text-body-color dark:text-body-color-dark"
                   variants={itemVariants}
                 >
-                  {t('description')}
+                  {t("description")}
                 </motion.p>
 
                 {/* Buttons */}
@@ -100,19 +100,25 @@ export default function HeroSection({ locale }: HeroSectionProps) {
                   variants={itemVariants}
                 >
                   <Link href="/portfolio">
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
                       <Button className="h-14 rounded-xl bg-primary px-8 text-base font-medium text-white shadow-lg shadow-primary/25 duration-300 hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 dark:shadow-primary/20">
-                        {t('cta')} <ArrowRight className="ml-2 h-4 w-4" />
+                        {t("cta")} <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
                     </motion.div>
                   </Link>
                   <Link href="/contact">
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
                       <Button
                         variant="outline"
                         className="h-14 rounded-xl border-2 border-primary/20 bg-white/60 px-8 text-base font-medium text-primary backdrop-blur-md duration-300 hover:border-primary/40 hover:bg-white/80 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-white/20 dark:hover:bg-white/10"
                       >
-                        {t('contact')}
+                        {t("contact")}
                       </Button>
                     </motion.div>
                   </Link>

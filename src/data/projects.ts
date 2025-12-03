@@ -1,69 +1,115 @@
 // data/projects.ts
-import { Project } from '@/lib/types';
+import { Project } from "@/lib/types";
 
 const projects: Project[] = [
   {
     id: 1,
-    title: "Ready Set - Plataforma de Servicios de Entrega",
-    description: "Una plataforma web completa para gestionar servicios de entrega, permitiendo el registro de conductores, vendedores y clientes. Ofrece entregas el mismo día, servicios bajo demanda y manejo de entregas urgentes.",
+    title: {
+      en: "Destino SF - E-commerce & Catering Platform",
+      es: "Destino SF - Plataforma de E-commerce y Catering",
+    },
+    description: {
+      en: "Premium Argentine cuisine platform featuring authentic empanadas, alfajores, and professional catering services. Full e-commerce with Square payments, weight-based shipping, and real-time order tracking.",
+      es: "Plataforma de cocina argentina premium con empanadas auténticas, alfajores y servicios de catering profesional. E-commerce completo con pagos Square, envío por peso y seguimiento de pedidos en tiempo real.",
+    },
     images: [
       {
-        src: "/images/projects/ready-1.webp",
-        alt: "Ready Set - Vista Principal",
-      },
-      {
-        src: "/images/projects/ready-2.webp",
-        alt: "Ready Set - Panel de Control",
-      },
-      {
-        src: "/images/projects/ready-3.webp",
-        alt: "Ready Set - Gestión de Entregas",
+        src: "/images/projects/destinosf.webp",
+        alt: "Destino SF - Homepage",
       },
     ],
-    technologies: ["Next.js", "PostgreSQL", "Prisma", "Shadcn"],
+    technologies: [
+      "Next.js 15",
+      "TypeScript",
+      "PostgreSQL",
+      "Prisma",
+      "Square API",
+      "Shippo",
+    ],
+    liveUrl: "https://destinosf.com",
+    githubUrl: "https://github.com/Ealanisln/destino-sf",
+  },
+  {
+    id: 2,
+    title: {
+      en: "Ready Set - Multi-User Delivery Platform",
+      es: "Ready Set - Plataforma de Entregas Multi-Usuario",
+    },
+    description: {
+      en: "Comprehensive delivery management platform connecting drivers, vendors, and clients with real-time tracking, live map visualization, push notifications, and carrier integrations.",
+      es: "Plataforma integral de gestión de entregas que conecta conductores, vendedores y clientes con seguimiento en tiempo real, visualización de mapas en vivo, notificaciones push e integraciones con transportistas.",
+    },
+    images: [
+      {
+        src: "/images/projects/readysetllc.webp",
+        alt: "Ready Set - Main Dashboard",
+      },
+    ],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "Mapbox GL",
+      "Firebase",
+      "SendGrid",
+    ],
     liveUrl: "https://readysetllc.com",
     githubUrl: "https://github.com/Ealanisln/ready-set",
   },
   {
-    id: 2,
-    title: "Vet Family - Sistema de Gestión Veterinaria",
-    description: "Sistema integral de gestión para clínicas veterinarias que permite administrar perfiles de usuarios, mascotas, historiales médicos, citas, facturación y recordatorios de manera eficiente.",
+    id: 3,
+    title: {
+      en: "Vetify - Multi-Tenant Veterinary SaaS",
+      es: "Vetify - SaaS Veterinario Multi-Tenant",
+    },
+    description: {
+      en: "Comprehensive veterinary practice management platform with multi-clinic support, appointment scheduling, pet health records, inventory management, and Stripe subscription billing.",
+      es: "Plataforma integral de gestión para prácticas veterinarias con soporte multi-clínica, agenda de citas, historiales de salud de mascotas, gestión de inventario y facturación por suscripción con Stripe.",
+    },
     images: [
       {
-        src: "/images/projects/vet-1.webp",
-        alt: "Vet Family - Dashboard Principal",
-      },
-      {
-        src: "/images/projects/vet-2.webp",
-        alt: "Vet Family - Registro de Mascotas",
-      },
-      {
-        src: "/images/projects/vet-3.webp",
-        alt: "Vet Family - Historial Médico de Mascotas",
+        src: "/images/projects/vetify.webp",
+        alt: "Vetify - Dashboard",
       },
     ],
-    technologies: ["Next.js", "MongoDB", "Prisma", "TypeScript"],
-    liveUrl: "https://vetforfamily.com",
-    githubUrl: "https://github.com/Ealanisln/vet-family-23",
+    technologies: [
+      "Next.js 15",
+      "TypeScript",
+      "Prisma",
+      "Stripe",
+      "Kinde Auth",
+      "Supabase",
+    ],
+    liveUrl: "https://vetify.pro",
+    githubUrl: "https://github.com/Ealanisln/vetify",
   },
   {
-    id: 3,
-    title: "Pagaré Fácil - Generador de Pagarés",
-    description: "Aplicación web que permite a los usuarios generar pagarés personalizados de manera sencilla. Incluye interfaz intuitiva para ingresar información del deudor, términos de pago y detalles de los pagarés.",
+    id: 4,
+    title: {
+      en: "ESS-NYC - Environmental Services Website",
+      es: "ESS-NYC - Sitio Web de Servicios Ambientales",
+    },
+    description: {
+      en: "Professional website for Environmental Safeguard Solutions featuring environmental testing services, Sanity CMS with real-time visual editing, and lead generation forms with strict security policies.",
+      es: "Sitio web profesional para Environmental Safeguard Solutions con servicios de pruebas ambientales, Sanity CMS con edición visual en tiempo real y formularios de generación de leads con políticas de seguridad estrictas.",
+    },
     images: [
       {
-        src: "/images/projects/pagare-1.webp",
-        alt: "Pagaré Fácil - Formulario de Generación",
-      },
-      {
-        src: "/images/projects/pagare-2.webp",
-        alt: "Pagaré Fácil - Ejemplo de Pagaré Generado",
+        src: "/images/projects/ess-nyc.webp",
+        alt: "ESS-NYC - Homepage",
       },
     ],
-    technologies: ["Next.js", "React", "PDF Generation", "Responsive Design"],
-    liveUrl: "https://www.pagarefacil.pro",
-    githubUrl: "https://github.com/Ealanisln/pagare-facil",
+    technologies: [
+      "Next.js 15",
+      "TypeScript",
+      "Sanity CMS",
+      "Tailwind CSS",
+      "Resend",
+      "Upstash",
+    ],
+    liveUrl: "https://ess-nyc.com",
+    githubUrl: "https://github.com/Ealanisln/ess-nyc",
   },
 ];
 
-export default projects; 
+export default projects;

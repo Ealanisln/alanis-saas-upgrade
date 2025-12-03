@@ -1,22 +1,23 @@
 export const apiVersion =
-  process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-01-14'
+  process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2024-01-14";
 
-export const dataset = assertValue(
-  process.env.NEXT_PUBLIC_SANITY_DATASET,
-  'Missing environment variable: NEXT_PUBLIC_SANITY_DATASET'
-)
+// Use fallback values for CI builds - will fail gracefully at runtime if actually used
+export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 
-export const projectId = assertValue(
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  'Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID'
-)
+export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
 
-export const useCdn = false
+export const useCdn = false;
 
-function assertValue<T>(v: T | undefined, errorMessage: string): T {
-  if (v === undefined) {
-    throw new Error(errorMessage)
-  }
+// Helper to check if Sanity is properly configured
+export function isSanityConfigured(): boolean {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
 
-  return v
+  // Check that values exist and are not CI placeholder values
+  return Boolean(
+    projectId &&
+      dataset &&
+      projectId !== "ci-placeholder" &&
+      !projectId.includes("placeholder"),
+  );
 }

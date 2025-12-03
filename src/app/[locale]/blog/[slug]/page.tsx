@@ -3,24 +3,24 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { Metadata, ResolvingMetadata } from "next";
-import { getTranslations } from 'next-intl/server';
+import { getTranslations } from "next-intl/server";
 import { portableTextComponents } from "@/components/Blog/PortableText";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
-import { client, urlFor } from "@/sanity/lib/client";
-import { localizePost } from "@/sanity/lib/i18n";
-import { FullPost } from "@/types/simple-blog-card";
 import { generateAlternates, generateLocalizedUrl } from "@/lib/seo";
+import { urlFor, safeFetchSingle } from "@/sanity/lib/client";
+import { localizePost } from "@/sanity/lib/i18n";
+import type { SanityPost } from "@/sanity/lib/types";
 
 export const revalidate = 30;
 
 // Generate metadata for this page
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string; locale: string }> },
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   // Await params since it's a Promise in Next.js 15
   const { slug, locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'blog' });
+  const t = await getTranslations({ locale, namespace: "blog" });
 
   // Get post data
   const query = `
@@ -32,7 +32,7 @@ export async function generateMetadata(
       "author": author->name
     }`;
 
-  const rawPost = await client.fetch(query, { slug });
+  const rawPost = await safeFetchSingle<SanityPost>(query, { slug });
 
   // If no post found, return default metadata
   if (!rawPost) {
@@ -59,8 +59,11 @@ export async function generateMetadata(
     : "/opengraph-image";
 
   // Create a description from post.smallDescription - ensure it's a string
-  const description = (typeof post.smallDescription === 'string' ? post.smallDescription : t('meta.description'));
-  const title = (typeof post.title === 'string' ? post.title : "Untitled");
+  const description =
+    typeof post.smallDescription === "string"
+      ? post.smallDescription
+      : t("meta.description");
+  const title = typeof post.title === "string" ? post.title : "Untitled";
 
   // Get parent metadata
   const previousImages = (await parent).openGraph?.images || [];
@@ -75,10 +78,10 @@ export async function generateMetadata(
       title,
       description,
       type: "article",
-      locale: locale === 'en' ? "en_US" : "es_ES",
+      locale: locale === "en" ? "en_US" : "es_ES",
       url: postUrl,
       publishedTime: post.publishedAt || new Date().toISOString(),
-      authors: [typeof post.author === 'string' ? post.author : "Alanis Dev"],
+      authors: [typeof post.author === "string" ? post.author : "Alanis Dev"],
       images: [
         {
           url: `/${locale}/blog/${slug}/opengraph-image`,
@@ -101,14 +104,14 @@ export async function generateMetadata(
 
 // Define the page component
 export default async function BlogPostPage({
-  params
+  params,
 }: {
-  params: Promise<{ slug: string; locale: string }>
+  params: Promise<{ slug: string; locale: string }>;
 }) {
   // Await params since it's a Promise in Next.js 15
   const { slug, locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'blog' });
-  const tNav = await getTranslations({ locale, namespace: 'navigation' });
+  const t = await getTranslations({ locale, namespace: "blog" });
+  const tNav = await getTranslations({ locale, namespace: "navigation" });
 
   // Fetch post data
   const query = `
@@ -122,7 +125,7 @@ export default async function BlogPostPage({
       "author": author->name
     }`;
 
-  const rawPost = await client.fetch(query, { slug });
+  const rawPost = await safeFetchSingle<SanityPost>(query, { slug });
 
   // Return 404 if post not found
   if (!rawPost) {
@@ -138,61 +141,76 @@ export default async function BlogPostPage({
   }
 
   // Ensure we have string values for title and description
-  const title = (typeof post.title === 'string' ? post.title : "Untitled");
-  const description = (typeof post.smallDescription === 'string' ? post.smallDescription : t('meta.description'));
+  const title = typeof post.title === "string" ? post.title : "Untitled";
+  const description =
+    typeof post.smallDescription === "string"
+      ? post.smallDescription
+      : t("meta.description");
 
   // Ensure body is properly extracted (it should be an array of blocks, not an i18n object)
   // If it's still an i18n object structure, try to extract the value
   let body: unknown = post.body;
-  if (body && !Array.isArray(body) && typeof body === 'object' && 'value' in body) {
+  if (
+    body &&
+    !Array.isArray(body) &&
+    typeof body === "object" &&
+    "value" in body
+  ) {
     body = (body as { value: unknown }).value;
   }
   const bodyBlocks = Array.isArray(body) ? body : [];
 
   // Format date for display and structured data
-  const publishDate = post.publishedAt ? new Date(post.publishedAt).toISOString() : new Date().toISOString();
+  const publishDate = post.publishedAt
+    ? new Date(post.publishedAt).toISOString()
+    : new Date().toISOString();
   const formattedDate = post.publishedAt
-    ? new Date(post.publishedAt).toLocaleDateString(locale === 'en' ? 'en-US' : 'es-ES', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      })
-    : '';
+    ? new Date(post.publishedAt).toLocaleDateString(
+        locale === "en" ? "en-US" : "es-ES",
+        {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        },
+      )
+    : "";
 
   // Create structured data for Google
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": title,
-    "image": post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : "https://alanis.dev/opengraph-image",
-    "datePublished": publishDate,
-    "dateModified": publishDate,
-    "inLanguage": locale === 'en' ? 'en-US' : 'es-ES',
-    "author": {
+    headline: title,
+    image: post.mainImage
+      ? urlFor(post.mainImage).width(1200).height(630).url()
+      : "https://alanis.dev/opengraph-image",
+    datePublished: publishDate,
+    dateModified: publishDate,
+    inLanguage: locale === "en" ? "en-US" : "es-ES",
+    author: {
       "@type": "Person",
-      "name": post.author || "Alanis Dev",
-      "url": generateLocalizedUrl(locale, '/about')
+      name: post.author || "Alanis Dev",
+      url: generateLocalizedUrl(locale, "/about"),
     },
-    "publisher": {
+    publisher: {
       "@type": "Organization",
-      "name": "Alanis Dev",
-      "logo": {
+      name: "Alanis Dev",
+      logo: {
         "@type": "ImageObject",
-        "url": "https://alanis.dev/images/logo.png"
-      }
+        url: "https://alanis.dev/images/logo.png",
+      },
     },
     description,
-    "mainEntityOfPage": {
+    mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": generateLocalizedUrl(locale, `/blog/${slug}`)
-    }
+      "@id": generateLocalizedUrl(locale, `/blog/${slug}`),
+    },
   };
 
   // Breadcrumb items for structured data
   const breadcrumbItems = [
-    { name: tNav('home'), url: generateLocalizedUrl(locale, '/') },
-    { name: t('title'), url: generateLocalizedUrl(locale, '/blog') },
-    { name: title, url: generateLocalizedUrl(locale, `/blog/${slug}`) }
+    { name: tNav("home"), url: generateLocalizedUrl(locale, "/") },
+    { name: t("title"), url: generateLocalizedUrl(locale, "/blog") },
+    { name: title, url: generateLocalizedUrl(locale, `/blog/${slug}`) },
   ];
 
   return (
@@ -218,8 +236,8 @@ export default async function BlogPostPage({
 
               {/* Add publication date */}
               {formattedDate && (
-                <div className="mt-2 mb-6 text-base text-body-color dark:text-body-color-dark">
-                  {t('publishedOn')} {formattedDate}
+                <div className="mb-6 mt-2 text-base text-body-color dark:text-body-color-dark">
+                  {t("publishedOn")} {formattedDate}
                 </div>
               )}
 
@@ -233,7 +251,7 @@ export default async function BlogPostPage({
                   className="mt-8 rounded-xl"
                 />
               )}
-              <div className="prose prose-xl prose-blue mt-16 dark:prose-invert prose-li:marker:text-primary prose-a:text-primary">
+              <div className="prose prose-xl prose-blue mt-16 dark:prose-invert prose-a:text-primary prose-li:marker:text-primary">
                 <PortableText
                   value={bodyBlocks}
                   components={portableTextComponents}

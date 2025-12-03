@@ -1,18 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Swiper as SwiperObject } from "swiper";
 import { Autoplay, FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-
-import "./slideshow.css";
 import { ProductImage } from "../product-image/ProductImage";
+import "./slideshow.css";
 
 interface Props {
   images: string[];
@@ -61,7 +58,7 @@ export const ProductSlideshow = ({ images, title, className }: Props) => {
       >
         {images.map((image) => (
           <SwiperSlide key={image}>
-             <ProductImage
+            <ProductImage
               width={1024}
               height={800}
               src={image}

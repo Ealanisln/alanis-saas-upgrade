@@ -1,6 +1,6 @@
 "use client";
-import { Link } from "@/lib/navigation";
 import { useTranslations } from "next-intl";
+import { Link } from "@/lib/navigation";
 
 const Breadcrumb = ({
   pageName,

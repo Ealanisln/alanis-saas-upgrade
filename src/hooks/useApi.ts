@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { createApiClient } from '@/lib/api/client';
-import { QuoteRequest, QuoteResponse, EmailRequest } from '@/lib/api/types';
+import { useMemo } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { createApiClient } from "@/lib/api/client";
+import { QuoteRequest, EmailRequest } from "@/lib/api/types";
 
 export function useApi() {
   const client = useMemo(() => createApiClient(), []);
@@ -10,7 +10,7 @@ export function useApi() {
   // Queries
   const useQuotes = () => {
     return useQuery({
-      queryKey: ['quotes'],
+      queryKey: ["quotes"],
       queryFn: () => client.fetchQuotes(),
       staleTime: 5 * 60 * 1000, // 5 minutes
     });
@@ -21,7 +21,7 @@ export function useApi() {
     return useMutation({
       mutationFn: (quoteData: QuoteRequest) => client.createQuote(quoteData),
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['quotes'] });
+        queryClient.invalidateQueries({ queryKey: ["quotes"] });
       },
     });
   };
@@ -34,7 +34,8 @@ export function useApi() {
 
   const useSyncWithInvoiceNinja = () => {
     return useMutation({
-      mutationFn: (quoteData: any) => client.syncWithInvoiceNinja(quoteData),
+      mutationFn: (quoteData: QuoteRequest) =>
+        client.syncWithInvoiceNinja(quoteData),
     });
   };
 

@@ -4,10 +4,10 @@ export { default as Footer } from "./Footer";
 export { default as ScrollUp } from "./Common/ScrollUp";
 export { default as ScrollToTop } from "./ScrollToTop";
 
-// Content Components  
+// Content Components
 export { default as Hero } from "./Hero";
-export { default as AboutSectionOne } from './About/AboutSectionOne';
-export { default as AboutSectionTwo } from './About/AboutSectionTwo';
+export { default as AboutSectionOne } from "./About/AboutSectionOne";
+export { default as AboutSectionTwo } from "./About/AboutSectionTwo";
 export { default as Features } from "./Features";
 export { default as Video } from "./Video";
 export { default as Brands } from "./Brands";
@@ -28,15 +28,13 @@ export { QuoteFormModal } from "./Calculator/QuoteFormModal";
 export { default as Portfolio } from "./Portfolio";
 export { default as ModernPortfolio } from "./Portfolio/ModernPortfolio";
 export { default as ProjectCard } from "./Portfolio/ProjectCard";
-export { default as ProjectModal } from "./Portfolio/ProjectModal";
-export { default as TechBadge } from "./Portfolio/TechBadge";
 
 // Plans Components
 export { default as Plans } from "./Plans";
 
 // E-commerce Components
 export { default as Ecommerce } from "./Ecommerce";
-export { default as PrintObject } from './Checkout/PrintObject';
+export { default as PrintObject } from "./Checkout/PrintObject";
 export { ProductImage } from "./Product/product-image/ProductImage";
 export { ProductSlideshow } from "./Product/slideshow/ProductSlideshow";
 export { ProductMobileSlideshow } from "./Product/slideshow/ProductMobileSlideshow";

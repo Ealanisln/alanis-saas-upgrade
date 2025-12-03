@@ -4,12 +4,17 @@ export interface ProjectImage {
   alt: string;
 }
 
+export interface LocalizedContent {
+  en: string;
+  es: string;
+}
+
 export interface Project {
   id: number;
-  title: string;
-  description: string;
+  title: LocalizedContent;
+  description: LocalizedContent;
   images: ProjectImage[];
   technologies: string[];
   liveUrl: string;
   githubUrl: string;
-} 
+}

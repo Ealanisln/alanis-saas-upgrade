@@ -4,8 +4,12 @@ import AboutSectionOne from "@/components/About/AboutSectionOne";
 import AboutSectionTwo from "@/components/About/AboutSectionTwo";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
-import { generateAlternates, generateLocalizedUrl, getLocaleCode } from "@/lib/seo";
 import { siteConfig } from "@/config/i18n";
+import {
+  generateAlternates,
+  generateLocalizedUrl,
+  getLocaleCode,
+} from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -30,7 +34,7 @@ export async function generateMetadata({
           width: 1200,
           height: 630,
           alt: t("title"),
-        }
+        },
       ],
     },
     twitter: {
@@ -39,7 +43,7 @@ export async function generateMetadata({
       description: t("description"),
       images: ["/about/opengraph-image"],
     },
-    alternates: generateAlternates(locale, '/about')
+    alternates: generateAlternates(locale, "/about"),
   };
 }
 
@@ -50,33 +54,36 @@ const AboutPage = async ({
 }) => {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "about.hero" });
-  const tBreadcrumbs = await getTranslations({ locale, namespace: "common.breadcrumbs" });
+  const tBreadcrumbs = await getTranslations({
+    locale,
+    namespace: "common.breadcrumbs",
+  });
   const tJsonLd = await getTranslations({ locale, namespace: "about.jsonLd" });
 
   // Create structured data for the About page with locale-specific description
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": siteConfig.author,
-    "alternateName": siteConfig.name,
-    "description": tJsonLd('description'),
-    "url": generateLocalizedUrl(locale, '/about'),
-    "image": `${siteConfig.url}/about/opengraph-image`,
-    "sameAs": [
+    name: siteConfig.author,
+    alternateName: siteConfig.name,
+    description: tJsonLd("description"),
+    url: generateLocalizedUrl(locale, "/about"),
+    image: `${siteConfig.url}/about/opengraph-image`,
+    sameAs: [
       siteConfig.social.github,
       siteConfig.social.linkedin,
-      siteConfig.social.twitter
+      siteConfig.social.twitter,
     ],
-    "jobTitle": tJsonLd('jobTitle'),
-    "worksFor": {
+    jobTitle: tJsonLd("jobTitle"),
+    worksFor: {
       "@type": "Organization",
-      "name": tJsonLd('worksFor')
+      name: tJsonLd("worksFor"),
     },
-    "nationality": {
+    nationality: {
       "@type": "Country",
-      "name": "Mexico"
+      name: "Mexico",
     },
-    "knowsAbout": [
+    knowsAbout: [
       "JavaScript",
       "TypeScript",
       "React",
@@ -84,14 +91,17 @@ const AboutPage = async ({
       "Node.js",
       "PostgreSQL",
       "Web Development",
-      "Full-Stack Development"
-    ]
+      "Full-Stack Development",
+    ],
   };
 
   // Breadcrumb items for structured data with translations
   const breadcrumbItems = [
-    { name: tBreadcrumbs('home'), url: generateLocalizedUrl(locale, '/') },
-    { name: tBreadcrumbs('about'), url: generateLocalizedUrl(locale, '/about') }
+    { name: tBreadcrumbs("home"), url: generateLocalizedUrl(locale, "/") },
+    {
+      name: tBreadcrumbs("about"),
+      url: generateLocalizedUrl(locale, "/about"),
+    },
   ];
 
   return (
@@ -105,10 +115,7 @@ const AboutPage = async ({
       {/* Add breadcrumb structured data */}
       <BreadcrumbJsonLd items={breadcrumbItems} />
 
-      <Breadcrumb
-        pageName={t('title')}
-        description={t('description')}
-      />
+      <Breadcrumb pageName={t("title")} description={t("description")} />
       <AboutSectionOne />
       <AboutSectionTwo />
     </>
