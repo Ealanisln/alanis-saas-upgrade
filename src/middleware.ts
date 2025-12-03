@@ -13,6 +13,16 @@ export default function middleware(request: NextRequest) {
     return new NextResponse(null, { status: 404 });
   }
 
+  // Redirect legacy /en URLs to root (English is at root, not /en)
+  // This fixes "Duplicate without user-selected canonical" issues in GSC
+  if (pathname === "/en" || pathname.startsWith("/en/")) {
+    const newPathname =
+      pathname === "/en" ? "/" : pathname.replace(/^\/en/, "");
+    const url = request.nextUrl.clone();
+    url.pathname = newPathname;
+    return NextResponse.redirect(url, 301);
+  }
+
   // Get the response from next-intl middleware
   const response = intlMiddleware(request);
 
