@@ -82,9 +82,6 @@ export async function generateMetadata({
         "max-snippet": -1,
       },
     },
-    verification: {
-      google: "verification_token", // Replace with your actual verification token
-    },
   };
 }
 
