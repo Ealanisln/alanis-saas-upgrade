@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
-import { safeFetchSingle, urlFor } from "@/sanity/lib/client";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { safeFetchSingle, urlFor } from "@/sanity/lib/client";
 
 // Route segment config
 export const runtime = "edge";

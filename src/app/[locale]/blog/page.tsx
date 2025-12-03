@@ -6,6 +6,7 @@ import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import { generateAlternates, generateLocalizedUrl } from "@/lib/seo";
 import { safeFetch } from "@/sanity/lib/client";
 import { localizePost } from "@/sanity/lib/i18n";
+import { SanityPost } from "@/sanity/lib/types";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
 
 export const revalidate = 30;
@@ -72,12 +73,11 @@ async function getData(locale: string): Promise<SimpleBlogCard[]> {
     }
   }
   `;
-  const data = await safeFetch(query);
+  const data = (await safeFetch(query)) as SanityPost[];
 
   // Localize all posts and filter out nulls
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const localized = data
-    .map((post: any) => localizePost(post, locale))
+    .map((post) => localizePost(post, locale))
     .filter((post) => post !== null) as SimpleBlogCard[];
 
   return localized;

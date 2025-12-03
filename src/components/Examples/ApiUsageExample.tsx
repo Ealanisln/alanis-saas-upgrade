@@ -57,11 +57,7 @@ export const ApiUsageExample: React.FC = () => {
     };
 
     try {
-      const result = await createQuote(exampleQuote);
-      if (process.env.NODE_ENV === "development") {
-        // eslint-disable-next-line no-console
-        console.log("Quote created:", result);
-      }
+      await createQuote(exampleQuote);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error("Error creating quote:", err);
@@ -76,15 +72,11 @@ export const ApiUsageExample: React.FC = () => {
     }
 
     try {
-      const result = await sendEmailMutation.mutateAsync({
+      await sendEmailMutation.mutateAsync({
         to: emailData.to.filter((email) => email.trim() !== ""),
         subject: emailData.subject,
         content: emailData.content,
       });
-      if (process.env.NODE_ENV === "development") {
-        // eslint-disable-next-line no-console
-        console.log("Email sent:", result);
-      }
       setEmailData({ to: [""], subject: "", content: "" });
     } catch (err) {
       // eslint-disable-next-line no-console
@@ -96,11 +88,7 @@ export const ApiUsageExample: React.FC = () => {
   const handleDirectApiCall = async () => {
     try {
       // Direct API call example
-      const response = await client.get("/quotes");
-      if (process.env.NODE_ENV === "development") {
-        // eslint-disable-next-line no-console
-        console.log("Direct API response:", response);
-      }
+      await client.get("/quotes");
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error("Direct API error:", err);

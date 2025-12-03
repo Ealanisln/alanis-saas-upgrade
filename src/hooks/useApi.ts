@@ -34,8 +34,8 @@ export function useApi() {
 
   const useSyncWithInvoiceNinja = () => {
     return useMutation({
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      mutationFn: (quoteData: any) => client.syncWithInvoiceNinja(quoteData),
+      mutationFn: (quoteData: QuoteRequest) =>
+        client.syncWithInvoiceNinja(quoteData),
     });
   };
 

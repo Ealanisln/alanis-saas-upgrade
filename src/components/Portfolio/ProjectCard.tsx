@@ -2,12 +2,12 @@
 
 import { FC, useState, useRef, useCallback } from "react";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
 import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
-import { Project } from "@/lib/types";
-import { Card, CardContent } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Project } from "@/lib/types";
 
 interface ProjectCardProps {
   project: Project;

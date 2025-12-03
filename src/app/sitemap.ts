@@ -2,15 +2,21 @@ import { MetadataRoute } from "next";
 import { locales, defaultLocale, siteConfig } from "@/config/i18n";
 import { safeFetch } from "@/sanity/lib/client";
 
+// Type for sitemap post data from GROQ query
+interface SitemapPost {
+  slug: string;
+  _updatedAt: string;
+}
+
 // Function to fetch all blog posts
-async function getAllPosts() {
+async function getAllPosts(): Promise<SitemapPost[]> {
   const query = `
     *[_type == 'post'] {
       "slug": slug.current,
       _updatedAt
     }
   `;
-  return safeFetch(query);
+  return safeFetch(query) as Promise<SitemapPost[]>;
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -22,8 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Create sitemap entries for blog posts for each locale
   const blogEntries: MetadataRoute.Sitemap = [];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  posts.forEach((post: any) => {
+  posts.forEach((post: SitemapPost) => {
     locales.forEach((locale) => {
       const url =
         locale === defaultLocale
