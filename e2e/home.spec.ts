@@ -7,10 +7,18 @@ test.describe("Home Page", () => {
       await expect(page).toHaveTitle(/Alanis/i);
     });
 
-    test("should display navigation", async ({ page }) => {
+    test("should display navigation", async ({ page, isMobile }) => {
       await page.goto("/");
-      const nav = page.locator("nav");
-      await expect(nav).toBeVisible();
+      if (isMobile) {
+        // On mobile, check for hamburger menu button instead
+        const menuButton = page.locator(
+          'button[aria-label*="menu"], button[aria-label*="Menu"], #navbarToggler',
+        );
+        await expect(menuButton).toBeVisible();
+      } else {
+        const nav = page.locator("nav");
+        await expect(nav).toBeVisible();
+      }
     });
 
     test("should display hero section", async ({ page }) => {
@@ -45,10 +53,18 @@ test.describe("Home Page", () => {
       await expect(page).toHaveTitle(/Alanis/i);
     });
 
-    test("should display navigation in Spanish", async ({ page }) => {
+    test("should display navigation in Spanish", async ({ page, isMobile }) => {
       await page.goto("/es");
-      const nav = page.locator("nav");
-      await expect(nav).toBeVisible();
+      if (isMobile) {
+        // On mobile, check for hamburger menu button instead
+        const menuButton = page.locator(
+          'button[aria-label*="menu"], button[aria-label*="Menu"], #navbarToggler',
+        );
+        await expect(menuButton).toBeVisible();
+      } else {
+        const nav = page.locator("nav");
+        await expect(nav).toBeVisible();
+      }
     });
   });
 });

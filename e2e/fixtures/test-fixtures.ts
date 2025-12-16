@@ -11,6 +11,8 @@ interface LocaleFixtures {
  * Custom test fixtures for locale-aware testing
  * Handles the `localePrefix: 'as-needed'` routing pattern
  * where English (default) has no prefix, Spanish uses /es
+ *
+ * Note: `isMobile` is a built-in Playwright fixture, no need to define it here
  */
 export const test = base.extend<LocaleFixtures>({
   locale: ["en" as Locale, { option: true }],

@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,7 +8,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   /* iOS Safari fixes */
   @supports (-webkit-touch-callout: none) {
     .min-h-screen {
@@ -23,12 +21,17 @@
       padding-bottom: env(safe-area-inset-bottom);
     }
   }
-  
+
   /* Set line heights consistently for text elements */
-  h1, h2, h3, h4, h5, h6 {
-    @apply tracking-tight leading-tight;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply leading-tight tracking-tight;
   }
-  
+
   p {
     @apply leading-relaxed;
   }
@@ -54,12 +57,12 @@
   input#checkboxLabel:checked ~ .box span {
     @apply opacity-100;
   }
-  
+
   /* Pricing component specific styles */
   .pricing-box {
     @apply transition-all duration-300 ease-in-out;
   }
-  
+
   /* portafolio animations */
   @keyframes fadeIn {
     from {

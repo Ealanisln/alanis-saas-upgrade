@@ -31,7 +31,7 @@ export async function generateMetadata({
           width: 1200,
           height: 630,
           alt: t("title"),
-        }
+        },
       ],
     },
     twitter: {
@@ -42,7 +42,7 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `/${locale}/plans`,
-    }
+    },
   };
 }
 
@@ -52,63 +52,73 @@ export default async function PricingPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const tBreadcrumbs = await getTranslations({ locale, namespace: "common.breadcrumbs" });
+  const tBreadcrumbs = await getTranslations({
+    locale,
+    namespace: "common.breadcrumbs",
+  });
   const tJsonLd = await getTranslations({ locale, namespace: "plans.jsonLd" });
 
   // Create structured data for the Pricing page with locale-specific content
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": tJsonLd('name'),
-    "description": tJsonLd('description'),
-    "url": generateLocalizedUrl(locale, '/plans'),
-    "provider": {
+    name: tJsonLd("name"),
+    description: tJsonLd("description"),
+    url: generateLocalizedUrl(locale, "/plans"),
+    provider: {
       "@type": "Person",
-      "name": "Emmanuel Alanis",
-      "url": generateLocalizedUrl(locale, '/about')
+      name: "Emmanuel Alanis",
+      url: generateLocalizedUrl(locale, "/about"),
     },
-    "offers": [
+    offers: [
       {
         "@type": "Offer",
-        "name": tJsonLd('offers.starter.name'),
-        "price": "9000 MXN",
-        "description": tJsonLd('offers.starter.description'),
-        "category": "Web Development"
+        name: tJsonLd("offers.starter.name"),
+        price: "9000",
+        priceCurrency: "USD",
+        description: tJsonLd("offers.starter.description"),
+        category: "Web Development",
       },
       {
         "@type": "Offer",
-        "name": tJsonLd('offers.business.name'),
-        "price": "15000 MXN",
-        "description": tJsonLd('offers.business.description'),
-        "category": "Web Development"
+        name: tJsonLd("offers.business.name"),
+        price: "15000",
+        priceCurrency: "USD",
+        description: tJsonLd("offers.business.description"),
+        category: "Web Development",
       },
       {
         "@type": "Offer",
-        "name": tJsonLd('offers.professional.name'),
-        "price": "35000 MXN",
-        "description": tJsonLd('offers.professional.description'),
-        "category": "Web Development"
+        name: tJsonLd("offers.professional.name"),
+        price: "35000",
+        priceCurrency: "USD",
+        description: tJsonLd("offers.professional.description"),
+        category: "Web Development",
       },
       {
         "@type": "Offer",
-        "name": tJsonLd('offers.enterprise.name'),
-        "price": "75000 MXN",
-        "description": tJsonLd('offers.enterprise.description'),
-        "category": "Web Development"
+        name: tJsonLd("offers.enterprise.name"),
+        price: "75000",
+        priceCurrency: "USD",
+        description: tJsonLd("offers.enterprise.description"),
+        category: "Web Development",
       },
       {
         "@type": "Offer",
-        "name": tJsonLd('offers.custom.name'),
-        "description": tJsonLd('offers.custom.description'),
-        "category": "Web Development"
-      }
-    ]
+        name: tJsonLd("offers.custom.name"),
+        description: tJsonLd("offers.custom.description"),
+        category: "Web Development",
+      },
+    ],
   };
 
   // Breadcrumb items for structured data with translations
   const breadcrumbItems = [
-    { name: tBreadcrumbs('home'), url: generateLocalizedUrl(locale, '/') },
-    { name: tBreadcrumbs('plans'), url: generateLocalizedUrl(locale, '/plans') }
+    { name: tBreadcrumbs("home"), url: generateLocalizedUrl(locale, "/") },
+    {
+      name: tBreadcrumbs("plans"),
+      url: generateLocalizedUrl(locale, "/plans"),
+    },
   ];
 
   return (
@@ -118,7 +128,7 @@ export default async function PricingPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      
+
       {/* Add breadcrumb structured data */}
       <BreadcrumbJsonLd items={breadcrumbItems} />
 
