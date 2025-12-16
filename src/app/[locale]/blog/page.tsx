@@ -112,7 +112,7 @@ export default async function Blog({
       name: "Alanis Dev",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.alanis.dev/images/logo.png",
+        url: "https://alanis.dev/images/logo.png",
       },
     },
     blogPosts: data.map((post) => ({
