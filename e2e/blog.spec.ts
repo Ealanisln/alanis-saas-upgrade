@@ -40,20 +40,22 @@ test.describe("Blog Page", () => {
       await page.goto("/blog");
       await page.waitForLoadState("load");
 
-      // Find first blog post link
-      const postLink = page.locator('a[href*="/blog/"]').first();
+      // Find first blog post link (exclude pagination/category links)
+      const postLink = page
+        .locator('a[href*="/blog/"]:not([href$="/blog/"])')
+        .first();
       const hasPost = (await postLink.count()) > 0;
 
       if (hasPost) {
-        await postLink.click();
-        await page.waitForLoadState("load");
+        // Click and wait for navigation
+        await Promise.all([page.waitForURL(/\/blog\/.+/), postLink.click()]);
 
-        // Should be on a blog post page
-        expect(page.url()).toMatch(/\/blog\/.+/);
+        // Should be on a blog post page (with or without locale prefix)
+        expect(page.url()).toMatch(/\/(en\/)?blog\/.+/);
 
-        // Post should have content
-        const articleContent = page.locator("article, main");
-        await expect(articleContent).toBeVisible();
+        // Post should have content - wait for article or prose content
+        const articleContent = page.locator("article, .prose, main");
+        await expect(articleContent.first()).toBeVisible();
       }
     });
   });
