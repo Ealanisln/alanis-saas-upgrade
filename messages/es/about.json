@@ -2,14 +2,22 @@
   "meta": {
     "title": "Acerca de mí - Alanis",
     "description": "Conoce más sobre mi experiencia como desarrollador full-stack y mi pasión por crear aplicaciones web excepcionales.",
-    "keywords": ["Emmanuel Alanis", "desarrollador web", "React", "Next.js", "TypeScript", "desarrollador full-stack", "ingeniero de software"]
+    "keywords": [
+      "Emmanuel Alanis",
+      "desarrollador web",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "desarrollador full-stack",
+      "ingeniero de software"
+    ]
   },
   "title": "Acerca de mí",
   "subtitle": "Mi pasión por el desarrollo web",
   "description": "Soy un desarrollador full-stack apasionado por crear aplicaciones web que no solo funcionen bien, sino que también brinden una excelente experiencia de usuario.",
   "hero": {
     "title": "Acerca de mí",
-    "description": "👋 ¡Hola! Soy Emmanuel, un desarrollador web 🇲🇽 mexicano. Tengo una pasión por desarrollar aplicaciones web modernas 🌐 y estoy constantemente aprendiendo algo nuevo. Además, disfruto ayudar a otros a crecer y desarrollarse junto a mí. 🧱"
+    "description": "¡Hola! Soy Emmanuel, un desarrollador web mexicano. Tengo una pasión por desarrollar aplicaciones web modernas y estoy constantemente aprendiendo algo nuevo. Además, disfruto ayudar a otros a crecer y desarrollarse junto a mí."
   },
   "section": {
     "title": "La mejor solución para tu negocio.",
@@ -35,9 +43,75 @@
       "description": "Si necesitas algo especial, no te preocupes; estaré encantado de asistirte y ofrecerte la mejor opción según tus necesidades."
     }
   },
+  "stats": {
+    "title": "Mi Trayectoria",
+    "subtitle": "Números que reflejan compromiso y experiencia",
+    "years": {
+      "value": "5+",
+      "label": "Años de Experiencia"
+    },
+    "technologies": {
+      "value": "10+",
+      "label": "Tecnologías Dominadas"
+    },
+    "satisfaction": {
+      "value": "100%",
+      "label": "Satisfacción del Cliente"
+    }
+  },
+  "techStack": {
+    "title": "Tecnologías con las que Trabajo",
+    "subtitle": "Herramientas modernas para soluciones modernas"
+  },
+  "services": {
+    "title": "Servicios que Ofrezco",
+    "subtitle": "Soluciones integrales adaptadas a tus necesidades",
+    "items": {
+      "webApp": {
+        "title": "Desarrollo de Aplicaciones Web",
+        "description": "Aplicaciones web personalizadas construidas con frameworks modernos como React y Next.js para un rendimiento óptimo y excelente experiencia de usuario."
+      },
+      "ecommerce": {
+        "title": "Soluciones E-commerce",
+        "description": "Soluciones completas de tienda en línea con procesamiento de pagos seguro, gestión de inventario y experiencias de compra sin fricciones."
+      },
+      "api": {
+        "title": "Desarrollo e Integración de APIs",
+        "description": "APIs RESTful e integraciones de terceros para conectar tus sistemas y automatizar flujos de trabajo de manera eficiente."
+      },
+      "performance": {
+        "title": "Optimización de Rendimiento",
+        "description": "Optimización de velocidad, mejoras SEO y mejoras en Core Web Vitals para impulsar el rendimiento de tu sitio."
+      }
+    }
+  },
+  "testimonials": {
+    "title": "Lo que Dicen los Clientes",
+    "subtitle": "Comentarios de quienes han trabajado conmigo",
+    "items": [
+      {
+        "quote": "Emmanuel entregó nuestro proyecto a tiempo y superó nuestras expectativas. Su atención al detalle y comunicación durante todo el proceso fue excepcional.",
+        "name": "María García",
+        "role": "CEO",
+        "company": "TechStart Inc."
+      },
+      {
+        "quote": "Trabajar con Emmanuel transformó nuestra presencia en línea. Nuestro sitio web ahora es más rápido, más moderno, y nuestros clientes aman la nueva experiencia.",
+        "name": "Carlos Rodríguez",
+        "role": "Fundador",
+        "company": "Digital Solutions"
+      },
+      {
+        "quote": "Profesional, confiable y altamente capacitado. Emmanuel entendió las necesidades de nuestro negocio y entregó una solución que se ajusta perfectamente a nuestros requisitos.",
+        "name": "Ana Martínez",
+        "role": "Directora de Marketing",
+        "company": "Growth Agency"
+      }
+    ]
+  },
   "jsonLd": {
     "description": "Desarrollador web mexicano especializado en React, Next.js y TypeScript",
     "jobTitle": "Desarrollador Full-Stack",
     "worksFor": "Freelance"
   }
-} 
+}
