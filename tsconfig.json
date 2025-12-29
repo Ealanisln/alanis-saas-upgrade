@@ -39,6 +39,9 @@
     "vitest.setup.ts",
     "migrations/**/*",
     "src/app/new-ui/**/*",
-    "e2e/**/*"
+    "e2e/**/*",
+    "**/__tests__/**/*",
+    "**/*.test.ts",
+    "**/*.test.tsx"
   ]
 }

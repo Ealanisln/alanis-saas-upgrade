@@ -144,6 +144,9 @@ importers:
         specifier: ^5.0.3
         version: 5.0.3(@types/react@19.0.8)(immer@10.1.3)(react@19.2.1)(use-sync-external-store@1.6.0(react@19.2.1))
     devDependencies:
+      '@axe-core/playwright':
+        specifier: ^4.11.0
+        version: 4.11.0(playwright-core@1.57.0)
       '@playwright/test':
         specifier: ^1.57.0
         version: 1.57.0
@@ -313,6 +316,11 @@ packages:
   '@aws-lite/ssm@0.2.5':
     resolution: {integrity: sha512-1B8mZ79ySqlTEfSQ87KZ0XkmTOKQFMO3lUYUGUtwNTUncJINr6nhRWEjk128oBWwEQnpJ7NfpDPjdfg1ICe3xw==}
     engines: {node: '>=16'}
+
+  '@axe-core/playwright@4.11.0':
+    resolution: {integrity: sha512-70vBT/Ylqpm65RQz2iCG2o0JJCEG/WCNyefTr2xcOcr1CoSee60gNQYUMZZ7YukoKkFLv26I/jjlsvwwp532oQ==}
+    peerDependencies:
+      playwright-core: '>= 1.0.0'
 
   '@babel/code-frame@7.27.1':
     resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
@@ -3489,6 +3497,10 @@ packages:
 
   axe-core@4.10.2:
     resolution: {integrity: sha512-RE3mdQ7P3FRSe7eqCWoeQ/Z9QXrtniSjp1wUjt5nRC3WIpz5rSCve6o3fsZ2aCpJtrZjSZgjwXAoTO5k4tEI0w==}
+    engines: {node: '>=4'}
+
+  axe-core@4.11.0:
+    resolution: {integrity: sha512-ilYanEU8vxxBexpJd8cWM4ElSQq4QctCLKih0TSfjIfCQTeyH/6zVrmIJfLPrKTKJRbiG+cfnZbQIjAlJmF1jQ==}
     engines: {node: '>=4'}
 
   axios@1.12.2:
@@ -8323,6 +8335,11 @@ snapshots:
 
   '@aws-lite/ssm@0.2.5': {}
 
+  '@axe-core/playwright@4.11.0(playwright-core@1.57.0)':
+    dependencies:
+      axe-core: 4.11.0
+      playwright-core: 1.57.0
+
   '@babel/code-frame@7.27.1':
     dependencies:
       '@babel/helper-validator-identifier': 7.27.1
@@ -12021,6 +12038,8 @@ snapshots:
   aws4@1.13.2: {}
 
   axe-core@4.10.2: {}
+
+  axe-core@4.11.0: {}
 
   axios@1.12.2:
     dependencies:
