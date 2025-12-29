@@ -2,14 +2,22 @@
   "meta": {
     "title": "About me - Alanis",
     "description": "Learn more about my experience as a full-stack developer and my passion for creating exceptional web applications.",
-    "keywords": ["Emmanuel Alanis", "web developer", "React", "Next.js", "TypeScript", "full-stack developer", "software engineer"]
+    "keywords": [
+      "Emmanuel Alanis",
+      "web developer",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "full-stack developer",
+      "software engineer"
+    ]
   },
   "title": "About me",
   "subtitle": "My passion for web development",
   "description": "I am a full-stack developer passionate about creating web applications that not only work well, but also provide an excellent user experience.",
   "hero": {
     "title": "About me",
-    "description": "👋 Hello! I'm Emmanuel, a Mexican web developer 🇲🇽. I have a passion for developing modern web applications 🌐 and I'm constantly learning something new. Also, I enjoy helping others grow and develop alongside me. 🧱"
+    "description": "Hello! I'm Emmanuel, a Mexican web developer. I have a passion for developing modern web applications and I'm constantly learning something new. Also, I enjoy helping others grow and develop alongside me."
   },
   "section": {
     "title": "The best solution for your business.",
@@ -35,9 +43,75 @@
       "description": "If you need something special, don't worry; we'd be happy to assist you and offer the best option according to your needs."
     }
   },
+  "stats": {
+    "title": "My Track Record",
+    "subtitle": "Numbers that reflect commitment and experience",
+    "years": {
+      "value": "5+",
+      "label": "Years Experience"
+    },
+    "technologies": {
+      "value": "10+",
+      "label": "Technologies Mastered"
+    },
+    "satisfaction": {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  },
+  "techStack": {
+    "title": "Technologies I Work With",
+    "subtitle": "Modern tools for modern solutions"
+  },
+  "services": {
+    "title": "Services I Offer",
+    "subtitle": "Comprehensive solutions tailored to your needs",
+    "items": {
+      "webApp": {
+        "title": "Web Application Development",
+        "description": "Custom web applications built with modern frameworks like React and Next.js for optimal performance and user experience."
+      },
+      "ecommerce": {
+        "title": "E-commerce Solutions",
+        "description": "Complete online store solutions with secure payment processing, inventory management, and seamless checkout experiences."
+      },
+      "api": {
+        "title": "API Development & Integration",
+        "description": "RESTful APIs and third-party integrations to connect your systems and automate workflows efficiently."
+      },
+      "performance": {
+        "title": "Performance Optimization",
+        "description": "Speed optimization, SEO improvements, and Core Web Vitals enhancements to boost your site's performance."
+      }
+    }
+  },
+  "testimonials": {
+    "title": "What Clients Say",
+    "subtitle": "Feedback from those who have worked with me",
+    "items": [
+      {
+        "quote": "Emmanuel delivered our project on time and exceeded our expectations. His attention to detail and communication throughout the process was exceptional.",
+        "name": "Maria Garcia",
+        "role": "CEO",
+        "company": "TechStart Inc."
+      },
+      {
+        "quote": "Working with Emmanuel transformed our online presence. Our website is now faster, more modern, and our customers love the new experience.",
+        "name": "Carlos Rodriguez",
+        "role": "Founder",
+        "company": "Digital Solutions"
+      },
+      {
+        "quote": "Professional, reliable, and highly skilled. Emmanuel understood our business needs and delivered a solution that perfectly fits our requirements.",
+        "name": "Ana Martinez",
+        "role": "Marketing Director",
+        "company": "Growth Agency"
+      }
+    ]
+  },
   "jsonLd": {
     "description": "Mexican web developer specialized in React, Next.js and TypeScript",
     "jobTitle": "Full-Stack Developer",
     "worksFor": "Freelance"
   }
-} 
+}

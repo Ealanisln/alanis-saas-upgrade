@@ -2,6 +2,10 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import AboutSectionOne from "@/components/About/AboutSectionOne";
 import AboutSectionTwo from "@/components/About/AboutSectionTwo";
+// import ClientTestimonials from "@/components/About/ClientTestimonials"; // TODO: Enable when real testimonials available
+import ProfessionalStats from "@/components/About/ProfessionalStats";
+import ServicesExpanded from "@/components/About/ServicesExpanded";
+import TechStackShowcase from "@/components/About/TechStackShowcase";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import { siteConfig } from "@/config/i18n";
@@ -117,7 +121,12 @@ const AboutPage = async ({
 
       <Breadcrumb pageName={t("title")} description={t("description")} />
       <AboutSectionOne />
+      <ProfessionalStats />
+      <TechStackShowcase />
       <AboutSectionTwo />
+      <ServicesExpanded />
+      {/* TODO: Enable testimonials when real client feedback is available */}
+      {/* <ClientTestimonials /> */}
     </>
   );
 };
