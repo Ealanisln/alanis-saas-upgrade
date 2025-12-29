@@ -184,7 +184,13 @@ test.describe("Accessibility - Page Scans", () => {
 test.describe("Accessibility - Navigation", () => {
   test("navigation should be keyboard accessible", async ({ page }) => {
     await page.goto("/");
-    await page.waitForLoadState("load");
+    await page.waitForLoadState("domcontentloaded");
+
+    // Wait for navigation to be ready (webkit needs explicit element wait)
+    await page
+      .locator("nav a, header a, [tabindex]")
+      .first()
+      .waitFor({ state: "visible" });
 
     // Tab to first focusable element
     await page.keyboard.press("Tab");
@@ -266,7 +272,13 @@ test.describe("Accessibility - Document Structure", () => {
 
   test("page should have at least one h1 heading", async ({ page }) => {
     await page.goto("/");
-    await page.waitForLoadState("load");
+    await page.waitForLoadState("domcontentloaded");
+
+    // Wait for main content to render (webkit needs explicit element wait)
+    await page
+      .locator("h1")
+      .first()
+      .waitFor({ state: "visible", timeout: 10000 });
 
     const h1 = page.locator("h1");
     const h1Count = await h1.count();
