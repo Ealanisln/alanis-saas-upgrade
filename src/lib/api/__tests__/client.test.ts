@@ -1,5 +1,5 @@
+import axios, { InternalAxiosRequestConfig } from "axios";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { InternalAxiosRequestConfig } from "axios";
 
 // Store interceptor callbacks for testing
 let requestInterceptorSuccess:
@@ -39,9 +39,6 @@ vi.mock("axios", () => {
     },
   };
 });
-
-// Import axios to get access to mocked functions
-import axios from "axios";
 
 // Mock localStorage
 const localStorageMock = {
