@@ -14,16 +14,19 @@ const sendEmail = async (data: FormInputs): Promise<string> => {
     throw new Error("All fields are required");
   }
 
+  // Normalize inputs
+  const normalizedEmail = data.email.trim().toLowerCase();
+
   // Email format validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(data.email)) {
+  if (!emailRegex.test(normalizedEmail)) {
     throw new Error("Invalid email format");
   }
 
   try {
     const result = await sendContactEmail({
       name: data.name.trim(),
-      email: data.email.trim().toLowerCase(),
+      email: normalizedEmail,
       message: data.message.trim(),
       subject: `New contact from ${data.name}`,
     });
@@ -35,6 +38,13 @@ const sendEmail = async (data: FormInputs): Promise<string> => {
       throw new Error("Failed to send message. Please try again later.");
     }
   } catch (error) {
+    // Re-throw our own errors
+    if (
+      error instanceof Error &&
+      error.message === "Failed to send message. Please try again later."
+    ) {
+      throw error;
+    }
     console.error("Error sending contact email:", error);
     throw new Error("An error occurred while sending your message.");
   }

@@ -47,8 +47,11 @@ export async function submitQuoteRequest(
     };
   }
 
+  // Normalize email before validation
+  const normalizedEmail = data.email.trim().toLowerCase();
+
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(data.email)) {
+  if (!emailRegex.test(normalizedEmail)) {
     return {
       success: false,
       message: "Invalid email format",
@@ -67,7 +70,7 @@ export async function submitQuoteRequest(
   try {
     const emailData: QuoteEmailData = {
       name: data.name.trim(),
-      email: data.email.trim().toLowerCase(),
+      email: normalizedEmail,
       phone: data.phone?.trim(),
       company: data.company?.trim(),
       services: data.services,
