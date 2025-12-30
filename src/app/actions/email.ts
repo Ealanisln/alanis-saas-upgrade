@@ -1,6 +1,7 @@
 "use server";
 
 import { sendContactEmail } from "@/lib/email";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
 interface FormInputs {
   name: string;
@@ -8,7 +9,22 @@ interface FormInputs {
   message: string;
 }
 
-const sendEmail = async (data: FormInputs): Promise<string> => {
+const sendEmail = async (
+  data: FormInputs,
+  turnstileToken?: string,
+): Promise<string> => {
+  // Verify Turnstile token if configured
+  if (process.env.TURNSTILE_SECRET_KEY) {
+    if (!turnstileToken) {
+      throw new Error("Please complete the verification");
+    }
+
+    const verification = await verifyTurnstileToken(turnstileToken);
+    if (!verification.success) {
+      throw new Error(verification.error || "Verification failed");
+    }
+  }
+
   // Basic validation
   if (!data.name || !data.email || !data.message) {
     throw new Error("All fields are required");
@@ -38,10 +54,12 @@ const sendEmail = async (data: FormInputs): Promise<string> => {
       throw new Error("Failed to send message. Please try again later.");
     }
   } catch (error) {
-    // Re-throw our own errors
+    // Re-throw our own errors (including Turnstile verification errors)
     if (
       error instanceof Error &&
-      error.message === "Failed to send message. Please try again later."
+      (error.message === "Failed to send message. Please try again later." ||
+        error.message === "Please complete the verification" ||
+        error.message.includes("Verification"))
     ) {
       throw error;
     }

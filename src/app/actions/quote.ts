@@ -1,6 +1,7 @@
 "use server";
 
 import { sendQuoteEmail, type QuoteEmailData } from "@/lib/email";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
 interface QuoteFormData {
   name: string;
@@ -12,8 +13,8 @@ interface QuoteFormData {
     price: number;
   }>;
   totalAmount: number;
-  clientType: "pyme" | "enterprise";
-  urgency: "normal" | "urgent";
+  clientType: "startup" | "pyme" | "enterprise";
+  urgency: "normal" | "express" | "urgent";
   notes?: string;
 }
 
@@ -29,7 +30,28 @@ interface QuoteResult {
  */
 export async function submitQuoteRequest(
   data: QuoteFormData,
+  turnstileToken?: string,
 ): Promise<QuoteResult> {
+  // Verify Turnstile token if configured
+  if (process.env.TURNSTILE_SECRET_KEY) {
+    if (!turnstileToken) {
+      return {
+        success: false,
+        message: "Please complete the verification",
+        error: "TURNSTILE_REQUIRED",
+      };
+    }
+
+    const verification = await verifyTurnstileToken(turnstileToken);
+    if (!verification.success) {
+      return {
+        success: false,
+        message: verification.error || "Verification failed",
+        error: "TURNSTILE_FAILED",
+      };
+    }
+  }
+
   // Validation
   if (!data.name?.trim()) {
     return {

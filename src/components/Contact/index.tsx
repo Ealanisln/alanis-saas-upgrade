@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import sendEmail from "@/app/actions/email";
 
 interface FormInputs {
@@ -19,6 +20,11 @@ interface Message {
 const Contact = () => {
   const t = useTranslations("contact.form");
   const [message, setMessage] = useState<Message | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const turnstileRef = useRef<TurnstileInstance>(null);
+
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
   const {
     register,
@@ -28,10 +34,24 @@ const Contact = () => {
   } = useForm<FormInputs>();
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+    // Check Turnstile token if configured
+    if (turnstileSiteKey && !turnstileToken) {
+      setMessage({
+        type: "error",
+        text: t("turnstileRequired") || "Please complete the verification",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
     try {
-      const result = await sendEmail(data);
+      const result = await sendEmail(data, turnstileToken || undefined);
       // Handle confirmation here
       setMessage({ type: "success", text: result });
+
+      // Reset Turnstile for next submission
+      turnstileRef.current?.reset();
+      setTurnstileToken(null);
 
       // Clear the message after 3 seconds
       setTimeout(() => {
@@ -45,10 +65,17 @@ const Contact = () => {
         type: "error",
         text: `${t("errorMessage")} ${errorMessage}`,
       });
+
+      // Reset Turnstile on error
+      turnstileRef.current?.reset();
+      setTurnstileToken(null);
+
       // Clear the error message after 3 seconds
       setTimeout(() => {
         setMessage(null);
       }, 3000);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -121,18 +148,39 @@ const Contact = () => {
                         rows={5}
                         placeholder={t("messagePlaceholder")}
                         className="w-full resize-none rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                      >
-                      </textarea>
+                      ></textarea>
                       {errors.message && <span>{t("required")} - </span>}
                       <span>{t("maxChars")}</span>
                     </div>
                   </div>
+                  {/* Turnstile Widget */}
+                  {turnstileSiteKey && (
+                    <div className="mb-4 w-full px-4">
+                      <Turnstile
+                        ref={turnstileRef}
+                        siteKey={turnstileSiteKey}
+                        onSuccess={setTurnstileToken}
+                        onError={() => setTurnstileToken(null)}
+                        onExpire={() => setTurnstileToken(null)}
+                        options={{
+                          theme: "auto",
+                          size: "normal",
+                        }}
+                      />
+                    </div>
+                  )}
                   <div className="w-full px-4">
                     <button
                       type="submit"
-                      className="rounded-xl bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark"
+                      disabled={
+                        isSubmitting ||
+                        Boolean(turnstileSiteKey && !turnstileToken)
+                      }
+                      className="rounded-xl bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50 dark:shadow-submit-dark"
                     >
-                      {t("submit")}
+                      {isSubmitting
+                        ? t("sending") || "Sending..."
+                        : t("submit")}
                     </button>
                   </div>
                 </div>
