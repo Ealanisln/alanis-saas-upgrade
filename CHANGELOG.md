@@ -6,7 +6,13 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Comprehensive unit test suite (228 tests) (AWDP-41 to AWDP-50)
+- Resend email service integration for contact and quote forms (AWDP-59)
+- Cloudflare Turnstile anti-spam protection for forms (AWDP-58)
+- Stripe webhook idempotency to prevent duplicate processing (AWDP-60)
+- ESLint enabled in builds with all errors fixed (AWDP-62)
+- Idempotency utility library for webhook handling
+- Unit tests for email service and server actions
+- Comprehensive unit test suite (300+ tests) (AWDP-41 to AWDP-50)
   - useApi and useQuotes hooks tests (AWDP-41)
   - API client utilities tests (AWDP-42)
   - Contact form component tests (AWDP-43)
@@ -37,5 +43,6 @@ All notable changes to this project will be documented in this file.
 
 ### Security
 
+- Content-Security-Policy and enhanced security headers (AWDP-57)
 - Patched CVE affecting Next.js Server Components (DoS vulnerability)
 - Updated dependencies to address known vulnerabilities

@@ -7,7 +7,8 @@ const ThemeToggler = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false); // Hydration check state
 
-  // Ensure component is mounted on the client
+  // Ensure component is mounted on the client (valid SSR hydration pattern)
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional one-time hydration check
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {

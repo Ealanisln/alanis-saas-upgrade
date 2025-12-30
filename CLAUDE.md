@@ -94,6 +94,13 @@ src/
 - Test files in `__tests__/*.test.ts`
 - Mocks provided for next/navigation, next-intl, next/image
 
+## Git Workflow
+
+- **All PRs must target `development` branch, NOT `main`**
+- Feature branches: `feature/AWDP-XX-description`
+- Main branch is for production releases only
+- Development branch is merged to main after testing
+
 ## Environment Variables
 
 Required:

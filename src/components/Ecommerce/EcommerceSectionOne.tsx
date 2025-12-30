@@ -13,16 +13,16 @@ interface ListProps {
   text: string;
 }
 
-const EcommerceSectionOne = () => {
-  const List = ({ text }: ListProps) => (
-    <p className="mb-5 flex items-center text-lg font-medium text-body-color">
-      <span className="mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md bg-primary bg-opacity-10 text-primary">
-        {checkIcon}
-      </span>
-      {text}
-    </p>
-  );
+const List = ({ text }: ListProps) => (
+  <p className="mb-5 flex items-center text-lg font-medium text-body-color">
+    <span className="mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md bg-primary bg-opacity-10 text-primary">
+      {checkIcon}
+    </span>
+    {text}
+  </p>
+);
 
+const EcommerceSectionOne = () => {
   return (
     <section id="ecommerce" className="pb-16 pt-16 md:pt-20 lg:pt-28">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -66,16 +66,16 @@ const EcommerceSectionOne = () => {
                     alt="Tienda online"
                     fill
                     priority
-                    className="rounded-lg shadow-xl drop-shadow-three mx-auto max-w-full dark:hidden"
-                    style={{objectFit: "cover"}}
+                    className="mx-auto max-w-full rounded-lg shadow-xl drop-shadow-three dark:hidden"
+                    style={{ objectFit: "cover" }}
                   />
                   <Image
                     src="/images/ecommerce/ecommerce-screenshot-1-dark.jpg"
                     alt="Tienda online"
                     fill
                     priority
-                    className="rounded-lg shadow-xl drop-shadow-three mx-auto hidden max-w-full dark:block"
-                    style={{objectFit: "cover"}}
+                    className="mx-auto hidden max-w-full rounded-lg shadow-xl drop-shadow-three dark:block"
+                    style={{ objectFit: "cover" }}
                   />
                 </div>
                 <div
@@ -87,22 +87,23 @@ const EcommerceSectionOne = () => {
                     alt="Panel de administración"
                     fill
                     priority
-                    className="rounded-lg shadow-xl drop-shadow-three mx-auto max-w-full dark:hidden"
-                    style={{objectFit: "cover"}}
+                    className="mx-auto max-w-full rounded-lg shadow-xl drop-shadow-three dark:hidden"
+                    style={{ objectFit: "cover" }}
                   />
                   <Image
                     src="/images/ecommerce/ecommerce-screenshot-2-dark.jpg"
                     alt="Panel de administración"
                     fill
                     priority
-                    className="rounded-lg shadow-xl drop-shadow-three mx-auto hidden max-w-full dark:block"
-                    style={{objectFit: "cover"}}
+                    className="mx-auto hidden max-w-full rounded-lg shadow-xl drop-shadow-three dark:block"
+                    style={{ objectFit: "cover" }}
                   />
                 </div>
               </div>
               <div className="mt-8 text-center lg:mt-10">
-                <p className="text-sm text-body-color italic dark:text-white/70">
-                  Nuestras soluciones de e-commerce están diseñadas para aumentar las conversiones y mejorar la experiencia de compra.
+                <p className="text-sm italic text-body-color dark:text-white/70">
+                  Nuestras soluciones de e-commerce están diseñadas para
+                  aumentar las conversiones y mejorar la experiencia de compra.
                 </p>
               </div>
             </div>
@@ -113,4 +114,4 @@ const EcommerceSectionOne = () => {
   );
 };
 
-export default EcommerceSectionOne; 
+export default EcommerceSectionOne;

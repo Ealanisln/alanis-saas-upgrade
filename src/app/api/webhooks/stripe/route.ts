@@ -5,6 +5,12 @@ import {
   sendCustomerConfirmationEmail,
   sendInternalNotification,
 } from "@/lib/email";
+import {
+  isEventProcessed,
+  markEventProcessing,
+  markEventCompleted,
+  markEventFailed,
+} from "@/lib/idempotency";
 import { stripe } from "@/lib/stripe";
 
 /**
@@ -51,6 +57,27 @@ export async function POST(req: Request) {
     );
   }
 
+  // Idempotency check: prevent duplicate processing
+  if (isEventProcessed(event.id)) {
+    console.warn(`[Webhook] Event ${event.id} already processed, skipping`);
+    return NextResponse.json(
+      { received: true, message: "Event already processed" },
+      { status: 200 },
+    );
+  }
+
+  // Acquire processing lock
+  if (!markEventProcessing(event.id)) {
+    console.warn(`[Webhook] Event ${event.id} is currently being processed`);
+    return NextResponse.json(
+      { received: true, message: "Event is being processed" },
+      { status: 200 },
+    );
+  }
+
+  // Log event receipt for audit trail
+  console.warn(`[Webhook] Processing event ${event.id} (${event.type})`);
+
   // Handle the event
   try {
     switch (event.type) {
@@ -79,12 +106,18 @@ export async function POST(req: Request) {
       }
 
       default:
-        console.warn(`Unhandled event type: ${event.type}`);
+        console.warn(`[Webhook] Unhandled event type: ${event.type}`);
     }
+
+    // Mark event as successfully processed
+    markEventCompleted(event.id);
+    console.warn(`[Webhook] Event ${event.id} processed successfully`);
 
     return NextResponse.json({ received: true }, { status: 200 });
   } catch (error) {
-    console.error("Error processing webhook:", error);
+    // Mark event as failed to allow retry
+    markEventFailed(event.id);
+    console.error(`[Webhook] Error processing event ${event.id}:`, error);
     return NextResponse.json(
       { error: "Webhook handler failed" },
       { status: 500 },

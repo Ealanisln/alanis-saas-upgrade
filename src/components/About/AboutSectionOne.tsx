@@ -15,17 +15,17 @@ interface ListProps {
   text: string;
 }
 
+const List = ({ text }: ListProps) => (
+  <p className="mb-5 flex items-center text-lg font-medium text-body-color">
+    <span className="mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md bg-primary bg-opacity-10 text-primary">
+      {checkIcon}
+    </span>
+    {text}
+  </p>
+);
+
 const AboutSectionOne = () => {
   const t = useTranslations("about.section");
-
-  const List = ({ text }: ListProps) => (
-    <p className="mb-5 flex items-center text-lg font-medium text-body-color">
-      <span className="mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md bg-primary bg-opacity-10 text-primary">
-        {checkIcon}
-      </span>
-      {text}
-    </p>
-  );
 
   return (
     <section id="about" className="pb-16 pt-16 md:pt-20 lg:pt-28">
@@ -59,7 +59,7 @@ const AboutSectionOne = () => {
               </div>
             </div>
 
-            <div className="w-full px-4 pb-8 lg:mt-0 lg:pb-0 lg:w-1/2">
+            <div className="w-full px-4 pb-8 lg:mt-0 lg:w-1/2 lg:pb-0">
               <div
                 className="wow fadeInUp relative mx-auto aspect-[25/24] max-w-[500px] lg:mr-0"
                 data-wow-delay=".2s"
@@ -69,16 +69,16 @@ const AboutSectionOne = () => {
                   alt="about-image"
                   fill
                   priority
-                  className="drop-shadow-three mx-auto max-w-full dark:hidden dark:drop-shadow-none lg:mr-0"
-                  style={{objectFit: "contain"}}
+                  className="mx-auto max-w-full drop-shadow-three dark:hidden dark:drop-shadow-none lg:mr-0"
+                  style={{ objectFit: "contain" }}
                 />
                 <Image
                   src="/images/about/about-image-dark.svg"
                   alt="about-image"
                   fill
                   priority
-                  className="drop-shadow-three mx-auto hidden max-w-full dark:block dark:drop-shadow-none lg:mr-0"
-                  style={{objectFit: "contain"}}
+                  className="mx-auto hidden max-w-full drop-shadow-three dark:block dark:drop-shadow-none lg:mr-0"
+                  style={{ objectFit: "contain" }}
                 />
               </div>
             </div>
