@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
-import { renderHook, waitFor } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { renderHook } from "@testing-library/react";
 import { useQuotes, useQuotesLegacy } from "../useQuotes";
 
 // Mock data
@@ -94,7 +94,7 @@ vi.mock("../useApi", () => ({
   })),
 }));
 
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 describe("useQuotes", () => {
   beforeEach(() => {

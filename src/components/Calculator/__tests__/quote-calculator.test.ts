@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { QuoteCalculator, quoteCalculator } from "../quote-calculator";
 import type { SelectedService } from "@/types/calculator/service-calculator.types";
+import { QuoteCalculator, quoteCalculator } from "../quote-calculator";
 
 describe("QuoteCalculator", () => {
   let calculator: QuoteCalculator;

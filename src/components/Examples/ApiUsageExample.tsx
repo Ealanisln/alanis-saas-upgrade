@@ -59,7 +59,6 @@ export const ApiUsageExample: React.FC = () => {
     try {
       await createQuote(exampleQuote);
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error("Error creating quote:", err);
     }
   };
@@ -79,7 +78,6 @@ export const ApiUsageExample: React.FC = () => {
       });
       setEmailData({ to: [""], subject: "", content: "" });
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error("Error sending email:", err);
     }
   };
@@ -90,7 +88,6 @@ export const ApiUsageExample: React.FC = () => {
       // Direct API call example
       await client.get("/quotes");
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error("Direct API error:", err);
     }
   };

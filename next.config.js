@@ -125,15 +125,6 @@ const nextConfig = {
     ];
   },
 
-  // ESLint configuration for build
-  // NOTE: Temporarily allowing builds with ESLint warnings during migration
-  // See STRICT_MODE_ISSUES.md for detailed list of issues to fix
-  // Primary issues: 25 accessibility errors, 43 unused vars, 6 import order
-  // Target: Remove this bypass after addressing critical issues
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-
   // Performance optimizations
   compress: true,
   productionBrowserSourceMaps: false,
