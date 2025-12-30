@@ -1,4 +1,10 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  sendContactEmail,
+  sendCustomerConfirmationEmail,
+  sendInternalNotification,
+  sendQuoteEmail,
+} from "../email";
 
 // Mock the Resend module
 vi.mock("resend", () => {
@@ -13,18 +19,10 @@ vi.mock("resend", () => {
   };
 });
 
-// Import after mocking
-import {
-  sendContactEmail,
-  sendQuoteEmail,
-  sendCustomerConfirmationEmail,
-  sendInternalNotification,
-} from "../email";
-
 // Get the mock function
 const getMockSend = async () => {
-  const module = await import("resend");
-  return (module as unknown as { __mockSend: ReturnType<typeof vi.fn> })
+  const resendModule = await import("resend");
+  return (resendModule as unknown as { __mockSend: ReturnType<typeof vi.fn> })
     .__mockSend;
 };
 

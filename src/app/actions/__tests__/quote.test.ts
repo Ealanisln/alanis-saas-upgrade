@@ -1,12 +1,11 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { sendQuoteEmail } from "@/lib/email";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { submitQuoteRequest } from "../quote";
 
 // Mock the email module
 vi.mock("@/lib/email", () => ({
   sendQuoteEmail: vi.fn(),
 }));
-
-import { submitQuoteRequest } from "../quote";
-import { sendQuoteEmail } from "@/lib/email";
 
 const mockSendQuoteEmail = vi.mocked(sendQuoteEmail);
 
