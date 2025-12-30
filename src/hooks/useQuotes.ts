@@ -142,7 +142,6 @@ export const useQuotesLegacy = () => {
       // This doesn't fit well with the new pattern, but for compatibility
       // Deprecated: Use the reactive queries instead
       if (process.env.NODE_ENV === "development") {
-        // eslint-disable-next-line no-console
         console.warn(
           "getQuotes is deprecated. Use the reactive queries instead.",
         );

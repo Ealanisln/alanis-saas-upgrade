@@ -43,8 +43,8 @@ export default async function CheckoutSuccess({
 
         <div className="mt-8 space-y-3">
           <p className="text-body-color dark:text-gray-300">
-            We'll send you a confirmation email shortly with details about your
-            service.
+            We&apos;ll send you a confirmation email shortly with details about
+            your service.
           </p>
 
           <p className="text-sm text-body-color dark:text-gray-400">

@@ -1,5 +1,5 @@
-import { sendQuoteEmail } from "@/lib/email";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { sendQuoteEmail } from "@/lib/email";
 import { submitQuoteRequest } from "../quote";
 
 // Mock the email module
