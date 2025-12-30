@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { X, User, Mail, FileText } from "lucide-react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import {
   QuoteRequest,
   QuoteCalculation,
@@ -11,7 +12,7 @@ import {
 interface QuoteFormModalProps {
   isOpen: boolean;
   onCloseAction: () => void;
-  onSubmit: (request: QuoteRequest) => Promise<void>;
+  onSubmit: (request: QuoteRequest, turnstileToken?: string) => Promise<void>;
   quote: QuoteCalculation;
   services: SelectedService[];
   clientType: string;
@@ -41,6 +42,10 @@ export const QuoteFormModal: React.FC<QuoteFormModalProps> = ({
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
+
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -69,6 +74,10 @@ export const QuoteFormModal: React.FC<QuoteFormModalProps> = ({
 
     if (formData.budget && isNaN(Number(formData.budget))) {
       newErrors.budget = "El presupuesto debe ser un número";
+    }
+
+    if (turnstileSiteKey && !turnstileToken) {
+      newErrors.turnstile = "Por favor completa la verificación";
     }
 
     setErrors(newErrors);
@@ -100,7 +109,11 @@ export const QuoteFormModal: React.FC<QuoteFormModalProps> = ({
       },
     };
 
-    await onSubmit(request);
+    await onSubmit(request, turnstileToken || undefined);
+
+    // Reset Turnstile after submission
+    turnstileRef.current?.reset();
+    setTurnstileToken(null);
   };
 
   if (!isOpen) return null;
@@ -323,6 +336,26 @@ export const QuoteFormModal: React.FC<QuoteFormModalProps> = ({
             </div>
           </div>
 
+          {/* Turnstile Widget */}
+          {turnstileSiteKey && (
+            <div className="mb-4">
+              <Turnstile
+                ref={turnstileRef}
+                siteKey={turnstileSiteKey}
+                onSuccess={setTurnstileToken}
+                onError={() => setTurnstileToken(null)}
+                onExpire={() => setTurnstileToken(null)}
+                options={{
+                  theme: "light",
+                  size: "normal",
+                }}
+              />
+              {errors.turnstile && (
+                <p className="mt-1 text-xs text-red-500">{errors.turnstile}</p>
+              )}
+            </div>
+          )}
+
           {/* Actions */}
           <div className="flex gap-3 border-t border-gray-200 pt-4">
             <button
@@ -335,7 +368,7 @@ export const QuoteFormModal: React.FC<QuoteFormModalProps> = ({
             </button>
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || Boolean(turnstileSiteKey && !turnstileToken)}
               className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3 text-white transition-colors hover:bg-blue-700 disabled:opacity-50"
             >
               {loading ? (

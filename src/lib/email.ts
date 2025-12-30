@@ -40,8 +40,8 @@ interface QuoteEmailData {
     price: number;
   }>;
   totalAmount: number;
-  clientType: "pyme" | "enterprise";
-  urgency: "normal" | "urgent";
+  clientType: "startup" | "pyme" | "enterprise";
+  urgency: "normal" | "express" | "urgent";
   notes?: string;
 }
 
@@ -159,9 +159,18 @@ export async function sendQuoteEmail(
     )
     .join("");
 
-  const urgencyLabel = data.urgency === "urgent" ? "🚀 Urgent" : "Normal";
-  const clientTypeLabel =
-    data.clientType === "enterprise" ? "Enterprise" : "PYME/Startup";
+  const urgencyLabels = {
+    urgent: "🚀 Urgent",
+    express: "⚡ Express",
+    normal: "Normal",
+  };
+  const clientTypeLabels = {
+    enterprise: "Enterprise",
+    pyme: "PYME",
+    startup: "Startup",
+  };
+  const urgencyLabel = urgencyLabels[data.urgency];
+  const clientTypeLabel = clientTypeLabels[data.clientType];
 
   try {
     const resend = getResendClient();
