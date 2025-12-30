@@ -1,6 +1,6 @@
-'use server';
+"use server";
 
-import { apiClient } from '@/lib/api/client';
+import { sendContactEmail } from "@/lib/email";
 
 interface FormInputs {
   name: string;
@@ -8,24 +8,36 @@ interface FormInputs {
   message: string;
 }
 
-const sendEmail = async (data: FormInputs) => {
+const sendEmail = async (data: FormInputs): Promise<string> => {
+  // Basic validation
+  if (!data.name || !data.email || !data.message) {
+    throw new Error("All fields are required");
+  }
+
+  // Email format validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(data.email)) {
+    throw new Error("Invalid email format");
+  }
+
   try {
-    const response = await apiClient.sendContactForm({
-      name: data.name,
-      email: data.email,
-      message: data.message,
-      subject: 'Nuevo mensaje desde Alanis.dev'
+    const result = await sendContactEmail({
+      name: data.name.trim(),
+      email: data.email.trim().toLowerCase(),
+      message: data.message.trim(),
+      subject: `New contact from ${data.name}`,
     });
 
-    if (response.success) {
-      return "Tu mensaje ha sido enviado correctamente. :)"; 
+    if (result.success) {
+      return "Your message has been sent successfully!";
     } else {
-      throw new Error(response.message || "Error al enviar el mensaje");
+      console.error("Email sending failed:", result.error);
+      throw new Error("Failed to send message. Please try again later.");
     }
   } catch (error) {
-    console.error('Error sending contact email:', error);
-    throw new Error("Ha ocurrido un error al enviar el mensaje.");
+    console.error("Error sending contact email:", error);
+    throw new Error("An error occurred while sending your message.");
   }
-}
+};
 
 export default sendEmail;
