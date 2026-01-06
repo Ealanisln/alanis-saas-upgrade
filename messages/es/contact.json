@@ -2,7 +2,16 @@
   "meta": {
     "title": "Contacto | Hablemos de tu proyecto - Alanis Dev",
     "description": "¿Tienes un proyecto en mente? Contáctame para una consulta gratuita. Especializado en desarrollo web con Next.js, React y TypeScript. ¡Hagamos realidad tu idea!",
-    "keywords": ["contacto", "desarrollo web", "consulta gratuita", "Next.js", "React", "TypeScript", "proyectos web", "desarrollo de software"]
+    "keywords": [
+      "contacto",
+      "desarrollo web",
+      "consulta gratuita",
+      "Next.js",
+      "React",
+      "TypeScript",
+      "proyectos web",
+      "desarrollo de software"
+    ]
   },
   "title": "Contacto",
   "subtitle": "¿Listo para trabajar juntos?",
@@ -22,6 +31,7 @@
     "messagePlaceholder": "Escribe aquí tu mensaje",
     "maxChars": "Máx: 500 caracteres",
     "submit": "Enviar mensaje",
+    "sending": "Enviando...",
     "required": "Este campo es requerido",
     "successMessage": "¡Mensaje enviado exitosamente!",
     "errorMessage": "Oops, lo sentimos, hubo un error al enviar tu mensaje:",
@@ -42,4 +52,4 @@
     "submit": "Suscribirse",
     "disclaimer": "Sin spam garantizado, por favor no envíes correo basura."
   }
-} 
+}

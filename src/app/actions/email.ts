@@ -7,6 +7,7 @@ interface FormInputs {
   name: string;
   email: string;
   message: string;
+  locale?: "en" | "es";
 }
 
 const sendEmail = async (
@@ -45,6 +46,7 @@ const sendEmail = async (
       email: normalizedEmail,
       message: data.message.trim(),
       subject: `New contact from ${data.name}`,
+      locale: data.locale,
     });
 
     if (result.success) {

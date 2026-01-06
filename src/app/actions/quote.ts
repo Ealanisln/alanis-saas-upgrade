@@ -16,6 +16,7 @@ interface QuoteFormData {
   clientType: "startup" | "pyme" | "enterprise";
   urgency: "normal" | "express" | "urgent";
   notes?: string;
+  locale?: "en" | "es";
 }
 
 interface QuoteResult {
@@ -100,6 +101,7 @@ export async function submitQuoteRequest(
       clientType: data.clientType,
       urgency: data.urgency,
       notes: data.notes?.trim(),
+      locale: data.locale,
     };
 
     const result = await sendQuoteEmail(emailData);
