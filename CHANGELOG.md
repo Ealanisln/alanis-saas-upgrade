@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Email internationalization for contact and quote confirmation emails
 - Resend email service integration for contact and quote forms (AWDP-59)
 - Cloudflare Turnstile anti-spam protection for forms (AWDP-58)
 - Stripe webhook idempotency to prevent duplicate processing (AWDP-60)
@@ -37,6 +38,9 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Contact form "sending" button now displays properly translated text
+- Email sender domain updated to use verified updates.alanis.dev subdomain
+- Email service now accepts both RESEND_API_KEY and SEND_API_KEY env variables
 - Mobile navigation tests now correctly check for hamburger menu button
 - Blog post navigation test waits for URL change before assertions
 - Removed redundant font loading (CSS @import) - fonts now loaded via next/font
