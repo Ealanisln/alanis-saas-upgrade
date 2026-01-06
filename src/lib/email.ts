@@ -22,7 +22,8 @@ function getResendClient(): Resend {
 }
 
 // Configuration
-const EMAIL_FROM = process.env.EMAIL_FROM || "Alanis Dev <noreply@alanis.dev>";
+const EMAIL_FROM =
+  process.env.EMAIL_FROM || "Alanis Dev <noreply@updates.alanis.dev>";
 const EMAIL_TO = process.env.EMAIL_TO || "contact@alanis.dev";
 
 // Types
