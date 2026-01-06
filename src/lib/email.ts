@@ -10,17 +10,24 @@ let resendInstance: Resend | null = null;
 
 function getResendClient(): Resend {
   if (!resendInstance) {
-    if (!process.env.RESEND_API_KEY) {
-      throw new Error("RESEND_API_KEY environment variable is not set");
+    const apiKey = process.env.RESEND_API_KEY || process.env.SEND_API_KEY;
+    if (!apiKey) {
+      throw new Error(
+        "RESEND_API_KEY or SEND_API_KEY environment variable is not set",
+      );
     }
-    resendInstance = new Resend(process.env.RESEND_API_KEY);
+    resendInstance = new Resend(apiKey);
   }
   return resendInstance;
 }
 
 // Configuration
-const EMAIL_FROM = process.env.EMAIL_FROM || "Alanis Dev <noreply@alanis.dev>";
-const EMAIL_TO = process.env.EMAIL_TO || "contact@alanis.dev";
+const EMAIL_FROM =
+  process.env.EMAIL_FROM || "Alanis Dev <noreply@updates.alanis.dev>";
+const EMAIL_TO = process.env.EMAIL_TO || "emmanuel@alanis.dev";
+
+// Supported locales
+type SupportedLocale = "en" | "es";
 
 // Types
 interface ContactEmailData {
@@ -28,6 +35,7 @@ interface ContactEmailData {
   email: string;
   message: string;
   subject?: string;
+  locale?: SupportedLocale;
 }
 
 interface QuoteEmailData {
@@ -43,6 +51,7 @@ interface QuoteEmailData {
   clientType: "startup" | "pyme" | "enterprise";
   urgency: "normal" | "express" | "urgent";
   notes?: string;
+  locale?: SupportedLocale;
 }
 
 interface CustomerConfirmationData {
@@ -71,7 +80,114 @@ interface EmailResult {
  * Check if Resend is properly configured
  */
 function isResendConfigured(): boolean {
-  return Boolean(process.env.RESEND_API_KEY);
+  return Boolean(process.env.RESEND_API_KEY || process.env.SEND_API_KEY);
+}
+
+/**
+ * Get localized content for contact confirmation email
+ */
+function getContactConfirmationContent(
+  locale: SupportedLocale,
+  name: string,
+  message: string,
+): { subject: string; html: string } {
+  const content = {
+    en: {
+      subject: "Thanks for reaching out! - Alanis Dev",
+      heading: `Thanks for your message, ${name}!`,
+      body: "I've received your message and will get back to you as soon as possible, usually within 24-48 hours.",
+      yourMessage: "Your message:",
+      meanwhile:
+        'In the meantime, feel free to check out my <a href="https://alanis.dev/portfolio" style="color: #4F7AFA;">portfolio</a> or connect with me on social media.',
+      regards: "Best regards,",
+      role: "Full-Stack Developer",
+    },
+    es: {
+      subject: "¡Gracias por contactarme! - Alanis Dev",
+      heading: `¡Gracias por tu mensaje, ${name}!`,
+      body: "He recibido tu mensaje y te responderé lo antes posible, normalmente en 24-48 horas.",
+      yourMessage: "Tu mensaje:",
+      meanwhile:
+        'Mientras tanto, puedes visitar mi <a href="https://alanis.dev/es/portfolio" style="color: #4F7AFA;">portafolio</a> o conectar conmigo en redes sociales.',
+      regards: "Saludos cordiales,",
+      role: "Desarrollador Full-Stack",
+    },
+  };
+
+  const t = content[locale];
+
+  return {
+    subject: t.subject,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #4F7AFA;">${t.heading}</h2>
+        <p>${t.body}</p>
+        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+          <p><strong>${t.yourMessage}</strong></p>
+          <div style="background: white; padding: 15px; border-radius: 4px; white-space: pre-wrap;">${message}</div>
+        </div>
+        <p>${t.meanwhile}</p>
+        <p>${t.regards}<br><strong>Emmanuel Alanis</strong><br>${t.role}</p>
+      </div>
+    `,
+  };
+}
+
+/**
+ * Get localized content for quote confirmation email
+ */
+function getQuoteConfirmationContent(
+  locale: SupportedLocale,
+  name: string,
+  servicesHtml: string,
+  totalAmount: number,
+): { subject: string; html: string } {
+  const content = {
+    en: {
+      subject: "Your Quote Request - Alanis Dev",
+      heading: `Thanks for your quote request, ${name}!`,
+      body: "I've received your project details and will review them carefully.",
+      summary: "Your Request Summary",
+      estimatedTotal: "Estimated Total:",
+      followUp:
+        "I'll get back to you within 24-48 hours with a detailed proposal. If you have any questions in the meantime, feel free to reply to this email.",
+      regards: "Best regards,",
+      role: "Full-Stack Developer",
+    },
+    es: {
+      subject: "Tu Solicitud de Cotización - Alanis Dev",
+      heading: `¡Gracias por tu solicitud de cotización, ${name}!`,
+      body: "He recibido los detalles de tu proyecto y los revisaré cuidadosamente.",
+      summary: "Resumen de tu Solicitud",
+      estimatedTotal: "Total Estimado:",
+      followUp:
+        "Te responderé en 24-48 horas con una propuesta detallada. Si tienes alguna pregunta mientras tanto, no dudes en responder a este correo.",
+      regards: "Saludos cordiales,",
+      role: "Desarrollador Full-Stack",
+    },
+  };
+
+  const t = content[locale];
+
+  return {
+    subject: t.subject,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #4F7AFA;">${t.heading}</h2>
+        <p>${t.body}</p>
+
+        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+          <h3 style="margin-top: 0;">${t.summary}</h3>
+          <ul>${servicesHtml}</ul>
+          <p style="font-size: 18px; margin-top: 15px;"><strong>${t.estimatedTotal} $${totalAmount.toLocaleString()} USD</strong></p>
+        </div>
+
+        <p>${t.followUp}</p>
+
+        <p>${t.regards}<br><strong>Emmanuel Alanis</strong><br>${t.role}</p>
+      </div>
+    `,
+  };
 }
 
 /**
@@ -113,23 +229,19 @@ export async function sendContactEmail(
       return { success: false, error: error.message };
     }
 
-    // Send confirmation to the user
+    // Send confirmation to the user (localized)
+    const locale = data.locale || "en";
+    const confirmationContent = getContactConfirmationContent(
+      locale,
+      escapeHtml(data.name),
+      escapeHtml(data.message),
+    );
+
     await resend.emails.send({
       from: EMAIL_FROM,
       to: data.email,
-      subject: "Thanks for reaching out! - Alanis Dev",
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #4F7AFA;">Thanks for your message, ${escapeHtml(data.name)}!</h2>
-          <p>I've received your message and will get back to you as soon as possible, usually within 24-48 hours.</p>
-          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <p><strong>Your message:</strong></p>
-            <div style="background: white; padding: 15px; border-radius: 4px; white-space: pre-wrap;">${escapeHtml(data.message)}</div>
-          </div>
-          <p>In the meantime, feel free to check out my <a href="https://alanis.dev/portfolio" style="color: #4F7AFA;">portfolio</a> or connect with me on social media.</p>
-          <p>Best regards,<br><strong>Emmanuel Alanis</strong><br>Full-Stack Developer</p>
-        </div>
-      `,
+      subject: confirmationContent.subject,
+      html: confirmationContent.html,
     });
 
     return { success: true, messageId: result?.id };
@@ -222,27 +334,20 @@ export async function sendQuoteEmail(
       return { success: false, error: error.message };
     }
 
-    // Send confirmation to client
+    // Send confirmation to client (localized)
+    const locale = data.locale || "en";
+    const quoteConfirmationContent = getQuoteConfirmationContent(
+      locale,
+      escapeHtml(data.name),
+      servicesHtml,
+      data.totalAmount,
+    );
+
     await resend.emails.send({
       from: EMAIL_FROM,
       to: data.email,
-      subject: "Your Quote Request - Alanis Dev",
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #4F7AFA;">Thanks for your quote request, ${escapeHtml(data.name)}!</h2>
-          <p>I've received your project details and will review them carefully.</p>
-
-          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="margin-top: 0;">Your Request Summary</h3>
-            <ul>${servicesHtml}</ul>
-            <p style="font-size: 18px; margin-top: 15px;"><strong>Estimated Total: $${data.totalAmount.toLocaleString()} USD</strong></p>
-          </div>
-
-          <p>I'll get back to you within 24-48 hours with a detailed proposal. If you have any questions in the meantime, feel free to reply to this email.</p>
-
-          <p>Best regards,<br><strong>Emmanuel Alanis</strong><br>Full-Stack Developer</p>
-        </div>
-      `,
+      subject: quoteConfirmationContent.subject,
+      html: quoteConfirmationContent.html,
     });
 
     return { success: true, messageId: result?.id };

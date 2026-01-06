@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useLocale } from "next-intl";
 import { Calculator } from "lucide-react";
 import { submitQuoteRequest } from "@/app/actions/quote";
 import {
@@ -18,6 +19,7 @@ import { serviceCategories } from "./service-config";
 import { ServiceCard } from "./ServiceCard";
 
 const ServiceCalculator: React.FC = () => {
+  const locale = useLocale() as "en" | "es";
   const [selectedServices, setSelectedServices] = useState<SelectedService[]>(
     [],
   );
@@ -132,6 +134,7 @@ const ServiceCalculator: React.FC = () => {
           clientType: request.clientType,
           urgency: request.urgency,
           notes: request.projectDetails?.description,
+          locale,
         },
         turnstileToken,
       );

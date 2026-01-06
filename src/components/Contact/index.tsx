@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import sendEmail from "@/app/actions/email";
@@ -19,6 +19,7 @@ interface Message {
 
 const Contact = () => {
   const t = useTranslations("contact.form");
+  const locale = useLocale() as "en" | "es";
   const [message, setMessage] = useState<Message | null>(null);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -45,7 +46,10 @@ const Contact = () => {
 
     setIsSubmitting(true);
     try {
-      const result = await sendEmail(data, turnstileToken || undefined);
+      const result = await sendEmail(
+        { ...data, locale },
+        turnstileToken || undefined,
+      );
       // Handle confirmation here
       setMessage({ type: "success", text: result });
 

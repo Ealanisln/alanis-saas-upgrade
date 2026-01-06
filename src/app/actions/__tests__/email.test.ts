@@ -94,6 +94,7 @@ describe("sendEmail server action", () => {
         email: "john@example.com",
         message: "Hello there!",
         subject: "New contact from John Doe",
+        locale: undefined,
       });
     });
 
@@ -114,6 +115,7 @@ describe("sendEmail server action", () => {
         email: "john@example.com",
         message: "Hello there!",
         subject: "New contact from   John Doe  ",
+        locale: undefined,
       });
     });
 
@@ -149,6 +151,26 @@ describe("sendEmail server action", () => {
       });
 
       expect(result).toBe("Your message has been sent successfully!");
+    });
+
+    it("should pass locale to sendContactEmail when provided", async () => {
+      mockSendContactEmail.mockResolvedValue({
+        success: true,
+        messageId: "msg_123",
+      });
+
+      await sendEmail({
+        name: "Juan",
+        email: "juan@example.com",
+        message: "Hola",
+        locale: "es",
+      });
+
+      expect(mockSendContactEmail).toHaveBeenCalledWith(
+        expect.objectContaining({
+          locale: "es",
+        }),
+      );
     });
   });
 
