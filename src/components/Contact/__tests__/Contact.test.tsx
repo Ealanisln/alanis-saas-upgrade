@@ -172,6 +172,7 @@ describe("Contact", () => {
           name: "John Doe",
           email: "john@example.com",
           message: "Hello, this is a test message.",
+          locale: "en",
         });
       });
     });
