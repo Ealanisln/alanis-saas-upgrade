@@ -128,8 +128,9 @@ describe("Email Service", () => {
       expect(result.error).toBe("Network error");
     });
 
-    it("should return error when RESEND_API_KEY is not configured", async () => {
+    it("should return error when no API key is configured", async () => {
       delete process.env.RESEND_API_KEY;
+      delete process.env.SEND_API_KEY;
 
       // Need to reset the module to pick up the new env
       vi.resetModules();

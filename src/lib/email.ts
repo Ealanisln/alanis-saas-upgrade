@@ -10,10 +10,13 @@ let resendInstance: Resend | null = null;
 
 function getResendClient(): Resend {
   if (!resendInstance) {
-    if (!process.env.RESEND_API_KEY) {
-      throw new Error("RESEND_API_KEY environment variable is not set");
+    const apiKey = process.env.RESEND_API_KEY || process.env.SEND_API_KEY;
+    if (!apiKey) {
+      throw new Error(
+        "RESEND_API_KEY or SEND_API_KEY environment variable is not set",
+      );
     }
-    resendInstance = new Resend(process.env.RESEND_API_KEY);
+    resendInstance = new Resend(apiKey);
   }
   return resendInstance;
 }
@@ -71,7 +74,7 @@ interface EmailResult {
  * Check if Resend is properly configured
  */
 function isResendConfigured(): boolean {
-  return Boolean(process.env.RESEND_API_KEY);
+  return Boolean(process.env.RESEND_API_KEY || process.env.SEND_API_KEY);
 }
 
 /**
