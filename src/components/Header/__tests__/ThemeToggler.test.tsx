@@ -48,7 +48,7 @@ describe("ThemeToggler", () => {
     it("renders placeholder during SSR (before mount)", () => {
       // Note: The component uses mounted state to handle SSR
       // On first render before useEffect runs, it shows a placeholder
-      const { container } = render(<ThemeToggler />);
+      render(<ThemeToggler />);
 
       // After mount, the button should be visible
       expect(

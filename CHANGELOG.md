@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- System theme option in ThemeToggler dropdown (light/dark/system) with device preference support
+- Unit tests for ThemeToggler component (22 tests)
 - Email internationalization for contact and quote confirmation emails
 - Resend email service integration for contact and quote forms (AWDP-59)
 - Cloudflare Turnstile anti-spam protection for forms (AWDP-58)
