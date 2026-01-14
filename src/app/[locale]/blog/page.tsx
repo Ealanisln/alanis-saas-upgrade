@@ -27,6 +27,7 @@ export async function generateMetadata({
       title: t("meta.title"),
       description: t("meta.description"),
       type: "website",
+      siteName: "Alanis Dev",
       locale: locale === "en" ? "en_US" : "es_ES",
       url: generateLocalizedUrl(locale, "/blog"),
       images: [
