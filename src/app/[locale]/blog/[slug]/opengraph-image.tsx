@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { safeFetchSingle, urlFor } from "@/sanity/lib/client";
+import { getLocalizedValue } from "@/sanity/lib/i18n";
 
 // Route segment config
 export const runtime = "edge";
@@ -13,17 +14,30 @@ export const size = {
   height: 630,
 };
 
+// Type for internationalized field
+interface I18nField {
+  _key: string;
+  value: string;
+}
+
 // Type for blog post OG image data
 interface OGPostData {
-  title: string;
+  title: I18nField[] | string;
   mainImage?: SanityImageSource;
   author?: string;
-  smallDescription?: string;
+  smallDescription?: I18nField[] | string;
 }
 
 // Image generation
-export default async function Image({ params }: { params: { slug: string } }) {
+export default async function Image({
+  params,
+}: {
+  params: Promise<{ slug: string; locale: string }>;
+}) {
   try {
+    // Await params (Next.js 15 requirement)
+    const { slug, locale } = await params;
+
     // Fetch post data with proper GROQ query
     const query = `*[_type == "post" && slug.current == $slug][0]{
       title,
@@ -33,7 +47,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
     }`;
 
     const post = await safeFetchSingle<OGPostData>(query, {
-      slug: params.slug,
+      slug,
     });
 
     // If no post found, return fallback
@@ -67,6 +81,11 @@ export default async function Image({ params }: { params: { slug: string } }) {
         },
       );
     }
+
+    // Extract localized title
+    const title = Array.isArray(post.title)
+      ? getLocalizedValue(post.title, locale) || "Untitled"
+      : post.title || "Untitled";
 
     // Use post image if available, otherwise use a default background
     const imageUrl = post.mainImage
@@ -138,7 +157,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
             {/* Main Title */}
             <h1
               style={{
-                fontSize: post.title.length > 50 ? "48px" : "64px",
+                fontSize: title.length > 50 ? "48px" : "64px",
                 fontWeight: "bold",
                 color: "white",
                 marginBottom: "20px",
@@ -148,7 +167,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
                 overflow: "hidden",
               }}
             >
-              {post.title}
+              {title}
             </h1>
 
             {/* Author and Blog Label */}
@@ -177,7 +196,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
                     fontWeight: "500",
                   }}
                 >
-                  📝 Blog
+                  Blog
                 </div>
                 <p
                   style={{
