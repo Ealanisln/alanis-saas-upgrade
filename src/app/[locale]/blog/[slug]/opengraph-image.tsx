@@ -3,7 +3,7 @@ import { createClient } from "next-sanity";
 
 // Route segment config
 export const runtime = "edge";
-export const revalidate = 30;
+export const revalidate = 0; // Disable caching for debugging
 
 // Image metadata
 export const alt = "Alanis Dev Blog";
