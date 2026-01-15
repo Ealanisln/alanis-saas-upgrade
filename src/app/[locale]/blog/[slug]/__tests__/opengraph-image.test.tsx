@@ -225,12 +225,12 @@ describe("Blog Post OpenGraph Image", () => {
 
   describe("exports", () => {
     it("exports correct metadata", async () => {
-      const module = await import("../opengraph-image");
+      const ogImageModule = await import("../opengraph-image");
 
-      expect(module.size).toEqual({ width: 1200, height: 630 });
-      expect(module.contentType).toBe("image/png");
-      expect(module.alt).toBe("Alanis Dev Blog");
-      expect(module.runtime).toBe("edge");
+      expect(ogImageModule.size).toEqual({ width: 1200, height: 630 });
+      expect(ogImageModule.contentType).toBe("image/png");
+      expect(ogImageModule.alt).toBe("Alanis Dev Blog");
+      expect(ogImageModule.runtime).toBe("edge");
     });
   });
 });
