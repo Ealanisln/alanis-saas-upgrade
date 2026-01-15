@@ -31,10 +31,11 @@ export async function generateMetadata({
       title: t("title"),
       description: t("description"),
       type: "profile",
+      siteName: "Alanis Dev",
       locale: getLocaleCode(locale),
       images: [
         {
-          url: "/about/opengraph-image",
+          url: "/og-alanis-web-dev.jpg",
           width: 1200,
           height: 630,
           alt: t("title"),
@@ -45,7 +46,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: t("title"),
       description: t("description"),
-      images: ["/about/opengraph-image"],
+      images: ["/og-alanis-web-dev.jpg"],
     },
     alternates: generateAlternates(locale, "/about"),
   };
@@ -72,7 +73,7 @@ const AboutPage = async ({
     alternateName: siteConfig.name,
     description: tJsonLd("description"),
     url: generateLocalizedUrl(locale, "/about"),
-    image: `${siteConfig.url}/about/opengraph-image`,
+    image: `${siteConfig.url}/og-alanis-web-dev.jpg`,
     sameAs: [
       siteConfig.social.github,
       siteConfig.social.linkedin,

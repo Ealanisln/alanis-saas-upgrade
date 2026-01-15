@@ -25,10 +25,11 @@ export async function generateMetadata({
       title: t("title"),
       description: t("description"),
       type: "website",
+      siteName: "Alanis Dev",
       locale: getLocaleCode(locale),
       images: [
         {
-          url: "/contact/opengraph-image",
+          url: "/og-alanis-web-dev.jpg",
           width: 1200,
           height: 630,
           alt: t("title"),
@@ -39,7 +40,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: t("title"),
       description: t("description"),
-      images: ["/contact/opengraph-image"],
+      images: ["/og-alanis-web-dev.jpg"],
     },
     alternates: generateAlternates(locale, "/contact"),
   };
