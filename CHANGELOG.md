@@ -45,6 +45,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - Blog crash when posts have no author (added optional chaining)
+- Blog OG images now use absolute URLs for Facebook/WhatsApp compatibility
 - OG images now use static `/og-alanis-web-dev.jpg` for consistent branding
 - Added `og:site_name` to all page metadata
 - Contact form "sending" button now displays properly translated text
