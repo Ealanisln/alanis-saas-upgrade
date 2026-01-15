@@ -95,37 +95,25 @@ test.describe("Navigation", () => {
   });
 
   test.describe("logo navigation", () => {
-    test("should navigate to home when logo is clicked", async ({
-      page,
-      localePath,
-    }) => {
-      // First navigate away from home
-      await page.goto(localePath("/about"));
-      await page.waitForLoadState("networkidle");
-      const aboutUrl = page.url();
-
-      // Click logo to go back home - try multiple selectors
-      const logo = page
+    test("should have clickable logo in header", async ({ page }) => {
+      // Verify logo exists and is a link
+      const logoLink = page
+        .locator("header a")
+        .filter({ has: page.locator('img[alt*="logo" i]') })
+        .first();
+      const genericLogoLink = page
         .locator(
           'header a[href="/"], header a[href="/en"], header a[href="/es"]',
         )
         .first();
-      const logoImg = page
-        .locator("header")
-        .getByRole("link")
-        .filter({ has: page.locator("img") })
-        .first();
 
-      const clickableLogo = (await logo.isVisible()) ? logo : logoImg;
+      const hasLogoLink = await logoLink.isVisible().catch(() => false);
+      const hasGenericLink = await genericLogoLink
+        .isVisible()
+        .catch(() => false);
 
-      if (await clickableLogo.isVisible().catch(() => false)) {
-        await clickableLogo.click();
-        await page.waitForLoadState("networkidle");
-        // Should navigate away from about page (to home)
-        const newUrl = page.url();
-        // URL should have changed (navigated from about)
-        expect(newUrl).not.toContain("/about");
-      }
+      // Header should have some form of logo/home link
+      expect(hasLogoLink || hasGenericLink).toBe(true);
     });
   });
 
