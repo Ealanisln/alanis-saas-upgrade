@@ -52,11 +52,39 @@ function buildImageUrl(asset: SanityImageAsset | undefined): string | null {
 
   // Parse the asset reference: image-{id}-{width}x{height}-{format}
   const ref = asset._ref;
-  const [, id, dimensions, format] = ref.split("-");
+  const parts = ref.split("-");
+
+  // Handle the format: image-{id}-{width}x{height}-{format}
+  // The ID is everything between "image-" and the last two parts (dimensions and format)
+  if (parts.length < 4) return null;
+
+  const format = parts[parts.length - 1];
+  const dimensions = parts[parts.length - 2];
+  const id = parts.slice(1, -2).join("-");
 
   if (!id || !dimensions || !format) return null;
 
-  return `https://cdn.sanity.io/images/${projectId}/${dataset}/${id}-${dimensions}.${format}`;
+  // Add auto=format for better performance and w/h for optimal OG image size
+  return `https://cdn.sanity.io/images/${projectId}/${dataset}/${id}-${dimensions}.${format}?w=1200&h=630&fit=crop&auto=format`;
+}
+
+// Helper to fetch image and convert to base64 data URL for Edge runtime
+async function fetchImageAsDataUrl(url: string): Promise<string | null> {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) return null;
+
+    const arrayBuffer = await response.arrayBuffer();
+    const base64 = Buffer.from(arrayBuffer).toString("base64");
+
+    // Determine content type from response or URL
+    const contentType = response.headers.get("content-type") || "image/jpeg";
+
+    return `data:${contentType};base64,${base64}`;
+  } catch (error) {
+    console.error("Error fetching image:", error);
+    return null;
+  }
 }
 
 // Inline helper to extract localized value (Edge-compatible)
@@ -104,7 +132,12 @@ export default async function Image({
     // Extract localized title (works even if post is null)
     const title = post ? extractLocalizedValue(post.title, locale) : "Blog";
     const author = post?.author || "Alanis Dev";
-    const imageUrl = buildImageUrl(post?.mainImage?.asset);
+
+    // Build the Sanity image URL and fetch it as a data URL for Edge runtime
+    const sanityImageUrl = buildImageUrl(post?.mainImage?.asset);
+    const imageDataUrl = sanityImageUrl
+      ? await fetchImageAsDataUrl(sanityImageUrl)
+      : null;
 
     return new ImageResponse(
       (
@@ -120,9 +153,9 @@ export default async function Image({
           }}
         >
           {/* Cover Image from Sanity */}
-          {imageUrl && (
+          {imageDataUrl && (
             <img
-              src={imageUrl}
+              src={imageDataUrl}
               alt=""
               style={{
                 position: "absolute",
@@ -143,7 +176,7 @@ export default async function Image({
               left: 0,
               width: "100%",
               height: "100%",
-              background: imageUrl
+              background: imageDataUrl
                 ? "linear-gradient(135deg, rgba(30,50,130,0.7) 0%, rgba(45,72,168,0.6) 30%, rgba(61,95,208,0.5) 70%, rgba(79,122,250,0.4) 100%)"
                 : `
                 radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
