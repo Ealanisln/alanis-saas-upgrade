@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Sanity on-demand revalidation endpoint (`/api/revalidate`) for instant blog updates
+- Unit tests for revalidation API endpoint (8 tests)
+- Unit tests for Posts component including author handling (16 tests)
+- Blog post OG images now display the cover image from Sanity
 - System theme option in ThemeToggler dropdown (light/dark/system) with device preference support
 - Unit tests for ThemeToggler component (22 tests)
 - Email internationalization for contact and quote confirmation emails
@@ -40,6 +44,9 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Blog crash when posts have no author (added optional chaining)
+- OG images now use static `/og-alanis-web-dev.jpg` for consistent branding
+- Added `og:site_name` to all page metadata
 - Contact form "sending" button now displays properly translated text
 - Email sender domain updated to use verified updates.alanis.dev subdomain
 - Email service now accepts both RESEND_API_KEY and SEND_API_KEY env variables
