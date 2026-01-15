@@ -9,7 +9,8 @@ All notable changes to this project will be documented in this file.
 - Sanity on-demand revalidation endpoint (`/api/revalidate`) for instant blog updates
 - Unit tests for revalidation API endpoint (8 tests)
 - Unit tests for Posts component including author handling (16 tests)
-- Blog post OG images now display the cover image from Sanity
+- Blog post OG images now display only the cover image from Sanity (no text overlay)
+- Unit tests for blog post OG image component (9 tests)
 - System theme option in ThemeToggler dropdown (light/dark/system) with device preference support
 - Unit tests for ThemeToggler component (22 tests)
 - Email internationalization for contact and quote confirmation emails

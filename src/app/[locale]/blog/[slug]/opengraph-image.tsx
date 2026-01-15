@@ -40,7 +40,6 @@ interface SanityImageAsset {
 // Type for blog post OG image data
 interface OGPostData {
   title: I18nField[] | string;
-  author?: string;
   mainImage?: {
     asset: SanityImageAsset;
   };
@@ -121,7 +120,6 @@ export default async function Image({
     // Fetch post data with proper GROQ query
     const query = `*[_type == "post" && slug.current == $slug][0]{
       title,
-      "author": author->name,
       mainImage {
         asset
       }
@@ -129,9 +127,8 @@ export default async function Image({
 
     const post = await client.fetch<OGPostData | null>(query, { slug });
 
-    // Extract localized title (works even if post is null)
+    // Extract localized title for fallback (when no cover image)
     const title = post ? extractLocalizedValue(post.title, locale) : "Blog";
-    const author = post?.author || "Alanis Dev";
 
     // Build the Sanity image URL and fetch it as a data URL for Edge runtime
     const sanityImageUrl = buildImageUrl(post?.mainImage?.asset);
@@ -139,137 +136,56 @@ export default async function Image({
       ? await fetchImageAsDataUrl(sanityImageUrl)
       : null;
 
+    // If we have a cover image, show it directly without any overlay
+    if (imageDataUrl) {
+      return new ImageResponse(
+        (
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              height: "100%",
+              position: "relative",
+            }}
+          >
+            <img
+              src={imageDataUrl}
+              alt=""
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+          </div>
+        ),
+        {
+          ...size,
+        },
+      );
+    }
+
+    // Fallback when no cover image is available
     return new ImageResponse(
       (
         <div
           style={{
             display: "flex",
             flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
             width: "100%",
             height: "100%",
             background:
               "linear-gradient(135deg, #1E3282 0%, #2D48A8 30%, #3D5FD0 70%, #4F7AFA 100%)",
-            position: "relative",
+            color: "white",
+            fontSize: "48px",
+            fontWeight: "bold",
+            textAlign: "center",
+            padding: "40px",
           }}
         >
-          {/* Cover Image from Sanity */}
-          {imageDataUrl && (
-            <img
-              src={imageDataUrl}
-              alt=""
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                opacity: 0.4,
-              }}
-            />
-          )}
-          {/* Background Pattern/Overlay */}
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              background: imageDataUrl
-                ? "linear-gradient(135deg, rgba(30,50,130,0.7) 0%, rgba(45,72,168,0.6) 30%, rgba(61,95,208,0.5) 70%, rgba(79,122,250,0.4) 100%)"
-                : `
-                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%)
-              `,
-            }}
-          />
-
-          {/* Content Container */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-end",
-              width: "100%",
-              height: "100%",
-              padding: "60px",
-              position: "relative",
-              zIndex: 1,
-            }}
-          >
-            {/* Logo/Brand */}
-            <div
-              style={{
-                position: "absolute",
-                top: "40px",
-                right: "60px",
-                display: "flex",
-                alignItems: "center",
-                color: "white",
-                fontSize: "24px",
-                fontWeight: "600",
-              }}
-            >
-              alanis.dev
-            </div>
-
-            {/* Main Title */}
-            <h1
-              style={{
-                fontSize: title.length > 50 ? "48px" : "64px",
-                fontWeight: "bold",
-                color: "white",
-                marginBottom: "20px",
-                lineHeight: 1.2,
-                textShadow: "0 2px 4px rgba(0, 0, 0, 0.8)",
-                maxHeight: "320px",
-                overflow: "hidden",
-              }}
-            >
-              {title}
-            </h1>
-
-            {/* Author and Blog Label */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginTop: "auto",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "20px",
-                }}
-              >
-                <div
-                  style={{
-                    padding: "8px 16px",
-                    backgroundColor: "rgba(255, 255, 255, 0.2)",
-                    borderRadius: "20px",
-                    color: "white",
-                    fontSize: "18px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Blog
-                </div>
-                <p
-                  style={{
-                    fontSize: "24px",
-                    color: "rgba(255, 255, 255, 0.9)",
-                    margin: 0,
-                  }}
-                >
-                  Por: {author}
-                </p>
-              </div>
-            </div>
-          </div>
+          <div>{title}</div>
         </div>
       ),
       {
