@@ -38,7 +38,6 @@ describe("SectionTitle", () => {
   describe("subtitle", () => {
     it("does not render subtitle when not provided", () => {
       render(<SectionTitle title="Test Title" />);
-      const container = document.querySelector("div");
       // Only title should be rendered, no badge
       const badges = document.querySelectorAll(".rounded-full");
       expect(badges.length).toBe(0);
