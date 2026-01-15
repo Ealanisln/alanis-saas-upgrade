@@ -45,6 +45,7 @@ const ThemeToggler = () => {
   return (
     <div className="relative" ref={dropdownRef}>
       <button
+        data-testid="theme-toggle-button"
         aria-label="theme toggler"
         aria-expanded={isOpen}
         onClick={() => setIsOpen(!isOpen)}
@@ -54,12 +55,16 @@ const ThemeToggler = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-36 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
+        <div
+          data-testid="theme-dropdown"
+          className="absolute right-0 top-full z-50 mt-2 w-36 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
+        >
           {themes.map((themeOption) => {
             const Icon = themeOption.icon;
             return (
               <button
                 key={themeOption.value}
+                data-testid={`theme-option-${themeOption.value}`}
                 onClick={() => {
                   setTheme(themeOption.value);
                   setIsOpen(false);

@@ -1,5 +1,5 @@
 import { Inter } from "next/font/google";
-import { headers } from "next/headers";
+import { cookies } from "next/headers";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -27,9 +27,10 @@ interface RootLayoutProps {
 }
 
 export default async function RootLayout({ children }: RootLayoutProps) {
-  // Get the locale from the headers set by middleware
-  const headersList = await headers();
-  const locale = headersList.get("x-locale") || "en";
+  // Get the locale from the cookie set by middleware
+  // Cookies are more reliably accessible in server components than headers
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("x-locale")?.value || "en";
 
   return (
     <html lang={locale} suppressHydrationWarning className="scroll-smooth">

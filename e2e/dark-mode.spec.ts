@@ -4,19 +4,28 @@ import { test, expect } from "./fixtures/test-fixtures";
  * E2E tests for dark mode functionality
  * Tests theme toggle dropdown, persistence, and CSS class application
  *
- * The ThemeToggler component now uses a dropdown with 3 options:
+ * The ThemeToggler component uses a dropdown with 3 options:
  * - Light mode
  * - Dark mode
  * - System (follows device preference)
  */
 
 test.describe("Dark Mode", () => {
-  // Helper to get dropdown option by exact text
-  const getDropdownOption = (
-    page: import("@playwright/test").Page,
-    text: string,
-  ) => {
-    return page.locator(`button:has-text("${text}")`).filter({ hasText: text });
+  // Helper to wait for theme toggle to be ready
+  const waitForThemeToggle = async (page: import("@playwright/test").Page) => {
+    await page.waitForSelector('[data-testid="theme-toggle-button"]', {
+      state: "visible",
+      timeout: 10000,
+    });
+  };
+
+  // Selectors using data-testid
+  const selectors = {
+    themeToggle: '[data-testid="theme-toggle-button"]',
+    dropdown: '[data-testid="theme-dropdown"]',
+    lightOption: '[data-testid="theme-option-light"]',
+    darkOption: '[data-testid="theme-option-dark"]',
+    systemOption: '[data-testid="theme-option-system"]',
   };
 
   test.describe("Theme Toggle Button", () => {
@@ -25,30 +34,27 @@ test.describe("Dark Mode", () => {
     }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
-      // Find theme toggle button by aria-label
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
+      const themeToggle = page.locator(selectors.themeToggle);
       await expect(themeToggle).toBeVisible();
     });
 
     test("should open dropdown when clicked", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // Click to open dropdown
       await themeToggle.click();
 
       // Dropdown should be visible with all 3 options
-      await expect(getDropdownOption(page, "Light mode")).toBeVisible();
-      await expect(getDropdownOption(page, "Dark mode")).toBeVisible();
-      // For System, we need to be more specific to avoid matching other elements
-      const dropdown = page.locator(".absolute.right-0.top-full");
-      await expect(dropdown.getByText("System")).toBeVisible();
+      await expect(page.locator(selectors.dropdown)).toBeVisible();
+      await expect(page.locator(selectors.lightOption)).toBeVisible();
+      await expect(page.locator(selectors.darkOption)).toBeVisible();
+      await expect(page.locator(selectors.systemOption)).toBeVisible();
     });
 
     test("should toggle dark mode when dark option is selected", async ({
@@ -56,16 +62,14 @@ test.describe("Dark Mode", () => {
     }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
       const html = page.locator("html");
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // Open dropdown and select dark mode
       await themeToggle.click();
-      await getDropdownOption(page, "Dark mode").click();
+      await page.locator(selectors.darkOption).click();
 
       // Wait for theme transition
       await page.waitForTimeout(300);
@@ -79,16 +83,14 @@ test.describe("Dark Mode", () => {
     }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
       const html = page.locator("html");
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // Open dropdown and select light mode
       await themeToggle.click();
-      await getDropdownOption(page, "Light mode").click();
+      await page.locator(selectors.lightOption).click();
 
       // Wait for theme transition
       await page.waitForTimeout(300);
@@ -101,38 +103,34 @@ test.describe("Dark Mode", () => {
     test("should close dropdown when option is selected", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // Open dropdown
       await themeToggle.click();
-      await expect(getDropdownOption(page, "Light mode")).toBeVisible();
+      await expect(page.locator(selectors.dropdown)).toBeVisible();
 
       // Select an option
-      await getDropdownOption(page, "Dark mode").click();
+      await page.locator(selectors.darkOption).click();
 
       // Wait for dropdown to close
       await page.waitForTimeout(300);
 
       // Dropdown should be closed
-      await expect(getDropdownOption(page, "Light mode")).not.toBeVisible();
+      await expect(page.locator(selectors.dropdown)).not.toBeVisible();
     });
 
     test("should close dropdown when clicking outside", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // Open dropdown
       await themeToggle.click();
-      await expect(getDropdownOption(page, "Light mode")).toBeVisible();
+      await expect(page.locator(selectors.dropdown)).toBeVisible();
 
       // Click outside (on the page body)
       await page.locator("body").click({ position: { x: 10, y: 10 } });
@@ -141,7 +139,7 @@ test.describe("Dark Mode", () => {
       await page.waitForTimeout(300);
 
       // Dropdown should be closed
-      await expect(getDropdownOption(page, "Light mode")).not.toBeVisible();
+      await expect(page.locator(selectors.dropdown)).not.toBeVisible();
     });
   });
 
@@ -151,16 +149,14 @@ test.describe("Dark Mode", () => {
     }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
       const html = page.locator("html");
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // Open dropdown and select dark mode
       await themeToggle.click();
-      await getDropdownOption(page, "Dark mode").click();
+      await page.locator(selectors.darkOption).click();
       await page.waitForTimeout(300);
 
       // Verify dark class is present
@@ -172,21 +168,19 @@ test.describe("Dark Mode", () => {
     }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
       const html = page.locator("html");
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // First set to dark mode
       await themeToggle.click();
-      await getDropdownOption(page, "Dark mode").click();
+      await page.locator(selectors.darkOption).click();
       await page.waitForTimeout(300);
 
       // Now set to light mode
       await themeToggle.click();
-      await getDropdownOption(page, "Light mode").click();
+      await page.locator(selectors.lightOption).click();
       await page.waitForTimeout(300);
 
       // Verify dark class is NOT present
@@ -199,21 +193,19 @@ test.describe("Dark Mode", () => {
     test("should persist theme across page navigation", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // Set to dark mode
       await themeToggle.click();
-      await getDropdownOption(page, "Dark mode").click();
+      await page.locator(selectors.darkOption).click();
       await page.waitForTimeout(300);
 
       // Navigate to another page
       await page.goto("/blog");
       await page.waitForLoadState("load");
-      await page.waitForTimeout(500);
+      await waitForThemeToggle(page);
 
       // Check theme is still dark
       const blogHtml = page.locator("html");
@@ -223,16 +215,14 @@ test.describe("Dark Mode", () => {
     test("should persist theme on page refresh", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
       const html = page.locator("html");
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // Set to dark mode
       await themeToggle.click();
-      await getDropdownOption(page, "Dark mode").click();
+      await page.locator(selectors.darkOption).click();
       await page.waitForTimeout(300);
 
       // Verify it's dark
@@ -241,7 +231,7 @@ test.describe("Dark Mode", () => {
       // Refresh the page
       await page.reload();
       await page.waitForLoadState("load");
-      await page.waitForTimeout(500);
+      await waitForThemeToggle(page);
 
       // Check theme is still dark after refresh
       const refreshedHtml = page.locator("html");
@@ -253,15 +243,13 @@ test.describe("Dark Mode", () => {
     test("should show sun icon when in light mode", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // Set to light mode
       await themeToggle.click();
-      await getDropdownOption(page, "Light mode").click();
+      await page.locator(selectors.lightOption).click();
       await page.waitForTimeout(300);
 
       // In light mode, the button should contain an SVG (sun icon)
@@ -272,15 +260,13 @@ test.describe("Dark Mode", () => {
     test("should show moon icon when in dark mode", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // Set to dark mode
       await themeToggle.click();
-      await getDropdownOption(page, "Dark mode").click();
+      await page.locator(selectors.darkOption).click();
       await page.waitForTimeout(300);
 
       // In dark mode, the button should contain an SVG (moon icon)
@@ -291,16 +277,13 @@ test.describe("Dark Mode", () => {
     test("should show system icon when in system mode", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-      const dropdown = page.locator(".absolute.right-0.top-full");
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // Set to system mode
       await themeToggle.click();
-      await dropdown.getByText("System").click();
+      await page.locator(selectors.systemOption).click();
       await page.waitForTimeout(300);
 
       // In system mode, the button should contain an SVG (system/monitor icon)
@@ -315,8 +298,9 @@ test.describe("Dark Mode", () => {
     }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
+      const themeToggle = page.locator(selectors.themeToggle);
 
       await expect(themeToggle).toHaveAttribute("aria-label", "theme toggler");
     });
@@ -326,11 +310,9 @@ test.describe("Dark Mode", () => {
     }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // Initially should be false
       await expect(themeToggle).toHaveAttribute("aria-expanded", "false");
@@ -345,11 +327,9 @@ test.describe("Dark Mode", () => {
     test("theme toggle should be keyboard accessible", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // Focus the button
       await themeToggle.focus();
@@ -360,7 +340,7 @@ test.describe("Dark Mode", () => {
       await page.waitForTimeout(300);
 
       // Dropdown should be open
-      await expect(getDropdownOption(page, "Dark mode")).toBeVisible();
+      await expect(page.locator(selectors.dropdown)).toBeVisible();
 
       // Navigate with Tab to dark mode option and press Enter
       await page.keyboard.press("Tab");
@@ -376,17 +356,15 @@ test.describe("Dark Mode", () => {
     test("dropdown options should be buttons", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-      const dropdown = page.locator(".absolute.right-0.top-full");
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // Open dropdown
       await themeToggle.click();
 
       // All options should be buttons within the dropdown
+      const dropdown = page.locator(selectors.dropdown);
       const buttons = dropdown.locator("button");
       await expect(buttons).toHaveCount(3);
     });
@@ -396,42 +374,36 @@ test.describe("Dark Mode", () => {
     test("should have system option in dropdown", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-      const dropdown = page.locator(".absolute.right-0.top-full");
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // Open dropdown
       await themeToggle.click();
 
       // System option should be visible in dropdown
-      await expect(dropdown.getByText("System")).toBeVisible();
+      await expect(page.locator(selectors.systemOption)).toBeVisible();
     });
 
     test("should be able to select system theme", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
+      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator('button[aria-label="theme toggler"]');
-      const dropdown = page.locator(".absolute.right-0.top-full");
-
-      // Wait for theme to be initialized
-      await page.waitForTimeout(500);
+      const themeToggle = page.locator(selectors.themeToggle);
 
       // First set to dark mode
       await themeToggle.click();
-      await getDropdownOption(page, "Dark mode").click();
+      await page.locator(selectors.darkOption).click();
       await page.waitForTimeout(300);
 
       // Now set to system mode
       await themeToggle.click();
-      await dropdown.getByText("System").click();
+      await page.locator(selectors.systemOption).click();
       await page.waitForTimeout(300);
 
       // Dropdown should be closed (selection was made)
-      await expect(dropdown).not.toBeVisible();
+      await expect(page.locator(selectors.dropdown)).not.toBeVisible();
     });
   });
 });
