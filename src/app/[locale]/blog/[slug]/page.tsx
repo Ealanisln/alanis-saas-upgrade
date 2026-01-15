@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { portableTextComponents } from "@/components/Blog/PortableText";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
@@ -14,10 +14,11 @@ import type { SanityPost } from "@/sanity/lib/types";
 export const revalidate = 30;
 
 // Generate metadata for this page
-export async function generateMetadata(
-  { params }: { params: Promise<{ slug: string; locale: string }> },
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string; locale: string }>;
+}): Promise<Metadata> {
   // Await params since it's a Promise in Next.js 15
   const { slug, locale } = await params;
   const t = await getTranslations({ locale, namespace: "blog" });
@@ -65,10 +66,9 @@ export async function generateMetadata(
       : t("meta.description");
   const title = typeof post.title === "string" ? post.title : "Untitled";
 
-  // Get parent metadata
-  const previousImages = (await parent).openGraph?.images || [];
-
   const postUrl = generateLocalizedUrl(locale, `/blog/${slug}`);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://alanis.dev";
+  const ogImageUrl = `${siteUrl}/${locale}/blog/${slug}/opengraph-image`;
 
   return {
     title: `${title} | Alanis Dev Blog`,
@@ -85,19 +85,18 @@ export async function generateMetadata(
       authors: [typeof post.author === "string" ? post.author : "Alanis Dev"],
       images: [
         {
-          url: `/${locale}/blog/${slug}/opengraph-image`,
+          url: ogImageUrl,
           width: 1200,
           height: 630,
           alt: title,
         },
-        ...previousImages,
       ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [`/${locale}/blog/${slug}/opengraph-image`],
+      images: [ogImageUrl],
       creator: "@ealanisln",
     },
   };
