@@ -13,10 +13,14 @@ export const size = {
 };
 export const contentType = "image/png";
 
+// Sanity config
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
+
 // Create a minimal Sanity client for Edge runtime
 const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
+  projectId,
+  dataset,
   apiVersion: "2024-01-14",
   useCdn: false,
 });
@@ -27,10 +31,32 @@ interface I18nField {
   value: string;
 }
 
+// Type for Sanity image asset
+interface SanityImageAsset {
+  _ref: string;
+  _type: string;
+}
+
 // Type for blog post OG image data
 interface OGPostData {
   title: I18nField[] | string;
   author?: string;
+  mainImage?: {
+    asset: SanityImageAsset;
+  };
+}
+
+// Helper to build Sanity image URL (Edge-compatible)
+function buildImageUrl(asset: SanityImageAsset | undefined): string | null {
+  if (!asset?._ref) return null;
+
+  // Parse the asset reference: image-{id}-{width}x{height}-{format}
+  const ref = asset._ref;
+  const [, id, dimensions, format] = ref.split("-");
+
+  if (!id || !dimensions || !format) return null;
+
+  return `https://cdn.sanity.io/images/${projectId}/${dataset}/${id}-${dimensions}.${format}`;
 }
 
 // Inline helper to extract localized value (Edge-compatible)
@@ -67,7 +93,10 @@ export default async function Image({
     // Fetch post data with proper GROQ query
     const query = `*[_type == "post" && slug.current == $slug][0]{
       title,
-      "author": author->name
+      "author": author->name,
+      mainImage {
+        asset
+      }
     }`;
 
     const post = await client.fetch<OGPostData | null>(query, { slug });
@@ -75,6 +104,7 @@ export default async function Image({
     // Extract localized title (works even if post is null)
     const title = post ? extractLocalizedValue(post.title, locale) : "Blog";
     const author = post?.author || "Alanis Dev";
+    const imageUrl = buildImageUrl(post?.mainImage?.asset);
 
     return new ImageResponse(
       (
@@ -89,7 +119,23 @@ export default async function Image({
             position: "relative",
           }}
         >
-          {/* Background Pattern */}
+          {/* Cover Image from Sanity */}
+          {imageUrl && (
+            <img
+              src={imageUrl}
+              alt=""
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                opacity: 0.4,
+              }}
+            />
+          )}
+          {/* Background Pattern/Overlay */}
           <div
             style={{
               position: "absolute",
@@ -97,7 +143,9 @@ export default async function Image({
               left: 0,
               width: "100%",
               height: "100%",
-              background: `
+              background: imageUrl
+                ? "linear-gradient(135deg, rgba(30,50,130,0.7) 0%, rgba(45,72,168,0.6) 30%, rgba(61,95,208,0.5) 70%, rgba(79,122,250,0.4) 100%)"
+                : `
                 radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%)
               `,

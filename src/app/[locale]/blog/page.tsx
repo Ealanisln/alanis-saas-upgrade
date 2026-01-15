@@ -32,7 +32,7 @@ export async function generateMetadata({
       url: generateLocalizedUrl(locale, "/blog"),
       images: [
         {
-          url: `/${locale}/blog/opengraph-image`,
+          url: "/og-alanis-web-dev.jpg",
           width: 1200,
           height: 630,
           alt: t("meta.title"),
@@ -43,7 +43,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: t("meta.title"),
       description: t("meta.description"),
-      images: [`/${locale}/blog/opengraph-image`],
+      images: ["/og-alanis-web-dev.jpg"],
     },
     alternates: generateAlternates(locale, "/blog"),
   };
