@@ -1,10 +1,9 @@
 import { ImageResponse } from "next/og";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import { safeFetchSingle, urlFor } from "@/sanity/lib/client";
+import { createClient } from "next-sanity";
 
 // Route segment config
 export const runtime = "edge";
-export const revalidate = 30;
+export const revalidate = 0; // Disable caching for debugging
 
 // Image metadata
 export const alt = "Alanis Dev Blog";
@@ -12,65 +11,132 @@ export const size = {
   width: 1200,
   height: 630,
 };
+export const contentType = "image/png";
+
+// Sanity config
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
+
+// Create a minimal Sanity client for Edge runtime
+const client = createClient({
+  projectId,
+  dataset,
+  apiVersion: "2024-01-14",
+  useCdn: false,
+});
+
+// Type for internationalized field
+interface I18nField {
+  _key: string;
+  value: string;
+}
+
+// Type for Sanity image asset
+interface SanityImageAsset {
+  _ref: string;
+  _type: string;
+}
 
 // Type for blog post OG image data
 interface OGPostData {
-  title: string;
-  mainImage?: SanityImageSource;
+  title: I18nField[] | string;
   author?: string;
-  smallDescription?: string;
+  mainImage?: {
+    asset: SanityImageAsset;
+  };
+}
+
+// Helper to build Sanity image URL (Edge-compatible)
+function buildImageUrl(asset: SanityImageAsset | undefined): string | null {
+  if (!asset?._ref) return null;
+
+  // Parse the asset reference: image-{id}-{width}x{height}-{format}
+  const ref = asset._ref;
+  const parts = ref.split("-");
+
+  // Handle the format: image-{id}-{width}x{height}-{format}
+  // The ID is everything between "image-" and the last two parts (dimensions and format)
+  if (parts.length < 4) return null;
+
+  const format = parts[parts.length - 1];
+  const dimensions = parts[parts.length - 2];
+  const id = parts.slice(1, -2).join("-");
+
+  if (!id || !dimensions || !format) return null;
+
+  // Add auto=format for better performance and w/h for optimal OG image size
+  return `https://cdn.sanity.io/images/${projectId}/${dataset}/${id}-${dimensions}.${format}?w=1200&h=630&fit=crop&auto=format`;
+}
+
+// Helper to fetch image and convert to base64 data URL for Edge runtime
+async function fetchImageAsDataUrl(url: string): Promise<string | null> {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) return null;
+
+    const arrayBuffer = await response.arrayBuffer();
+    const base64 = Buffer.from(arrayBuffer).toString("base64");
+
+    // Determine content type from response or URL
+    const contentType = response.headers.get("content-type") || "image/jpeg";
+
+    return `data:${contentType};base64,${base64}`;
+  } catch (error) {
+    console.error("Error fetching image:", error);
+    return null;
+  }
+}
+
+// Inline helper to extract localized value (Edge-compatible)
+function extractLocalizedValue(
+  field: I18nField[] | string | undefined,
+  locale: string,
+): string {
+  if (!field) return "Untitled";
+  if (typeof field === "string") return field;
+  if (!Array.isArray(field)) return "Untitled";
+
+  // Try to find the value for the requested locale
+  const localized = field.find((item) => item._key === locale);
+  if (localized?.value) return localized.value;
+
+  // Fallback to English
+  const fallback = field.find((item) => item._key === "en");
+  if (fallback?.value) return fallback.value;
+
+  // Last resort: first available value
+  return field[0]?.value || "Untitled";
 }
 
 // Image generation
-export default async function Image({ params }: { params: { slug: string } }) {
+export default async function Image({
+  params,
+}: {
+  params: Promise<{ slug: string; locale: string }>;
+}) {
   try {
+    // Await params (Next.js 15 requirement)
+    const { slug, locale } = await params;
+
     // Fetch post data with proper GROQ query
     const query = `*[_type == "post" && slug.current == $slug][0]{
       title,
-      mainImage,
       "author": author->name,
-      smallDescription
+      mainImage {
+        asset
+      }
     }`;
 
-    const post = await safeFetchSingle<OGPostData>(query, {
-      slug: params.slug,
-    });
+    const post = await client.fetch<OGPostData | null>(query, { slug });
 
-    // If no post found, return fallback
-    if (!post) {
-      return new ImageResponse(
-        (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "100%",
-              height: "100%",
-              backgroundColor: "#1E3282",
-              color: "white",
-              fontSize: "48px",
-              fontWeight: "bold",
-              textAlign: "center",
-              padding: "40px",
-            }}
-          >
-            <h1>Alanis Dev Blog</h1>
-            <p style={{ fontSize: "32px", marginTop: "20px" }}>
-              Desarrollo web y tecnología
-            </p>
-          </div>
-        ),
-        {
-          ...size,
-        },
-      );
-    }
+    // Extract localized title (works even if post is null)
+    const title = post ? extractLocalizedValue(post.title, locale) : "Blog";
+    const author = post?.author || "Alanis Dev";
 
-    // Use post image if available, otherwise use a default background
-    const imageUrl = post.mainImage
-      ? urlFor(post.mainImage).width(1200).height(630).url()
+    // Build the Sanity image URL and fetch it as a data URL for Edge runtime
+    const sanityImageUrl = buildImageUrl(post?.mainImage?.asset);
+    const imageDataUrl = sanityImageUrl
+      ? await fetchImageAsDataUrl(sanityImageUrl)
       : null;
 
     return new ImageResponse(
@@ -81,30 +147,43 @@ export default async function Image({ params }: { params: { slug: string } }) {
             flexDirection: "column",
             width: "100%",
             height: "100%",
-            background: imageUrl
-              ? `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${imageUrl})`
-              : "linear-gradient(135deg, #1E3282 0%, #2D48A8 30%, #3D5FD0 70%, #4F7AFA 100%)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            background:
+              "linear-gradient(135deg, #1E3282 0%, #2D48A8 30%, #3D5FD0 70%, #4F7AFA 100%)",
             position: "relative",
           }}
         >
-          {/* Background Pattern for non-image backgrounds */}
-          {!imageUrl && (
-            <div
+          {/* Cover Image from Sanity */}
+          {imageDataUrl && (
+            <img
+              src={imageDataUrl}
+              alt=""
               style={{
                 position: "absolute",
                 top: 0,
                 left: 0,
                 width: "100%",
                 height: "100%",
-                background: `
-                  radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%)
-                `,
+                objectFit: "cover",
+                opacity: 0.4,
               }}
             />
           )}
+          {/* Background Pattern/Overlay */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              background: imageDataUrl
+                ? "linear-gradient(135deg, rgba(30,50,130,0.7) 0%, rgba(45,72,168,0.6) 30%, rgba(61,95,208,0.5) 70%, rgba(79,122,250,0.4) 100%)"
+                : `
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%)
+              `,
+            }}
+          />
 
           {/* Content Container */}
           <div
@@ -138,7 +217,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
             {/* Main Title */}
             <h1
               style={{
-                fontSize: post.title.length > 50 ? "48px" : "64px",
+                fontSize: title.length > 50 ? "48px" : "64px",
                 fontWeight: "bold",
                 color: "white",
                 marginBottom: "20px",
@@ -148,7 +227,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
                 overflow: "hidden",
               }}
             >
-              {post.title}
+              {title}
             </h1>
 
             {/* Author and Blog Label */}
@@ -177,7 +256,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
                     fontWeight: "500",
                   }}
                 >
-                  📝 Blog
+                  Blog
                 </div>
                 <p
                   style={{
@@ -186,7 +265,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
                     margin: 0,
                   }}
                 >
-                  Por: {post.author || "Alanis Dev"}
+                  Por: {author}
                 </p>
               </div>
             </div>
@@ -198,9 +277,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
       },
     );
   } catch (error) {
-    if (process.env.NODE_ENV === "development") {
-      console.error("Error generating OG image:", error);
-    }
+    console.error("Error generating OG image:", error);
 
     // In case of error, return a simple fallback
     return new ImageResponse(
@@ -220,33 +297,12 @@ export default async function Image({ params }: { params: { slug: string } }) {
             fontWeight: "bold",
             textAlign: "center",
             padding: "40px",
-            position: "relative",
           }}
         >
-          {/* Background Pattern */}
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              background: `
-                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%)
-              `,
-            }}
-          />
-
-          <div style={{ position: "relative", zIndex: 1 }}>
-            <h1>Alanis Dev Blog</h1>
-            <p style={{ fontSize: "32px", marginTop: "20px" }}>
-              Desarrollo web y tecnología
-            </p>
-            <p style={{ fontSize: "24px", marginTop: "20px", opacity: 0.8 }}>
-              alanis.dev
-            </p>
-          </div>
+          <div>Alanis Dev Blog</div>
+          <p style={{ fontSize: "32px", marginTop: "20px" }}>
+            Desarrollo web y tecnología
+          </p>
         </div>
       ),
       {

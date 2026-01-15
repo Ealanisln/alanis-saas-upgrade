@@ -78,6 +78,7 @@ export async function generateMetadata(
       title,
       description,
       type: "article",
+      siteName: "Alanis Dev",
       locale: locale === "en" ? "en_US" : "es_ES",
       url: postUrl,
       publishedTime: post.publishedAt || new Date().toISOString(),

@@ -52,8 +52,12 @@ const Posts = ({ data, locale }: PostsProps) => {
                     day: "numeric",
                   })}
                 </span>
-                <span className="mx-2">•</span>
-                <span>Por {post.author.name}</span>
+                {post.author?.name && (
+                  <>
+                    <span className="mx-2">•</span>
+                    <span>Por {post.author.name}</span>
+                  </>
+                )}
               </div>
 
               <h3 className="dark:group-hover:text-primary-light mb-3 line-clamp-2 text-xl font-bold text-gray-900 group-hover:text-primary dark:text-white">
