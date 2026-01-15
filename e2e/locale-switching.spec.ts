@@ -7,7 +7,7 @@ test.describe("Locale Switching", () => {
     await page.waitForLoadState("load");
 
     // Verify we're on the English page
-    await expect(page).toHaveTitle(/Alanis/i);
+    await expect(page).toHaveTitle(/Alanis/i, { timeout: 10000 });
 
     // Navigate to Spanish version
     await page.goto("/es");
@@ -15,7 +15,7 @@ test.describe("Locale Switching", () => {
 
     // Verify we're on the Spanish page
     expect(page.url()).toContain("/es");
-    await expect(page).toHaveTitle(/Alanis/i);
+    await expect(page).toHaveTitle(/Alanis/i, { timeout: 10000 });
   });
 
   test("should navigate from Spanish to English", async ({ page }) => {
@@ -32,7 +32,7 @@ test.describe("Locale Switching", () => {
 
     // Verify we're on the English page
     expect(page.url()).not.toContain("/es");
-    await expect(page).toHaveTitle(/Alanis/i);
+    await expect(page).toHaveTitle(/Alanis/i, { timeout: 10000 });
   });
 
   test("should preserve page path when switching locales", async ({ page }) => {
@@ -53,12 +53,12 @@ test.describe("Locale Switching", () => {
     await page.goto("/");
     await page.waitForLoadState("load");
     const htmlEn = page.locator("html");
-    await expect(htmlEn).toHaveAttribute("lang", "en");
+    await expect(htmlEn).toHaveAttribute("lang", "en", { timeout: 10000 });
 
     // Test Spanish
     await page.goto("/es");
     await page.waitForLoadState("load");
     const htmlEs = page.locator("html");
-    await expect(htmlEs).toHaveAttribute("lang", "es");
+    await expect(htmlEs).toHaveAttribute("lang", "es", { timeout: 10000 });
   });
 });

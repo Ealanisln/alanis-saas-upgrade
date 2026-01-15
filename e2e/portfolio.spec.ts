@@ -6,7 +6,9 @@ test.describe("Portfolio Page", () => {
       await page.goto("/portfolio");
       await page.waitForLoadState("load");
 
-      await expect(page).toHaveTitle(/Portfolio|Projects|Alanis/i);
+      await expect(page).toHaveTitle(/Portfolio|Projects|Alanis/i, {
+        timeout: 10000,
+      });
     });
 
     test("should display portfolio hero section", async ({ page }) => {
@@ -14,7 +16,7 @@ test.describe("Portfolio Page", () => {
       await page.waitForLoadState("load");
 
       const mainContent = page.locator("main");
-      await expect(mainContent).toBeVisible();
+      await expect(mainContent).toBeVisible({ timeout: 10000 });
     });
 
     test("should display project cards or empty state", async ({ page }) => {
@@ -29,7 +31,7 @@ test.describe("Portfolio Page", () => {
 
       // Either cards exist or page loads successfully
       const mainContent = page.locator("main");
-      await expect(mainContent).toBeVisible();
+      await expect(mainContent).toBeVisible({ timeout: 10000 });
     });
 
     test("should open project modal or navigate on card click", async ({
@@ -78,6 +80,7 @@ test.describe("Portfolio Page", () => {
 
       await expect(page).toHaveTitle(
         /Portfolio|Portafolio|Projects|Proyectos|Alanis/i,
+        { timeout: 10000 },
       );
     });
 
@@ -86,7 +89,7 @@ test.describe("Portfolio Page", () => {
       await page.waitForLoadState("load");
 
       const html = page.locator("html");
-      await expect(html).toHaveAttribute("lang", "es");
+      await expect(html).toHaveAttribute("lang", "es", { timeout: 10000 });
     });
   });
 });

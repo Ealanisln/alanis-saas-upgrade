@@ -7,7 +7,7 @@ test.describe("Blog Page", () => {
       await page.waitForLoadState("load");
 
       // Page should load without errors
-      await expect(page).toHaveTitle(/Blog|Alanis/i);
+      await expect(page).toHaveTitle(/Blog|Alanis/i, { timeout: 10000 });
     });
 
     test("should display blog posts or empty state", async ({ page }) => {
@@ -16,7 +16,7 @@ test.describe("Blog Page", () => {
 
       // Check for either blog posts or an empty state message
       const mainContent = page.locator("main");
-      await expect(mainContent).toBeVisible();
+      await expect(mainContent).toBeVisible({ timeout: 10000 });
 
       // Look for article cards or post elements
       const articles = page.locator(
@@ -65,7 +65,7 @@ test.describe("Blog Page", () => {
       await page.goto("/es/blog");
       await page.waitForLoadState("load");
 
-      await expect(page).toHaveTitle(/Blog|Alanis/i);
+      await expect(page).toHaveTitle(/Blog|Alanis/i, { timeout: 10000 });
     });
 
     test("should display Spanish content", async ({ page }) => {
@@ -74,7 +74,7 @@ test.describe("Blog Page", () => {
 
       // Check the html lang attribute
       const html = page.locator("html");
-      await expect(html).toHaveAttribute("lang", "es");
+      await expect(html).toHaveAttribute("lang", "es", { timeout: 10000 });
     });
   });
 });

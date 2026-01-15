@@ -26,9 +26,14 @@ export default function middleware(request: NextRequest) {
   // Get the response from next-intl middleware
   const response = intlMiddleware(request);
 
-  // Extract locale from URL path and set header for root layout
+  // Extract locale from URL path and set both header and cookie for root layout
+  // Cookies are more reliably accessible in server components than middleware headers
   const locale = pathname.startsWith("/es") ? "es" : "en";
   response.headers.set("x-locale", locale);
+  response.cookies.set("x-locale", locale, {
+    path: "/",
+    sameSite: "lax",
+  });
 
   return response;
 }
