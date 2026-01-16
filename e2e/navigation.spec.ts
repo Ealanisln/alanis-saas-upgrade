@@ -154,6 +154,14 @@ test.describe("Navigation", () => {
       // Footer typically has social or external links
       expect(hasSocial || hasExternal || true).toBe(true);
     });
+
+    test("should have language switcher in footer", async ({ page }) => {
+      const footer = page.locator("footer");
+
+      // Footer should have language switcher with both English and Spanish options
+      await expect(footer.getByText("English")).toBeVisible();
+      await expect(footer.getByText("Español")).toBeVisible();
+    });
   });
 
   test.describe("browser navigation", () => {
