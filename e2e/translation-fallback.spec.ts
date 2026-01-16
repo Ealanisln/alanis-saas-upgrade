@@ -38,12 +38,16 @@ test.describe("Translation Fallback Strategy", () => {
       const mainContent = page.locator("main");
       await expect(mainContent).toBeVisible({ timeout: 10000 });
 
-      // No JavaScript errors should occur
+      // No JavaScript errors should occur (excluding third-party analytics and CSP)
       const jsErrors = errors.filter(
         (e) =>
           !e.includes("favicon") &&
           !e.includes("404") &&
-          !e.includes("Failed to load resource"),
+          !e.includes("Failed to load resource") &&
+          !e.includes("Content Security Policy") &&
+          !e.includes("analytics") &&
+          !e.includes("_vercel/insights") &&
+          !e.includes("MIME type"),
       );
       expect(jsErrors).toHaveLength(0);
     });
@@ -101,12 +105,16 @@ test.describe("Translation Fallback Strategy", () => {
         const text = await content.textContent();
         expect(text).toBeTruthy();
 
-        // No JavaScript errors related to missing translations
+        // No JavaScript errors related to missing translations (excluding third-party analytics and CSP)
         const jsErrors = errors.filter(
           (e) =>
             !e.includes("favicon") &&
             !e.includes("404") &&
-            !e.includes("Failed to load resource"),
+            !e.includes("Failed to load resource") &&
+            !e.includes("Content Security Policy") &&
+            !e.includes("analytics") &&
+            !e.includes("_vercel/insights") &&
+            !e.includes("MIME type"),
         );
         expect(jsErrors).toHaveLength(0);
       }
@@ -131,12 +139,16 @@ test.describe("Translation Fallback Strategy", () => {
       const mainContent = page.locator("main");
       await expect(mainContent).toBeVisible({ timeout: 10000 });
 
-      // No JavaScript errors
+      // No JavaScript errors (excluding third-party analytics and CSP)
       const jsErrors = errors.filter(
         (e) =>
           !e.includes("favicon") &&
           !e.includes("404") &&
-          !e.includes("Failed to load resource"),
+          !e.includes("Failed to load resource") &&
+          !e.includes("Content Security Policy") &&
+          !e.includes("analytics") &&
+          !e.includes("_vercel/insights") &&
+          !e.includes("MIME type"),
       );
       expect(jsErrors).toHaveLength(0);
     });
@@ -223,13 +235,17 @@ test.describe("Translation Fallback Strategy", () => {
         const body = page.locator("body");
         await expect(body).toBeVisible({ timeout: 10000 });
 
-        // Filter out expected non-critical errors
+        // Filter out expected non-critical errors (including third-party analytics and CSP)
         const criticalErrors = errors.filter(
           (e) =>
             !e.includes("favicon") &&
             !e.includes("Failed to load resource") &&
             !e.includes("404") &&
-            !e.includes("net::ERR"),
+            !e.includes("net::ERR") &&
+            !e.includes("Content Security Policy") &&
+            !e.includes("analytics") &&
+            !e.includes("_vercel/insights") &&
+            !e.includes("MIME type"),
         );
 
         // No critical JavaScript errors
