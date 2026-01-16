@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/navigation";
+import FooterLanguageSwitcher from "./LanguageSwitcher";
 
 const Footer = () => {
   const t = useTranslations("common.footer");
@@ -202,10 +203,11 @@ const Footer = () => {
           </div>
 
           <div className="h-px w-full bg-gradient-to-r from-transparent via-[#D2D8E183] to-transparent dark:via-[#959CB183]"></div>
-          <div className="py-8">
-            <p className="text-center text-base text-body-color dark:text-white">
+          <div className="flex flex-col items-center justify-between gap-4 py-8 sm:flex-row">
+            <p className="text-center text-base text-body-color dark:text-white sm:text-left">
               {t("createdBy")} ❤️ {date.currentYear}
             </p>
+            <FooterLanguageSwitcher />
           </div>
         </div>
         <div className="absolute right-0 top-14 z-[-1]">
