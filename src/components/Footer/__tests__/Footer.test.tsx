@@ -2,6 +2,47 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Footer from "../index";
 
+// Mock useTransition for the FooterLanguageSwitcher
+vi.mock("react", async () => {
+  const actual = await vi.importActual("react");
+  return {
+    ...actual,
+    useTransition: () => [false, vi.fn((callback: () => void) => callback())],
+  };
+});
+
+// Mock next/navigation for FooterLanguageSwitcher
+vi.mock("next/navigation", () => ({
+  useParams: () => ({}),
+}));
+
+// Mock next-intl for Footer and FooterLanguageSwitcher
+vi.mock("next-intl", () => ({
+  useLocale: () => "en",
+  useTranslations: () => (key: string) => key,
+}));
+
+// Mock navigation for FooterLanguageSwitcher
+vi.mock("@/lib/navigation", () => ({
+  usePathname: () => "/",
+  useRouter: () => ({
+    replace: vi.fn(),
+  }),
+  Link: ({ children, href }: { children: React.ReactNode; href: string }) => (
+    <a href={href}>{children}</a>
+  ),
+}));
+
+// Mock i18n config for FooterLanguageSwitcher
+vi.mock("@/config/i18n", () => ({
+  locales: ["en", "es"] as const,
+  defaultLocale: "en",
+  localeConfig: {
+    en: { name: "English", flag: "🇺🇸" },
+    es: { name: "Español", flag: "🇪🇸" },
+  },
+}));
+
 describe("Footer", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -119,6 +160,64 @@ describe("Footer", () => {
       render(<Footer />);
       const svgs = document.querySelectorAll("footer svg");
       expect(svgs.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe("language switcher integration", () => {
+    it("renders language switcher in footer", () => {
+      render(<Footer />);
+      // Check that language options are present
+      expect(screen.getByText("English")).toBeInTheDocument();
+      expect(screen.getByText("Español")).toBeInTheDocument();
+    });
+
+    it("language switcher is in bottom section", () => {
+      render(<Footer />);
+      const footer = document.querySelector("footer");
+      const languageSwitcher = screen.getByText("English").closest("div");
+      expect(footer).toContainElement(languageSwitcher);
+    });
+
+    it("language switcher has separator between languages", () => {
+      render(<Footer />);
+      expect(screen.getByText("|")).toBeInTheDocument();
+    });
+
+    it("current language is highlighted", () => {
+      render(<Footer />);
+      const englishButton = screen.getByText("English");
+      expect(englishButton.className).toContain("text-primary");
+    });
+
+    it("language buttons have accessible labels", () => {
+      render(<Footer />);
+      expect(screen.getByLabelText("Switch to English")).toBeInTheDocument();
+      expect(screen.getByLabelText("Switch to Español")).toBeInTheDocument();
+    });
+  });
+
+  describe("bottom section layout", () => {
+    it("has responsive flexbox layout for copyright and language switcher", () => {
+      render(<Footer />);
+      // Find the container that has both copyright and language switcher
+      const flexContainer = document.querySelector(
+        ".flex.flex-col.sm\\:flex-row",
+      );
+      expect(flexContainer).toBeInTheDocument();
+    });
+
+    it("contains copyright and language switcher in same container", () => {
+      render(<Footer />);
+      const currentYear = new Date().getFullYear().toString();
+      const copyrightText = screen.getByText((content) =>
+        content.includes(currentYear),
+      );
+      const languageSwitcher = screen.getByText("English");
+
+      // Both should be within the footer's bottom section
+      const footer = document.querySelector("footer");
+      expect(footer).toContainElement(copyrightText);
+      expect(footer).toContainElement(languageSwitcher);
     });
   });
 });
