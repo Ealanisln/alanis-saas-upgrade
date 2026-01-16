@@ -51,10 +51,10 @@
     "createdBy": "Creado por Emmanuel con"
   },
   "languageConfirmation": {
-    "message": "Notamos que prefieres {language}. ¿Te gustaría cambiar?",
+    "message": "¿Prefieres usar el sitio en {language}? Puedes cambiar el idioma aquí.",
     "switch": "Cambiar",
-    "dismiss": "Quedarme",
+    "dismiss": "No, gracias",
     "switchLabel": "Cambiar a {language}",
-    "dismissLabel": "Quedarme en el idioma actual"
+    "dismissLabel": "Continuar en español"
   }
 }

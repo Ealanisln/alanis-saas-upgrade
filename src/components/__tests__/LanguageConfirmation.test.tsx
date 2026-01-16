@@ -258,10 +258,10 @@ describe("LanguageConfirmation", () => {
       expect(screen.getByText("🇪🇸")).toBeInTheDocument();
     });
 
-    it("banner has slide-up animation class", () => {
+    it("banner has slide-down animation class", () => {
       render(<LanguageConfirmation />);
       const banner = screen.getByRole("banner");
-      expect(banner).toHaveClass("animate-slide-up");
+      expect(banner).toHaveClass("animate-slide-down");
     });
   });
 });

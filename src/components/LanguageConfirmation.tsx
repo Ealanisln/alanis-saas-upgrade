@@ -160,39 +160,41 @@ export default function LanguageConfirmation() {
     <div
       role="banner"
       aria-live="polite"
-      className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-lg animate-slide-up sm:left-auto sm:right-4"
+      className="fixed inset-x-0 top-0 z-[9999] animate-slide-down"
     >
-      <div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-white p-4 shadow-lg dark:border-gray-700 dark:bg-gray-800 sm:flex-row sm:items-center sm:gap-4">
-        <div className="flex items-center gap-3">
-          <span className="text-2xl" aria-hidden="true">
-            {browserLocaleConfig.flag}
-          </span>
-          <p className="text-sm text-body-color dark:text-body-color-dark">
-            {t("languageConfirmation.message", {
-              language: browserLocaleConfig.name,
-            })}
-          </p>
-        </div>
+      <div className="bg-gradient-to-r from-primary to-primary/90 px-4 py-3 text-white shadow-lg">
+        <div className="container mx-auto flex flex-col items-center justify-between gap-3 sm:flex-row">
+          <div className="flex items-center gap-3">
+            <span className="text-3xl" aria-hidden="true">
+              {browserLocaleConfig.flag}
+            </span>
+            <p className="text-base font-medium">
+              {t("languageConfirmation.message", {
+                language: browserLocaleConfig.name,
+              })}
+            </p>
+          </div>
 
-        <div className="flex items-center gap-2 sm:ml-auto sm:flex-shrink-0">
-          <button
-            onClick={handleSwitch}
-            disabled={isPending}
-            className="rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:focus:ring-offset-gray-800"
-            aria-label={t("languageConfirmation.switchLabel", {
-              language: browserLocaleConfig.name,
-            })}
-          >
-            {isPending ? t("loading") : t("languageConfirmation.switch")}
-          </button>
-          <button
-            onClick={handleDismiss}
-            disabled={isPending}
-            className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-body-color transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-body-color-dark dark:hover:bg-gray-600 dark:focus:ring-offset-gray-800"
-            aria-label={t("languageConfirmation.dismissLabel")}
-          >
-            {t("languageConfirmation.dismiss")}
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleSwitch}
+              disabled={isPending}
+              className="rounded-md bg-white px-5 py-2 text-sm font-semibold text-primary shadow-sm transition-all hover:bg-gray-100 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary disabled:cursor-not-allowed disabled:opacity-50"
+              aria-label={t("languageConfirmation.switchLabel", {
+                language: browserLocaleConfig.name,
+              })}
+            >
+              {isPending ? t("loading") : t("languageConfirmation.switch")}
+            </button>
+            <button
+              onClick={handleDismiss}
+              disabled={isPending}
+              className="rounded-md border-2 border-white/50 bg-transparent px-5 py-2 text-sm font-semibold text-white transition-all hover:border-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary disabled:cursor-not-allowed disabled:opacity-50"
+              aria-label={t("languageConfirmation.dismissLabel")}
+            >
+              {t("languageConfirmation.dismiss")}
+            </button>
+          </div>
         </div>
       </div>
     </div>
