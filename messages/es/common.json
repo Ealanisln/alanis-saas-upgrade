@@ -15,9 +15,18 @@
   "backHome": "Volver al inicio",
   "home": "Inicio",
   "notFound": {
-    "title": "Página no encontrada",
-    "message": "Puedes regresar al",
-    "homeLink": "Inicio"
+    "title": "Página No Encontrada",
+    "heading": "404",
+    "description": "Lo sentimos, la página que buscas no existe o ha sido movida.",
+    "suggestions": {
+      "title": "Aquí hay algunos enlaces útiles:",
+      "home": "Inicio",
+      "blog": "Blog",
+      "portfolio": "Portafolio",
+      "contact": "Contacto"
+    },
+    "backHome": "Volver al Inicio",
+    "searchPlaceholder": "Buscar..."
   },
   "breadcrumbs": {
     "home": "Inicio",
@@ -41,4 +50,4 @@
     "termsOfUse": "Términos de Uso",
     "createdBy": "Creado por Emmanuel con"
   }
-} 
+}
