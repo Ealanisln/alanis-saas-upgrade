@@ -1,7 +1,5 @@
 "use client";
 
-import { useTransition } from "react";
-import { useParams } from "next/navigation";
 import { useLocale } from "next-intl";
 import {
   locales,
@@ -9,14 +7,11 @@ import {
   defaultLocale,
   type Locale,
 } from "@/config/i18n";
-import { usePathname, useRouter } from "@/lib/navigation";
+import { usePathname } from "@/lib/navigation";
 
 export default function FooterLanguageSwitcher() {
   const currentLocale = useLocale();
-  const router = useRouter();
   const pathname = usePathname();
-  const params = useParams();
-  const [isPending, startTransition] = useTransition();
 
   // Validate locale and provide fallback
   const locale =
@@ -28,14 +23,20 @@ export default function FooterLanguageSwitcher() {
     // Don't do anything if already on the selected locale
     if (newLocale === locale) return;
 
-    startTransition(() => {
-      // Use next-intl's router to navigate with the new locale
-      router.replace(
-        // @ts-expect-error -- TypeScript will validate that only known locale params are used
-        { pathname, params },
-        { locale: newLocale },
-      );
-    });
+    // Build the new URL with the target locale
+    // For English (default), use the path without locale prefix
+    // For other locales, add the locale prefix
+    let newPath: string;
+    if (newLocale === defaultLocale) {
+      // Switch to English - remove locale prefix
+      newPath = pathname;
+    } else {
+      // Switch to non-default locale - add locale prefix
+      newPath = `/${newLocale}${pathname}`;
+    }
+
+    // Use hard navigation to ensure lang attribute updates
+    window.location.assign(newPath);
   };
 
   return (
@@ -48,12 +49,12 @@ export default function FooterLanguageSwitcher() {
           <span key={loc} className="flex items-center">
             <button
               onClick={() => handleLocaleChange(loc)}
-              disabled={isPending || isActive}
+              disabled={isActive}
               className={`text-sm transition-colors duration-150 ${
                 isActive
                   ? "font-medium text-primary"
                   : "text-body-color hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
-              } ${isPending ? "cursor-not-allowed opacity-50" : ""}`}
+              }`}
               aria-label={`Switch to ${locConfig.name}`}
               aria-current={isActive ? "true" : undefined}
             >
