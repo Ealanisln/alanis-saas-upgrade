@@ -77,11 +77,20 @@ const missingTranslationsLog: MissingTranslationEntry[] = [];
 const MAX_LOG_ENTRIES = 100;
 
 /**
+ * Check if i18n fallback logging is enabled
+ * Set NEXT_PUBLIC_LOG_I18N_FALLBACKS=true to enable verbose logging
+ */
+function isI18nLoggingEnabled(): boolean {
+  return process.env.NEXT_PUBLIC_LOG_I18N_FALLBACKS === "true";
+}
+
+/**
  * Log a missing translation for debugging purposes
+ * Only logs when NEXT_PUBLIC_LOG_I18N_FALLBACKS=true
  */
 function logMissingTranslation(entry: MissingTranslationEntry): void {
-  // Only log in development
-  if (process.env.NODE_ENV !== "development") {
+  // Only log in development when explicitly enabled
+  if (process.env.NODE_ENV !== "development" || !isI18nLoggingEnabled()) {
     return;
   }
 
