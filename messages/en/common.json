@@ -15,9 +15,18 @@
   "backHome": "Go back home",
   "home": "Home",
   "notFound": {
-    "title": "Page not found",
-    "message": "You can go back to",
-    "homeLink": "Home"
+    "title": "Page Not Found",
+    "heading": "404",
+    "description": "Sorry, the page you are looking for doesn't exist or has been moved.",
+    "suggestions": {
+      "title": "Here are some helpful links:",
+      "home": "Home",
+      "blog": "Blog",
+      "portfolio": "Portfolio",
+      "contact": "Contact"
+    },
+    "backHome": "Go Back Home",
+    "searchPlaceholder": "Search..."
   },
   "breadcrumbs": {
     "home": "Home",
@@ -41,4 +50,4 @@
     "termsOfUse": "Terms of Use",
     "createdBy": "Created by Emmanuel with"
   }
-} 
+}
