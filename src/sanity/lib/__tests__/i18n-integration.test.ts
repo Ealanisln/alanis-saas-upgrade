@@ -18,8 +18,6 @@ import {
   hasTranslation,
   getAvailableLocales,
   getPostTranslationCoverage,
-  getCategoryTranslationCoverage,
-  getMissingTranslationsLog,
   clearMissingTranslationsLog,
   type LocalizationMetadata,
 } from "../i18n";
