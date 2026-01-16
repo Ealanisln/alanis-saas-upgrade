@@ -1,7 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { renderHook, waitFor, act } from "@testing-library/react";
-import React from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 
 // Mock axios for API client tests
 const mockAxiosInstance = {
@@ -25,28 +22,6 @@ vi.mock("axios", () => ({
       (error as { isAxiosError: boolean }).isAxiosError === true,
   },
 }));
-
-// Helper to create a wrapper with QueryClient
-function createWrapper() {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
-      mutations: {
-        retry: false,
-      },
-    },
-  });
-
-  return function Wrapper({ children }: { children: React.ReactNode }) {
-    return React.createElement(
-      QueryClientProvider,
-      { client: queryClient },
-      children,
-    );
-  };
-}
 
 describe("Error Scenarios - API Client", () => {
   beforeEach(() => {
