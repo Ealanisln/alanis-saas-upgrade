@@ -3,14 +3,13 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import FooterLanguageSwitcher from "../LanguageSwitcher";
 
-// Mock useTransition
-const mockStartTransition = vi.fn((callback: () => void) => callback());
-vi.mock("react", async () => {
-  const actual = await vi.importActual("react");
-  return {
-    ...actual,
-    useTransition: () => [false, mockStartTransition],
-  };
+// Mock window.location.assign
+const mockLocationAssign = vi.fn();
+Object.defineProperty(window, "location", {
+  value: {
+    assign: mockLocationAssign,
+  },
+  writable: true,
 });
 
 // Mock next/navigation
@@ -24,12 +23,8 @@ vi.mock("next-intl", () => ({
 }));
 
 // Mock navigation
-const mockReplace = vi.fn();
 vi.mock("@/lib/navigation", () => ({
   usePathname: () => "/",
-  useRouter: () => ({
-    replace: mockReplace,
-  }),
 }));
 
 // Mock i18n config
@@ -104,20 +99,17 @@ describe("FooterLanguageSwitcher", () => {
   });
 
   describe("locale switching", () => {
-    it("calls router.replace when different locale is clicked", async () => {
+    it("navigates to new locale when different locale is clicked", async () => {
       const user = userEvent.setup();
       render(<FooterLanguageSwitcher />);
 
       const spanishButton = screen.getByText("Español");
       await user.click(spanishButton);
 
-      expect(mockReplace).toHaveBeenCalledWith(
-        expect.objectContaining({ pathname: "/" }),
-        expect.objectContaining({ locale: "es" }),
-      );
+      expect(mockLocationAssign).toHaveBeenCalledWith("/es/");
     });
 
-    it("does not call router.replace when same locale is clicked", async () => {
+    it("does not navigate when same locale is clicked", async () => {
       const user = userEvent.setup();
       render(<FooterLanguageSwitcher />);
 
@@ -125,17 +117,17 @@ describe("FooterLanguageSwitcher", () => {
       await user.click(englishButton);
 
       // Should not navigate since it's disabled
-      expect(mockReplace).not.toHaveBeenCalled();
+      expect(mockLocationAssign).not.toHaveBeenCalled();
     });
 
-    it("uses startTransition for navigation", async () => {
+    it("uses hard navigation via window.location.assign", async () => {
       const user = userEvent.setup();
       render(<FooterLanguageSwitcher />);
 
       const spanishButton = screen.getByText("Español");
       await user.click(spanishButton);
 
-      expect(mockStartTransition).toHaveBeenCalled();
+      expect(mockLocationAssign).toHaveBeenCalled();
     });
   });
 
