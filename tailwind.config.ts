@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from "tailwindcss";
 
 // Definir interfaces para mejor tipado
 interface ColorShade {
@@ -32,14 +32,14 @@ interface ColorPalette {
 
   // Mantener para compatibilidad
   yellow?: string | ColorShade;
-  'body-color'?: string;
-  'body-color-dark'?: string;
-  'gray-dark'?: string;
-  'gray-light'?: string;
+  "body-color"?: string;
+  "body-color-dark"?: string;
+  "gray-dark"?: string;
+  "gray-light"?: string;
   stroke?: string;
-  'stroke-dark'?: string;
-  'bg-color-dark'?: string;
-  
+  "stroke-dark"?: string;
+  "bg-color-dark"?: string;
+
   // UI components
   border: string;
   input: string;
@@ -81,13 +81,13 @@ const config: Config = {
         transparent: "transparent",
         white: "#FFFFFF",
         black: "#0F172A", // Actualizado a un negro más moderno
-        dark: "#1E293B", // Actualizado 
+        dark: "#1E293B", // Actualizado
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        
+
         // Primary color (Azul moderno)
         primary: {
           DEFAULT: "#4F7AFA", // Un azul ligeramente actualizado
@@ -103,7 +103,7 @@ const config: Config = {
           900: "#142159",
           foreground: "hsl(var(--primary-foreground))",
         },
-        
+
         // Accent color (naranja/ámbar moderno que reemplaza al amarillo)
         accent: {
           DEFAULT: "#F79433",
@@ -119,7 +119,7 @@ const config: Config = {
           900: "#52300F",
           foreground: "#FFFFFF",
         },
-        
+
         // Neutral colors (escala de grises moderna)
         neutral: {
           DEFAULT: "#64748B",
@@ -134,7 +134,7 @@ const config: Config = {
           800: "#1E293B",
           900: "#0F172A",
         },
-        
+
         // Colores semánticos
         success: {
           DEFAULT: "#10B981",
@@ -149,7 +149,7 @@ const config: Config = {
           800: "#065F46",
           900: "#064E3B",
         },
-        
+
         danger: {
           DEFAULT: "#EF4444",
           50: "#FEF2F2",
@@ -163,7 +163,7 @@ const config: Config = {
           800: "#991B1B",
           900: "#7F1D1D",
         },
-        
+
         warning: {
           DEFAULT: "#F59E0B",
           50: "#FFFBEB",
@@ -177,7 +177,7 @@ const config: Config = {
           800: "#92400E",
           900: "#78350F",
         },
-        
+
         info: {
           DEFAULT: "#3B82F6",
           50: "#EFF6FF",
@@ -191,17 +191,17 @@ const config: Config = {
           800: "#1E40AF",
           900: "#1E3A8A",
         },
-        
+
         // Mantener nombres antiguos para compatibilidad con código existente
         yellow: "#F79433", // Actualizado al nuevo naranja/ámbar
-        'body-color': "#64748B", // Actualizado a neutral-500
-        'body-color-dark': "#94A3B8", // Actualizado a neutral-400
-        'gray-dark': "#1E293B", // Actualizado a neutral-800
-        'gray-light': "#F8FAFC", // Actualizado a neutral-50
+        "body-color": "#64748B", // Actualizado a neutral-500
+        "body-color-dark": "#94A3B8", // Actualizado a neutral-400
+        "gray-dark": "#1E293B", // Actualizado a neutral-800
+        "gray-light": "#F8FAFC", // Actualizado a neutral-50
         stroke: "#E2E8F0", // Actualizado a neutral-200
-        'stroke-dark': "#334155", // Actualizado a neutral-700
-        'bg-color-dark': "#0F172A", // Actualizado a neutral-900
-        
+        "stroke-dark": "#334155", // Actualizado a neutral-700
+        "bg-color-dark": "#0F172A", // Actualizado a neutral-900
+
         secondary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -254,10 +254,15 @@ const config: Config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "slide-up": {
+          from: { transform: "translateY(100%)", opacity: "0" },
+          to: { transform: "translateY(0)", opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "slide-up": "slide-up 0.3s ease-out",
       },
     },
   },
