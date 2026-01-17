@@ -52,15 +52,45 @@ vi.mock("@/lib/navigation", () => ({
   usePathname: () => "/",
 }));
 
-// Mock next/image
+// Mock next/image - filter out Next.js-specific props that aren't valid HTML attributes
 vi.mock("next/image", () => ({
   default: ({
     src,
     alt,
-    ...props
+    fill,
+    priority,
+    quality,
+    placeholder,
+    blurDataURL,
+    loader,
+    unoptimized,
+    onLoadingComplete,
+    sizes,
+    ...domProps
   }: {
     src: string;
     alt: string;
+    fill?: boolean;
+    priority?: boolean;
+    quality?: number;
+    placeholder?: string;
+    blurDataURL?: string;
+    loader?: unknown;
+    unoptimized?: boolean;
+    onLoadingComplete?: unknown;
+    sizes?: string;
     [key: string]: unknown;
-  }) => React.createElement("img", { src, alt, ...props }),
+  }) => {
+    // Suppress unused variable warnings
+    void fill;
+    void priority;
+    void quality;
+    void placeholder;
+    void blurDataURL;
+    void loader;
+    void unoptimized;
+    void onLoadingComplete;
+    void sizes;
+    return React.createElement("img", { src, alt, ...domProps });
+  },
 }));
