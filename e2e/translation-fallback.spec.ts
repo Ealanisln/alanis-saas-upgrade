@@ -92,7 +92,7 @@ test.describe("Translation Fallback Strategy", () => {
       const errors = collectConsoleErrors(page);
 
       await page.goto("/es/blog");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Find first blog post link
       const postLink = page
@@ -104,7 +104,7 @@ test.describe("Translation Fallback Strategy", () => {
         // Click and wait for navigation
         await postLink.click();
         await page.waitForURL(/\/es\/blog\/.+/, { timeout: 30000 });
-        await page.waitForLoadState("networkidle");
+        await page.waitForLoadState("load");
 
         // Page should load without breaking
         const mainContent = page.locator("main, article, .prose");
@@ -182,7 +182,7 @@ test.describe("Translation Fallback Strategy", () => {
 
       // Test English
       await page.goto("/blog");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
       const englishMain = page.locator("main");
       await expect(englishMain).toBeVisible({ timeout: 15000 });
 
@@ -191,7 +191,7 @@ test.describe("Translation Fallback Strategy", () => {
 
       // Test Spanish (with fallback)
       await page.goto("/es/blog");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
       const spanishMain = page.locator("main");
       await expect(spanishMain).toBeVisible({ timeout: 15000 });
 

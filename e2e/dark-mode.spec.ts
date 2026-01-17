@@ -21,11 +21,10 @@ test.describe("Dark Mode", () => {
 
   // Helper to wait for theme toggle to be ready and scroll it into view
   const waitForThemeToggle = async (page: import("@playwright/test").Page) => {
-    // Wait for full hydration before looking for the theme toggle
-    await page.waitForLoadState("networkidle");
-
+    // Wait for the theme toggle to be visible (indicates hydration complete)
+    // Don't use networkidle as it can timeout in CI due to analytics scripts
     const toggle = page.locator('[data-testid="theme-toggle-button"]');
-    await toggle.waitFor({ state: "visible", timeout: 10000 });
+    await toggle.waitFor({ state: "visible", timeout: 15000 });
     // Scroll into view to avoid image interception issues
     await toggle.scrollIntoViewIfNeeded();
   };

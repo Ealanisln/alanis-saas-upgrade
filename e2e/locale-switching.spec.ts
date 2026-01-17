@@ -98,9 +98,9 @@ test.describe("Locale Switching", () => {
       });
 
       await spanishButton.click();
-      await page.waitForLoadState("networkidle");
 
-      // Should be on Spanish blog page
+      // Should be on Spanish blog page - wait for URL change instead of networkidle
+      // networkidle can timeout in CI due to analytics scripts
       await expect(page).toHaveURL(/\/es\/blog/, { timeout: 15000 });
     });
 
