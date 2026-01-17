@@ -1,36 +1,66 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
+import React from "react";
 
-// Mock framer-motion before import
+// Helper type for filtering Framer Motion props from DOM props
+interface MotionProps {
+  children?: React.ReactNode;
+  className?: string;
+  initial?: unknown;
+  animate?: unknown;
+  exit?: unknown;
+  variants?: unknown;
+  whileHover?: unknown;
+  whileTap?: unknown;
+  whileInView?: unknown;
+  transition?: unknown;
+  viewport?: unknown;
+  style?: React.CSSProperties;
+  [key: string]: unknown;
+}
+
+// Helper to filter out Framer Motion-specific props
+const filterMotionProps = (props: MotionProps) => {
+  const {
+    initial,
+    animate,
+    exit,
+    variants,
+    whileHover,
+    whileTap,
+    whileInView,
+    transition,
+    viewport,
+    ...domProps
+  } = props;
+  // Suppress unused variable warnings
+  void initial;
+  void animate;
+  void exit;
+  void variants;
+  void whileHover;
+  void whileTap;
+  void whileInView;
+  void transition;
+  void viewport;
+  return domProps;
+};
+
+// Mock framer-motion before import - filter out motion-specific props
 vi.mock("framer-motion", () => ({
   motion: {
-    div: ({
-      children,
-      className,
-      ...props
-    }: React.HTMLAttributes<HTMLDivElement>) => (
-      <div className={className} {...props}>
-        {children}
-      </div>
-    ),
-    h1: ({
-      children,
-      className,
-      ...props
-    }: React.HTMLAttributes<HTMLHeadingElement>) => (
-      <h1 className={className} {...props}>
-        {children}
-      </h1>
-    ),
-    p: ({
-      children,
-      className,
-      ...props
-    }: React.HTMLAttributes<HTMLParagraphElement>) => (
-      <p className={className} {...props}>
-        {children}
-      </p>
-    ),
+    div: ({ children, className, ...props }: MotionProps) => {
+      const domProps = filterMotionProps(props);
+      return React.createElement("div", { className, ...domProps }, children);
+    },
+    h1: ({ children, className, ...props }: MotionProps) => {
+      const domProps = filterMotionProps(props);
+      return React.createElement("h1", { className, ...domProps }, children);
+    },
+    p: ({ children, className, ...props }: MotionProps) => {
+      const domProps = filterMotionProps(props);
+      return React.createElement("p", { className, ...domProps }, children);
+    },
   },
 }));
 

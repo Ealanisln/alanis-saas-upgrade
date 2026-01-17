@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, waitFor, act } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Contact from "../index";
 
@@ -229,17 +229,18 @@ describe("Contact", () => {
         ).toBeInTheDocument();
       });
 
-      // Advance time by 3 seconds
-      await act(async () => {
-        await vi.advanceTimersByTimeAsync(3000);
-      });
+      // Advance time by 3 seconds - waitFor handles act() internally
+      await vi.advanceTimersByTimeAsync(3000);
 
-      // Form should be reset
-      await waitFor(() => {
-        expect(nameInput.value).toBe("");
-        expect(emailInput.value).toBe("");
-        expect(messageInput.value).toBe("");
-      });
+      // Form should be reset - waitFor handles act() internally
+      await waitFor(
+        () => {
+          expect(nameInput.value).toBe("");
+          expect(emailInput.value).toBe("");
+          expect(messageInput.value).toBe("");
+        },
+        { timeout: 1000 },
+      );
     });
 
     it("clears success message after 3 seconds", async () => {
@@ -265,17 +266,18 @@ describe("Contact", () => {
         ).toBeInTheDocument();
       });
 
-      // Advance time by 3 seconds
-      await act(async () => {
-        await vi.advanceTimersByTimeAsync(3000);
-      });
+      // Advance time by 3 seconds - waitFor handles act() internally
+      await vi.advanceTimersByTimeAsync(3000);
 
-      // Success message should be gone
-      await waitFor(() => {
-        expect(
-          screen.queryByText("Email sent successfully!"),
-        ).not.toBeInTheDocument();
-      });
+      // Success message should be gone - waitFor handles act() internally
+      await waitFor(
+        () => {
+          expect(
+            screen.queryByText("Email sent successfully!"),
+          ).not.toBeInTheDocument();
+        },
+        { timeout: 1000 },
+      );
     });
   });
 
@@ -351,17 +353,18 @@ describe("Contact", () => {
         ).toBeInTheDocument();
       });
 
-      // Advance time by 3 seconds
-      await act(async () => {
-        await vi.advanceTimersByTimeAsync(3000);
-      });
+      // Advance time by 3 seconds - waitFor handles act() internally
+      await vi.advanceTimersByTimeAsync(3000);
 
-      // Error message should be gone
-      await waitFor(() => {
-        expect(
-          screen.queryByText(/errorMessage.*Network error/),
-        ).not.toBeInTheDocument();
-      });
+      // Error message should be gone - waitFor handles act() internally
+      await waitFor(
+        () => {
+          expect(
+            screen.queryByText(/errorMessage.*Network error/),
+          ).not.toBeInTheDocument();
+        },
+        { timeout: 1000 },
+      );
     });
   });
 
