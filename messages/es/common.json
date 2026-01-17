@@ -49,5 +49,12 @@
     "openTicket": "Abrir Ticket de Soporte",
     "termsOfUse": "Términos de Uso",
     "createdBy": "Creado por Emmanuel con"
+  },
+  "languageConfirmation": {
+    "message": "¿Prefieres usar el sitio en {language}? Puedes cambiar el idioma aquí.",
+    "switch": "Cambiar",
+    "dismiss": "No, gracias",
+    "switchLabel": "Cambiar a {language}",
+    "dismissLabel": "Continuar en español"
   }
 }
