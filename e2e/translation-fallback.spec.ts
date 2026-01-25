@@ -180,14 +180,15 @@ test.describe("Translation Fallback Strategy", () => {
       // Increase timeout for Sanity fetches
       test.setTimeout(60000);
 
-      // Test English
+      // Test English - wait for page title/heading which should always be present
       await page.goto("/blog");
       await page.waitForLoadState("load");
       const englishMain = page.locator("main");
       await expect(englishMain).toBeVisible({ timeout: 15000 });
 
-      // Get English content before navigating
-      const englishContent = await englishMain.textContent();
+      // Wait for any heading or section content to appear (not dependent on CMS data)
+      const englishHeading = page.locator("main h1, main h2, main section");
+      await expect(englishHeading.first()).toBeVisible({ timeout: 15000 });
 
       // Test Spanish (with fallback)
       await page.goto("/es/blog");
@@ -195,12 +196,13 @@ test.describe("Translation Fallback Strategy", () => {
       const spanishMain = page.locator("main");
       await expect(spanishMain).toBeVisible({ timeout: 15000 });
 
-      // Get Spanish content
-      const spanishContent = await spanishMain.textContent();
+      // Wait for any heading or section content to appear
+      const spanishHeading = page.locator("main h1, main h2, main section");
+      await expect(spanishHeading.first()).toBeVisible({ timeout: 15000 });
 
-      // Both pages should render content
-      expect(englishContent).toBeTruthy();
-      expect(spanishContent).toBeTruthy();
+      // Both pages should have main elements visible - content verified above
+      await expect(englishMain).toBeVisible();
+      await expect(spanishMain).toBeVisible();
     });
 
     test("should maintain page structure when translations are missing", async ({
