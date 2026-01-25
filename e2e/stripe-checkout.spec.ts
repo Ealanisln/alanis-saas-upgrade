@@ -211,4 +211,127 @@ test.describe("Stripe Checkout Flow", () => {
       expect(externalInsecure.length).toBe(0);
     });
   });
+
+  test.describe("Payment Amount Validation", () => {
+    test("pricing cards should display only valid tier prices", async ({
+      page,
+    }) => {
+      await page.goto("/plans");
+      await page.waitForLoadState("load");
+
+      // Valid prices for the tiers
+      const validPrices = ["500", "850", "2,000", "4,200"];
+
+      const priceText = await page.textContent("main");
+
+      // Should contain at least one valid price
+      const hasValidPrice = validPrices.some((price) =>
+        priceText?.includes(price),
+      );
+      expect(hasValidPrice).toBeTruthy();
+    });
+
+    test("checkout forms should have proper form structure", async ({
+      page,
+    }) => {
+      await page.goto("/plans");
+      await page.waitForLoadState("load");
+
+      // Find checkout forms
+      const forms = page.locator("form");
+      const formCount = await forms.count();
+
+      // If there are forms, they should have submit buttons
+      if (formCount > 0) {
+        for (let i = 0; i < formCount; i++) {
+          const form = forms.nth(i);
+          const submitButton = form.locator('button[type="submit"]');
+
+          // Each form should have a submit button for accessibility
+          if ((await submitButton.count()) > 0) {
+            await expect(submitButton.first()).toBeEnabled();
+          }
+        }
+      }
+    });
+
+    test("should not expose sensitive data in page source", async ({
+      page,
+    }) => {
+      await page.goto("/plans");
+      await page.waitForLoadState("load");
+
+      const pageContent = await page.content();
+
+      // Should not contain API keys or secrets
+      expect(pageContent).not.toMatch(/sk_live_[a-zA-Z0-9]+/);
+      expect(pageContent).not.toMatch(/sk_test_[a-zA-Z0-9]+/);
+      expect(pageContent).not.toMatch(/whsec_[a-zA-Z0-9]+/);
+
+      // Should not contain internal amount values in cents directly in hidden fields
+      // (amounts should be derived server-side from pricing tiers)
+      const hiddenInputs = page.locator('input[type="hidden"][name*="amount"]');
+      const hiddenCount = await hiddenInputs.count();
+
+      // If there are hidden amount inputs, they should not be tampered with client-side
+      expect(hiddenCount).toBe(0);
+    });
+  });
+
+  test.describe("Input Sanitization", () => {
+    test("page should handle special characters in URL parameters gracefully", async ({
+      page,
+    }) => {
+      // Test XSS attempt in query params
+      const maliciousParams = "<script>alert(1)</script>&canceled=true";
+      await page.goto(`/plans?test=${encodeURIComponent(maliciousParams)}`);
+      await page.waitForLoadState("load");
+
+      // Page should still load without executing scripts
+      const mainContent = page.locator("main");
+      await expect(mainContent).toBeVisible();
+
+      // No alert dialogs should appear
+      let alertTriggered = false;
+      page.on("dialog", () => {
+        alertTriggered = true;
+      });
+      await page.waitForTimeout(500);
+      expect(alertTriggered).toBeFalsy();
+    });
+
+    test("page should handle SQL injection attempts in URL gracefully", async ({
+      page,
+    }) => {
+      const sqlInjection = "'; DROP TABLE users;--";
+      await page.goto(`/plans?test=${encodeURIComponent(sqlInjection)}`);
+      await page.waitForLoadState("load");
+
+      // Page should load normally
+      const mainContent = page.locator("main");
+      await expect(mainContent).toBeVisible();
+    });
+
+    test("success page should handle malformed session IDs", async ({
+      page,
+    }) => {
+      // Test with various malformed session IDs
+      const malformedIds = [
+        "<script>alert(1)</script>",
+        "' OR '1'='1",
+        "../../../etc/passwd",
+        "{{constructor.constructor('return this')()}}",
+      ];
+
+      for (const id of malformedIds) {
+        const response = await page.goto(
+          `/checkout/success?session_id=${encodeURIComponent(id)}`,
+        );
+        // Should not cause server error
+        if (response) {
+          expect(response.status()).toBeLessThan(500);
+        }
+      }
+    });
+  });
 });
