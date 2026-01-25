@@ -3,6 +3,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { stripe, STRIPE_CURRENCY } from "@/lib/stripe";
+import { validateAmount, sanitizeServiceName } from "@/lib/stripe-validation";
 
 /**
  * Creates a Stripe Checkout Session
@@ -15,6 +16,10 @@ export async function createCheckoutSession(
   name: string,
   locale: string = "en",
 ): Promise<void> {
+  // Validate and sanitize inputs
+  validateAmount(amount);
+  const sanitizedName = sanitizeServiceName(name);
+
   // Get the origin for redirect URLs
   const headersList = await headers();
   const origin = headersList.get("origin");
@@ -31,8 +36,8 @@ export async function createCheckoutSession(
         price_data: {
           currency: STRIPE_CURRENCY,
           product_data: {
-            name,
-            description: `${name} - Web Development Service`,
+            name: sanitizedName,
+            description: `${sanitizedName} - Web Development Service`,
           },
           unit_amount: amount, // Amount in cents (e.g., 50000 = $500.00)
         },
@@ -43,7 +48,7 @@ export async function createCheckoutSession(
     success_url: `${origin}/${locale}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/${locale}/plans?canceled=true`,
     metadata: {
-      service_name: name,
+      service_name: sanitizedName,
       amount: amount.toString(),
     },
   });
