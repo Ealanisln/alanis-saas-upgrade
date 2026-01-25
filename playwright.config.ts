@@ -32,7 +32,12 @@ export default defineConfig({
     },
     {
       name: "webkit",
-      use: { ...devices["Desktop Safari"] },
+      use: {
+        ...devices["Desktop Safari"],
+        // WebKit has slower JS execution in Playwright, need longer timeouts
+        actionTimeout: 15000,
+        navigationTimeout: 45000,
+      },
     },
     {
       name: "Mobile Chrome",

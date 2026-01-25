@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
 import {
   isEventProcessed,
   markEventProcessing,
@@ -8,6 +8,9 @@ import {
   getProcessedEventCount,
   _clearAllEvents,
 } from "../idempotency";
+
+// TTL constant matching the source (24 hours in milliseconds)
+const EVENT_TTL_MS = 24 * 60 * 60 * 1000;
 
 describe("idempotency", () => {
   beforeEach(() => {
@@ -176,6 +179,150 @@ describe("idempotency", () => {
 
       expect(results).toEqual([true, true, true]);
       expect(getProcessedEventCount()).toBe(3);
+    });
+  });
+
+  describe("TTL expiration", () => {
+    beforeEach(() => {
+      vi.useFakeTimers();
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    describe("isEventProcessed with expired events", () => {
+      it("should return false for expired events", () => {
+        const eventId = "evt_expired_check";
+
+        // Mark event as processing
+        markEventProcessing(eventId);
+        expect(isEventProcessed(eventId)).toBe(true);
+
+        // Advance time past TTL
+        vi.advanceTimersByTime(EVENT_TTL_MS + 1000);
+
+        // Expired event should return false and be cleaned up
+        expect(isEventProcessed(eventId)).toBe(false);
+      });
+
+      it("should clean up expired event when checking", () => {
+        const eventId = "evt_cleanup_on_check";
+
+        markEventProcessing(eventId);
+        expect(getProcessedEventCount()).toBe(1);
+
+        // Advance time past TTL
+        vi.advanceTimersByTime(EVENT_TTL_MS + 1);
+
+        // Check triggers cleanup
+        isEventProcessed(eventId);
+        expect(getProcessedEventCount()).toBe(0);
+      });
+
+      it("should return true for event just before TTL expires", () => {
+        const eventId = "evt_almost_expired";
+
+        markEventProcessing(eventId);
+
+        // Advance time to just before TTL
+        vi.advanceTimersByTime(EVENT_TTL_MS - 1000);
+
+        // Should still be valid
+        expect(isEventProcessed(eventId)).toBe(true);
+      });
+    });
+
+    describe("getEventStatus with expired events", () => {
+      it("should return null for expired events", () => {
+        const eventId = "evt_status_expired";
+
+        markEventProcessing(eventId);
+        markEventCompleted(eventId);
+        expect(getEventStatus(eventId)).toBe("completed");
+
+        // Advance time past TTL
+        vi.advanceTimersByTime(EVENT_TTL_MS + 1);
+
+        // Expired event should return null
+        expect(getEventStatus(eventId)).toBeNull();
+      });
+
+      it("should clean up expired event when getting status", () => {
+        const eventId = "evt_status_cleanup";
+
+        markEventProcessing(eventId);
+        expect(getProcessedEventCount()).toBe(1);
+
+        // Advance time past TTL
+        vi.advanceTimersByTime(EVENT_TTL_MS + 1);
+
+        // Getting status triggers cleanup
+        getEventStatus(eventId);
+        expect(getProcessedEventCount()).toBe(0);
+      });
+
+      it("should return status for event just before TTL expires", () => {
+        const eventId = "evt_status_almost_expired";
+
+        markEventProcessing(eventId);
+        markEventCompleted(eventId);
+
+        // Advance time to just before TTL
+        vi.advanceTimersByTime(EVENT_TTL_MS - 1000);
+
+        // Should still be valid
+        expect(getEventStatus(eventId)).toBe("completed");
+      });
+    });
+
+    describe("TTL boundary conditions", () => {
+      it("should expire at exactly TTL", () => {
+        const eventId = "evt_exact_ttl";
+
+        markEventProcessing(eventId);
+
+        // Advance time to exactly TTL + 1ms (just past boundary)
+        vi.advanceTimersByTime(EVENT_TTL_MS + 1);
+
+        expect(isEventProcessed(eventId)).toBe(false);
+      });
+
+      it("should not expire at exactly TTL - 1", () => {
+        const eventId = "evt_just_before_ttl";
+
+        markEventProcessing(eventId);
+
+        // Advance time to just before TTL
+        vi.advanceTimersByTime(EVENT_TTL_MS - 1);
+
+        expect(isEventProcessed(eventId)).toBe(true);
+      });
+
+      it("should refresh timestamp on completion", () => {
+        const eventId = "evt_refresh_timestamp";
+
+        markEventProcessing(eventId);
+
+        // Advance time halfway to TTL
+        vi.advanceTimersByTime(EVENT_TTL_MS / 2);
+
+        // Complete the event (refreshes timestamp)
+        markEventCompleted(eventId);
+
+        // Advance time another half TTL
+        vi.advanceTimersByTime(EVENT_TTL_MS / 2);
+
+        // Should still be valid because timestamp was refreshed
+        expect(isEventProcessed(eventId)).toBe(true);
+        expect(getEventStatus(eventId)).toBe("completed");
+
+        // Now advance past the remaining TTL
+        vi.advanceTimersByTime(EVENT_TTL_MS / 2 + 1);
+
+        // Now it should be expired
+        expect(isEventProcessed(eventId)).toBe(false);
+      });
     });
   });
 });
