@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach, test } from "vitest";
 
 // Use vi.hoisted to define mocks that will be used in vi.mock factories
 const { mockHeadersGet, mockCheckoutSessionCreate, mockRedirect } = vi.hoisted(
@@ -349,6 +349,116 @@ describe("Stripe Actions", () => {
             ],
           }),
         );
+      });
+    });
+
+    describe("integration: validation before Stripe API call", () => {
+      it("should not call Stripe API when amount validation fails", async () => {
+        await expect(
+          createCheckoutSession(12345, "Test Plan", "en"),
+        ).rejects.toThrow();
+
+        expect(mockCheckoutSessionCreate).not.toHaveBeenCalled();
+      });
+
+      it("should not call Stripe API when service name validation fails", async () => {
+        await expect(createCheckoutSession(50000, "", "en")).rejects.toThrow();
+
+        expect(mockCheckoutSessionCreate).not.toHaveBeenCalled();
+      });
+
+      it("should call Stripe API only after successful validation", async () => {
+        mockCheckoutSessionCreate.mockResolvedValue({
+          id: "cs_test_success",
+          url: "https://checkout.stripe.com/pay/cs_test_success",
+        });
+
+        await createCheckoutSession(50000, "Starter", "en");
+
+        expect(mockCheckoutSessionCreate).toHaveBeenCalledTimes(1);
+      });
+
+      it("should include sanitized name in both product_data and metadata", async () => {
+        mockCheckoutSessionCreate.mockResolvedValue({
+          id: "cs_test_sanitized",
+          url: "https://checkout.stripe.com/pay/cs_test_sanitized",
+        });
+
+        await createCheckoutSession(50000, "Test@Plan#2024", "en");
+
+        expect(mockCheckoutSessionCreate).toHaveBeenCalledWith(
+          expect.objectContaining({
+            line_items: [
+              expect.objectContaining({
+                price_data: expect.objectContaining({
+                  product_data: expect.objectContaining({
+                    name: "TestPlan2024",
+                    description: "TestPlan2024 - Web Development Service",
+                  }),
+                }),
+              }),
+            ],
+            metadata: expect.objectContaining({
+              service_name: "TestPlan2024",
+            }),
+          }),
+        );
+      });
+    });
+
+    describe("security: attack vector prevention", () => {
+      test.each([
+        [
+          "XSS in name",
+          50000,
+          "<script>alert('xss')</script>",
+          "scriptalertxssscript",
+        ],
+        [
+          "SQL injection",
+          50000,
+          "'; DROP TABLE users;--",
+          " DROP TABLE users--",
+        ],
+        ["Path traversal", 50000, "../../../etc/passwd", "etcpasswd"],
+        ["Template injection", 50000, "{{7*7}}", "77"],
+      ])(
+        "should sanitize %s",
+        async (_, amount, maliciousName, expectedSanitized) => {
+          mockCheckoutSessionCreate.mockResolvedValue({
+            id: "cs_test_security",
+            url: "https://checkout.stripe.com/pay/cs_test_security",
+          });
+
+          await createCheckoutSession(amount, maliciousName, "en");
+
+          expect(mockCheckoutSessionCreate).toHaveBeenCalledWith(
+            expect.objectContaining({
+              line_items: [
+                expect.objectContaining({
+                  price_data: expect.objectContaining({
+                    product_data: expect.objectContaining({
+                      name: expectedSanitized,
+                    }),
+                  }),
+                }),
+              ],
+            }),
+          );
+        },
+      );
+
+      test.each([
+        ["arbitrary low amount", 100],
+        ["arbitrary high amount within range", 5000000],
+        ["exact amount close to tier", 49999],
+        ["amount slightly above tier", 50001],
+      ])("should reject %s", async (_, invalidAmount) => {
+        await expect(
+          createCheckoutSession(invalidAmount, "Test Plan", "en"),
+        ).rejects.toThrow();
+
+        expect(mockCheckoutSessionCreate).not.toHaveBeenCalled();
       });
     });
   });
