@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { PRICING_TIERS, STRIPE_CURRENCY, type PricingTier } from "../stripe";
 
 describe("stripe configuration", () => {
@@ -122,6 +122,113 @@ describe("stripe configuration", () => {
       ];
 
       expect(validTiers).toHaveLength(4);
+    });
+  });
+});
+
+describe("stripe client initialization", () => {
+  const originalEnv = process.env.STRIPE_SECRET_KEY;
+
+  beforeEach(() => {
+    // Reset modules to get fresh stripe instance
+    vi.resetModules();
+  });
+
+  afterEach(() => {
+    // Restore original environment
+    if (originalEnv !== undefined) {
+      process.env.STRIPE_SECRET_KEY = originalEnv;
+    } else {
+      delete process.env.STRIPE_SECRET_KEY;
+    }
+    vi.resetModules();
+  });
+
+  describe("getStripeInstance via proxy", () => {
+    it("should throw error when STRIPE_SECRET_KEY is not defined", async () => {
+      // Remove the secret key
+      delete process.env.STRIPE_SECRET_KEY;
+
+      // Import fresh module
+      const { stripe } = await import("../stripe");
+
+      // Accessing any property on the proxy should trigger getStripeInstance
+      expect(() => stripe.customers).toThrow(
+        "STRIPE_SECRET_KEY is not defined in environment variables",
+      );
+    });
+
+    it("should initialize Stripe client when STRIPE_SECRET_KEY is defined", async () => {
+      // Set the secret key
+      process.env.STRIPE_SECRET_KEY = "sk_test_mock_key_12345";
+
+      // Import fresh module
+      const { stripe } = await import("../stripe");
+
+      // Accessing the proxy should work without throwing
+      expect(() => stripe.customers).not.toThrow();
+    });
+
+    it("should use singleton pattern for stripe instance", async () => {
+      process.env.STRIPE_SECRET_KEY = "sk_test_singleton_test";
+
+      // Import fresh module
+      const { stripe } = await import("../stripe");
+
+      // Access different properties - should use same instance
+      const customers1 = stripe.customers;
+      const customers2 = stripe.customers;
+      const paymentIntents = stripe.paymentIntents;
+
+      // All should be defined (singleton is reused)
+      expect(customers1).toBeDefined();
+      expect(customers2).toBeDefined();
+      expect(paymentIntents).toBeDefined();
+
+      // Same property access returns same reference
+      expect(customers1).toBe(customers2);
+    });
+
+    it("should proxy property access to stripe instance", async () => {
+      process.env.STRIPE_SECRET_KEY = "sk_test_proxy_test";
+
+      const { stripe } = await import("../stripe");
+
+      // Common Stripe resources should be accessible through proxy
+      expect(stripe.customers).toBeDefined();
+      expect(stripe.paymentIntents).toBeDefined();
+      expect(stripe.checkout).toBeDefined();
+      expect(stripe.webhooks).toBeDefined();
+    });
+  });
+
+  describe("error handling", () => {
+    it("should provide helpful error message for missing key", async () => {
+      delete process.env.STRIPE_SECRET_KEY;
+
+      const { stripe } = await import("../stripe");
+
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        stripe.customers;
+        expect.fail("Should have thrown an error");
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+        expect((error as Error).message).toContain("STRIPE_SECRET_KEY");
+        expect((error as Error).message).toContain("environment variables");
+      }
+    });
+
+    it("should throw on first property access, not on import", async () => {
+      delete process.env.STRIPE_SECRET_KEY;
+
+      // Import should succeed (lazy initialization)
+      const importResult = await import("../stripe");
+      expect(importResult).toBeDefined();
+      expect(importResult.stripe).toBeDefined();
+
+      // Error only thrown when accessing properties
+      expect(() => importResult.stripe.customers).toThrow();
     });
   });
 });
