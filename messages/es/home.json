@@ -15,7 +15,7 @@
     "role": "ingeniero de software",
     "name": "Emmanuel Alanis",
     "bio": "Entrego software en producción que maneja tráfico real.",
-    "bioExtended": "Plataformas de entrega empresarial. Rastreadores fitness con IA. Procesamiento de pagos. Herramientas de salud.",
+    "bioExtended": "Plataformas de entrega empresarial. Apps de salud y fitness con IA. Procesamiento de pagos. Herramientas veterinarias.",
     "terminalPrompt": "> emmanuel.alanis --role=\"full-stack\" --location=\"MX\"",
     "cta": "Ver mi trabajo",
     "contact": "Contactar",

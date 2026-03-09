@@ -11,31 +11,24 @@ const Breadcrumb = ({
 }) => {
   const t = useTranslations("common");
   return (
-    <section className="border-b border-neutral-200 pb-8 pt-28 dark:border-neutral-800 lg:pb-12 lg:pt-[150px]">
+    <section className="border-b border-t-border pb-8 pt-28 lg:pb-12 lg:pt-[150px]">
       <div className="container">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div className="max-w-[570px]">
-            <h1 className="mb-2 text-2xl font-bold text-neutral-900 dark:text-white sm:text-3xl">
-              {pageName}
-            </h1>
-            <p className="text-base text-neutral-600 dark:text-neutral-400">
-              {description}
-            </p>
-          </div>
-          <nav>
+        <div className="mx-auto max-w-3xl">
+          <nav className="mb-4">
             <ul className="flex items-center gap-2 text-sm">
               <li>
-                <Link
-                  href="/"
-                  className="text-neutral-500 hover:text-primary dark:text-neutral-400"
-                >
+                <Link href="/" className="text-t-muted hover:text-t-primary">
                   {t("home")}
                 </Link>
               </li>
-              <li className="text-neutral-400 dark:text-neutral-600">/</li>
-              <li className="text-primary">{pageName}</li>
+              <li className="text-t-muted/50">/</li>
+              <li className="text-t-primary">{pageName}</li>
             </ul>
           </nav>
+          <h1 className="mb-3 font-heading text-3xl font-bold text-t-text sm:text-4xl">
+            {pageName}
+          </h1>
+          <p className="text-lg text-t-muted">{description}</p>
         </div>
       </div>
     </section>
