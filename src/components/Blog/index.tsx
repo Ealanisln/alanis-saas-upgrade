@@ -38,7 +38,7 @@ const Blog = async ({ locale = "en" }: BlogProps = {}) => {
   return (
     <section id="blog" className="py-16 md:py-20 lg:py-24">
       <div className="container">
-        <h2 className="mb-12 text-3xl font-bold text-neutral-900 dark:text-white sm:text-4xl">
+        <h2 className="mb-12 font-heading text-3xl font-bold text-t-text sm:text-4xl">
           {t("title")}
         </h2>
         <Posts data={data} locale={locale} />

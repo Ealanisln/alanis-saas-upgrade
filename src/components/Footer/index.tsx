@@ -9,17 +9,15 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
+    <footer className="border-t border-t-border bg-t-surface">
       <div className="container py-12">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           {/* Name & tagline */}
           <div className="max-w-[300px]">
-            <p className="mb-2 text-lg font-semibold text-neutral-900 dark:text-white">
+            <p className="mb-2 text-lg font-semibold text-t-text">
               {siteConfig.author}
             </p>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              {t("tagline")}
-            </p>
+            <p className="text-sm text-t-muted">{t("tagline")}</p>
             {/* Social links */}
             <div className="mt-4 flex items-center gap-4">
               <a
@@ -27,7 +25,7 @@ const Footer = () => {
                 aria-label="GitHub"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+                className="text-t-muted transition-colors hover:text-t-text"
               >
                 <svg
                   width="20"
@@ -43,7 +41,7 @@ const Footer = () => {
                 aria-label="LinkedIn"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+                className="text-t-muted transition-colors hover:text-t-text"
               >
                 <svg
                   width="20"
@@ -59,14 +57,14 @@ const Footer = () => {
 
           {/* Navigation links */}
           <div>
-            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-neutral-900 dark:text-white">
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-t-text">
               {t("nav")}
             </h3>
             <ul className="flex flex-col gap-2">
               <li>
                 <Link
                   href="/about"
-                  className="text-sm text-neutral-600 hover:text-primary dark:text-neutral-400 dark:hover:text-white"
+                  className="text-sm text-t-muted transition-colors hover:text-t-primary"
                 >
                   {t("about")}
                 </Link>
@@ -74,7 +72,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/blog"
-                  className="text-sm text-neutral-600 hover:text-primary dark:text-neutral-400 dark:hover:text-white"
+                  className="text-sm text-t-muted transition-colors hover:text-t-primary"
                 >
                   {t("blog")}
                 </Link>
@@ -82,7 +80,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/contact"
-                  className="text-sm text-neutral-600 hover:text-primary dark:text-neutral-400 dark:hover:text-white"
+                  className="text-sm text-t-muted transition-colors hover:text-t-primary"
                 >
                   {t("contact")}
                 </Link>
@@ -92,8 +90,8 @@ const Footer = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-neutral-200 pt-8 dark:border-neutral-800 sm:flex-row">
-          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-t-border pt-8 sm:flex-row">
+          <p className="text-sm text-t-muted">
             &copy; {currentYear} {t("createdBy")}
           </p>
           <FooterLanguageSwitcher />

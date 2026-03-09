@@ -12,29 +12,32 @@
     ]
   },
   "hero": {
-    "role": "Full-Stack Developer",
+    "role": "software engineer",
     "name": "Emmanuel Alanis",
-    "bio": "I build scalable web applications with modern technologies. Currently working as a full-stack developer, crafting enterprise-grade solutions with React, Next.js, and TypeScript.",
+    "bio": "I ship production software that handles real traffic.",
+    "bioExtended": "Enterprise delivery platforms. AI fitness trackers. Payment processing. Healthcare tools.",
+    "terminalPrompt": "> emmanuel.alanis --role=\"full-stack\" --location=\"MX\"",
     "cta": "See my work",
-    "contact": "Get in touch"
+    "contact": "Get in touch",
+    "badges": ["TypeScript", "30+ repos", "Next.js", "PostgreSQL"]
   },
   "experience": {
     "title": "Experience",
     "items": [
       {
-        "period": "2024 - Present",
+        "period": "2024 — Present",
         "role": "Full-Stack Developer",
         "company": "Corporate",
-        "description": "Building enterprise web applications with React, Next.js, and TypeScript."
+        "description": "Building enterprise web applications with Python, Django, PHP, Symfony, TypeScript, and Next.js."
       },
       {
-        "period": "2021 - 2024",
+        "period": "2021 — 2024",
         "role": "Freelance Developer",
         "company": "Alanis Dev",
         "description": "Delivered custom web solutions for clients including delivery platforms, veterinary systems, and SaaS products."
       },
       {
-        "period": "2019 - 2021",
+        "period": "2019 — 2021",
         "role": "Web Developer",
         "company": "Self-taught",
         "description": "Learned modern web development through building projects and contributing to open source."
@@ -46,24 +49,27 @@
     "items": [
       {
         "name": "Ready Set",
-        "description": "Full-stack delivery platform with driver, vendor, and customer management. Same-day delivery, on-demand services, and real-time tracking.",
+        "description": "Enterprise delivery platform with driver, vendor, and customer management. Same-day delivery, on-demand services, and real-time tracking.",
         "technologies": ["Next.js", "PostgreSQL", "Prisma", "Shadcn"],
         "liveUrl": "https://readysetllc.com",
-        "githubUrl": "https://github.com/Ealanisln/ready-set"
+        "githubUrl": "https://github.com/Ealanisln/ready-set",
+        "category": "enterprise"
       },
       {
-        "name": "Vet Family",
-        "description": "Veterinary clinic management system for user profiles, pet records, medical history, appointments, and billing.",
-        "technologies": ["Next.js", "MongoDB", "Prisma", "TypeScript"],
-        "liveUrl": "https://vetforfamily.com",
-        "githubUrl": "https://github.com/Ealanisln/vet-family-23"
+        "name": "FitTrackr",
+        "description": "AI-powered fitness tracker with OCR for nutrition labels, workout planning, and progress analytics.",
+        "technologies": ["React", "Express", "Gemini AI", "Docker"],
+        "liveUrl": "https://fittrackr.me",
+        "githubUrl": "https://github.com/Ealanisln/fittrackr",
+        "category": "ai"
       },
       {
         "name": "Pagare Facil",
-        "description": "Web app for generating customized promissory notes with an intuitive interface for debtor info, payment terms, and PDF generation.",
+        "description": "Promissory note generator with intuitive interface for debtor info, payment terms, and PDF generation.",
         "technologies": ["Next.js", "React", "PDF Generation"],
         "liveUrl": "https://www.pagarefacil.pro",
-        "githubUrl": "https://github.com/Ealanisln/pagare-facil"
+        "githubUrl": "https://github.com/Ealanisln/pagare-facil",
+        "category": "fintech"
       }
     ],
     "viewOnGithub": "View on GitHub",

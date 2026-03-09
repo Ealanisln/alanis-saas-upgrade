@@ -11,59 +11,74 @@ interface HeroSectionProps {
 
 export default function HeroSection({ locale: _locale }: HeroSectionProps) {
   const t = useTranslations("home.hero");
+  const badges = t.raw("badges") as string[];
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1,
-      },
+      transition: { staggerChildren: 0.08, delayChildren: 0.1 },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 16 },
+    hidden: { opacity: 0, x: -20 },
     visible: {
       opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.22, 1, 0.36, 1] as const,
-      },
+      x: 0,
+      transition: { type: "spring", stiffness: 400, damping: 30 },
     },
   };
 
   return (
-    <div className="relative flex min-h-[100dvh] w-full items-center">
+    <div className="hero-dot-grid relative flex min-h-[100dvh] w-full items-center">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="mx-auto max-w-2xl py-24"
+          className="max-w-3xl py-24"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           <motion.p
-            className="mb-4 text-sm font-medium uppercase tracking-widest text-primary"
+            className="mb-4 font-mono text-sm text-t-green"
             variants={itemVariants}
           >
-            {t("role")}
+            {t("terminalPrompt")}
           </motion.p>
 
           <motion.h1
-            className="mb-6 text-5xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-6xl lg:text-7xl"
+            className="mb-6 font-heading text-6xl font-bold tracking-tight text-t-text lg:text-8xl"
             variants={itemVariants}
           >
             {t("name")}
           </motion.h1>
 
           <motion.p
-            className="mb-8 text-lg leading-relaxed text-neutral-600 dark:text-neutral-400"
+            className="mb-2 text-xl font-medium text-t-text"
             variants={itemVariants}
           >
             {t("bio")}
           </motion.p>
+          <motion.p
+            className="mb-6 text-base text-t-muted"
+            variants={itemVariants}
+          >
+            {t("bioExtended")}
+          </motion.p>
+
+          <motion.div
+            className="mb-8 flex flex-wrap gap-2"
+            variants={itemVariants}
+          >
+            {badges.map((badge) => (
+              <span
+                key={badge}
+                className="bg-t-accent/15 rounded-full px-3 py-1 font-mono text-xs font-medium text-t-accent"
+              >
+                {badge}
+              </span>
+            ))}
+          </motion.div>
 
           {/* Social links */}
           <motion.div
@@ -74,7 +89,7 @@ export default function HeroSection({ locale: _locale }: HeroSectionProps) {
               href={siteConfig.social.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+              className="text-t-muted transition-colors hover:text-t-text"
               aria-label="GitHub"
             >
               <svg
@@ -90,7 +105,7 @@ export default function HeroSection({ locale: _locale }: HeroSectionProps) {
               href={siteConfig.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+              className="text-t-muted transition-colors hover:text-t-text"
               aria-label="LinkedIn"
             >
               <svg
@@ -104,26 +119,21 @@ export default function HeroSection({ locale: _locale }: HeroSectionProps) {
             </a>
           </motion.div>
 
-          {/* CTAs */}
           <motion.div
-            className="flex items-center gap-6"
+            className="flex items-center gap-4"
             variants={itemVariants}
           >
             <Link
               href="#projects"
-              className="group inline-flex items-center text-sm font-medium text-neutral-900 dark:text-white"
+              className="rounded-md bg-t-primary px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
             >
               {t("cta")}
-              <span className="ml-1 transition-transform group-hover:translate-x-1">
-                &darr;
-              </span>
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center text-sm font-medium text-neutral-500 transition-colors hover:text-primary dark:text-neutral-400"
+              className="rounded-md border border-t-border px-5 py-2.5 text-sm font-medium text-t-text transition-colors hover:bg-t-surface"
             >
               {t("contact")}
-              <span className="ml-1">&rarr;</span>
             </Link>
           </motion.div>
         </motion.div>

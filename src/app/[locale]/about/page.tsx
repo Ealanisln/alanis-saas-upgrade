@@ -116,8 +116,8 @@ const AboutPage = async ({
 
       <Breadcrumb pageName={t("title")} description={t("description")} />
       <AboutSectionOne />
-      <TechStackShowcase />
       <AboutSectionTwo />
+      <TechStackShowcase />
     </>
   );
 };

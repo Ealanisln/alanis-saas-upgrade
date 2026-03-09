@@ -19,7 +19,7 @@ const ReactIcon = () => (
 const NextJsIcon = () => (
   <svg viewBox="0 0 128 128" className="h-10 w-10">
     <path
-      className="fill-black dark:fill-white"
+      className="fill-[var(--color-text)]"
       d="M64 0C28.7 0 0 28.7 0 64s28.7 64 64 64c11.2 0 21.7-2.9 30.8-7.9L48.4 55.3v36.6h-6.8V41.8h6.8l50.5 75.8C116.4 106.2 128 86.5 128 64c0-35.3-28.7-64-64-64zm22.1 84.6l-7.5-11.3V41.8h7.5v42.8z"
     />
   </svg>
@@ -61,20 +61,24 @@ const PostgreSQLIcon = () => (
   </svg>
 );
 
-const SanityIcon = () => (
+const PrismaIcon = () => (
   <svg viewBox="0 0 128 128" className="h-10 w-10">
     <path
-      d="M27.59 41.89c0 11.86 7.23 18.93 21.77 22.82l15.63 4.15c10.08 2.56 15.79 7.58 15.79 15.51 0 10.2-8.67 17.06-21.77 17.06-13.73 0-23.38-6.32-25.19-18.51h-10.59c1.38 15.25 12.83 26.45 35.54 26.45 20.06 0 32.79-10.72 32.79-26.45 0-12.92-8.14-19.84-22.99-23.73l-14.42-3.84c-9.76-2.56-16.23-6.27-16.23-15.14 0-8.67 7.17-14.41 18.93-14.41 12.02 0 19.73 5.84 21.51 16.17h10.72c-1.61-14.89-12.86-25.14-32.17-25.14-18.4 0-29.32 10.88-29.32 24.8z"
-      fill="#f03e2f"
+      className="fill-[var(--color-text)]"
+      d="M109.6 59.2L67.5 4.8a6.8 6.8 0 00-11.3-.6L18.5 58.5a6.8 6.8 0 00.6 9.6l52.5 46.3a6.8 6.8 0 0010-1.2l29.5-44.1a6.8 6.8 0 00-1.5-9.9zM66.6 99.7L30.7 67.8a2.3 2.3 0 01-.2-3.2l27.1-32.5a2.3 2.3 0 014.1 1.1l11.6 62.8a2.3 2.3 0 01-6.7 3.7z"
     />
   </svg>
 );
 
-const GitIcon = () => (
+const StripeIcon = () => (
   <svg viewBox="0 0 128 128" className="h-10 w-10">
     <path
-      fill="#F34F29"
-      d="M124.737 58.378L69.621 3.264c-3.172-3.174-8.32-3.174-11.497 0L46.68 14.71l14.518 14.518c3.375-1.139 7.243-.375 9.932 2.314 2.703 2.706 3.461 6.607 2.294 9.993l13.992 13.993c3.385-1.167 7.292-.413 9.994 2.295 3.78 3.777 3.78 9.9 0 13.679a9.673 9.673 0 01-13.683 0 9.677 9.677 0 01-2.105-10.521L68.574 47.933l-.002 34.341a9.708 9.708 0 012.559 1.828c3.778 3.777 3.778 9.898 0 13.683-3.779 3.777-9.904 3.777-13.679 0-3.778-3.784-3.778-9.905 0-13.683a9.65 9.65 0 013.167-2.11V47.333a9.581 9.581 0 01-3.167-2.111c-2.862-2.86-3.551-7.06-2.083-10.576L41.056 20.333 3.264 58.123a8.133 8.133 0 000 11.5l55.117 55.114c3.174 3.174 8.32 3.174 11.499 0l54.858-54.858a8.135 8.135 0 00-.001-11.501z"
+      fill="#635BFF"
+      d="M112 64c0 26.5-21.5 48-48 48S16 90.5 16 64 37.5 16 64 16s48 21.5 48 48z"
+    />
+    <path
+      fill="#fff"
+      d="M64.3 47.5c-5.2 0-8.5 2.7-8.5 7 0 5.5 6 7.4 12.3 10.2 9.2 4 13.9 9.4 13.9 18.2 0 14.3-11 20.6-22.3 20.6-5.6 0-11.8-1.7-16.5-4.2l2.4-9.2c4.3 2.3 9.5 3.8 14.1 3.8 5.4 0 9-2.5 9-7.5 0-5.7-4.8-7.8-11.5-10.8-9-4.1-14.5-8.8-14.5-17.8 0-12.8 9.8-19.8 21.7-19.8 5.8 0 10.5 1.2 14.5 3.2l-2.6 9c-3.2-1.7-7.8-3.2-12-3.7z"
     />
   </svg>
 );
@@ -86,8 +90,8 @@ const techStack: TechItem[] = [
   { name: "Node.js", icon: <NodeJsIcon /> },
   { name: "Tailwind CSS", icon: <TailwindIcon /> },
   { name: "PostgreSQL", icon: <PostgreSQLIcon /> },
-  { name: "Sanity", icon: <SanityIcon /> },
-  { name: "Git", icon: <GitIcon /> },
+  { name: "Prisma", icon: <PrismaIcon /> },
+  { name: "Stripe", icon: <StripeIcon /> },
 ];
 
 const TechStackShowcase = () => {
@@ -97,23 +101,21 @@ const TechStackShowcase = () => {
     <section className="py-16 md:py-20 lg:py-24">
       <div className="container">
         <div className="mx-auto mb-12 max-w-[620px] text-center">
-          <h2 className="mb-4 text-3xl font-bold text-neutral-900 dark:text-white sm:text-4xl">
+          <h2 className="mb-4 font-heading text-3xl font-bold text-t-text sm:text-4xl">
             {t("title")}
           </h2>
-          <p className="text-neutral-600 dark:text-neutral-400">
-            {t("subtitle")}
-          </p>
+          <p className="text-t-muted">{t("subtitle")}</p>
         </div>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:gap-6">
           {techStack.map((tech, index) => (
             <div
               key={index}
-              className="group flex flex-col items-center justify-center rounded-lg border border-neutral-200 p-6 transition-colors hover:border-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-700"
+              className="group flex flex-col items-center justify-center rounded-md border border-t-border bg-t-surface p-6 transition-all duration-150 hover:shadow-card-hover"
             >
               <div className="mb-3 transition-transform duration-200 group-hover:scale-110">
                 {tech.icon}
               </div>
-              <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+              <span className="text-sm font-medium text-t-muted">
                 {tech.name}
               </span>
             </div>

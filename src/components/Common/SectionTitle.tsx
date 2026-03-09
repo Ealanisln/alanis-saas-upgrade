@@ -18,14 +18,12 @@ const SectionTitle: FC<SectionTitleProps> = ({
     <div
       className={`w-full ${width} ${center ? "mx-auto text-center" : "text-left"} mb-12 md:mb-16`}
     >
-      <h2 className="mb-4 text-3xl font-bold text-neutral-900 dark:text-white sm:text-4xl">
+      <h2 className="mb-4 font-heading text-3xl font-bold text-t-text sm:text-4xl">
         {title}
       </h2>
 
       {paragraph && (
-        <p className="text-base text-neutral-600 dark:text-neutral-400 md:text-lg">
-          {paragraph}
-        </p>
+        <p className="text-base text-t-muted md:text-lg">{paragraph}</p>
       )}
     </div>
   );

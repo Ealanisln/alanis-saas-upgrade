@@ -1,72 +1,95 @@
 {
   "meta": {
     "title": "Acerca de - Emmanuel Alanis",
-    "description": "Desarrollador full-stack con más de 5 años de experiencia construyendo aplicaciones web con React, Next.js y TypeScript.",
+    "description": "Desarrollador full-stack creando productos SaaS multi-tenant, plataformas de entrega y sistemas de pago con TypeScript, Next.js y PostgreSQL.",
     "keywords": [
       "Emmanuel Alanis",
       "desarrollador full-stack",
-      "React",
-      "Next.js",
       "TypeScript",
+      "Next.js",
+      "React",
+      "desarrollador SaaS",
       "ingeniero de software"
     ]
   },
   "title": "Acerca de",
   "subtitle": "Desarrollador Full-Stack",
-  "description": "Soy un desarrollador full-stack apasionado por crear aplicaciones web que sean tanto eficientes como fáciles de usar.",
+  "description": "Construyo software en produccion que maneja usuarios y pagos reales.",
   "hero": {
     "title": "Acerca de",
-    "description": "Soy Emmanuel, un desarrollador full-stack mexicano. Construyo aplicaciones web modernas y estoy constantemente aprendiendo nuevas tecnologías. Disfruto resolver problemas complejos y convertir ideas en soluciones elegantes."
+    "description": "Desarrollador full-stack en Mexico. Construyo productos SaaS multi-tenant, plataformas de entrega y sistemas de pago — desde el diseno de base de datos hasta el despliegue.",
+    "intro": "Soy Emmanuel, un desarrollador full-stack que lleva software a produccion. Mi trabajo abarca plataformas SaaS multi-tenant, logistica empresarial, e-commerce con procesamiento de pagos y aplicaciones con inteligencia artificial.",
+    "focus": "Me importa la arquitectura limpia, las pruebas adecuadas y construir cosas que realmente funcionen para usuarios reales. Cada proyecto que tomo va de la idea a produccion."
+  },
+  "stats": {
+    "projects": {
+      "value": "6+",
+      "label": "Proyectos Entregados"
+    },
+    "commits": {
+      "value": "725+",
+      "label": "Commits en Ultimo Proyecto"
+    },
+    "languages": {
+      "value": "EN/ES",
+      "label": "Bilingue"
+    }
   },
   "section": {
-    "title": "Sobre mí",
-    "description": "Soy un desarrollador full-stack basado en México con más de 5 años de experiencia. Me especializo en construir aplicaciones web escalables usando tecnologías modernas como React, Next.js y TypeScript.",
+    "title": "Lo Que Construyo",
+    "description": "Productos reales, no solo demos. Este es el tipo de trabajo que hago.",
     "features": {
-      "latestTech": "Tecnologías modernas",
+      "latestTech": "Tecnologias modernas",
       "scalable": "Arquitectura escalable",
-      "worldClass": "Código limpio",
+      "worldClass": "Codigo limpio",
       "affordable": "Enfoque en rendimiento",
-      "bilingual": "Bilingüe (inglés y español)",
-      "friendly": "Excelente comunicación"
+      "bilingual": "Bilingue (ingles y espanol)",
+      "friendly": "Excelente comunicacion"
+    },
+    "cards": {
+      "saas": {
+        "title": "Plataformas SaaS",
+        "description": "Arquitectura multi-tenant con facturacion por suscripcion, acceso basado en roles y aislamiento de datos con Row Level Security de PostgreSQL.",
+        "example": "Vetify — Gestion de clinicas veterinarias con facturacion Stripe, integracion WhatsApp y agenda de citas."
+      },
+      "ecommerce": {
+        "title": "E-Commerce y Pagos",
+        "description": "Flujos completos de checkout con integraciones de Stripe y Square, gestion de suscripciones y manejo automatico de fallos de pago.",
+        "example": "Destino SF — E-commerce de alimentos con pagos Square. Pagare Facil — Generador de pagares con exportacion PDF."
+      },
+      "logistics": {
+        "title": "Logistica Empresarial",
+        "description": "Rastreo en tiempo real, gestion de conductores y proveedores, coordinacion de entregas bajo demanda y dashboards multi-rol.",
+        "example": "Ready Set — Plataforma de entrega empresarial para el area de la Bahia de San Francisco."
+      },
+      "ai": {
+        "title": "Apps con IA",
+        "description": "Aplicaciones que integran servicios de IA para OCR, analisis de contenido y procesamiento inteligente de datos.",
+        "example": "FitTrackr — Rastreador fitness con OCR de Gemini AI para etiquetas nutricionales y planificacion de entrenamientos."
+      }
     },
     "values": {
       "quality": {
-        "title": "Código de Calidad",
-        "description": "Escribo código limpio, probado y mantenible. Cada proyecto sigue las mejores prácticas con pruebas y documentación adecuadas."
+        "title": "Codigo de Calidad",
+        "description": "Escribo codigo limpio, probado y mantenible. Cada proyecto sigue las mejores practicas con pruebas y documentacion adecuadas."
       },
       "learning": {
         "title": "Aprendizaje Continuo",
-        "description": "La tecnología evoluciona rápido. Me mantengo actualizado con herramientas modernas, frameworks y mejores prácticas."
+        "description": "La tecnologia evoluciona rapido. Me mantengo actualizado con herramientas modernas, frameworks y mejores practicas."
       },
       "collaboration": {
-        "title": "Colaboración",
-        "description": "El gran software se construye con grandes equipos. Valoro la comunicación clara, las revisiones de código y compartir conocimiento."
+        "title": "Colaboracion",
+        "description": "El gran software se construye con grandes equipos. Valoro la comunicacion clara, las revisiones de codigo y compartir conocimiento."
       }
     }
   },
-  "stats": {
-    "title": "Mi Trayectoria",
-    "subtitle": "Números que reflejan compromiso y experiencia",
-    "years": {
-      "value": "5+",
-      "label": "Años de Experiencia"
-    },
-    "technologies": {
-      "value": "10+",
-      "label": "Tecnologías"
-    },
-    "satisfaction": {
-      "value": "100%",
-      "label": "Compromiso"
-    }
-  },
   "techStack": {
-    "title": "Tecnologías con las que Trabajo",
-    "subtitle": "Herramientas modernas para soluciones modernas"
+    "title": "Stack Tecnologico",
+    "subtitle": "Las herramientas que uso para construir software en produccion."
   },
   "jsonLd": {
-    "description": "Desarrollador full-stack especializado en React, Next.js y TypeScript",
-    "jobTitle": "Desarrollador Full-Stack",
-    "worksFor": "Empresa de Software"
+    "description": "Desarrollador full-stack creando productos SaaS multi-tenant, plataformas de entrega y sistemas de pago",
+    "jobTitle": "Desarrollador Full-Stack Independiente",
+    "worksFor": "Alanis Dev"
   }
 }

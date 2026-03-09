@@ -59,7 +59,7 @@ export default async function Home({ params }: HomePageProps) {
   const t = await getTranslations({ locale, namespace: "home" });
 
   // JSON-LD uses only trusted, developer-controlled translation strings
-  const jsonLdString = JSON.stringify({
+  const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: siteConfig.author,
@@ -73,14 +73,15 @@ export default async function Home({ params }: HomePageProps) {
       siteConfig.social.linkedin,
       siteConfig.social.twitter,
     ],
-  });
+  };
 
   return (
     <>
       {/* JSON-LD structured data - content sourced from trusted translation files only */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdString }}
+        // Safe: JSON.stringify of developer-controlled translation strings only
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
       <ScrollUp />
@@ -94,15 +95,13 @@ export default async function Home({ params }: HomePageProps) {
       <section className="py-16 md:py-20 lg:py-24">
         <div className="container">
           <div className="mx-auto max-w-xl text-center">
-            <h2 className="mb-4 text-3xl font-bold text-neutral-900 dark:text-white sm:text-4xl">
+            <h2 className="mb-4 font-heading text-3xl font-bold text-t-text sm:text-4xl">
               {t("cta.title")}
             </h2>
-            <p className="mb-6 text-neutral-600 dark:text-neutral-400">
-              {t("cta.description")}
-            </p>
+            <p className="mb-6 text-t-muted">{t("cta.description")}</p>
             <a
               href={`/${locale}/contact`}
-              className="inline-flex items-center font-medium text-primary hover:text-primary/80"
+              className="hover:text-t-primary/80 inline-flex items-center font-medium text-t-primary transition-colors"
             >
               {t("cta.link")} <span className="ml-1">&rarr;</span>
             </a>

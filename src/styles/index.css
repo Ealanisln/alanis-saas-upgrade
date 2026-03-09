@@ -3,8 +3,32 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-bg: #ffffff;
+    --color-surface: #f6f8fa;
+    --color-text: #1f2328;
+    --color-text-secondary: #656d76;
+    --color-border: #d0d7de;
+    --color-primary: #2f81f7;
+    --color-accent: #8250df;
+    --color-green: #1a7f37;
+  }
+
+  .dark {
+    --color-bg: #0d1117;
+    --color-surface: #161b22;
+    --color-text: #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-border: #30363d;
+    --color-primary: #58a6ff;
+    --color-accent: #bc8cff;
+    --color-green: #3fb950;
+  }
+
   body {
-    font-family: "Inter", sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -29,7 +53,8 @@
   h5,
   h6 {
     @apply leading-tight;
-    letter-spacing: -0.02em;
+    font-family: var(--font-heading), system-ui, sans-serif;
+    letter-spacing: -0.03em;
   }
 
   p {
@@ -52,5 +77,15 @@
 
   input#checkboxLabel:checked ~ .box span {
     @apply opacity-100;
+  }
+
+  /* Dot grid background for hero */
+  .hero-dot-grid {
+    background-image: radial-gradient(
+      circle,
+      var(--color-border) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
   }
 }

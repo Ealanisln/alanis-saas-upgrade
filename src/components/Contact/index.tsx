@@ -81,18 +81,16 @@ const Contact = () => {
     <section id="contact" className="py-16 md:py-20 lg:py-24">
       <div className="container">
         <div className="mx-auto max-w-2xl">
-          <h2 className="mb-2 text-2xl font-bold text-neutral-900 dark:text-white sm:text-3xl">
+          <h2 className="mb-2 font-heading text-2xl font-bold text-t-text sm:text-3xl">
             {t("title")}
           </h2>
-          <p className="mb-10 text-neutral-600 dark:text-neutral-400">
-            {t("subtitle")}
-          </p>
+          <p className="mb-10 text-t-muted">{t("subtitle")}</p>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid gap-6 sm:grid-cols-2">
               <div>
                 <label
                   htmlFor="name"
-                  className="mb-2 block text-sm font-medium text-neutral-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-t-text"
                 >
                   {t("nameLabel")}
                 </label>
@@ -100,7 +98,7 @@ const Contact = () => {
                   {...register("name", { required: true })}
                   type="text"
                   placeholder={t("namePlaceholder")}
-                  className="w-full rounded-lg border border-neutral-200 bg-transparent px-4 py-3 text-sm text-neutral-900 outline-none transition-colors focus:border-primary dark:border-neutral-800 dark:text-white dark:focus:border-primary"
+                  className="w-full rounded-md border border-t-border bg-transparent px-4 py-3 text-sm text-t-text outline-none transition-colors focus:border-t-primary"
                 />
                 {errors.name && (
                   <span className="mt-1 text-xs text-red-500">
@@ -111,7 +109,7 @@ const Contact = () => {
               <div>
                 <label
                   htmlFor="email"
-                  className="mb-2 block text-sm font-medium text-neutral-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-t-text"
                 >
                   {t("emailLabel")}
                 </label>
@@ -119,7 +117,7 @@ const Contact = () => {
                   {...register("email", { required: true })}
                   type="email"
                   placeholder={t("emailPlaceholder")}
-                  className="w-full rounded-lg border border-neutral-200 bg-transparent px-4 py-3 text-sm text-neutral-900 outline-none transition-colors focus:border-primary dark:border-neutral-800 dark:text-white dark:focus:border-primary"
+                  className="w-full rounded-md border border-t-border bg-transparent px-4 py-3 text-sm text-t-text outline-none transition-colors focus:border-t-primary"
                 />
                 {errors.email && (
                   <span className="mt-1 text-xs text-red-500">
@@ -131,7 +129,7 @@ const Contact = () => {
             <div>
               <label
                 htmlFor="message"
-                className="mb-2 block text-sm font-medium text-neutral-900 dark:text-white"
+                className="mb-2 block text-sm font-medium text-t-text"
               >
                 {t("messageLabel")}
               </label>
@@ -143,12 +141,12 @@ const Contact = () => {
                 name="message"
                 rows={5}
                 placeholder={t("messagePlaceholder")}
-                className="w-full resize-none rounded-lg border border-neutral-200 bg-transparent px-4 py-3 text-sm text-neutral-900 outline-none transition-colors focus:border-primary dark:border-neutral-800 dark:text-white dark:focus:border-primary"
+                className="w-full resize-none rounded-md border border-t-border bg-transparent px-4 py-3 text-sm text-t-text outline-none transition-colors focus:border-t-primary"
               />
               {errors.message && (
                 <span className="text-xs text-red-500">{t("required")}</span>
               )}
-              <p className="mt-1 text-xs text-neutral-500">{t("maxChars")}</p>
+              <p className="mt-1 text-xs text-t-muted">{t("maxChars")}</p>
             </div>
 
             {turnstileSiteKey && (
@@ -172,7 +170,7 @@ const Contact = () => {
               disabled={
                 isSubmitting || Boolean(turnstileSiteKey && !turnstileToken)
               }
-              className="rounded-lg bg-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-md bg-t-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isSubmitting ? t("sending") || "Sending..." : t("submit")}
             </button>
@@ -180,7 +178,7 @@ const Contact = () => {
 
           {message && (
             <div
-              className={`mt-4 rounded-lg p-3 text-sm ${
+              className={`mt-4 rounded-md p-3 text-sm ${
                 message.type === "success"
                   ? "bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-400"
                   : "bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-400"

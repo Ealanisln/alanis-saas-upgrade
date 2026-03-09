@@ -15,28 +15,28 @@ const Experience = () => {
   return (
     <section className="py-16 md:py-20 lg:py-24">
       <div className="container">
-        <h2 className="mb-12 text-3xl font-bold text-neutral-900 dark:text-white sm:text-4xl">
+        <h2 className="mb-12 font-heading text-3xl font-bold text-t-text sm:text-4xl">
           {t("title")}
         </h2>
-        <div className="space-y-0">
+        <div className="space-y-4">
           {items.map((item, index) => (
             <div
               key={index}
-              className="relative border-l-2 border-neutral-200 py-6 pl-8 dark:border-neutral-800"
+              className="flex gap-4 rounded-md border border-t-border bg-t-surface p-6 shadow-card"
             >
-              <div className="absolute -left-[5px] top-8 h-2 w-2 rounded-full bg-primary" />
-              <p className="mb-1 text-sm text-neutral-500 dark:text-neutral-400">
-                {item.period}
-              </p>
-              <h3 className="mb-1 text-lg font-semibold text-neutral-900 dark:text-white">
-                {item.role}
-                <span className="ml-2 font-normal text-neutral-500 dark:text-neutral-400">
-                  @ {item.company}
-                </span>
-              </h3>
-              <p className="text-neutral-600 dark:text-neutral-400">
-                {item.description}
-              </p>
+              <span className="text-t-muted/40 shrink-0 font-mono text-3xl font-bold">
+                {String(index + 1).padStart(2, "0")}.
+              </span>
+              <div>
+                <p className="mb-1 font-mono text-xs text-t-muted">
+                  {item.period}
+                </p>
+                <h3 className="text-lg font-semibold text-t-text">
+                  {item.role}{" "}
+                  <span className="text-t-muted">@ {item.company}</span>
+                </h3>
+                <p className="mt-1 text-sm text-t-muted">{item.description}</p>
+              </div>
             </div>
           ))}
         </div>
