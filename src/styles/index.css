@@ -22,14 +22,14 @@
     }
   }
 
-  /* Set line heights consistently for text elements */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply leading-tight tracking-tight;
+    @apply leading-tight;
+    letter-spacing: -0.02em;
   }
 
   p {
@@ -50,45 +50,7 @@
     @apply opacity-70;
   }
 
-  input#togglePlan:checked ~ .dot {
-    @apply translate-x-full;
-  }
-
   input#checkboxLabel:checked ~ .box span {
     @apply opacity-100;
-  }
-
-  /* Pricing component specific styles */
-  .pricing-box {
-    @apply transition-all duration-300 ease-in-out;
-  }
-
-  /* portafolio animations */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fadeIn {
-    animation: fadeIn 0.3s ease-out;
-  }
-
-  .animate-slideUp {
-    animation: slideUp 0.3s ease-out;
   }
 }

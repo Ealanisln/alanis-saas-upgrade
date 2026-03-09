@@ -1,60 +1,32 @@
 "use client";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 const AboutSectionTwo = () => {
-  const t = useTranslations("about.section");
+  const t = useTranslations("about.section.values");
+
+  const values = [
+    { key: "quality" },
+    { key: "learning" },
+    { key: "collaboration" },
+  ];
+
   return (
-    <section className="py-16 md:py-20 lg:py-28">
+    <section className="py-16 md:py-20 lg:py-24">
       <div className="container">
-        <div className="-mx-4 flex flex-wrap items-center">
-          <div className="w-full px-4 lg:w-1/2">
+        <div className="grid gap-6 md:grid-cols-3">
+          {values.map(({ key }) => (
             <div
-              className="wow fadeInUp relative mx-auto mb-12 aspect-[25/24] max-w-[500px] text-center lg:m-0"
-              data-wow-delay=".15s"
+              key={key}
+              className="rounded-lg border border-neutral-200 p-6 dark:border-neutral-800"
             >
-              <Image
-                src="/images/about/about-image-2.svg"
-                alt="about image"
-                fill
-                className="drop-shadow-three dark:hidden dark:drop-shadow-none"
-              />
-              <Image
-                src="/images/about/about-image-2-dark.svg"
-                alt="about image"
-                fill
-                className="hidden drop-shadow-three dark:block dark:drop-shadow-none"
-              />
+              <h3 className="mb-3 text-lg font-semibold text-neutral-900 dark:text-white">
+                {t(`${key}.title`)}
+              </h3>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                {t(`${key}.description`)}
+              </p>
             </div>
-          </div>
-          <div className="w-full px-4 lg:w-1/2">
-            <div className="wow fadeInUp max-w-[470px]" data-wow-delay=".2s">
-              <div className="mb-9">
-                <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                  {t("provenCode.title")}
-                </h3>
-                <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                  {t("provenCode.description")}
-                </p>
-              </div>
-              <div className="mb-9">
-                <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                  {t("firstClass.title")}
-                </h3>
-                <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                  {t("firstClass.description")}
-                </p>
-              </div>
-              <div className="mb-1">
-                <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                  {t("flexible.title")}
-                </h3>
-                <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                  {t("flexible.description")}
-                </p>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

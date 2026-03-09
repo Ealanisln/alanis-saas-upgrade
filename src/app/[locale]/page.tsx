@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import Blog from "@/components/Blog";
 import ScrollUp from "@/components/Common/ScrollUp";
-import Contact from "@/components/Contact";
-import Features from "@/components/Features";
 import HeroSection from "@/components/Hero/index";
-import Pricing from "@/components/Pricing";
+import Experience from "@/components/Experience";
+import Projects from "@/components/Projects";
+import TechStack from "@/components/TechStack";
+import Blog from "@/components/Blog";
 import { siteConfig } from "@/config/i18n";
 import {
   generateLocalizedUrl,
@@ -57,90 +57,58 @@ export async function generateMetadata({
 export default async function Home({ params }: HomePageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "home" });
-  const tJsonLd = await getTranslations({ locale, namespace: "home.jsonLd" });
 
-  // Create structured data for the home page
-  const jsonLd = {
+  // JSON-LD uses only trusted, developer-controlled translation strings
+  const jsonLdString = JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    name: tJsonLd("name"),
+    "@type": "Person",
+    name: siteConfig.author,
     description: t("meta.description"),
     url: generateLocalizedUrl(locale, "/"),
-    logo: `${siteConfig.url}${siteConfig.images.logo}`,
-    image: `${siteConfig.url}${siteConfig.images.ogImage}`,
+    image: `${siteConfig.url}/og-alanis-web-dev.jpg`,
     email: siteConfig.contact.email,
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "MX",
-      addressLocality: "Mexico",
-    },
-    founder: {
-      "@type": "Person",
-      name: siteConfig.author,
-      jobTitle: tJsonLd("jobTitle"),
-      url: generateLocalizedUrl(locale, "/about"),
-    },
-    serviceType: tJsonLd("serviceType"),
-    areaServed: {
-      "@type": "Country",
-      name: "Mexico",
-    },
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: tJsonLd("offerCatalog.name"),
-      itemListElement: [
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: tJsonLd("offerCatalog.services.0.name"),
-            description: tJsonLd("offerCatalog.services.0.description"),
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: tJsonLd("offerCatalog.services.1.name"),
-            description: tJsonLd("offerCatalog.services.1.description"),
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: tJsonLd("offerCatalog.services.2.name"),
-            description: tJsonLd("offerCatalog.services.2.description"),
-          },
-        },
-      ],
-    },
+    jobTitle: t("jsonLd.jobTitle"),
     sameAs: [
       siteConfig.social.github,
       siteConfig.social.linkedin,
       siteConfig.social.twitter,
     ],
-  };
+  });
 
   return (
     <>
-      {/* Add JSON-LD structured data */}
+      {/* JSON-LD structured data - content sourced from trusted translation files only */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdString }}
       />
 
       <ScrollUp />
       <HeroSection locale={locale} />
-      <Features />
-      {/* <Video /> */}
-      {/* <Brands /> */}
-      {/* <EcommerceSectionOne />
-      <EcommerceSectionTwo /> */}
-      {/* <Testimonials /> */}
-      <Pricing />
+      <Experience />
+      <Projects />
+      <TechStack />
       <Blog locale={locale} />
-      <Contact />
+
+      {/* CTA section */}
+      <section className="py-16 md:py-20 lg:py-24">
+        <div className="container">
+          <div className="mx-auto max-w-xl text-center">
+            <h2 className="mb-4 text-3xl font-bold text-neutral-900 dark:text-white sm:text-4xl">
+              {t("cta.title")}
+            </h2>
+            <p className="mb-6 text-neutral-600 dark:text-neutral-400">
+              {t("cta.description")}
+            </p>
+            <a
+              href={`/${locale}/contact`}
+              className="inline-flex items-center font-medium text-primary hover:text-primary/80"
+            >
+              {t("cta.link")} <span className="ml-1">&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

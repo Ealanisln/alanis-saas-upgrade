@@ -23,7 +23,6 @@ interface ColorPalette {
   black: string;
   dark: string;
   primary: ColorShade;
-  accent: ColorShade;
   neutral: ColorShade;
   success: ColorShade;
   danger: ColorShade;
@@ -104,22 +103,6 @@ const config: Config = {
           foreground: "hsl(var(--primary-foreground))",
         },
 
-        // Accent color (naranja/ámbar moderno que reemplaza al amarillo)
-        accent: {
-          DEFAULT: "#F79433",
-          50: "#FEF7EC",
-          100: "#FEEBD0",
-          200: "#FDD8A5",
-          300: "#FCC278",
-          400: "#FAAC4C",
-          500: "#F79433", // Reemplaza el amarillo original
-          600: "#D37729",
-          700: "#A75C1E",
-          800: "#7D4515",
-          900: "#52300F",
-          foreground: "#FFFFFF",
-        },
-
         // Neutral colors (escala de grises moderna)
         neutral: {
           DEFAULT: "#64748B",
@@ -193,7 +176,7 @@ const config: Config = {
         },
 
         // Mantener nombres antiguos para compatibilidad con código existente
-        yellow: "#F79433", // Actualizado al nuevo naranja/ámbar
+        yellow: "#F59E0B",
         "body-color": "#64748B", // Actualizado a neutral-500
         "body-color-dark": "#94A3B8", // Actualizado a neutral-400
         "gray-dark": "#1E293B", // Actualizado a neutral-800
@@ -224,18 +207,15 @@ const config: Config = {
         },
       },
       boxShadow: {
-        signUp: "0px 5px 10px rgba(15, 23, 42, 0.1)", // Actualizado
-        one: "0px 2px 3px rgba(15, 23, 42, 0.05)", // Actualizado
-        two: "0px 5px 10px rgba(15, 23, 42, 0.1)", // Actualizado
-        three: "0px 5px 15px rgba(15, 23, 42, 0.05)", // Actualizado
-        sticky: "inset 0 -1px 0 0 rgba(203, 213, 225, 0.3)", // Actualizado
-        "sticky-dark": "inset 0 -1px 0 0 rgba(51, 65, 85, 0.3)", // Actualizado
-        "feature-2": "0px 10px 40px rgba(79, 122, 250, 0.12)", // Actualizado con el nuevo azul
-        submit: "0px 5px 20px rgba(79, 122, 250, 0.1)", // Actualizado con el nuevo azul
-        "submit-dark": "0px 5px 20px rgba(15, 23, 42, 0.2)", // Actualizado
-        btn: "0px 1px 2px rgba(15, 23, 42, 0.1)", // Actualizado
-        "btn-hover": "0px 2px 4px rgba(15, 23, 42, 0.15)", // Actualizado
-        "btn-light": "0px 1px 2px rgba(15, 23, 42, 0.05)", // Actualizado
+        one: "0px 2px 3px rgba(15, 23, 42, 0.05)",
+        two: "0px 5px 10px rgba(15, 23, 42, 0.1)",
+        three: "0px 5px 15px rgba(15, 23, 42, 0.05)",
+        sticky: "inset 0 -1px 0 0 rgba(203, 213, 225, 0.3)",
+        "sticky-dark": "inset 0 -1px 0 0 rgba(51, 65, 85, 0.3)",
+        card: "0px 1px 3px rgba(15, 23, 42, 0.08), 0px 1px 2px rgba(15, 23, 42, 0.06)",
+        "card-hover": "0px 4px 12px rgba(15, 23, 42, 0.1)",
+        submit: "0px 5px 20px rgba(79, 122, 250, 0.1)",
+        "submit-dark": "0px 5px 20px rgba(15, 23, 42, 0.2)",
       },
       dropShadow: {
         three: "0px 5px 15px rgba(15, 23, 42, 0.05)", // Actualizado

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import React from "react";
 
 // Helper type for filtering Framer Motion props from DOM props
@@ -33,7 +33,6 @@ const filterMotionProps = (props: MotionProps) => {
     viewport,
     ...domProps
   } = props;
-  // Suppress unused variable warnings
   void initial;
   void animate;
   void exit;
@@ -84,38 +83,20 @@ describe("HeroSection", () => {
       expect(headings.length).toBeGreaterThan(0);
     });
 
-    it("renders buttons", () => {
+    it("renders links to projects and contact", () => {
       render(<HeroSection locale="en" />);
-      const buttons = screen.getAllByRole("button");
-      expect(buttons.length).toBeGreaterThan(0);
-    });
-
-    it("renders links to portfolio and contact", () => {
-      render(<HeroSection locale="en" />);
-      const portfolioLink = document.querySelector('a[href="/portfolio"]');
+      const projectsLink = document.querySelector('a[href="#projects"]');
       const contactLink = document.querySelector('a[href="/contact"]');
-      expect(portfolioLink).toBeInTheDocument();
+      expect(projectsLink).toBeInTheDocument();
       expect(contactLink).toBeInTheDocument();
     });
 
-    it("renders hero images", () => {
+    it("renders social links", () => {
       render(<HeroSection locale="en" />);
-      const images = screen.getAllByAltText("Hero illustration");
-      expect(images.length).toBeGreaterThan(0);
-    });
-  });
-
-  describe("styling", () => {
-    it("applies gradient background", () => {
-      render(<HeroSection locale="en" />);
-      const gradient = document.querySelector(".bg-gradient-to-br");
-      expect(gradient).toBeInTheDocument();
-    });
-
-    it("has animated blob elements", () => {
-      render(<HeroSection locale="en" />);
-      const blobs = document.querySelectorAll(".animate-blob");
-      expect(blobs.length).toBeGreaterThan(0);
+      const githubLink = document.querySelector('a[aria-label="GitHub"]');
+      const linkedinLink = document.querySelector('a[aria-label="LinkedIn"]');
+      expect(githubLink).toBeInTheDocument();
+      expect(linkedinLink).toBeInTheDocument();
     });
   });
 

@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/client";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
-import { Card, CardContent } from "../ui";
 
 interface PostsProps {
   data: SimpleBlogCard[];
@@ -11,24 +10,23 @@ interface PostsProps {
 }
 
 const Posts = ({ data, locale }: PostsProps) => {
-  // Ordenar los posts del más reciente al más viejo y filtrar posts sin slug válido
   const sortedPosts = [...data]
-    .filter((post) => post.slug?.current) // Filter out posts without valid slug
+    .filter((post) => post.slug?.current)
     .sort(
       (a, b) =>
         new Date(b._updatedAt).getTime() - new Date(a._updatedAt).getTime(),
     );
 
   return (
-    <div className="grid grid-cols-1 gap-8 p-2 sm:grid-cols-2 sm:gap-10 md:gap-12 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {sortedPosts.map((post) => (
         <Link
           key={post._id}
           href={`/${locale}/blog/${post.slug?.current}`}
-          className="group mb-6 transition-all duration-300 hover:translate-y-[-5px]"
+          className="group"
         >
-          <Card className="overflow-hidden border border-gray-100 bg-white shadow-md transition-all duration-300 hover:shadow-lg dark:border-gray-700 dark:bg-gray-800">
-            <div className="relative h-48 overflow-hidden md:h-56">
+          <article className="overflow-hidden rounded-lg border border-neutral-200 transition-colors hover:border-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-700">
+            <div className="relative h-48 overflow-hidden">
               <Image
                 src={
                   post.mainImage
@@ -43,52 +41,28 @@ const Posts = ({ data, locale }: PostsProps) => {
               />
             </div>
 
-            <CardContent className="p-6 md:p-7">
-              <div className="mb-4 flex items-center text-sm text-gray-500 dark:text-gray-400">
-                <span className="dark:text-primary-light font-medium text-primary">
-                  {new Date(post._updatedAt).toLocaleDateString("es-ES", {
+            <div className="p-5">
+              <p className="mb-2 text-xs text-neutral-500 dark:text-neutral-400">
+                {new Date(post._updatedAt).toLocaleDateString(
+                  locale === "es" ? "es-ES" : "en-US",
+                  {
                     year: "numeric",
                     month: "short",
                     day: "numeric",
-                  })}
-                </span>
-                {post.author?.name && (
-                  <>
-                    <span className="mx-2">•</span>
-                    <span>Por {post.author.name}</span>
-                  </>
+                  },
                 )}
-              </div>
+                {post.author?.name && <span> &middot; {post.author.name}</span>}
+              </p>
 
-              <h3 className="dark:group-hover:text-primary-light mb-3 line-clamp-2 text-xl font-bold text-gray-900 group-hover:text-primary dark:text-white">
+              <h3 className="mb-2 line-clamp-2 text-base font-semibold text-neutral-900 group-hover:text-primary dark:text-white dark:group-hover:text-primary">
                 {post.title}
               </h3>
 
-              <p className="mb-5 line-clamp-3 text-base text-gray-600 dark:text-gray-300">
+              <p className="line-clamp-2 text-sm text-neutral-600 dark:text-neutral-400">
                 {post.smallDescription}
               </p>
-
-              <div className="flex justify-end">
-                <span className="dark:text-primary-light inline-flex items-center text-sm font-medium text-primary group-hover:underline">
-                  Leer más
-                  <svg
-                    className="ml-1 h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    ></path>
-                  </svg>
-                </span>
-              </div>
-            </CardContent>
-          </Card>
+            </div>
+          </article>
         </Link>
       ))}
     </div>

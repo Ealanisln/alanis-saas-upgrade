@@ -1,11 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
 import { Link } from "@/lib/navigation";
+import { siteConfig } from "@/config/i18n";
 
 interface HeroSectionProps {
   locale: string;
@@ -19,192 +17,117 @@ export default function HeroSection({ locale: _locale }: HeroSectionProps) {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: 0.12,
         delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 16 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1] as const,
-      },
-    },
-  };
-
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.8,
+        duration: 0.5,
         ease: [0.22, 1, 0.36, 1] as const,
       },
     },
   };
 
   return (
-    <div className="relative min-h-[100dvh] w-full overflow-hidden">
-      {/* Animated Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
-        {/* Animated gradient mesh */}
-        <div className="absolute inset-0 opacity-50">
-          <div className="animate-blob absolute left-[10%] top-[20%] h-[500px] w-[500px] rounded-full bg-gradient-to-r from-primary/30 to-blue-400/30 mix-blend-multiply blur-3xl filter dark:mix-blend-lighten"></div>
-          <div className="animation-delay-2000 animate-blob absolute right-[10%] top-[10%] h-[500px] w-[500px] rounded-full bg-gradient-to-r from-purple-400/30 to-pink-400/30 mix-blend-multiply blur-3xl filter dark:mix-blend-lighten"></div>
-          <div className="animation-delay-4000 animate-blob absolute bottom-[20%] left-[20%] h-[500px] w-[500px] rounded-full bg-gradient-to-r from-blue-400/30 to-primary/30 mix-blend-multiply blur-3xl filter dark:mix-blend-lighten"></div>
-        </div>
-      </div>
+    <div className="relative flex min-h-[100dvh] w-full items-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          className="mx-auto max-w-2xl py-24"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.p
+            className="mb-4 text-sm font-medium uppercase tracking-widest text-primary"
+            variants={itemVariants}
+          >
+            {t("role")}
+          </motion.p>
 
-      {/* Content */}
-      <div className="container relative z-10 mx-auto h-full px-4 sm:px-6 lg:px-8">
-        <div className="flex min-h-[calc(100dvh-5rem)] items-center">
-          <div className="w-full py-12">
-            <motion.div
-              className="grid items-center gap-16 lg:grid-cols-2"
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
+          <motion.h1
+            className="mb-6 text-5xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-6xl lg:text-7xl"
+            variants={itemVariants}
+          >
+            {t("name")}
+          </motion.h1>
+
+          <motion.p
+            className="mb-8 text-lg leading-relaxed text-neutral-600 dark:text-neutral-400"
+            variants={itemVariants}
+          >
+            {t("bio")}
+          </motion.p>
+
+          {/* Social links */}
+          <motion.div
+            className="mb-8 flex items-center gap-5"
+            variants={itemVariants}
+          >
+            <a
+              href={siteConfig.social.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+              aria-label="GitHub"
             >
-              {/* Content */}
-              <div className="text-center lg:text-left">
-                <motion.h1
-                  className="text-5xl font-bold tracking-tight text-black dark:text-white sm:text-6xl lg:text-7xl"
-                  variants={itemVariants}
-                >
-                  {t("title")}
-                </motion.h1>
-
-                <motion.p
-                  className="mt-4 text-xl text-body-color dark:text-body-color-dark sm:text-2xl"
-                  variants={itemVariants}
-                >
-                  {t("subtitle")}
-                </motion.p>
-
-                <motion.p
-                  className="mt-6 text-lg text-body-color dark:text-body-color-dark"
-                  variants={itemVariants}
-                >
-                  {t("description")}
-                </motion.p>
-
-                {/* Buttons */}
-                <motion.div
-                  className="mt-8 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start"
-                  variants={itemVariants}
-                >
-                  <Link href="/portfolio">
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Button className="h-14 rounded-xl bg-primary px-8 text-base font-medium text-white shadow-lg shadow-primary/25 duration-300 hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 dark:shadow-primary/20">
-                        {t("cta")} <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </motion.div>
-                  </Link>
-                  <Link href="/contact">
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Button
-                        variant="outline"
-                        className="h-14 rounded-xl border-2 border-primary/20 bg-white/60 px-8 text-base font-medium text-primary backdrop-blur-md duration-300 hover:border-primary/40 hover:bg-white/80 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-white/20 dark:hover:bg-white/10"
-                      >
-                        {t("contact")}
-                      </Button>
-                    </motion.div>
-                  </Link>
-                </motion.div>
-              </div>
-
-              {/* Image with Glassmorphism */}
-              <motion.div
-                className="flex justify-center lg:justify-end"
-                variants={imageVariants}
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="currentColor"
               >
-                <div className="group relative">
-                  {/* Glassmorphism Card */}
-                  <motion.div
-                    className="relative z-10 rounded-3xl border border-white/20 bg-white/40 p-8 shadow-2xl backdrop-blur-xl transition-all duration-500 dark:border-white/10 dark:bg-white/5"
-                    animate={{
-                      y: [0, -10, 0],
-                    }}
-                    transition={{
-                      duration: 6,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                    whileHover={{
-                      scale: 1.02,
-                      rotate: 2,
-                    }}
-                  >
-                    <div className="relative h-[300px] w-[300px] sm:h-[400px] sm:w-[400px]">
-                      <Image
-                        src="/images/hero/hero-light.svg"
-                        alt="Hero illustration"
-                        fill
-                        className="dark:hidden"
-                        priority
-                      />
-                      <Image
-                        src="/images/hero/hero-dark.svg"
-                        alt="Hero illustration"
-                        fill
-                        className="hidden dark:block"
-                        priority
-                      />
-                    </div>
-                  </motion.div>
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+              </svg>
+            </a>
+            <a
+              href={siteConfig.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+              aria-label="LinkedIn"
+            >
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+            </a>
+          </motion.div>
 
-                  {/* Enhanced Decorative Elements */}
-                  <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-gradient-to-r from-primary/30 to-blue-500/30 blur-2xl transition-all duration-500 group-hover:scale-125"></div>
-                  <div className="absolute -bottom-8 -left-8 h-40 w-40 rounded-full bg-gradient-to-r from-purple-500/30 to-pink-500/30 blur-2xl transition-all duration-500 group-hover:scale-125"></div>
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
+          {/* CTAs */}
+          <motion.div
+            className="flex items-center gap-6"
+            variants={itemVariants}
+          >
+            <Link
+              href="#projects"
+              className="group inline-flex items-center text-sm font-medium text-neutral-900 dark:text-white"
+            >
+              {t("cta")}
+              <span className="ml-1 transition-transform group-hover:translate-x-1">
+                &darr;
+              </span>
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center text-sm font-medium text-neutral-500 transition-colors hover:text-primary dark:text-neutral-400"
+            >
+              {t("contact")}
+              <span className="ml-1">&rarr;</span>
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
-
-      {/* Custom Styles for Animations */}
-      <style jsx global>{`
-        @keyframes blob {
-          0%,
-          100% {
-            transform: translate(0, 0) scale(1);
-          }
-          25% {
-            transform: translate(20px, -50px) scale(1.1);
-          }
-          50% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-          75% {
-            transform: translate(50px, 10px) scale(1.05);
-          }
-        }
-
-        .animate-blob {
-          animation: blob 20s infinite;
-        }
-
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-      `}</style>
     </div>
   );
 }

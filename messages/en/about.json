@@ -1,46 +1,47 @@
 {
   "meta": {
-    "title": "About me - Alanis",
-    "description": "Learn more about my experience as a full-stack developer and my passion for creating exceptional web applications.",
+    "title": "About - Emmanuel Alanis",
+    "description": "Full-stack developer with 5+ years of experience building web applications with React, Next.js, and TypeScript.",
     "keywords": [
       "Emmanuel Alanis",
-      "web developer",
+      "full-stack developer",
       "React",
       "Next.js",
       "TypeScript",
-      "full-stack developer",
       "software engineer"
     ]
   },
-  "title": "About me",
-  "subtitle": "My passion for web development",
-  "description": "I am a full-stack developer passionate about creating web applications that not only work well, but also provide an excellent user experience.",
+  "title": "About",
+  "subtitle": "Full-Stack Developer",
+  "description": "I'm a full-stack developer passionate about building web applications that are both performant and user-friendly.",
   "hero": {
-    "title": "About me",
-    "description": "Hello! I'm Emmanuel, a Mexican web developer. I have a passion for developing modern web applications and I'm constantly learning something new. Also, I enjoy helping others grow and develop alongside me."
+    "title": "About",
+    "description": "I'm Emmanuel, a Mexican full-stack developer. I build modern web applications and I'm constantly learning new technologies. I enjoy solving complex problems and turning ideas into elegant solutions."
   },
   "section": {
-    "title": "The best solution for your business.",
-    "description": "Worried about technical matters? Don't worry, we'll provide you with the best solutions so your business runs smoothly. You'll always have the backing of our first-class experience.",
+    "title": "About me",
+    "description": "I'm a full-stack developer based in Mexico with over 5 years of experience. I specialize in building scalable web applications using modern technologies like React, Next.js, and TypeScript.",
     "features": {
-      "latestTech": "Latest technologies",
-      "scalable": "Fully scalable",
-      "worldClass": "World-class quality",
-      "affordable": "Affordable costs",
-      "bilingual": "Support in Spanish and English",
-      "friendly": "Ideal for people without technical knowledge"
+      "latestTech": "Modern technologies",
+      "scalable": "Scalable architecture",
+      "worldClass": "Clean code practices",
+      "affordable": "Performance focused",
+      "bilingual": "Bilingual (English & Spanish)",
+      "friendly": "Strong communication skills"
     },
-    "provenCode": {
-      "title": "Proven Code",
-      "description": "Our error-free code ensures optimal performance and functionality for your software applications. Trust our experienced team to deliver quality results without unexpected issues."
-    },
-    "firstClass": {
-      "title": "First-Class Support",
-      "description": "We're here to answer questions, clarify concerns, and provide solutions for a seamless experience."
-    },
-    "flexible": {
-      "title": "Flexible Plans",
-      "description": "If you need something special, don't worry; we'd be happy to assist you and offer the best option according to your needs."
+    "values": {
+      "quality": {
+        "title": "Quality Code",
+        "description": "I write clean, tested, and maintainable code. Every project follows best practices with proper testing and documentation."
+      },
+      "learning": {
+        "title": "Continuous Learning",
+        "description": "Technology evolves fast. I stay current with modern tools, frameworks, and best practices to deliver the best solutions."
+      },
+      "collaboration": {
+        "title": "Collaboration",
+        "description": "Great software is built by great teams. I value clear communication, code reviews, and knowledge sharing."
+      }
     }
   },
   "stats": {
@@ -52,66 +53,20 @@
     },
     "technologies": {
       "value": "10+",
-      "label": "Technologies Mastered"
+      "label": "Technologies"
     },
     "satisfaction": {
       "value": "100%",
-      "label": "Client Satisfaction"
+      "label": "Commitment"
     }
   },
   "techStack": {
     "title": "Technologies I Work With",
     "subtitle": "Modern tools for modern solutions"
   },
-  "services": {
-    "title": "Services I Offer",
-    "subtitle": "Comprehensive solutions tailored to your needs",
-    "items": {
-      "webApp": {
-        "title": "Web Application Development",
-        "description": "Custom web applications built with modern frameworks like React and Next.js for optimal performance and user experience."
-      },
-      "ecommerce": {
-        "title": "E-commerce Solutions",
-        "description": "Complete online store solutions with secure payment processing, inventory management, and seamless checkout experiences."
-      },
-      "api": {
-        "title": "API Development & Integration",
-        "description": "RESTful APIs and third-party integrations to connect your systems and automate workflows efficiently."
-      },
-      "performance": {
-        "title": "Performance Optimization",
-        "description": "Speed optimization, SEO improvements, and Core Web Vitals enhancements to boost your site's performance."
-      }
-    }
-  },
-  "testimonials": {
-    "title": "What Clients Say",
-    "subtitle": "Feedback from those who have worked with me",
-    "items": [
-      {
-        "quote": "Emmanuel delivered our project on time and exceeded our expectations. His attention to detail and communication throughout the process was exceptional.",
-        "name": "Maria Garcia",
-        "role": "CEO",
-        "company": "TechStart Inc."
-      },
-      {
-        "quote": "Working with Emmanuel transformed our online presence. Our website is now faster, more modern, and our customers love the new experience.",
-        "name": "Carlos Rodriguez",
-        "role": "Founder",
-        "company": "Digital Solutions"
-      },
-      {
-        "quote": "Professional, reliable, and highly skilled. Emmanuel understood our business needs and delivered a solution that perfectly fits our requirements.",
-        "name": "Ana Martinez",
-        "role": "Marketing Director",
-        "company": "Growth Agency"
-      }
-    ]
-  },
   "jsonLd": {
-    "description": "Mexican web developer specialized in React, Next.js and TypeScript",
+    "description": "Full-stack developer specialized in React, Next.js and TypeScript",
     "jobTitle": "Full-Stack Developer",
-    "worksFor": "Freelance"
+    "worksFor": "Software Company"
   }
 }

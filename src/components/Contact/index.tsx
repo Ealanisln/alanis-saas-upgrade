@@ -35,7 +35,6 @@ const Contact = () => {
   } = useForm<FormInputs>();
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    // Check Turnstile token if configured
     if (turnstileSiteKey && !turnstileToken) {
       setMessage({
         type: "error",
@@ -50,14 +49,11 @@ const Contact = () => {
         { ...data, locale },
         turnstileToken || undefined,
       );
-      // Handle confirmation here
       setMessage({ type: "success", text: result });
 
-      // Reset Turnstile for next submission
       turnstileRef.current?.reset();
       setTurnstileToken(null);
 
-      // Clear the message after 3 seconds
       setTimeout(() => {
         setMessage(null);
         reset();
@@ -70,11 +66,9 @@ const Contact = () => {
         text: `${t("errorMessage")} ${errorMessage}`,
       });
 
-      // Reset Turnstile on error
       turnstileRef.current?.reset();
       setTurnstileToken(null);
 
-      // Clear the error message after 3 seconds
       setTimeout(() => {
         setMessage(null);
       }, 3000);
@@ -84,128 +78,117 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="overflow-hidden py-16 md:py-20 lg:py-28">
+    <section id="contact" className="py-16 md:py-20 lg:py-24">
       <div className="container">
-        <div className="-mx-4 flex flex-wrap">
-          <div className="w-full px-4 lg:w-7/12 xl:w-8/12">
-            <div
-              className="wow fadeInUp mb-12 rounded-sm bg-white px-8 py-11 shadow-three dark:bg-gray-dark sm:p-[55px] lg:mb-5 lg:px-8 xl:p-[55px]"
-              data-wow-delay=".15s
-              "
-            >
-              <h2 className="mb-3 text-2xl font-bold text-black dark:text-white sm:text-3xl lg:text-2xl xl:text-3xl">
-                {t("title")}
-              </h2>
-              <p className="mb-12 text-base font-medium text-body-color">
-                {t("subtitle")}
-              </p>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="-mx-4 flex flex-wrap">
-                  <div className="w-full px-4 md:w-1/2">
-                    <div className="mb-8">
-                      <label
-                        htmlFor="name"
-                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                      >
-                        {t("nameLabel")}
-                      </label>
-                      <input
-                        {...register("name", { required: true })}
-                        type="text"
-                        placeholder={t("namePlaceholder")}
-                        className="w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                      />
-                      {errors.name && <span>{t("required")}</span>}
-                    </div>
-                  </div>
-                  <div className="w-full px-4 md:w-1/2">
-                    <div className="mb-8">
-                      <label
-                        htmlFor="email"
-                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                      >
-                        {t("emailLabel")}
-                      </label>
-                      <input
-                        {...register("email", { required: true })}
-                        type="email"
-                        placeholder={t("emailPlaceholder")}
-                        className="w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                      />
-                      {errors.email && <span>{t("required")}</span>}
-                    </div>
-                  </div>
-                  <div className="w-full px-4">
-                    <div className="mb-8">
-                      <label
-                        htmlFor="message"
-                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                      >
-                        {t("messageLabel")}
-                      </label>
-                      <textarea
-                        {...register("message", {
-                          required: true,
-                          maxLength: 500,
-                        })}
-                        name="message"
-                        rows={5}
-                        placeholder={t("messagePlaceholder")}
-                        className="w-full resize-none rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                      ></textarea>
-                      {errors.message && <span>{t("required")} - </span>}
-                      <span>{t("maxChars")}</span>
-                    </div>
-                  </div>
-                  {/* Turnstile Widget */}
-                  {turnstileSiteKey && (
-                    <div className="mb-4 w-full px-4">
-                      <Turnstile
-                        ref={turnstileRef}
-                        siteKey={turnstileSiteKey}
-                        onSuccess={setTurnstileToken}
-                        onError={() => setTurnstileToken(null)}
-                        onExpire={() => setTurnstileToken(null)}
-                        options={{
-                          theme: "auto",
-                          size: "normal",
-                        }}
-                      />
-                    </div>
-                  )}
-                  <div className="w-full px-4">
-                    <button
-                      type="submit"
-                      disabled={
-                        isSubmitting ||
-                        Boolean(turnstileSiteKey && !turnstileToken)
-                      }
-                      className="rounded-xl bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50 dark:shadow-submit-dark"
-                    >
-                      {isSubmitting
-                        ? t("sending") || "Sending..."
-                        : t("submit")}
-                    </button>
-                  </div>
-                </div>
-              </form>
-              {/* Display confirmation or error message */}
-              {message && (
-                <div
-                  className={`mt-4 rounded p-3 ${
-                    message.type === "success"
-                      ? "bg-green-200 text-green-800"
-                      : "bg-red-200 text-red-800"
-                  }`}
+        <div className="mx-auto max-w-2xl">
+          <h2 className="mb-2 text-2xl font-bold text-neutral-900 dark:text-white sm:text-3xl">
+            {t("title")}
+          </h2>
+          <p className="mb-10 text-neutral-600 dark:text-neutral-400">
+            {t("subtitle")}
+          </p>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="mb-2 block text-sm font-medium text-neutral-900 dark:text-white"
                 >
-                  {message.text}
-                </div>
-              )}
+                  {t("nameLabel")}
+                </label>
+                <input
+                  {...register("name", { required: true })}
+                  type="text"
+                  placeholder={t("namePlaceholder")}
+                  className="w-full rounded-lg border border-neutral-200 bg-transparent px-4 py-3 text-sm text-neutral-900 outline-none transition-colors focus:border-primary dark:border-neutral-800 dark:text-white dark:focus:border-primary"
+                />
+                {errors.name && (
+                  <span className="mt-1 text-xs text-red-500">
+                    {t("required")}
+                  </span>
+                )}
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="mb-2 block text-sm font-medium text-neutral-900 dark:text-white"
+                >
+                  {t("emailLabel")}
+                </label>
+                <input
+                  {...register("email", { required: true })}
+                  type="email"
+                  placeholder={t("emailPlaceholder")}
+                  className="w-full rounded-lg border border-neutral-200 bg-transparent px-4 py-3 text-sm text-neutral-900 outline-none transition-colors focus:border-primary dark:border-neutral-800 dark:text-white dark:focus:border-primary"
+                />
+                {errors.email && (
+                  <span className="mt-1 text-xs text-red-500">
+                    {t("required")}
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
-          {/* <div className="w-full px-4 lg:w-5/12 xl:w-4/12">
-            <NewsLatterBox />
-          </div> */}
+            <div>
+              <label
+                htmlFor="message"
+                className="mb-2 block text-sm font-medium text-neutral-900 dark:text-white"
+              >
+                {t("messageLabel")}
+              </label>
+              <textarea
+                {...register("message", {
+                  required: true,
+                  maxLength: 500,
+                })}
+                name="message"
+                rows={5}
+                placeholder={t("messagePlaceholder")}
+                className="w-full resize-none rounded-lg border border-neutral-200 bg-transparent px-4 py-3 text-sm text-neutral-900 outline-none transition-colors focus:border-primary dark:border-neutral-800 dark:text-white dark:focus:border-primary"
+              />
+              {errors.message && (
+                <span className="text-xs text-red-500">{t("required")}</span>
+              )}
+              <p className="mt-1 text-xs text-neutral-500">{t("maxChars")}</p>
+            </div>
+
+            {turnstileSiteKey && (
+              <div>
+                <Turnstile
+                  ref={turnstileRef}
+                  siteKey={turnstileSiteKey}
+                  onSuccess={setTurnstileToken}
+                  onError={() => setTurnstileToken(null)}
+                  onExpire={() => setTurnstileToken(null)}
+                  options={{
+                    theme: "auto",
+                    size: "normal",
+                  }}
+                />
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={
+                isSubmitting || Boolean(turnstileSiteKey && !turnstileToken)
+              }
+              className="rounded-lg bg-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {isSubmitting ? t("sending") || "Sending..." : t("submit")}
+            </button>
+          </form>
+
+          {message && (
+            <div
+              className={`mt-4 rounded-lg p-3 text-sm ${
+                message.type === "success"
+                  ? "bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-400"
+                  : "bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-400"
+              }`}
+            >
+              {message.text}
+            </div>
+          )}
         </div>
       </div>
     </section>

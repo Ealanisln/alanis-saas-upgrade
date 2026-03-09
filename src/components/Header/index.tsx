@@ -17,10 +17,8 @@ const Header = () => {
     () => [
       { id: 1, title: t("home"), path: "/", newTab: false },
       { id: 2, title: t("about"), path: "/about", newTab: false },
-      { id: 3, title: t("portfolio"), path: "/portfolio", newTab: false },
-      { id: 4, title: t("blog"), path: "/blog", newTab: false },
-      { id: 5, title: t("plans"), path: "/plans", newTab: false },
-      { id: 6, title: t("contact"), path: "/contact", newTab: false },
+      { id: 3, title: t("blog"), path: "/blog", newTab: false },
+      { id: 4, title: t("contact"), path: "/contact", newTab: false },
     ],
     [t],
   );
@@ -66,7 +64,7 @@ const Header = () => {
       <header
         className={`header left-0 top-0 z-40 flex w-full items-center ${
           sticky
-            ? "fixed z-[9999] bg-white !bg-opacity-80 shadow-sticky backdrop-blur-sm transition dark:bg-gray-dark dark:shadow-sticky-dark"
+            ? "fixed z-[9999] border-b border-neutral-200/50 bg-white/80 backdrop-blur-md transition dark:border-neutral-800/50 dark:bg-neutral-900/80"
             : "relative bg-transparent"
         }`}
       >
@@ -121,7 +119,7 @@ const Header = () => {
                 </button>
                 <nav
                   id="navbarCollapse"
-                  className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-body-color/50 bg-white px-6 py-4 duration-300 dark:border-body-color/20 dark:bg-dark lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
+                  className={`navbar absolute right-0 z-30 w-[250px] rounded-lg border border-neutral-200 bg-white px-6 py-4 duration-300 dark:border-neutral-800 dark:bg-neutral-900 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
                     navbarOpen
                       ? "visibility top-full opacity-100"
                       : "invisible top-[120%] opacity-0"

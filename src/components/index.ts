@@ -8,39 +8,11 @@ export { default as ScrollToTop } from "./ScrollToTop";
 export { default as Hero } from "./Hero";
 export { default as AboutSectionOne } from "./About/AboutSectionOne";
 export { default as AboutSectionTwo } from "./About/AboutSectionTwo";
-export { default as Features } from "./Features";
-export { default as Video } from "./Video";
-export { default as Brands } from "./Brands";
-export { default as Testimonials } from "./Testimonials";
-export { default as Pricing } from "./Pricing";
 export { default as Blog } from "./Blog";
 export { default as Contact } from "./Contact";
-export { default as Newsletter } from "./Contact/NewsLatterBox";
-
-// Calculator Components
-export { ServiceCalculator } from "./Calculator";
-export { ServiceCard } from "./Calculator/ServiceCard";
-export { QuoteSummary } from "./Calculator/QuoteSummary";
-export { ProjectConfiguration } from "./Calculator/ProjectConfiguration";
-export { QuoteFormModal } from "./Calculator/QuoteFormModal";
-
-// Portfolio Components
-export { default as Portfolio } from "./Portfolio";
-export { default as ModernPortfolio } from "./Portfolio/ModernPortfolio";
-export { default as ProjectCard } from "./Portfolio/ProjectCard";
-
-// Plans Components
-export { default as Plans } from "./Plans";
-
-// E-commerce Components
-export { default as Ecommerce } from "./Ecommerce";
-export { default as PrintObject } from "./Checkout/PrintObject";
-export { ProductImage } from "./Product/product-image/ProductImage";
-export { ProductSlideshow } from "./Product/slideshow/ProductSlideshow";
-export { ProductMobileSlideshow } from "./Product/slideshow/ProductMobileSlideshow";
-
-// Stripe Components
-export { default as StripeButton } from "./Stripe/StripeButton";
+export { default as Experience } from "./Experience";
+export { default as Projects } from "./Projects";
+export { default as TechStack } from "./TechStack";
 
 // UI Components
 export * from "./ui";
@@ -50,6 +22,3 @@ export { default as TypewriterTitle } from "./TypewriterTitle";
 export { default as Breadcrumb } from "./Common/Breadcrumb";
 export { default as BreadcrumbJsonLd } from "./Common/BreadcrumbJsonLd";
 export { default as SectionTitle } from "./Common/SectionTitle";
-
-// Example Components
-export { ApiUsageExample } from "./Examples/ApiUsageExample";

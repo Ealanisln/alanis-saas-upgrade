@@ -1,9 +1,6 @@
-// src/components/About/AboutSectionOne.tsx
-
 "use client";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import SectionTitle from "../Common/SectionTitle";
 
 const checkIcon = (
   <svg width="16" height="13" viewBox="0 0 16 13" className="fill-current">
@@ -16,8 +13,8 @@ interface ListProps {
 }
 
 const List = ({ text }: ListProps) => (
-  <p className="mb-5 flex items-center text-lg font-medium text-body-color">
-    <span className="mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md bg-primary bg-opacity-10 text-primary">
+  <p className="mb-4 flex items-center text-base text-neutral-600 dark:text-neutral-400">
+    <span className="mr-3 flex h-6 w-6 shrink-0 items-center justify-center rounded bg-primary/10 text-primary">
       {checkIcon}
     </span>
     {text}
@@ -28,59 +25,43 @@ const AboutSectionOne = () => {
   const t = useTranslations("about.section");
 
   return (
-    <section id="about" className="pb-16 pt-16 md:pt-20 lg:pt-28">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="border-b border-body-color/[.15] pb-12 dark:border-white/[.15] md:pb-20 lg:pb-28">
-          <div className="-mx-4 flex flex-wrap items-center">
-            <div className="w-full px-4 pb-12 lg:w-1/2 lg:pb-0">
-              <SectionTitle
-                title={t("title")}
-                paragraph={t("description")}
-                mb="44px"
-              />
+    <section id="about" className="py-16 md:py-20 lg:py-24">
+      <div className="container">
+        <div className="flex flex-wrap items-center gap-12 lg:flex-nowrap">
+          <div className="w-full lg:w-1/2">
+            <h2 className="mb-4 text-3xl font-bold text-neutral-900 dark:text-white sm:text-4xl">
+              {t("title")}
+            </h2>
+            <p className="mb-8 text-neutral-600 dark:text-neutral-400">
+              {t("description")}
+            </p>
 
-              <div
-                className="wow fadeInUp mb-12 max-w-[570px] lg:mb-0"
-                data-wow-delay=".15s"
-              >
-                <div className="mx-[-12px] flex flex-wrap">
-                  <div className="w-full px-3 sm:w-1/2 lg:w-full xl:w-1/2">
-                    <List text={t("features.latestTech")} />
-                    <List text={t("features.scalable")} />
-                    <List text={t("features.worldClass")} />
-                  </div>
-
-                  <div className="w-full px-3 sm:w-1/2 lg:w-full xl:w-1/2">
-                    <List text={t("features.affordable")} />
-                    <List text={t("features.bilingual")} />
-                    <List text={t("features.friendly")} />
-                  </div>
-                </div>
-              </div>
+            <div className="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
+              <List text={t("features.latestTech")} />
+              <List text={t("features.scalable")} />
+              <List text={t("features.worldClass")} />
+              <List text={t("features.affordable")} />
+              <List text={t("features.bilingual")} />
+              <List text={t("features.friendly")} />
             </div>
+          </div>
 
-            <div className="w-full px-4 pb-8 lg:mt-0 lg:w-1/2 lg:pb-0">
-              <div
-                className="wow fadeInUp relative mx-auto aspect-[25/24] max-w-[500px] lg:mr-0"
-                data-wow-delay=".2s"
-              >
-                <Image
-                  src="/images/about/about-image.svg"
-                  alt="about-image"
-                  fill
-                  priority
-                  className="mx-auto max-w-full drop-shadow-three dark:hidden dark:drop-shadow-none lg:mr-0"
-                  style={{ objectFit: "contain" }}
-                />
-                <Image
-                  src="/images/about/about-image-dark.svg"
-                  alt="about-image"
-                  fill
-                  priority
-                  className="mx-auto hidden max-w-full drop-shadow-three dark:block dark:drop-shadow-none lg:mr-0"
-                  style={{ objectFit: "contain" }}
-                />
-              </div>
+          <div className="w-full lg:w-1/2">
+            <div className="relative mx-auto aspect-[25/24] max-w-[500px]">
+              <Image
+                src="/images/about/about-image.svg"
+                alt="About illustration"
+                fill
+                priority
+                className="object-contain dark:hidden"
+              />
+              <Image
+                src="/images/about/about-image-dark.svg"
+                alt="About illustration"
+                fill
+                priority
+                className="hidden object-contain dark:block"
+              />
             </div>
           </div>
         </div>

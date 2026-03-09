@@ -35,8 +35,8 @@ pnpm test:coverage          # Run tests with coverage report
 
 ```
 src/
-├── app/[locale]/           # Locale-aware pages (home, blog, portfolio, plans, contact)
-├── app/api/webhooks/       # Stripe webhook handlers
+├── app/[locale]/           # Locale-aware pages (home, about, blog, contact)
+├── app/api/revalidate/     # Sanity webhook for ISR revalidation
 ├── app/studio/             # Sanity Studio at /studio
 ├── components/             # Feature-organized React components
 ├── sanity/                 # CMS schemas and GROQ queries
@@ -46,13 +46,13 @@ src/
 │   ├── seo.ts              # SEO metadata generation
 │   └── utils/              # Helper functions with tests
 ├── store/ui/               # Zustand store (minimal UI state)
-├── hooks/                  # Custom hooks (useApi, useQuotes)
+├── hooks/                  # Custom hooks (useApi)
 └── types/                  # TypeScript definitions
 ```
 
 ### Data Fetching Patterns
 
-**Sanity CMS**: Headless CMS for blog posts, portfolio, and content
+**Sanity CMS**: Headless CMS for blog posts and content
 
 - GROQ queries defined in `/src/sanity/lib/queries.ts`
 - Client setup in `/src/sanity/lib/client.ts`
@@ -73,7 +73,7 @@ src/
 
 - react-hook-form for form state
 - Zod for validation schemas
-- Contact form and quote calculator are the main forms
+- Contact form is the main form
 
 ### SEO
 
@@ -84,7 +84,7 @@ src/
 
 ### Styling
 
-- Tailwind CSS with custom color system (primary: blue #4F7AFA, accent: orange #F79433)
+- Tailwind CSS with custom color system (primary: blue #4F7AFA)
 - Dark mode via class-based next-themes
 - Import path alias: `@/*` → `./src/*`
 
@@ -109,6 +109,6 @@ Required:
 - `SANITY_API_TOKEN`
 - `NEXT_PUBLIC_API_BASE_URL`, `NEXT_PUBLIC_SITE_URL`
 
-Payment (optional):
+Email:
 
-- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`
+- `RESEND_API_KEY`

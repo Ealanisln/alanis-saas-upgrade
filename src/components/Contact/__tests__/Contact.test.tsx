@@ -119,8 +119,7 @@ describe("Contact", () => {
       await user.click(submitButton);
 
       await waitFor(() => {
-        // Message field has "required - " text when error
-        expect(screen.getByText("required -")).toBeInTheDocument();
+        expect(screen.getByText("required")).toBeInTheDocument();
       });
     });
 
@@ -142,8 +141,7 @@ describe("Contact", () => {
       await user.click(submitButton);
 
       await waitFor(() => {
-        // Should show error for exceeding maxLength
-        expect(screen.getByText("required -")).toBeInTheDocument();
+        expect(screen.getByText("required")).toBeInTheDocument();
       });
 
       expect(mockSendEmail).not.toHaveBeenCalled();
@@ -404,7 +402,7 @@ describe("Contact", () => {
 
       await waitFor(() => {
         const messageContainer = screen.getByText("Email sent successfully!");
-        expect(messageContainer).toHaveClass("bg-green-200", "text-green-800");
+        expect(messageContainer).toHaveClass("bg-green-50", "text-green-800");
       });
     });
 
@@ -428,7 +426,7 @@ describe("Contact", () => {
         const messageContainer = screen.getByText(
           /errorMessage.*Network error/,
         );
-        expect(messageContainer).toHaveClass("bg-red-200", "text-red-800");
+        expect(messageContainer).toHaveClass("bg-red-50", "text-red-800");
       });
     });
   });
