@@ -1,73 +1,94 @@
 {
   "meta": {
-    "title": "Alanis - Desarrollador Web",
-    "description": "Desarrollador full-stack especializado en crear aplicaciones web robustas, escalables y fáciles de usar.",
-    "keywords": ["desarrollo web", "programación", "javascript", "typescript", "react", "next.js", "full-stack", "Emmanuel Alanis"]
+    "title": "Emmanuel Alanis - Desarrollador Full-Stack",
+    "description": "Desarrollador full-stack construyendo aplicaciones web escalables con React, Next.js y TypeScript.",
+    "keywords": [
+      "desarrollador full-stack",
+      "ingeniero de software",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Emmanuel Alanis"
+    ]
   },
   "hero": {
-    "title": "Desarrollador full-stack",
-    "subtitle": "Especializado en crear aplicaciones escalables y de nivel empresarial con tecnologías modernas.",
-    "description": "Desde procesamiento de pagos hasta sistemas multi-tenant, convierto requisitos complejos en soluciones elegantes.",
-    "cta": "Ver Mis Proyectos",
-    "contact": "Conectemos"
+    "role": "ingeniero de software",
+    "name": "Emmanuel Alanis",
+    "bio": "Entrego software en producción que maneja tráfico real.",
+    "bioExtended": "Plataformas de entrega empresarial. Apps de salud y fitness con IA. Procesamiento de pagos. Herramientas veterinarias.",
+    "terminalPrompt": "> emmanuel.alanis --role=\"full-stack\" --location=\"MX\"",
+    "cta": "Ver mi trabajo",
+    "contact": "Contactar",
+    "badges": ["TypeScript", "30+ repos", "Next.js", "PostgreSQL"]
   },
-  "features": {
-    "title": "Ventajas",
-    "subtitle": "Beneficios",
-    "highlight": "beneficios",
-    "paragraph": "Desarrollamos soluciones web modernas y escalables utilizando las últimas tecnologías full‑stack. Nuestros proyectos están optimizados para ofrecer un rendimiento excepcional, máxima seguridad y una visibilidad SEO superior, impulsando el crecimiento de tu negocio.",
-    "items": {
-      "enterpriseArchitecture": {
-        "title": "Arquitectura de Nivel Empresarial",
-        "description": "Construimos plataformas con arquitecturas limpias, seguras y escalables. Utilizamos frameworks modernos como Next.js 15 y React 19, garantizando un rendimiento y fiabilidad de nivel empresarial."
+  "experience": {
+    "title": "Experiencia",
+    "items": [
+      {
+        "period": "2024 — Presente",
+        "role": "Desarrollador Full-Stack",
+        "company": "Corporativo",
+        "description": "Desarrollo de aplicaciones web empresariales con Python, Django, PHP, Symfony, TypeScript y Next.js."
       },
-      "saasEcommerce": {
-        "title": "Soluciones Personalizadas SaaS y E‑Commerce",
-        "description": "Creamos plataformas SaaS y e‑commerce multi‑tenant completamente personalizadas, con funciones avanzadas como facturación automatizada, inventario en tiempo real e integraciones con Stripe y Square."
+      {
+        "period": "2021 — 2024",
+        "role": "Desarrollador Freelance",
+        "company": "Alanis Dev",
+        "description": "Desarrollé soluciones web personalizadas para clientes incluyendo plataformas de entrega, sistemas veterinarios y productos SaaS."
       },
-      "highPerformance": {
-        "title": "Alto Rendimiento y Optimización SEO",
-        "description": "Diseñamos sitios y aplicaciones optimizados desde el núcleo, aplicando las mejores prácticas de Next.js y técnicas SEO avanzadas para lograr un posicionamiento orgánico superior y una carga ultrarrápida."
-      },
-      "realTime": {
-        "title": "Capacidades en Tiempo Real",
-        "description": "Implementamos funcionalidades de comunicación instantánea, rastreo en vivo y actualizaciones dinámicas utilizando tecnologías como Supabase, Upstash Redis y WebSockets."
-      },
-      "modernDevelopment": {
-        "title": "Prácticas de Desarrollo Modernas",
-        "description": "Aplicamos un enfoque de desarrollo basado en pruebas (TDD) con Jest y Playwright, integrando CI/CD automatizado y monitoreo en producción a través de Sentry y Vercel Analytics."
-      },
-      "customizableScalable": {
-        "title": "Totalmente Personalizable y Escalable",
-        "description": "Cada solución se adapta a las necesidades de tu negocio. Nuestros sistemas son fáciles de escalar, flexibles y totalmente personalizables tanto en diseño como en funcionalidad."
+      {
+        "period": "2019 — 2021",
+        "role": "Desarrollador Web",
+        "company": "Autodidacta",
+        "description": "Aprendí desarrollo web moderno construyendo proyectos y contribuyendo a código abierto."
       }
-    }
+    ]
   },
-  "techLabels": {
-    "typescript": "TypeScript",
-    "react": "React",
-    "nextjs": "Next.js"
+  "projects": {
+    "title": "Proyectos Destacados",
+    "items": [
+      {
+        "name": "Ready Set",
+        "description": "Plataforma de entrega empresarial con gestión de conductores, vendedores y clientes. Entrega el mismo día, servicios bajo demanda y seguimiento en tiempo real.",
+        "technologies": ["Next.js", "PostgreSQL", "Prisma", "Shadcn"],
+        "liveUrl": "https://readysetllc.com",
+        "githubUrl": "https://github.com/Ealanisln/ready-set",
+        "category": "enterprise"
+      },
+      {
+        "name": "FitTrackr",
+        "description": "Rastreador fitness impulsado por IA con OCR para etiquetas nutricionales, planificación de entrenamientos y analíticas de progreso.",
+        "technologies": ["React", "Express", "Gemini AI", "Docker"],
+        "liveUrl": "https://fittrackr.me",
+        "githubUrl": "https://github.com/Ealanisln/fittrackr",
+        "category": "ai"
+      },
+      {
+        "name": "Pagare Facil",
+        "description": "Generador de pagarés con interfaz intuitiva para información del deudor, términos de pago y generación de PDF.",
+        "technologies": ["Next.js", "React", "Generación PDF"],
+        "liveUrl": "https://www.pagarefacil.pro",
+        "githubUrl": "https://github.com/Ealanisln/pagare-facil",
+        "category": "fintech"
+      }
+    ],
+    "viewOnGithub": "Ver en GitHub",
+    "viewLive": "Link"
+  },
+  "techStack": {
+    "title": "Tecnologías"
+  },
+  "blog": {
+    "title": "Últimas Publicaciones",
+    "viewAll": "Ver todas"
+  },
+  "cta": {
+    "title": "¿Interesado en trabajar juntos?",
+    "description": "Siempre estoy abierto a discutir nuevas oportunidades y proyectos interesantes.",
+    "link": "Contactar"
   },
   "jsonLd": {
-    "name": "Alanis Dev - Desarrollo Web",
-    "jobTitle": "Desarrollador Full-Stack",
-    "serviceType": "Desarrollo Web",
-    "offerCatalog": {
-      "name": "Servicios de Desarrollo Web",
-      "services": [
-        {
-          "name": "Desarrollo de Aplicaciones Web",
-          "description": "Aplicaciones web modernas con Next.js y React"
-        },
-        {
-          "name": "E-commerce",
-          "description": "Tiendas en línea completas y funcionales"
-        },
-        {
-          "name": "Landing Pages",
-          "description": "Páginas de aterrizaje optimizadas para conversión"
-        }
-      ]
-    }
+    "name": "Emmanuel Alanis",
+    "jobTitle": "Desarrollador Full-Stack"
   }
-} 
+}

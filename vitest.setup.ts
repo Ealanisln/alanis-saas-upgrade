@@ -30,7 +30,21 @@ vi.mock("next/navigation", () => ({
 
 // Mock next-intl
 vi.mock("next-intl", () => ({
-  useTranslations: () => (key: string) => key,
+  useTranslations: () => {
+    const t = (key: string) => key;
+    t.raw = (key: string) => {
+      // Return arrays for known array keys
+      if (
+        key.includes("technologies") ||
+        key === "badges" ||
+        key.includes("keywords")
+      ) {
+        return ["item1", "item2"];
+      }
+      return key;
+    };
+    return t;
+  },
   useLocale: () => "en",
 }));
 

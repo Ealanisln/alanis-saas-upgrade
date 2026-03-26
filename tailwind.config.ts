@@ -1,58 +1,5 @@
 import type { Config } from "tailwindcss";
 
-// Definir interfaces para mejor tipado
-interface ColorShade {
-  DEFAULT: string;
-  50?: string;
-  100?: string;
-  200?: string;
-  300?: string;
-  400?: string;
-  500?: string;
-  600?: string;
-  700?: string;
-  800?: string;
-  900?: string;
-  foreground?: string;
-}
-
-interface ColorPalette {
-  current: string;
-  transparent: string;
-  white: string;
-  black: string;
-  dark: string;
-  primary: ColorShade;
-  accent: ColorShade;
-  neutral: ColorShade;
-  success: ColorShade;
-  danger: ColorShade;
-  warning: ColorShade;
-  info: ColorShade;
-
-  // Mantener para compatibilidad
-  yellow?: string | ColorShade;
-  "body-color"?: string;
-  "body-color-dark"?: string;
-  "gray-dark"?: string;
-  "gray-light"?: string;
-  stroke?: string;
-  "stroke-dark"?: string;
-  "bg-color-dark"?: string;
-
-  // UI components
-  border: string;
-  input: string;
-  ring: string;
-  background: string;
-  foreground: string;
-  secondary: ColorShade;
-  destructive: ColorShade;
-  muted: ColorShade;
-  popover: ColorShade;
-  card: ColorShade;
-}
-
 const config: Config = {
   darkMode: "class",
   content: [
@@ -80,47 +27,29 @@ const config: Config = {
         current: "currentColor",
         transparent: "transparent",
         white: "#FFFFFF",
-        black: "#0F172A", // Actualizado a un negro más moderno
-        dark: "#1E293B", // Actualizado
+        black: "#0D1117",
+        dark: "#161B22",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
 
-        // Primary color (Azul moderno)
+        // Terminal palette via CSS custom properties
+        "t-bg": "var(--color-bg)",
+        "t-surface": "var(--color-surface)",
+        "t-text": "var(--color-text)",
+        "t-muted": "var(--color-text-secondary)",
+        "t-border": "var(--color-border)",
+        "t-primary": "var(--color-primary)",
+        "t-accent": "var(--color-accent)",
+        "t-green": "var(--color-green)",
+
+        // Legacy compatibility
         primary: {
-          DEFAULT: "#4F7AFA", // Un azul ligeramente actualizado
-          50: "#F0F4FF",
-          100: "#E0E9FF",
-          200: "#C7D7FE",
-          300: "#A5BFFD",
-          400: "#819DFC",
-          500: "#4F7AFA", // Ligeramente ajustado del original #4A6CF7
-          600: "#3D5FD0",
-          700: "#2D48A8",
-          800: "#1E3282",
-          900: "#142159",
+          DEFAULT: "var(--color-primary)",
           foreground: "hsl(var(--primary-foreground))",
         },
-
-        // Accent color (naranja/ámbar moderno que reemplaza al amarillo)
-        accent: {
-          DEFAULT: "#F79433",
-          50: "#FEF7EC",
-          100: "#FEEBD0",
-          200: "#FDD8A5",
-          300: "#FCC278",
-          400: "#FAAC4C",
-          500: "#F79433", // Reemplaza el amarillo original
-          600: "#D37729",
-          700: "#A75C1E",
-          800: "#7D4515",
-          900: "#52300F",
-          foreground: "#FFFFFF",
-        },
-
-        // Neutral colors (escala de grises moderna)
         neutral: {
           DEFAULT: "#64748B",
           50: "#F8FAFC",
@@ -128,79 +57,24 @@ const config: Config = {
           200: "#E2E8F0",
           300: "#CBD5E1",
           400: "#94A3B8",
-          500: "#64748B", // Actualizado
+          500: "#64748B",
           600: "#475569",
           700: "#334155",
           800: "#1E293B",
           900: "#0F172A",
         },
-
-        // Colores semánticos
-        success: {
-          DEFAULT: "#10B981",
-          50: "#ECFDF5",
-          100: "#D1FAE5",
-          200: "#A7F3D0",
-          300: "#6EE7B7",
-          400: "#34D399",
-          500: "#10B981",
-          600: "#059669",
-          700: "#047857",
-          800: "#065F46",
-          900: "#064E3B",
-        },
-
-        danger: {
-          DEFAULT: "#EF4444",
-          50: "#FEF2F2",
-          100: "#FEE2E2",
-          200: "#FECACA",
-          300: "#FCA5A5",
-          400: "#F87171",
-          500: "#EF4444",
-          600: "#DC2626",
-          700: "#B91C1C",
-          800: "#991B1B",
-          900: "#7F1D1D",
-        },
-
-        warning: {
-          DEFAULT: "#F59E0B",
-          50: "#FFFBEB",
-          100: "#FEF3C7",
-          200: "#FDE68A",
-          300: "#FCD34D",
-          400: "#FBBF24",
-          500: "#F59E0B",
-          600: "#D97706",
-          700: "#B45309",
-          800: "#92400E",
-          900: "#78350F",
-        },
-
-        info: {
-          DEFAULT: "#3B82F6",
-          50: "#EFF6FF",
-          100: "#DBEAFE",
-          200: "#BFDBFE",
-          300: "#93C5FD",
-          400: "#60A5FA",
-          500: "#3B82F6",
-          600: "#2563EB",
-          700: "#1D4ED8",
-          800: "#1E40AF",
-          900: "#1E3A8A",
-        },
-
-        // Mantener nombres antiguos para compatibilidad con código existente
-        yellow: "#F79433", // Actualizado al nuevo naranja/ámbar
-        "body-color": "#64748B", // Actualizado a neutral-500
-        "body-color-dark": "#94A3B8", // Actualizado a neutral-400
-        "gray-dark": "#1E293B", // Actualizado a neutral-800
-        "gray-light": "#F8FAFC", // Actualizado a neutral-50
-        stroke: "#E2E8F0", // Actualizado a neutral-200
-        "stroke-dark": "#334155", // Actualizado a neutral-700
-        "bg-color-dark": "#0F172A", // Actualizado a neutral-900
+        success: { DEFAULT: "#10B981" },
+        danger: { DEFAULT: "#EF4444" },
+        warning: { DEFAULT: "#F59E0B" },
+        info: { DEFAULT: "#3B82F6" },
+        yellow: "#F59E0B",
+        "body-color": "#656D76",
+        "body-color-dark": "#8B949E",
+        "gray-dark": "#1F2328",
+        "gray-light": "#F6F8FA",
+        stroke: "#D0D7DE",
+        "stroke-dark": "#30363D",
+        "bg-color-dark": "#0D1117",
 
         secondary: {
           DEFAULT: "hsl(var(--primary))",
@@ -223,27 +97,29 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      boxShadow: {
-        signUp: "0px 5px 10px rgba(15, 23, 42, 0.1)", // Actualizado
-        one: "0px 2px 3px rgba(15, 23, 42, 0.05)", // Actualizado
-        two: "0px 5px 10px rgba(15, 23, 42, 0.1)", // Actualizado
-        three: "0px 5px 15px rgba(15, 23, 42, 0.05)", // Actualizado
-        sticky: "inset 0 -1px 0 0 rgba(203, 213, 225, 0.3)", // Actualizado
-        "sticky-dark": "inset 0 -1px 0 0 rgba(51, 65, 85, 0.3)", // Actualizado
-        "feature-2": "0px 10px 40px rgba(79, 122, 250, 0.12)", // Actualizado con el nuevo azul
-        submit: "0px 5px 20px rgba(79, 122, 250, 0.1)", // Actualizado con el nuevo azul
-        "submit-dark": "0px 5px 20px rgba(15, 23, 42, 0.2)", // Actualizado
-        btn: "0px 1px 2px rgba(15, 23, 42, 0.1)", // Actualizado
-        "btn-hover": "0px 2px 4px rgba(15, 23, 42, 0.15)", // Actualizado
-        "btn-light": "0px 1px 2px rgba(15, 23, 42, 0.05)", // Actualizado
+      fontFamily: {
+        heading: "var(--font-heading), system-ui, sans-serif",
+        body: "var(--font-body), system-ui, sans-serif",
+        mono: "var(--font-mono), monospace",
       },
-      dropShadow: {
-        three: "0px 5px 15px rgba(15, 23, 42, 0.05)", // Actualizado
+      boxShadow: {
+        one: "0px 2px 3px rgba(13, 17, 23, 0.05)",
+        two: "0px 5px 10px rgba(13, 17, 23, 0.1)",
+        three: "0px 5px 15px rgba(13, 17, 23, 0.05)",
+        sticky: "inset 0 -1px 0 0 rgba(208, 215, 222, 0.3)",
+        "sticky-dark": "inset 0 -1px 0 0 rgba(48, 54, 61, 0.3)",
+        card: "0px 1px 3px rgba(31, 35, 40, 0.08)",
+        "card-hover": "0px 4px 12px rgba(31, 35, 40, 0.12)",
+        submit: "0px 5px 20px rgba(47, 129, 247, 0.15)",
+        "submit-dark": "0px 5px 20px rgba(13, 17, 23, 0.3)",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      dropShadow: {
+        three: "0px 5px 15px rgba(13, 17, 23, 0.05)",
       },
       keyframes: {
         "accordion-down": {
@@ -271,12 +147,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    require("@tailwindcss/typography"),
-    // Add more plugins here
-    // require('your-plugin-name'),
-  ],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 };
 
 export default config;

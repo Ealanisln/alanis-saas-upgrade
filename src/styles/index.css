@@ -3,8 +3,32 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-bg: #ffffff;
+    --color-surface: #f6f8fa;
+    --color-text: #1f2328;
+    --color-text-secondary: #656d76;
+    --color-border: #d0d7de;
+    --color-primary: #2f81f7;
+    --color-accent: #8250df;
+    --color-green: #1a7f37;
+  }
+
+  .dark {
+    --color-bg: #0d1117;
+    --color-surface: #161b22;
+    --color-text: #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-border: #30363d;
+    --color-primary: #58a6ff;
+    --color-accent: #bc8cff;
+    --color-green: #3fb950;
+  }
+
   body {
-    font-family: "Inter", sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -22,14 +46,15 @@
     }
   }
 
-  /* Set line heights consistently for text elements */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply leading-tight tracking-tight;
+    @apply leading-tight;
+    font-family: var(--font-heading), system-ui, sans-serif;
+    letter-spacing: -0.03em;
   }
 
   p {
@@ -50,45 +75,17 @@
     @apply opacity-70;
   }
 
-  input#togglePlan:checked ~ .dot {
-    @apply translate-x-full;
-  }
-
   input#checkboxLabel:checked ~ .box span {
     @apply opacity-100;
   }
 
-  /* Pricing component specific styles */
-  .pricing-box {
-    @apply transition-all duration-300 ease-in-out;
-  }
-
-  /* portafolio animations */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fadeIn {
-    animation: fadeIn 0.3s ease-out;
-  }
-
-  .animate-slideUp {
-    animation: slideUp 0.3s ease-out;
+  /* Dot grid background for hero */
+  .hero-dot-grid {
+    background-image: radial-gradient(
+      circle,
+      var(--color-border) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
   }
 }

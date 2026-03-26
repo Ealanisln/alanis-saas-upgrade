@@ -160,9 +160,9 @@ export default function LanguageConfirmation() {
     <div
       role="banner"
       aria-live="polite"
-      className="fixed inset-x-0 top-0 z-[9999] animate-slide-down"
+      className="relative z-50 animate-slide-down"
     >
-      <div className="bg-gradient-to-r from-primary to-primary/90 px-4 py-3 text-white shadow-lg">
+      <div className="to-primary/90 bg-gradient-to-r from-primary px-4 py-3 text-white shadow-lg">
         <div className="container mx-auto flex flex-col items-center justify-between gap-3 sm:flex-row">
           <div className="flex items-center gap-3">
             <span className="text-3xl" aria-hidden="true">

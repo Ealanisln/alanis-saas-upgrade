@@ -14,7 +14,6 @@ vi.mock("next-intl", () => ({
       "notFound.suggestions.title": "Here are some helpful links:",
       "notFound.suggestions.home": "Home",
       "notFound.suggestions.blog": "Blog",
-      "notFound.suggestions.portfolio": "Portfolio",
       "notFound.suggestions.contact": "Contact",
     };
     return translations[key] || key;
@@ -85,13 +84,6 @@ describe("PageNotFound", () => {
       const blogLink = screen.getByRole("link", { name: "Blog" });
       expect(blogLink).toBeInTheDocument();
       expect(blogLink).toHaveAttribute("href", "/blog");
-    });
-
-    it("renders Portfolio helpful link", () => {
-      render(<PageNotFound />);
-      const portfolioLink = screen.getByRole("link", { name: "Portfolio" });
-      expect(portfolioLink).toBeInTheDocument();
-      expect(portfolioLink).toHaveAttribute("href", "/portfolio");
     });
 
     it("renders Contact helpful link", () => {

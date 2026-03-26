@@ -22,7 +22,6 @@
       "title": "Here are some helpful links:",
       "home": "Home",
       "blog": "Blog",
-      "portfolio": "Portfolio",
       "contact": "Contact"
     },
     "backHome": "Go Back Home",
@@ -30,25 +29,16 @@
   },
   "breadcrumbs": {
     "home": "Home",
-    "about": "About me",
-    "plans": "Plans and Pricing",
-    "portfolio": "Portfolio",
+    "about": "About",
     "contact": "Contact"
   },
   "footer": {
-    "tagline": "Simplifying the web just for you.",
-    "usefulLinks": "Useful Links",
-    "terms": "Terms",
-    "support": "Support and Help",
+    "tagline": "Building software that matters.",
+    "nav": "Navigation",
     "blog": "Blog",
-    "pricing": "Pricing",
     "about": "About",
-    "termsOfService": "Terms of Service",
-    "privacyPolicy": "Privacy Policy",
-    "refundPolicy": "Refund Policy",
-    "openTicket": "Open Support Ticket",
-    "termsOfUse": "Terms of Use",
-    "createdBy": "Created by Emmanuel with"
+    "contact": "Contact",
+    "createdBy": "Emmanuel Alanis"
   },
   "languageConfirmation": {
     "message": "Would you prefer to use this site in {language}? You can change the language here.",

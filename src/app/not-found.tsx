@@ -13,7 +13,6 @@ const translations = {
     links: {
       home: "Home",
       blog: "Blog",
-      portfolio: "Portfolio",
       contact: "Contact",
     },
   },
@@ -27,7 +26,6 @@ const translations = {
     links: {
       home: "Inicio",
       blog: "Blog",
-      portfolio: "Portafolio",
       contact: "Contacto",
     },
   },
@@ -50,13 +48,11 @@ export default async function GlobalNotFound() {
   // Determine the correct home URL based on locale
   const homeUrl = locale === "es" ? "/es" : "/";
   const blogUrl = locale === "es" ? "/es/blog" : "/blog";
-  const portfolioUrl = locale === "es" ? "/es/portfolio" : "/portfolio";
   const contactUrl = locale === "es" ? "/es/contact" : "/contact";
 
   const helpfulLinks = [
     { href: homeUrl, label: t.links.home },
     { href: blogUrl, label: t.links.blog },
-    { href: portfolioUrl, label: t.links.portfolio },
     { href: contactUrl, label: t.links.contact },
   ];
 

@@ -13,8 +13,7 @@ vi.mock("next/font/google", () => ({
 
 // Mock the fonts config
 vi.mock("@/config/fonts", () => ({
-  inter: { className: "mock-inter" },
-  titleFont: { className: "mock-title-font" },
+  ibmPlexSans: { className: "mock-ibm-plex-sans" },
 }));
 
 // Mock next-intl/navigation (before it's imported by other modules)
@@ -142,7 +141,8 @@ describe("Posts", () => {
 
       render(<Posts data={posts} locale="en" />);
 
-      expect(screen.getByText("Por John Doe")).toBeInTheDocument();
+      const postCard = screen.getByText("Post With Author").closest("a");
+      expect(postCard?.textContent).toContain("John Doe");
     });
 
     it("does not display author section when author is null", () => {
@@ -157,7 +157,8 @@ describe("Posts", () => {
       render(<Posts data={posts} locale="en" />);
 
       expect(screen.getByText("Post Without Author")).toBeInTheDocument();
-      expect(screen.queryByText(/^Por /)).not.toBeInTheDocument();
+      const postCard = screen.getByText("Post Without Author").closest("a");
+      expect(postCard?.textContent).not.toContain("·");
     });
 
     it("does not display author section when author name is empty", () => {
@@ -172,7 +173,8 @@ describe("Posts", () => {
       render(<Posts data={posts} locale="en" />);
 
       expect(screen.getByText("Post With Empty Author")).toBeInTheDocument();
-      expect(screen.queryByText(/^Por /)).not.toBeInTheDocument();
+      const postCard = screen.getByText("Post With Empty Author").closest("a");
+      expect(postCard?.textContent).not.toContain("·");
     });
 
     it("does not display bullet separator when author is missing", () => {
@@ -186,12 +188,11 @@ describe("Posts", () => {
 
       render(<Posts data={posts} locale="en" />);
 
-      // The bullet separator should not appear without an author
       const postCard = screen.getByText("Post Without Author").closest("a");
-      expect(postCard?.textContent).not.toContain("•");
+      expect(postCard?.textContent).not.toContain("·");
     });
 
-    it("displays bullet separator when author exists", () => {
+    it("displays author name when author exists", () => {
       const posts = [
         createMockPost({
           title: "Post With Author",
@@ -203,8 +204,7 @@ describe("Posts", () => {
       render(<Posts data={posts} locale="en" />);
 
       const postCard = screen.getByText("Post With Author").closest("a");
-      expect(postCard?.textContent).toContain("•");
-      expect(postCard?.textContent).toContain("Por Jane Doe");
+      expect(postCard?.textContent).toContain("Jane Doe");
     });
   });
 
@@ -305,8 +305,8 @@ describe("Posts", () => {
 
       render(<Posts data={posts} locale="en" />);
 
-      // The date is formatted in es-ES locale in the component
-      expect(screen.getByText(/15.*jun.*2024/i)).toBeInTheDocument();
+      // The date is formatted using the locale parameter
+      expect(screen.getByText(/Jun.*15.*2024/i)).toBeInTheDocument();
     });
   });
 

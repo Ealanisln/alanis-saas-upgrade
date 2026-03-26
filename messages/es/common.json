@@ -22,7 +22,6 @@
       "title": "Aquí hay algunos enlaces útiles:",
       "home": "Inicio",
       "blog": "Blog",
-      "portfolio": "Portafolio",
       "contact": "Contacto"
     },
     "backHome": "Volver al Inicio",
@@ -30,25 +29,16 @@
   },
   "breadcrumbs": {
     "home": "Inicio",
-    "about": "Acerca de mí",
-    "plans": "Planes y Precios",
-    "portfolio": "Portafolio",
+    "about": "Acerca de",
     "contact": "Contacto"
   },
   "footer": {
-    "tagline": "Simplificando la web solo para ti.",
-    "usefulLinks": "Enlaces Útiles",
-    "terms": "Términos",
-    "support": "Soporte y Ayuda",
+    "tagline": "Construyendo software que importa.",
+    "nav": "Navegación",
     "blog": "Blog",
-    "pricing": "Precios",
     "about": "Acerca de",
-    "termsOfService": "Términos de Servicio",
-    "privacyPolicy": "Política de Privacidad",
-    "refundPolicy": "Política de Reembolso",
-    "openTicket": "Abrir Ticket de Soporte",
-    "termsOfUse": "Términos de Uso",
-    "createdBy": "Creado por Emmanuel con"
+    "contact": "Contacto",
+    "createdBy": "Emmanuel Alanis"
   },
   "languageConfirmation": {
     "message": "¿Prefieres usar el sitio en {language}? Puedes cambiar el idioma aquí.",

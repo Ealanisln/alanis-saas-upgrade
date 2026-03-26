@@ -1,2 +1,1 @@
-export { default as email } from './email';
-export * from './stripe';
+export { default as email } from "./email";

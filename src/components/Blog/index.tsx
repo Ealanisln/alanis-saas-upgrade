@@ -3,12 +3,11 @@ import { safeFetch } from "@/sanity/lib/client";
 import { localizePost } from "@/sanity/lib/i18n";
 import { SanityPost } from "@/sanity/lib/types";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
-import SectionTitle from "../Common/SectionTitle";
 import Posts from "./Posts";
 
 async function getData(locale: string): Promise<SimpleBlogCard[]> {
   const query = `
-  *[_type == 'post'] {
+  *[_type == 'post'] | order(_updatedAt desc) [0...3] {
     _id,
     _updatedAt,
     title,
@@ -23,7 +22,6 @@ async function getData(locale: string): Promise<SimpleBlogCard[]> {
   `;
   const data = (await safeFetch(query)) as SanityPost[];
 
-  // Localize all posts and filter out nulls
   return data
     .map((post) => localizePost(post, locale))
     .filter((post) => post !== null) as SimpleBlogCard[];
@@ -35,16 +33,14 @@ interface BlogProps {
 
 const Blog = async ({ locale = "en" }: BlogProps = {}) => {
   const data: SimpleBlogCard[] = await getData(locale);
-  const t = await getTranslations("blog.latest");
+  const t = await getTranslations("home.blog");
 
   return (
-    <section
-      id="blog"
-      className="bg-gray-light py-16 dark:bg-bg-color-dark md:py-20 lg:py-28"
-    >
+    <section id="blog" className="py-16 md:py-20 lg:py-24">
       <div className="container">
-        <SectionTitle title={t("title")} paragraph={t("description")} center />
-
+        <h2 className="mb-12 font-heading text-3xl font-bold text-t-text sm:text-4xl">
+          {t("title")}
+        </h2>
         <Posts data={data} locale={locale} />
       </div>
     </section>

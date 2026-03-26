@@ -1,117 +1,95 @@
 {
   "meta": {
-    "title": "About me - Alanis",
-    "description": "Learn more about my experience as a full-stack developer and my passion for creating exceptional web applications.",
+    "title": "About - Emmanuel Alanis",
+    "description": "Full-stack developer building multi-tenant SaaS products, delivery platforms, and payment systems with TypeScript, Next.js, and PostgreSQL.",
     "keywords": [
       "Emmanuel Alanis",
-      "web developer",
-      "React",
-      "Next.js",
-      "TypeScript",
       "full-stack developer",
+      "TypeScript",
+      "Next.js",
+      "React",
+      "SaaS developer",
       "software engineer"
     ]
   },
-  "title": "About me",
-  "subtitle": "My passion for web development",
-  "description": "I am a full-stack developer passionate about creating web applications that not only work well, but also provide an excellent user experience.",
+  "title": "About",
+  "subtitle": "Full-Stack Developer",
+  "description": "I build production software that handles real users and real payments.",
   "hero": {
-    "title": "About me",
-    "description": "Hello! I'm Emmanuel, a Mexican web developer. I have a passion for developing modern web applications and I'm constantly learning something new. Also, I enjoy helping others grow and develop alongside me."
-  },
-  "section": {
-    "title": "The best solution for your business.",
-    "description": "Worried about technical matters? Don't worry, we'll provide you with the best solutions so your business runs smoothly. You'll always have the backing of our first-class experience.",
-    "features": {
-      "latestTech": "Latest technologies",
-      "scalable": "Fully scalable",
-      "worldClass": "World-class quality",
-      "affordable": "Affordable costs",
-      "bilingual": "Support in Spanish and English",
-      "friendly": "Ideal for people without technical knowledge"
-    },
-    "provenCode": {
-      "title": "Proven Code",
-      "description": "Our error-free code ensures optimal performance and functionality for your software applications. Trust our experienced team to deliver quality results without unexpected issues."
-    },
-    "firstClass": {
-      "title": "First-Class Support",
-      "description": "We're here to answer questions, clarify concerns, and provide solutions for a seamless experience."
-    },
-    "flexible": {
-      "title": "Flexible Plans",
-      "description": "If you need something special, don't worry; we'd be happy to assist you and offer the best option according to your needs."
-    }
+    "title": "About",
+    "description": "Full-stack developer based in Mexico. I build multi-tenant SaaS products, delivery platforms, and payment systems — from database design to deployment.",
+    "intro": "I'm Emmanuel, a full-stack developer who ships production software. My work spans multi-tenant SaaS platforms, enterprise logistics, e-commerce with payment processing, and AI-powered applications.",
+    "focus": "I care about clean architecture, proper testing, and building things that actually work for real users. Every project I take on goes from idea to production."
   },
   "stats": {
-    "title": "My Track Record",
-    "subtitle": "Numbers that reflect commitment and experience",
-    "years": {
-      "value": "5+",
-      "label": "Years Experience"
+    "projects": {
+      "value": "6+",
+      "label": "Projects Shipped"
     },
-    "technologies": {
-      "value": "10+",
-      "label": "Technologies Mastered"
+    "commits": {
+      "value": "725+",
+      "label": "Commits on Latest Project"
     },
-    "satisfaction": {
-      "value": "100%",
-      "label": "Client Satisfaction"
+    "languages": {
+      "value": "EN/ES",
+      "label": "Bilingual"
+    }
+  },
+  "section": {
+    "title": "What I Build",
+    "description": "Real products, not just demos. Here's the kind of work I do.",
+    "features": {
+      "latestTech": "Modern technologies",
+      "scalable": "Scalable architecture",
+      "worldClass": "Clean code practices",
+      "affordable": "Performance focused",
+      "bilingual": "Bilingual (English & Spanish)",
+      "friendly": "Strong communication skills"
+    },
+    "cards": {
+      "saas": {
+        "title": "SaaS Platforms",
+        "description": "Multi-tenant architecture with subscription billing, role-based access, and tenant isolation using PostgreSQL Row Level Security.",
+        "example": "Vetify — Veterinary clinic management with Stripe billing, WhatsApp integration, and appointment scheduling."
+      },
+      "ecommerce": {
+        "title": "E-Commerce & Payments",
+        "description": "Full checkout flows with Stripe and Square integrations, subscription management, and automated payment failure handling.",
+        "example": "Destino SF — Specialty food e-commerce with Square payments. Pagare Facil — Promissory note generator with PDF export."
+      },
+      "logistics": {
+        "title": "Enterprise Logistics",
+        "description": "Real-time tracking, driver and vendor management, on-demand delivery coordination, and multi-role dashboards.",
+        "example": "Ready Set — Enterprise courier delivery platform for the San Francisco Bay Area."
+      },
+      "ai": {
+        "title": "AI-Powered Apps",
+        "description": "Applications that integrate AI services for OCR, content analysis, and intelligent data processing.",
+        "example": "FitTrackr — Fitness tracker with Gemini AI-powered OCR for nutrition labels and workout planning."
+      }
+    },
+    "values": {
+      "quality": {
+        "title": "Quality Code",
+        "description": "I write clean, tested, and maintainable code. Every project follows best practices with proper testing and documentation."
+      },
+      "learning": {
+        "title": "Continuous Learning",
+        "description": "Technology evolves fast. I stay current with modern tools, frameworks, and best practices to deliver the best solutions."
+      },
+      "collaboration": {
+        "title": "Collaboration",
+        "description": "Great software is built by great teams. I value clear communication, code reviews, and knowledge sharing."
+      }
     }
   },
   "techStack": {
-    "title": "Technologies I Work With",
-    "subtitle": "Modern tools for modern solutions"
-  },
-  "services": {
-    "title": "Services I Offer",
-    "subtitle": "Comprehensive solutions tailored to your needs",
-    "items": {
-      "webApp": {
-        "title": "Web Application Development",
-        "description": "Custom web applications built with modern frameworks like React and Next.js for optimal performance and user experience."
-      },
-      "ecommerce": {
-        "title": "E-commerce Solutions",
-        "description": "Complete online store solutions with secure payment processing, inventory management, and seamless checkout experiences."
-      },
-      "api": {
-        "title": "API Development & Integration",
-        "description": "RESTful APIs and third-party integrations to connect your systems and automate workflows efficiently."
-      },
-      "performance": {
-        "title": "Performance Optimization",
-        "description": "Speed optimization, SEO improvements, and Core Web Vitals enhancements to boost your site's performance."
-      }
-    }
-  },
-  "testimonials": {
-    "title": "What Clients Say",
-    "subtitle": "Feedback from those who have worked with me",
-    "items": [
-      {
-        "quote": "Emmanuel delivered our project on time and exceeded our expectations. His attention to detail and communication throughout the process was exceptional.",
-        "name": "Maria Garcia",
-        "role": "CEO",
-        "company": "TechStart Inc."
-      },
-      {
-        "quote": "Working with Emmanuel transformed our online presence. Our website is now faster, more modern, and our customers love the new experience.",
-        "name": "Carlos Rodriguez",
-        "role": "Founder",
-        "company": "Digital Solutions"
-      },
-      {
-        "quote": "Professional, reliable, and highly skilled. Emmanuel understood our business needs and delivered a solution that perfectly fits our requirements.",
-        "name": "Ana Martinez",
-        "role": "Marketing Director",
-        "company": "Growth Agency"
-      }
-    ]
+    "title": "Tech Stack",
+    "subtitle": "The tools I use to build production software."
   },
   "jsonLd": {
-    "description": "Mexican web developer specialized in React, Next.js and TypeScript",
-    "jobTitle": "Full-Stack Developer",
-    "worksFor": "Freelance"
+    "description": "Full-stack developer building multi-tenant SaaS products, delivery platforms, and payment systems",
+    "jobTitle": "Independent Full-Stack Developer",
+    "worksFor": "Alanis Dev"
   }
 }
