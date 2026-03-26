@@ -180,7 +180,7 @@ describe("POST /api/revalidate", () => {
 
       expect(response.status).toBe(500);
       expect(data.message).toBe("Error revalidating");
-      expect(data.error).toContain("Failed to parse body");
+      expect(data.error).toBeUndefined();
     });
   });
 });

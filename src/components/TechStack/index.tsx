@@ -1,6 +1,4 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 const techStack = [
   { name: "React", icon: "⚛️" },
@@ -13,8 +11,8 @@ const techStack = [
   { name: "Docker", icon: "🐳" },
 ];
 
-const TechStack = () => {
-  const t = useTranslations("home.techStack");
+const TechStack = async () => {
+  const t = await getTranslations("home.techStack");
 
   return (
     <section className="py-16 md:py-20 lg:py-24">

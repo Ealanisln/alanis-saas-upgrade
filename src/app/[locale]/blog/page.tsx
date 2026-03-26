@@ -9,7 +9,7 @@ import { localizePost } from "@/sanity/lib/i18n";
 import { SanityPost } from "@/sanity/lib/types";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
 
-export const revalidate = 30;
+export const revalidate = 300;
 
 // Generate dynamic metadata based on locale
 export async function generateMetadata({

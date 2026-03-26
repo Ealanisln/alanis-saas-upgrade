@@ -1,6 +1,4 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 const categoryColors: Record<string, string> = {
   enterprise: "var(--color-primary)",
@@ -8,8 +6,8 @@ const categoryColors: Record<string, string> = {
   fintech: "var(--color-accent)",
 };
 
-const Projects = () => {
-  const t = useTranslations("home.projects");
+const Projects = async () => {
+  const t = await getTranslations("home.projects");
 
   const items = [0, 1, 2].map((i) => ({
     name: t(`items.${i}.name`),

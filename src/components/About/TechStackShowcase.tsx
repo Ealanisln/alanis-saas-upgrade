@@ -1,6 +1,4 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 interface TechItem {
   name: string;
@@ -94,8 +92,8 @@ const techStack: TechItem[] = [
   { name: "Stripe", icon: <StripeIcon /> },
 ];
 
-const TechStackShowcase = () => {
-  const t = useTranslations("about.techStack");
+const TechStackShowcase = async () => {
+  const t = await getTranslations("about.techStack");
 
   return (
     <section className="py-16 md:py-20 lg:py-24">

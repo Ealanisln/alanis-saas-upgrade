@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+
+export const revalidate = 60;
 import ScrollUp from "@/components/Common/ScrollUp";
 import HeroSection from "@/components/Hero/index";
 import Experience from "@/components/Experience";
