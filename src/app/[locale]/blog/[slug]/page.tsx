@@ -11,7 +11,7 @@ import { urlFor, safeFetchSingle } from "@/sanity/lib/client";
 import { localizePost } from "@/sanity/lib/i18n";
 import type { SanityPost } from "@/sanity/lib/types";
 
-export const revalidate = 30;
+export const revalidate = 300;
 
 // Generate metadata for this page
 export async function generateMetadata({

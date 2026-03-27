@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 import { Analytics } from "@vercel/analytics/react";
 import ScrollToTop from "@/components/ScrollToTop";
 import { fontVariables, ibmPlexSans } from "@/config/fonts";
-import "node_modules/react-modal-video/css/modal-video.css";
 import "../styles/index.css";
 import { Providers } from "./providers";
 

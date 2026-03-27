@@ -1,5 +1,4 @@
-"use client";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 const cardIcons = {
   saas: (
@@ -67,8 +66,8 @@ const cardIcons = {
 
 const cardKeys = ["saas", "ecommerce", "logistics", "ai"] as const;
 
-const AboutSectionTwo = () => {
-  const t = useTranslations("about.section");
+const AboutSectionTwo = async () => {
+  const t = await getTranslations("about.section");
 
   return (
     <section className="py-16 md:py-20 lg:py-24">

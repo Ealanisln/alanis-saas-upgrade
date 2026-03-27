@@ -47,6 +47,7 @@ const Header = () => {
               alt="logo"
               width={120}
               height={26}
+              priority
               className="dark:hidden"
             />
             <Image
@@ -54,6 +55,7 @@ const Header = () => {
               alt="logo"
               width={120}
               height={26}
+              priority
               className="hidden dark:block"
             />
           </Link>

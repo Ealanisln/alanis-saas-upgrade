@@ -1,9 +1,7 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslations } from "next-intl";
-
-const Experience = () => {
-  const t = useTranslations("home.experience");
+const Experience = async () => {
+  const t = await getTranslations("home.experience");
 
   const items = [0, 1, 2].map((i) => ({
     period: t(`items.${i}.period`),

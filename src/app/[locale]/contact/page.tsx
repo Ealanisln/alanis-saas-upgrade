@@ -1,5 +1,8 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+
+export const revalidate = 3600;
+
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
 import Contact from "@/components/Contact";

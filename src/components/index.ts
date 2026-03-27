@@ -16,7 +16,6 @@ export { default as TechStack } from "./TechStack";
 
 // UI Components
 export * from "./ui";
-export { default as TypewriterTitle } from "./TypewriterTitle";
 
 // Common Components
 export { default as Breadcrumb } from "./Common/Breadcrumb";

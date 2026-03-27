@@ -1,8 +1,7 @@
-"use client";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
-const AboutSectionOne = () => {
-  const t = useTranslations("about");
+const AboutSectionOne = async () => {
+  const t = await getTranslations("about");
 
   const stats = [
     { value: t("stats.projects.value"), label: t("stats.projects.label") },

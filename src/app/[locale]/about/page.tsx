@@ -1,5 +1,8 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+
+export const revalidate = 3600;
+
 import AboutSectionOne from "@/components/About/AboutSectionOne";
 import AboutSectionTwo from "@/components/About/AboutSectionTwo";
 import TechStackShowcase from "@/components/About/TechStackShowcase";
