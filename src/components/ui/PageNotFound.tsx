@@ -9,7 +9,6 @@ export const PageNotFound = () => {
   const helpfulLinks = [
     { href: "/", label: t("notFound.suggestions.home") },
     { href: "/blog", label: t("notFound.suggestions.blog") },
-    { href: "/portfolio", label: t("notFound.suggestions.portfolio") },
     { href: "/contact", label: t("notFound.suggestions.contact") },
   ];
 

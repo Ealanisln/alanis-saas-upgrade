@@ -338,7 +338,7 @@ test.describe("Mobile Navigation", () => {
       await menuButton.click({ force: true });
 
       // Mobile nav should become visible (with timeout)
-      const nav = page.locator("#navbarCollapse");
+      const nav = page.locator("header nav.lg\\:hidden");
       await expect(nav).toBeVisible({ timeout: 10000 });
     }
   });
@@ -364,7 +364,7 @@ test.describe("Mobile Navigation", () => {
       await menuButton.click({ force: true });
 
       // Menu should be open (nav should be visible)
-      const nav = page.locator("#navbarCollapse");
+      const nav = page.locator("header nav.lg\\:hidden");
       await expect(nav).toBeVisible({ timeout: 10000 });
     }
   });

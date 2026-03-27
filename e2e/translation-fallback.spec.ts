@@ -140,39 +140,6 @@ test.describe("Translation Fallback Strategy", () => {
     });
   });
 
-  test.describe("Portfolio pages with fallback", () => {
-    test("should load Spanish portfolio page without breaking", async ({
-      page,
-    }) => {
-      const errors = collectConsoleErrors(page);
-
-      await page.goto("/es/portfolio");
-      await page.waitForLoadState("load");
-
-      // Page should load successfully
-      await expect(page).toHaveTitle(/Portfolio|Portafolio|Alanis/i, {
-        timeout: 10000,
-      });
-
-      // Main content should be visible
-      const mainContent = page.locator("main");
-      await expect(mainContent).toBeVisible({ timeout: 10000 });
-
-      // No JavaScript errors (excluding third-party analytics and CSP)
-      const jsErrors = errors.filter(
-        (e) =>
-          !e.includes("favicon") &&
-          !e.includes("404") &&
-          !e.includes("Failed to load resource") &&
-          !e.includes("Content Security Policy") &&
-          !e.includes("analytics") &&
-          !e.includes("_vercel/insights") &&
-          !e.includes("MIME type"),
-      );
-      expect(jsErrors).toHaveLength(0);
-    });
-  });
-
   test.describe("Content consistency across locales", () => {
     test("should display content on both English and Spanish pages", async ({
       page,

@@ -17,7 +17,6 @@ import Header from "../index";
 describe("Header", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    // Reset scroll position
     Object.defineProperty(window, "scrollY", {
       value: 0,
       writable: true,
@@ -32,14 +31,9 @@ describe("Header", () => {
       expect(header).toBeInTheDocument();
     });
 
-    it("renders navigation element", () => {
-      render(<Header />);
-      const nav = document.querySelector("nav");
-      expect(nav).toBeInTheDocument();
-    });
-
     it("renders navigation items", () => {
       render(<Header />);
+      // Desktop nav links
       const links = document.querySelectorAll("nav a");
       expect(links.length).toBeGreaterThan(0);
     });
@@ -61,10 +55,10 @@ describe("Header", () => {
       expect(button).toBeInTheDocument();
     });
 
-    it("renders logo images", () => {
+    it("renders site name link", () => {
       render(<Header />);
-      const logos = screen.getAllByAltText("logo");
-      expect(logos.length).toBeGreaterThan(0);
+      const homeLink = document.querySelector('a[href="/"]');
+      expect(homeLink).toBeInTheDocument();
     });
   });
 
@@ -88,21 +82,24 @@ describe("Header", () => {
       render(<Header />);
 
       const toggleButton = screen.getByRole("button", { name: /mobile menu/i });
-      const nav = document.getElementById("navbarCollapse");
 
-      // Initially invisible
-      expect(nav?.className).toContain("invisible");
+      // Initially no mobile nav visible (rendered conditionally)
+      const mobileNavBefore = document.querySelectorAll("header nav");
+      // Desktop nav is always rendered, mobile nav only when open
+      const initialNavCount = mobileNavBefore.length;
 
       // Click to open
       await user.click(toggleButton);
       await waitFor(() => {
-        expect(nav?.className).toContain("visibility");
+        const mobileNavAfter = document.querySelectorAll("header nav");
+        expect(mobileNavAfter.length).toBeGreaterThan(initialNavCount);
       });
 
       // Click to close
       await user.click(toggleButton);
       await waitFor(() => {
-        expect(nav?.className).toContain("invisible");
+        const mobileNavClosed = document.querySelectorAll("header nav");
+        expect(mobileNavClosed.length).toBe(initialNavCount);
       });
     });
   });
@@ -111,7 +108,6 @@ describe("Header", () => {
     it("applies fixed class when scrolled", () => {
       render(<Header />);
 
-      // Scroll down
       Object.defineProperty(window, "scrollY", {
         value: 100,
         configurable: true,
@@ -125,7 +121,6 @@ describe("Header", () => {
     it("applies relative class when at top", () => {
       render(<Header />);
 
-      // Ensure at top
       Object.defineProperty(window, "scrollY", {
         value: 0,
         configurable: true,

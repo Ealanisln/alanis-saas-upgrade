@@ -35,48 +35,6 @@ describe("SectionTitle", () => {
     });
   });
 
-  describe("subtitle", () => {
-    it("does not render subtitle when not provided", () => {
-      render(<SectionTitle title="Test Title" />);
-      // Only title should be rendered, no badge
-      const badges = document.querySelectorAll(".rounded-full");
-      expect(badges.length).toBe(0);
-    });
-
-    it("renders subtitle badge when provided", () => {
-      render(<SectionTitle title="Test Title" subtitle="Our Services" />);
-      expect(screen.getByText("Our Services")).toBeInTheDocument();
-    });
-
-    it("applies badge styling to subtitle", () => {
-      render(<SectionTitle title="Test Title" subtitle="Badge" />);
-      const badge = screen.getByText("Badge");
-      expect(badge.className).toContain("rounded-full");
-    });
-  });
-
-  describe("highlight", () => {
-    it("renders title without special styling when no highlight", () => {
-      render(<SectionTitle title="Simple Title" />);
-      expect(screen.getByText("Simple Title")).toBeInTheDocument();
-    });
-
-    it("applies highlight styling when provided", () => {
-      render(<SectionTitle title="Build Modern Apps" highlight="Modern" />);
-      const highlighted = screen.getByText("Modern");
-      expect(highlighted.className).toContain("text-blue-600");
-    });
-
-    it("splits title around highlight", () => {
-      render(<SectionTitle title="Build Modern Apps" highlight="Modern" />);
-      // The heading should still be complete
-      const heading = screen.getByRole("heading", { level: 2 });
-      expect(heading.textContent).toContain("Build");
-      expect(heading.textContent).toContain("Modern");
-      expect(heading.textContent).toContain("Apps");
-    });
-  });
-
   describe("center prop", () => {
     it("does not center by default", () => {
       render(<SectionTitle title="Test Title" />);

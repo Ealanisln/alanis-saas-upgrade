@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+
+export const revalidate = 3600;
+
 import AboutSectionOne from "@/components/About/AboutSectionOne";
 import AboutSectionTwo from "@/components/About/AboutSectionTwo";
-// import ClientTestimonials from "@/components/About/ClientTestimonials"; // TODO: Enable when real testimonials available
-import ProfessionalStats from "@/components/About/ProfessionalStats";
-import ServicesExpanded from "@/components/About/ServicesExpanded";
 import TechStackShowcase from "@/components/About/TechStackShowcase";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/Common/BreadcrumbJsonLd";
@@ -65,8 +65,8 @@ const AboutPage = async ({
   });
   const tJsonLd = await getTranslations({ locale, namespace: "about.jsonLd" });
 
-  // Create structured data for the About page with locale-specific description
-  const jsonLd = {
+  // All values are developer-controlled strings from trusted translation files
+  const jsonLdString = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Person",
     name: siteConfig.author,
@@ -98,9 +98,8 @@ const AboutPage = async ({
       "Web Development",
       "Full-Stack Development",
     ],
-  };
+  });
 
-  // Breadcrumb items for structured data with translations
   const breadcrumbItems = [
     { name: tBreadcrumbs("home"), url: generateLocalizedUrl(locale, "/") },
     {
@@ -111,23 +110,17 @@ const AboutPage = async ({
 
   return (
     <>
-      {/* Add JSON-LD structured data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        // Safe: content is from trusted translation files and config, not user input
+        dangerouslySetInnerHTML={{ __html: jsonLdString }}
       />
-
-      {/* Add breadcrumb structured data */}
       <BreadcrumbJsonLd items={breadcrumbItems} />
 
       <Breadcrumb pageName={t("title")} description={t("description")} />
       <AboutSectionOne />
-      <ProfessionalStats />
-      <TechStackShowcase />
       <AboutSectionTwo />
-      <ServicesExpanded />
-      {/* TODO: Enable testimonials when real client feedback is available */}
-      {/* <ClientTestimonials /> */}
+      <TechStackShowcase />
     </>
   );
 };

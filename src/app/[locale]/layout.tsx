@@ -105,10 +105,10 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
+      <LanguageConfirmation />
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
-      <LanguageConfirmation />
     </NextIntlClientProvider>
   );
 }

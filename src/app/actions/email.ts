@@ -31,6 +31,14 @@ const sendEmail = async (
     throw new Error("All fields are required");
   }
 
+  // Input length validation
+  if (data.name.length > 100) {
+    throw new Error("Name must be 100 characters or less");
+  }
+  if (data.message.length > 2000) {
+    throw new Error("Message must be 2000 characters or less");
+  }
+
   // Normalize inputs
   const normalizedEmail = data.email.trim().toLowerCase();
 

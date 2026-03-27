@@ -1,8 +1,28 @@
-import { Inter } from "next/font/google";
+import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 
-export const inter = Inter({ subsets: ["latin"] });
-
-export const titleFont = Inter({
+export const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["500", "700"],
+  display: "swap",
+  variable: "--font-heading",
 });
+
+export const ibmPlexSans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  variable: "--font-body",
+});
+
+export const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+  variable: "--font-mono",
+});
+
+export const fontVariables = [
+  spaceGrotesk.variable,
+  ibmPlexSans.variable,
+  ibmPlexMono.variable,
+].join(" ");
