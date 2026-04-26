@@ -14,11 +14,11 @@
   },
   "title": "About",
   "subtitle": "AI-First Full-Stack Developer",
-  "description": "I orchestrate AI tools to ship production software at human-team speed. Real users. Real payments. Real fintech.",
+  "description": "I orchestrate AI tools to ship production software at human-team speed. Real users. Real payments. Real SOFOM.",
   "hero": {
     "title": "About",
-    "description": "AI-first developer based in Mexico City. By day I lead systems development for a Mexican fintech. On the side I run Alanis Dev, where I ship independent SaaS and client products. Claude Code is my daily driver. Cursor, Codex, and Gemini fill specialized roles.",
-    "intro": "I'm Emmanuel. I lead systems development for a Mexican fintech — credit operations, federal payment middleware, KYC biometrics, real-time integrations. On the side I've shipped Ready Set, Vetify, Destino SF, Pagaré Fácil, and FitTrackr through Alanis Dev. Twelve years writing code, two years AI-first.",
+    "description": "AI-first developer based in Miguel Hidalgo, CDMX. By day I lead systems development for a Mexican SOFOM. On the side I run Alanis Dev, where I ship independent SaaS and client products. Claude Code is my daily driver. Cursor, Codex, and Gemini fill specialized roles.",
+    "intro": "I'm Emmanuel. I lead systems development for a Mexican SOFOM — credit operations, federal payment middleware, KYC biometrics, real-time integrations. On the side I've shipped Ready Set, Vetify, Destino SF, Pagaré Fácil, and FitTrackr through Alanis Dev. Twelve years writing code, two years AI-first.",
     "focus": "AI-first means the work happens differently: I review more, type less, and ship at a cadence that used to take a small team. The tools change, the standards don't — clean architecture, real tests, things that hold up in production."
   },
   "stats": {
@@ -65,7 +65,7 @@
       "ai": {
         "title": "AI-First Workflow",
         "description": "Claude Code is the daily driver — reviews, refactors, ships. Cursor for in-editor pair programming. Codex for adversarial second opinions. Gemini for OCR and document understanding. Production output, not toy demos.",
-        "example": "FitTrackr uses Gemini OCR for nutrition labels. The fintech migration runs on Claude Code coordinating PHP-to-TypeScript microservice extraction."
+        "example": "FitTrackr uses Gemini OCR for nutrition labels. The SOFOM migration runs on Claude Code coordinating PHP-to-TypeScript microservice extraction."
       }
     },
     "values": {

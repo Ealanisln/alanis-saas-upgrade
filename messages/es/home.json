@@ -15,8 +15,8 @@
     "role": "desarrollador full-stack AI-first",
     "name": "Emmanuel Alanis",
     "bio": "Desarrollador AI-first. Entrego software en producción al ritmo de un equipo, siendo uno solo.",
-    "bioExtended": "Middleware fintech. Plataformas de entrega empresariales. SaaS multi-tenant. KYC y biometría. Orquesto Claude Code, Cursor, Codex y Gemini para entregar a un ritmo que un equipo humano por sí solo no alcanza.",
-    "terminalPrompt": "> emmanuel.alanis --role=\"ai-first\" --stack=\"claude-code,cursor,codex,gemini\" --location=\"MX\"",
+    "bioExtended": "Middleware para SOFOM. Plataformas de entrega empresariales. SaaS multi-tenant. KYC y biometría. Orquesto Claude Code, Cursor, Codex y Gemini para entregar a un ritmo que un equipo humano por sí solo no alcanza.",
+    "terminalPrompt": "> emmanuel.alanis --role=\"ai-first\" --stack=\"claude-code,cursor,codex,gemini\" --location=\"Miguel Hidalgo, CDMX\"",
     "cta": "Ver mi trabajo",
     "contact": "Contactar",
     "badges": ["AI-first", "Claude Code", "TypeScript", "45 repos"]
@@ -27,7 +27,7 @@
       {
         "period": "2024 — Presente",
         "role": "Lead Developer",
-        "company": "Fintech mexicana",
+        "company": "SOFOM mexicana",
         "description": "Lidero el desarrollo de sistemas para una plataforma de operaciones de crédito. Middleware de pagos federales, biometría KYC, infraestructura de correo transaccional, auditorías de seguridad. Migración de legacy PHP/Symfony a microservicios TypeScript con Claude Code como herramienta principal."
       },
       {
