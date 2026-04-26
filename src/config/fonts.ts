@@ -1,20 +1,20 @@
-import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Geist, JetBrains_Mono } from "next/font/google";
 
-export const spaceGrotesk = Space_Grotesk({
+export const geistSans = Geist({
   subsets: ["latin"],
-  weight: ["500", "700"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
   variable: "--font-heading",
 });
 
-export const ibmPlexSans = IBM_Plex_Sans({
+export const geistBody = Geist({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   display: "swap",
   variable: "--font-body",
 });
 
-export const ibmPlexMono = IBM_Plex_Mono({
+export const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
   display: "swap",
@@ -22,7 +22,7 @@ export const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const fontVariables = [
-  spaceGrotesk.variable,
-  ibmPlexSans.variable,
-  ibmPlexMono.variable,
+  geistSans.variable,
+  geistBody.variable,
+  jetbrainsMono.variable,
 ].join(" ");

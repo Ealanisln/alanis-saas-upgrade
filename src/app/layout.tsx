@@ -2,7 +2,7 @@ import Script from "next/script";
 import { cookies } from "next/headers";
 import { Analytics } from "@vercel/analytics/react";
 import ScrollToTop from "@/components/ScrollToTop";
-import { fontVariables, ibmPlexSans } from "@/config/fonts";
+import { fontVariables, geistBody } from "@/config/fonts";
 import "../styles/index.css";
 import { Providers } from "./providers";
 
@@ -31,17 +31,17 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta
           name="theme-color"
-          content="#ffffff"
+          content="#FAFAF7"
           media="(prefers-color-scheme: light)"
         />
         <meta
           name="theme-color"
-          content="#0D1117"
+          content="#0B0D0E"
           media="(prefers-color-scheme: dark)"
         />
       </head>
       <body
-        className={`${fontVariables} ${ibmPlexSans.className} overflow-x-hidden antialiased`}
+        className={`${fontVariables} ${geistBody.className} overflow-x-hidden antialiased`}
       >
         <Script
           defer
