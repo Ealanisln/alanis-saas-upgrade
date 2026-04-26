@@ -51,7 +51,7 @@ export default function HeroSection({ locale: _locale }: HeroSectionProps) {
       indent: 1,
       color: "text-t-muted",
       text: "location: ",
-      value: '"Miguel Hidalgo, CDMX"',
+      value: '"CDMX"',
       valueColor: "text-t-green",
     },
     { indent: 1, color: "text-t-muted", text: "stack: [" },

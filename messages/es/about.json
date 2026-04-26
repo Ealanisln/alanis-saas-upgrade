@@ -17,8 +17,8 @@
   "description": "Orquesto herramientas de IA para entregar software en producción al ritmo de un equipo. Usuarios reales. Pagos reales. SOFOM real.",
   "hero": {
     "title": "Acerca de",
-    "description": "Desarrollador AI-first en Miguel Hidalgo, CDMX. De día lidero el desarrollo de sistemas para una SOFOM mexicana. En paralelo opero Alanis Dev, donde entrego SaaS independiente y producto para clientes. Claude Code es mi herramienta principal del día a día. Cursor, Codex y Gemini cubren roles especializados.",
-    "intro": "Soy Emmanuel. Lidero el desarrollo de sistemas para una SOFOM mexicana — operaciones de crédito, middleware de pagos federales, biometría KYC, integraciones en tiempo real. En paralelo, a través de Alanis Dev, he entregado Ready Set, Vetify, Destino SF, Pagaré Fácil y FitTrackr. Doce años escribiendo código, dos años AI-first.",
+    "description": "Desarrollador AI-first en CDMX. De día trabajo como full-stack en una SOFOM mexicana, en un equipo chico (2 devs + 1 director de IT). En paralelo opero Alanis Dev, donde entrego SaaS independiente y producto para clientes. Claude Code es mi herramienta principal del día a día. Cursor, Codex y Gemini cubren roles especializados.",
+    "intro": "Soy Emmanuel. De día trabajo full-stack en una SOFOM mexicana junto a otro desarrollador y nuestro director de IT — operaciones de crédito, middleware de pagos federales, biometría KYC, integraciones en tiempo real. En paralelo, a través de Alanis Dev, he entregado Ready Set, Vetify, Destino SF, Pagaré Fácil y FitTrackr. Doce años escribiendo código, dos años AI-first.",
     "focus": "AI-first significa que el trabajo sucede distinto: reviso más, escribo menos, y entrego al ritmo que antes requería un equipo. Las herramientas cambian, los estándares no — arquitectura limpia, pruebas reales, cosas que aguantan en producción."
   },
   "stats": {
