@@ -13,26 +13,26 @@
     ]
   },
   "title": "About",
-  "subtitle": "Full-Stack Developer",
-  "description": "I build production software that handles real users and real payments.",
+  "subtitle": "AI-First Full-Stack Developer",
+  "description": "I orchestrate AI tools to ship production software at human-team speed. Real users. Real payments. Real SOFOM.",
   "hero": {
     "title": "About",
-    "description": "Full-stack developer based in Mexico. I build multi-tenant SaaS products, delivery platforms, and payment systems — from database design to deployment.",
-    "intro": "I'm Emmanuel, a full-stack developer who ships production software. My work spans multi-tenant SaaS platforms, enterprise logistics, e-commerce with payment processing, and AI-powered applications.",
-    "focus": "I care about clean architecture, proper testing, and building things that actually work for real users. Every project I take on goes from idea to production."
+    "description": "AI-first developer based in CDMX. By day I work as a full-stack developer at a Mexican SOFOM, on a small team (2 devs + 1 IT director). On the side I run Alanis Dev, where I ship independent SaaS and client products. Claude Code is my daily driver. Cursor, Codex, and Gemini fill specialized roles.",
+    "intro": "I'm Emmanuel. By day I work full-stack at a Mexican SOFOM alongside one other developer and our IT director — credit operations, federal payment middleware, KYC biometrics, real-time integrations. On the side I've shipped Ready Set, Vetify, Destino SF, Pagaré Fácil, and FitTrackr through Alanis Dev. Twelve years writing code, two years AI-first.",
+    "focus": "AI-first means the work happens differently: I review more, type less, and ship at a cadence that used to take a small team. The tools change, the standards don't — clean architecture, real tests, things that hold up in production."
   },
   "stats": {
     "projects": {
-      "value": "6+",
+      "value": "12+",
       "label": "Projects Shipped"
     },
     "commits": {
-      "value": "725+",
-      "label": "Commits on Latest Project"
+      "value": "45",
+      "label": "Repos on GitHub"
     },
     "languages": {
-      "value": "EN/ES",
-      "label": "Bilingual"
+      "value": "AI-first",
+      "label": "Daily workflow"
     }
   },
   "section": {
@@ -63,9 +63,9 @@
         "example": "Ready Set — Enterprise courier delivery platform for the San Francisco Bay Area."
       },
       "ai": {
-        "title": "AI-Powered Apps",
-        "description": "Applications that integrate AI services for OCR, content analysis, and intelligent data processing.",
-        "example": "FitTrackr — Fitness tracker with Gemini AI-powered OCR for nutrition labels and workout planning."
+        "title": "AI-First Workflow",
+        "description": "Claude Code is the daily driver — reviews, refactors, ships. Cursor for in-editor pair programming. Codex for adversarial second opinions. Gemini for OCR and document understanding. Production output, not toy demos.",
+        "example": "FitTrackr uses Gemini OCR for nutrition labels. The SOFOM migration runs on Claude Code coordinating PHP-to-TypeScript microservice extraction."
       }
     },
     "values": {

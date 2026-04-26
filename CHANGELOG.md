@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.1] - 2026-04-26
+
+### Added
+
+- `DESIGN.md` at repo root codifying the "Production Console" design system — palette, type stack, spacing, layout, motion, anti-slop checklist, and decisions log
+- `CLAUDE.md` "Design System" section instructing future Claude/CC sessions to read `DESIGN.md` before any visual work
+- Portfolio repositioned as **AI-first developer**: hero, about, and experience copy rewritten to lead with AI orchestration (Claude Code as daily driver, plus Cursor / Codex / Gemini for specialized roles); badges, terminal prompt, and stats updated to match
+
+### Changed
+
+- Heading + body font swapped from Space Grotesk + IBM Plex Sans to **Geist** (Vercel)
+- Mono font swapped from IBM Plex Mono to **JetBrains Mono**
+- Light-mode background swapped from pure white to warm-paper `#FAFAF7`
+- Dark-mode background tightened from `#0D1117` to `#0B0D0E`
+- Single-accent palette: GitHub-blue `#2f81f7` primary and purple `#8250df` accent retired in favor of signal-orange `#FF5C1F` (light) / `#FF6A2C` (dark)
+- Tailwind legacy color literals (`black`, `dark`, `gray-dark`, `gray-light`, `stroke`, `body-color`, `bg-color-dark`) remapped to new palette equivalents
+- `shadow-submit` tint changed from blue to orange
+- `meta theme-color` (light + dark) updated to match new bg tokens
+- Spanish locale flag changed from `🇪🇸` to `🇲🇽` to better reflect the LATAM audience
+- `LanguageConfirmation` banner readability — replaced the `from-primary to-primary/90` gradient (which faded into the page) with solid `bg-primary`, and bumped the dismiss button from `border-white/50` to full `border-white` with a hover-invert so both buttons read with high contrast on the orange
+- Day-job framing updated for accuracy: "Lead Developer" → "Full-Stack Developer", and copy now describes the actual team shape (2 full-stack devs + 1 IT director). Industry framing changed from generic "fintech" to the more specific Mexican regulated entity, **SOFOM**
+- Location compressed to **CDMX** in the hero terminal prompt and `developer.ts` code card so the hero doesn't overflow on mobile
+
+### Removed
+
+- Space Grotesk, IBM Plex Sans, IBM Plex Mono Google Font imports
+- `tsconfig.tsbuildinfo` from version control (was tracked despite being in `.gitignore`)
+
 ## [Unreleased]
 
 ### Added

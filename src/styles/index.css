@@ -2,33 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Production Console design system — see DESIGN.md at repo root.
+ * Variable names are kept stable so existing utility classes (text-t-text,
+ * bg-t-surface, font-heading, font-mono, etc.) keep working.
+ */
+
 @layer base {
   :root {
-    --color-bg: #ffffff;
-    --color-surface: #f6f8fa;
-    --color-text: #1f2328;
-    --color-text-secondary: #656d76;
-    --color-border: #d0d7de;
-    --color-primary: #2f81f7;
-    --color-accent: #8250df;
-    --color-green: #1a7f37;
+    --color-bg: #fafaf7; /* warm paper, never pure white */
+    --color-surface: #f1f0ea; /* cards, code blocks, calculator */
+    --color-text: #0b0d0e; /* off-pure near-black */
+    --color-text-secondary: #5a5c5e; /* muted: metadata, status, captions */
+    --color-border: #d9d7cf; /* hairline 1px */
+    --color-primary: #ff5c1f; /* signal orange — single accent */
+    --color-accent: #ff5c1f; /* same as primary (single-accent system) */
+    --color-green: #0f7a3a; /* code-block strings + success only */
+    --color-error: #c0392b;
   }
 
   .dark {
-    --color-bg: #0d1117;
-    --color-surface: #161b22;
-    --color-text: #e6edf3;
-    --color-text-secondary: #8b949e;
-    --color-border: #30363d;
-    --color-primary: #58a6ff;
-    --color-accent: #bc8cff;
+    --color-bg: #0b0d0e;
+    --color-surface: #16191b;
+    --color-text: #e8e8e3;
+    --color-text-secondary: #8b8e91;
+    --color-border: #23272a;
+    --color-primary: #ff6a2c; /* slightly lifted orange for dark contrast */
+    --color-accent: #ff6a2c;
     --color-green: #3fb950;
+    --color-error: #ff6b5a;
   }
 
   body {
     background-color: var(--color-bg);
     color: var(--color-text);
     font-family: var(--font-body), system-ui, sans-serif;
+    font-feature-settings: "ss01", "tnum";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -79,7 +88,7 @@
     @apply opacity-100;
   }
 
-  /* Dot grid background for hero */
+  /* Subtle 1px monospace dot grid — hero only, ~6% opacity */
   .hero-dot-grid {
     background-image: radial-gradient(
       circle,
