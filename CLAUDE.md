@@ -84,9 +84,17 @@ src/
 
 ### Styling
 
-- Tailwind CSS with custom color system (primary: blue #4F7AFA)
-- Dark mode via class-based next-themes
+- Tailwind CSS with custom color system. **See DESIGN.md for the canonical palette, type, spacing, and aesthetic direction.** Current legacy CSS variables (e.g., `#4F7AFA`, GitHub Primer-inspired tokens) are being migrated to the Production Console system defined in DESIGN.md.
+- Dark mode via class-based next-themes (light + dark are equally first-class — never ship a feature in only one mode)
 - Import path alias: `@/*` → `./src/*`
+
+## Design System
+
+**Always read DESIGN.md before making any visual or UI decisions.** All font choices, colors, spacing, and aesthetic direction are defined there. Do not deviate without explicit user approval.
+
+The system is "Production Console" — Geist + JetBrains Mono, signal orange `#FF5C1F` accent, warm-paper / near-black palette. The three load-bearing risks (signal orange accent, `// status-line` strip, oversized `ES // EN` hero typography) are documented in DESIGN.md and must not be removed without flagging.
+
+In code review and QA: flag any code that introduces purple/violet, gradients, drop shadows, Inter/Space Grotesk/IBM Plex Sans, bubble-rounded buttons (border-radius > 8px), or any other entry on the DESIGN.md anti-slop checklist.
 
 ### Testing
 
