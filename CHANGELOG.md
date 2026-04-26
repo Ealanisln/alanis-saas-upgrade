@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.1] - 2026-04-26
+
+### Added
+
+- `DESIGN.md` at repo root codifying the "Production Console" design system — palette, type stack, spacing, layout, motion, anti-slop checklist, and decisions log
+- `CLAUDE.md` "Design System" section instructing future Claude/CC sessions to read `DESIGN.md` before any visual work
+
+### Changed
+
+- Heading + body font swapped from Space Grotesk + IBM Plex Sans to **Geist** (Vercel)
+- Mono font swapped from IBM Plex Mono to **JetBrains Mono**
+- Light-mode background swapped from pure white to warm-paper `#FAFAF7`
+- Dark-mode background tightened from `#0D1117` to `#0B0D0E`
+- Single-accent palette: GitHub-blue `#2f81f7` primary and purple `#8250df` accent retired in favor of signal-orange `#FF5C1F` (light) / `#FF6A2C` (dark)
+- Tailwind legacy color literals (`black`, `dark`, `gray-dark`, `gray-light`, `stroke`, `body-color`, `bg-color-dark`) remapped to new palette equivalents
+- `shadow-submit` tint changed from blue to orange
+- `meta theme-color` (light + dark) updated to match new bg tokens
+
+### Removed
+
+- Space Grotesk, IBM Plex Sans, IBM Plex Mono Google Font imports
+- `tsconfig.tsbuildinfo` from version control (was tracked despite being in `.gitignore`)
+
 ## [Unreleased]
 
 ### Added
