@@ -39,7 +39,7 @@ vi.mock("@/config/i18n", () => ({
   defaultLocale: "en",
   localeConfig: {
     en: { name: "English", flag: "🇺🇸" },
-    es: { name: "Español", flag: "🇪🇸" },
+    es: { name: "Español", flag: "🇲🇽" },
   },
   siteConfig: {
     author: "Emmanuel Alanis",

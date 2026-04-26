@@ -20,7 +20,7 @@ export const localeConfig = {
   },
   es: {
     name: "Español",
-    flag: "🇪🇸",
+    flag: "🇲🇽",
     dir: "ltr" as const,
   },
 } as const;

@@ -54,7 +54,7 @@ vi.mock("@/config/i18n", () => ({
   defaultLocale: "en",
   localeConfig: {
     en: { name: "English", flag: "🇺🇸", dir: "ltr" },
-    es: { name: "Español", flag: "🇪🇸", dir: "ltr" },
+    es: { name: "Español", flag: "🇲🇽", dir: "ltr" },
   },
 }));
 
@@ -255,7 +255,7 @@ describe("LanguageConfirmation", () => {
   describe("styling", () => {
     it("displays the correct flag for detected language", () => {
       render(<LanguageConfirmation />);
-      expect(screen.getByText("🇪🇸")).toBeInTheDocument();
+      expect(screen.getByText("🇲🇽")).toBeInTheDocument();
     });
 
     it("banner has slide-down animation class", () => {
