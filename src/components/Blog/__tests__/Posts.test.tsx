@@ -13,7 +13,7 @@ vi.mock("next/font/google", () => ({
 
 // Mock the fonts config
 vi.mock("@/config/fonts", () => ({
-  ibmPlexSans: { className: "mock-ibm-plex-sans" },
+  geistBody: { className: "mock-geist-body" },
 }));
 
 // Mock next-intl/navigation (before it's imported by other modules)
