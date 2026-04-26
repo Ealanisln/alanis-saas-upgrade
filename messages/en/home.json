@@ -12,35 +12,35 @@
     ]
   },
   "hero": {
-    "role": "software engineer",
+    "role": "AI-first full-stack developer",
     "name": "Emmanuel Alanis",
-    "bio": "I ship production software that handles real traffic.",
-    "bioExtended": "Enterprise delivery platforms. AI fitness trackers. Payment processing. Healthcare tools.",
-    "terminalPrompt": "> emmanuel.alanis --role=\"full-stack\" --location=\"MX\"",
+    "bio": "AI-first developer shipping production software at human-team speed.",
+    "bioExtended": "Fintech middleware. Enterprise delivery platforms. Multi-tenant SaaS. KYC and biometrics. I orchestrate Claude Code, Cursor, Codex, and Gemini to ship at a cadence a human-only team can't match.",
+    "terminalPrompt": "> emmanuel.alanis --role=\"ai-first\" --stack=\"claude-code,cursor,codex,gemini\" --location=\"MX\"",
     "cta": "See my work",
     "contact": "Get in touch",
-    "badges": ["TypeScript", "30+ repos", "Next.js", "PostgreSQL"]
+    "badges": ["AI-first", "Claude Code", "TypeScript", "45 repos"]
   },
   "experience": {
     "title": "Experience",
     "items": [
       {
         "period": "2024 — Present",
-        "role": "Full-Stack Developer",
-        "company": "Corporate",
-        "description": "Building enterprise web applications with Python, Django, PHP, Symfony, TypeScript, and Next.js."
+        "role": "Lead Developer",
+        "company": "Mexican Fintech",
+        "description": "Leading systems development for a credit-operations platform. Federal payment middleware, KYC biometrics, transactional email infrastructure, security audits. Migrating PHP/Symfony legacy to TypeScript microservices with Claude Code as daily driver."
       },
       {
-        "period": "2021 — 2024",
-        "role": "Freelance Developer",
+        "period": "2021 — Present",
+        "role": "Independent Developer",
         "company": "Alanis Dev",
-        "description": "Delivered custom web solutions for clients including delivery platforms, veterinary systems, and SaaS products."
+        "description": "Shipped Ready Set (enterprise delivery, San Francisco), Vetify (multi-tenant veterinary SaaS), Destino SF (specialty food e-commerce), Pagaré Fácil (Mexican promissory notes), FitTrackr (Gemini-OCR fitness app). Production payments with Stripe and Square."
       },
       {
         "period": "2019 — 2021",
         "role": "Web Developer",
         "company": "Self-taught",
-        "description": "Learned modern web development through building projects and contributing to open source."
+        "description": "Learned modern web development by building real products end to end."
       }
     ]
   },

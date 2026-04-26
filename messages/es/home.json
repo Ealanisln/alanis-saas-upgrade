@@ -12,35 +12,35 @@
     ]
   },
   "hero": {
-    "role": "ingeniero de software",
+    "role": "desarrollador full-stack AI-first",
     "name": "Emmanuel Alanis",
-    "bio": "Entrego software en producción que maneja tráfico real.",
-    "bioExtended": "Plataformas de entrega empresarial. Apps de salud y fitness con IA. Procesamiento de pagos. Herramientas veterinarias.",
-    "terminalPrompt": "> emmanuel.alanis --role=\"full-stack\" --location=\"MX\"",
+    "bio": "Desarrollador AI-first. Entrego software en producción al ritmo de un equipo, siendo uno solo.",
+    "bioExtended": "Middleware fintech. Plataformas de entrega empresariales. SaaS multi-tenant. KYC y biometría. Orquesto Claude Code, Cursor, Codex y Gemini para entregar a un ritmo que un equipo humano por sí solo no alcanza.",
+    "terminalPrompt": "> emmanuel.alanis --role=\"ai-first\" --stack=\"claude-code,cursor,codex,gemini\" --location=\"MX\"",
     "cta": "Ver mi trabajo",
     "contact": "Contactar",
-    "badges": ["TypeScript", "30+ repos", "Next.js", "PostgreSQL"]
+    "badges": ["AI-first", "Claude Code", "TypeScript", "45 repos"]
   },
   "experience": {
     "title": "Experiencia",
     "items": [
       {
         "period": "2024 — Presente",
-        "role": "Desarrollador Full-Stack",
-        "company": "Corporativo",
-        "description": "Desarrollo de aplicaciones web empresariales con Python, Django, PHP, Symfony, TypeScript y Next.js."
+        "role": "Lead Developer",
+        "company": "Fintech mexicana",
+        "description": "Lidero el desarrollo de sistemas para una plataforma de operaciones de crédito. Middleware de pagos federales, biometría KYC, infraestructura de correo transaccional, auditorías de seguridad. Migración de legacy PHP/Symfony a microservicios TypeScript con Claude Code como herramienta principal."
       },
       {
-        "period": "2021 — 2024",
-        "role": "Desarrollador Freelance",
+        "period": "2021 — Presente",
+        "role": "Desarrollador Independiente",
         "company": "Alanis Dev",
-        "description": "Desarrollé soluciones web personalizadas para clientes incluyendo plataformas de entrega, sistemas veterinarios y productos SaaS."
+        "description": "Entregué Ready Set (entrega empresarial, San Francisco), Vetify (SaaS multi-tenant veterinario), Destino SF (e-commerce de alimentos especiales), Pagaré Fácil (pagarés mexicanos) y FitTrackr (fitness con OCR de Gemini). Pagos en producción con Stripe y Square."
       },
       {
         "period": "2019 — 2021",
         "role": "Desarrollador Web",
         "company": "Autodidacta",
-        "description": "Aprendí desarrollo web moderno construyendo proyectos y contribuyendo a código abierto."
+        "description": "Aprendí desarrollo web moderno construyendo productos reales de principio a fin."
       }
     ]
   },

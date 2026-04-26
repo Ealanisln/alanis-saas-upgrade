@@ -13,26 +13,26 @@
     ]
   },
   "title": "Acerca de",
-  "subtitle": "Desarrollador Full-Stack",
-  "description": "Construyo software en produccion que maneja usuarios y pagos reales.",
+  "subtitle": "Desarrollador Full-Stack AI-First",
+  "description": "Orquesto herramientas de IA para entregar software en producción al ritmo de un equipo. Usuarios reales. Pagos reales. Fintech real.",
   "hero": {
     "title": "Acerca de",
-    "description": "Desarrollador full-stack en Mexico. Construyo productos SaaS multi-tenant, plataformas de entrega y sistemas de pago — desde el diseno de base de datos hasta el despliegue.",
-    "intro": "Soy Emmanuel, un desarrollador full-stack que lleva software a produccion. Mi trabajo abarca plataformas SaaS multi-tenant, logistica empresarial, e-commerce con procesamiento de pagos y aplicaciones con inteligencia artificial.",
-    "focus": "Me importa la arquitectura limpia, las pruebas adecuadas y construir cosas que realmente funcionen para usuarios reales. Cada proyecto que tomo va de la idea a produccion."
+    "description": "Desarrollador AI-first en la Ciudad de México. De día lidero el desarrollo de sistemas para una fintech mexicana. En paralelo opero Alanis Dev, donde entrego SaaS independiente y producto para clientes. Claude Code es mi herramienta principal del día a día. Cursor, Codex y Gemini cubren roles especializados.",
+    "intro": "Soy Emmanuel. Lidero el desarrollo de sistemas para una fintech mexicana — operaciones de crédito, middleware de pagos federales, biometría KYC, integraciones en tiempo real. En paralelo, a través de Alanis Dev, he entregado Ready Set, Vetify, Destino SF, Pagaré Fácil y FitTrackr. Doce años escribiendo código, dos años AI-first.",
+    "focus": "AI-first significa que el trabajo sucede distinto: reviso más, escribo menos, y entrego al ritmo que antes requería un equipo. Las herramientas cambian, los estándares no — arquitectura limpia, pruebas reales, cosas que aguantan en producción."
   },
   "stats": {
     "projects": {
-      "value": "6+",
+      "value": "12+",
       "label": "Proyectos Entregados"
     },
     "commits": {
-      "value": "725+",
-      "label": "Commits en Ultimo Proyecto"
+      "value": "45",
+      "label": "Repos en GitHub"
     },
     "languages": {
-      "value": "EN/ES",
-      "label": "Bilingue"
+      "value": "AI-first",
+      "label": "Flujo diario"
     }
   },
   "section": {
@@ -63,9 +63,9 @@
         "example": "Ready Set — Plataforma de entrega empresarial para el area de la Bahia de San Francisco."
       },
       "ai": {
-        "title": "Apps con IA",
-        "description": "Aplicaciones que integran servicios de IA para OCR, analisis de contenido y procesamiento inteligente de datos.",
-        "example": "FitTrackr — Rastreador fitness con OCR de Gemini AI para etiquetas nutricionales y planificacion de entrenamientos."
+        "title": "Flujo AI-First",
+        "description": "Claude Code es la herramienta del día a día — revisa, refactoriza, entrega. Cursor para pair programming en el editor. Codex para segundas opiniones adversariales. Gemini para OCR y comprensión de documentos. Resultado en producción, no demos.",
+        "example": "FitTrackr usa OCR de Gemini para etiquetas nutricionales. La migración fintech corre con Claude Code coordinando la extracción de PHP a microservicios TypeScript."
       }
     },
     "values": {
