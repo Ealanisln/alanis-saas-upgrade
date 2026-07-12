@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "dev:local": "next dev --turbopack",
     "test": "vitest",
     "test:watch": "vitest --watch",
@@ -17,7 +17,8 @@
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:report": "playwright show-report",
     "typecheck": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^1.5.3",
