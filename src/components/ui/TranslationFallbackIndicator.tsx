@@ -65,7 +65,7 @@ export function TranslationFallbackIndicator({
     >
       <svg
         className={cn(
-          "flex-shrink-0",
+          "shrink-0",
           size === "sm" && "h-3 w-3",
           size === "md" && "h-4 w-4",
         )}

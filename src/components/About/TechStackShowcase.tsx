@@ -17,7 +17,7 @@ const ReactIcon = () => (
 const NextJsIcon = () => (
   <svg viewBox="0 0 128 128" className="h-10 w-10">
     <path
-      className="fill-[var(--color-text)]"
+      className="fill-[var(--t-text)]"
       d="M64 0C28.7 0 0 28.7 0 64s28.7 64 64 64c11.2 0 21.7-2.9 30.8-7.9L48.4 55.3v36.6h-6.8V41.8h6.8l50.5 75.8C116.4 106.2 128 86.5 128 64c0-35.3-28.7-64-64-64zm22.1 84.6l-7.5-11.3V41.8h7.5v42.8z"
     />
   </svg>
@@ -62,7 +62,7 @@ const PostgreSQLIcon = () => (
 const PrismaIcon = () => (
   <svg viewBox="0 0 128 128" className="h-10 w-10">
     <path
-      className="fill-[var(--color-text)]"
+      className="fill-[var(--t-text)]"
       d="M109.6 59.2L67.5 4.8a6.8 6.8 0 00-11.3-.6L18.5 58.5a6.8 6.8 0 00.6 9.6l52.5 46.3a6.8 6.8 0 0010-1.2l29.5-44.1a6.8 6.8 0 00-1.5-9.9zM66.6 99.7L30.7 67.8a2.3 2.3 0 01-.2-3.2l27.1-32.5a2.3 2.3 0 014.1 1.1l11.6 62.8a2.3 2.3 0 01-6.7 3.7z"
     />
   </svg>
