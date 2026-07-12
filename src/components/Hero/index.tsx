@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/navigation";
 import { siteConfig } from "@/config/i18n";
@@ -13,7 +13,7 @@ export default function HeroSection({ locale: _locale }: HeroSectionProps) {
   const t = useTranslations("home.hero");
   const badges = t.raw("badges") as string[];
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -21,7 +21,7 @@ export default function HeroSection({ locale: _locale }: HeroSectionProps) {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, x: -20 },
     visible: {
       opacity: 1,

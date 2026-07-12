@@ -85,6 +85,7 @@ const Contact = () => {
             {t("title")}
           </h2>
           <p className="mb-10 text-t-muted">{t("subtitle")}</p>
+          {/* eslint-disable-next-line react-hooks/refs -- onSubmit reads turnstileRef only when the form is submitted, never during render */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid gap-6 sm:grid-cols-2">
               <div>
