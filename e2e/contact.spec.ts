@@ -23,7 +23,7 @@ test.describe("Contact Page", () => {
       await page.waitForLoadState("load");
 
       // Check for common contact form fields
-      const nameInput = page.locator(
+      const _nameInput = page.locator(
         'input[name="name"], input[id="name"], input[placeholder*="name" i]',
       );
       const emailInput = page.locator(
@@ -197,7 +197,7 @@ test.describe("Contact Page", () => {
       await page.waitForTimeout(3500);
 
       // Verify fields are cleared
-      const nameInput = page.locator('input[name="name"]');
+      const _nameInput = page.locator('input[name="name"]');
       const emailInput = page.locator('input[type="email"]');
       const messageInput = page.locator('textarea[name="message"]');
 

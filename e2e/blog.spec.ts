@@ -27,7 +27,7 @@ test.describe("Blog Page", () => {
       // If no articles, check for empty state
       if (articlesCount === 0) {
         // Empty state is acceptable for a blog with no posts
-        const emptyState = page.locator(
+        const _emptyState = page.locator(
           "text=/no posts|no articles|coming soon/i",
         );
         // Either posts exist or empty state - both are valid

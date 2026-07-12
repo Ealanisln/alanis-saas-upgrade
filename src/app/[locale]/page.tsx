@@ -2,12 +2,12 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 export const revalidate = 60;
+import Blog from "@/components/Blog";
 import ScrollUp from "@/components/Common/ScrollUp";
-import HeroSection from "@/components/Hero/index";
 import Experience from "@/components/Experience";
+import HeroSection from "@/components/Hero/index";
 import Projects from "@/components/Projects";
 import TechStack from "@/components/TechStack";
-import Blog from "@/components/Blog";
 import { siteConfig } from "@/config/i18n";
 import {
   generateLocalizedUrl,

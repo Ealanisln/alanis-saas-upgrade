@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@/lib/utils/utils";
 import { localeConfig } from "@/config/i18n";
+import { cn } from "@/lib/utils/utils";
 import type { LocalizationMetadata } from "@/sanity/lib/i18n";
 
 export interface TranslationFallbackIndicatorProps {

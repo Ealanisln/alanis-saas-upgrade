@@ -1,8 +1,8 @@
 "use client";
 import { useTranslations } from "next-intl";
+import { siteConfig } from "@/config/i18n";
 import { Link } from "@/lib/navigation";
 import FooterLanguageSwitcher from "./LanguageSwitcher";
-import { siteConfig } from "@/config/i18n";
 
 const Footer = () => {
   const t = useTranslations("common.footer");

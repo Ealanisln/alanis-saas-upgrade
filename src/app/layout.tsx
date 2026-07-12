@@ -1,5 +1,5 @@
-import Script from "next/script";
 import { cookies } from "next/headers";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import ScrollToTop from "@/components/ScrollToTop";
 import { fontVariables, geistBody } from "@/config/fonts";

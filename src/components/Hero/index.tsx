@@ -2,8 +2,8 @@
 
 import { motion, type Variants } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { Link } from "@/lib/navigation";
 import { siteConfig } from "@/config/i18n";
+import { Link } from "@/lib/navigation";
 
 interface HeroSectionProps {
   locale: string;

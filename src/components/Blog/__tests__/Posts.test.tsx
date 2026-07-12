@@ -1,7 +1,7 @@
-import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import Posts from "../Posts";
+import { describe, it, expect, vi } from "vitest";
 import { SimpleBlogCard } from "@/types/simple-blog-card";
+import Posts from "../Posts";
 
 // Mock next/font/google
 vi.mock("next/font/google", () => ({

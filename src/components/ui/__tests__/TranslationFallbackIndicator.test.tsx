@@ -1,11 +1,10 @@
+import { render, screen, renderHook } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import type { LocalizationMetadata } from "@/sanity/lib/i18n";
 import {
   TranslationFallbackIndicator,
   useTranslationFallback,
 } from "../TranslationFallbackIndicator";
-import type { LocalizationMetadata } from "@/sanity/lib/i18n";
-import { renderHook } from "@testing-library/react";
 
 describe("TranslationFallbackIndicator", () => {
   const mockMetadata: LocalizationMetadata = {

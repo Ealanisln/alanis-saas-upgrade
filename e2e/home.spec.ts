@@ -35,10 +35,10 @@ test.describe("Home Page", () => {
       await page.goto("/");
       await page.waitForLoadState("load");
       // Check that key navigation links exist
-      const blogLink = page.locator(
+      const _blogLink = page.locator(
         'nav a[href*="blog"], nav a:has-text("Blog")',
       );
-      const contactLink = page.locator(
+      const _contactLink = page.locator(
         'nav a[href*="contact"], nav a:has-text("Contact")',
       );
 

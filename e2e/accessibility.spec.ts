@@ -1,5 +1,5 @@
-import { test, expect } from "./fixtures/test-fixtures";
 import AxeBuilder from "@axe-core/playwright";
+import { test, expect } from "./fixtures/test-fixtures";
 
 /**
  * Accessibility tests using axe-core

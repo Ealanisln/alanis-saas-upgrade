@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useRef } from "react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { useTranslations, useLocale } from "next-intl";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import sendEmail from "@/app/actions/email";
 
 interface FormInputs {
