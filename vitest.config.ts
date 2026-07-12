@@ -110,12 +110,10 @@ export default defineConfig({
         "src/lib/turnstile.ts",
       ],
       thresholds: {
-        global: {
-          statements: 60,
-          branches: 70,
-          functions: 60,
-          lines: 60,
-        },
+        statements: 60,
+        branches: 70,
+        functions: 60,
+        lines: 60,
       },
     },
   },
