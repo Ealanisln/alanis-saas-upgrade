@@ -266,18 +266,18 @@ test.describe("Navigation", () => {
   });
 
   test.describe("browser navigation", () => {
+    // Note: no waitForLoadState("networkidle") here — Next 16's link
+    // prefetching keeps the network busy, so it never settles.
+    // toHaveURL auto-waits, which is all these tests need.
     test("should support browser back button", async ({ page, localePath }) => {
       // Navigate to about
       await page.goto(localePath("/about"));
-      await page.waitForLoadState("networkidle");
 
       // Navigate to contact
       await page.goto(localePath("/contact"));
-      await page.waitForLoadState("networkidle");
 
       // Go back
       await page.goBack();
-      await page.waitForLoadState("networkidle");
 
       await expect(page).toHaveURL(new RegExp(localePath("/about")));
     });
@@ -288,17 +288,14 @@ test.describe("Navigation", () => {
     }) => {
       // Navigate to about
       await page.goto(localePath("/about"));
-      await page.waitForLoadState("networkidle");
 
       // Navigate to contact
       await page.goto(localePath("/contact"));
-      await page.waitForLoadState("networkidle");
 
       // Go back then forward
       await page.goBack();
-      await page.waitForLoadState("networkidle");
+      await expect(page).toHaveURL(new RegExp(localePath("/about")));
       await page.goForward();
-      await page.waitForLoadState("networkidle");
 
       await expect(page).toHaveURL(new RegExp(localePath("/contact")));
     });
