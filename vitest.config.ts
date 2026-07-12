@@ -44,7 +44,7 @@ export default defineConfig({
         // Migration scripts (one-time use)
         "migrations/**",
         // Next.js infrastructure
-        "src/middleware.ts",
+        "src/proxy.ts",
         "src/app/layout.tsx",
         "src/app/providers.tsx",
         "src/app/robots.ts",

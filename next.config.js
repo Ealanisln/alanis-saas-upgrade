@@ -47,6 +47,11 @@ const nextConfig = {
       },
     ],
     formats: ["image/avif", "image/webp"],
+    // Next 16 blocks local-IP remotePatterns (the http://localhost entry
+    // above) unless explicitly allowed; only needed for local dev
+    ...(process.env.NODE_ENV === "development" && {
+      dangerouslyAllowLocalIP: true,
+    }),
   },
 
   // Security headers
