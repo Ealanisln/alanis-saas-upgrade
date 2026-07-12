@@ -65,6 +65,25 @@ test.describe("Error Scenarios", () => {
       }
     });
 
+    test("should return 404 for malformed URLs with encoded special characters", async ({
+      request,
+    }) => {
+      // proxy.ts rejects %24/%26/%3C/%3E and raw $&<> in paths
+      const response = await request.get("/foo%24bar", {
+        maxRedirects: 0,
+      });
+      expect(response.status()).toBe(404);
+    });
+
+    test("should 301-redirect legacy /en URLs to root paths", async ({
+      request,
+    }) => {
+      // English lives at root; /en/* is redirected for GSC canonical dedup
+      const response = await request.get("/en/blog", { maxRedirects: 0 });
+      expect(response.status()).toBe(301);
+      expect(response.headers()["location"]).toContain("/blog");
+    });
+
     test("should redirect unknown locale to default", async ({ page }) => {
       await page.goto("/de/about");
       await page.waitForLoadState("networkidle");
