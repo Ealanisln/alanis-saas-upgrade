@@ -6,6 +6,12 @@ import { fontVariables, geistBody } from "@/config/fonts";
 import "../styles/index.css";
 import { Providers } from "./providers";
 
+export const metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://alanis.dev",
+  ),
+};
+
 export const viewport = {
   width: "device-width",
   initialScale: 1,

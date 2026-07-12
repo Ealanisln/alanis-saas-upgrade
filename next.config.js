@@ -56,11 +56,11 @@ const nextConfig = {
     // Note: 'unsafe-eval' is NOT included for better security
     const cspDirectives = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://js.stripe.com https://challenges.cloudflare.com",
+      "script-src 'self' 'unsafe-inline' https://js.stripe.com https://challenges.cloudflare.com https://analytics-omega-nine.vercel.app",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https://cdn.sanity.io https://*.stripe.com",
       "font-src 'self' data:",
-      "connect-src 'self' https://api.stripe.com https://*.sanity.io https://challenges.cloudflare.com",
+      "connect-src 'self' https://api.stripe.com https://*.sanity.io https://challenges.cloudflare.com https://analytics-omega-nine.vercel.app",
       "frame-src 'self' https://js.stripe.com https://hooks.stripe.com https://challenges.cloudflare.com",
       "frame-ancestors 'none'",
       "form-action 'self'",
