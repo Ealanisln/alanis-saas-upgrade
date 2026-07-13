@@ -2,13 +2,14 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { groq } from "next-sanity";
 import { Link } from "@/lib/navigation";
-import { safeFetch, urlFor } from "@/sanity/lib/client";
+import { isSanityConfigured } from "@/sanity/env";
+import { client, urlFor } from "@/sanity/lib/client";
 import {
   type CardPost,
   type PortfolioPost,
   localizePortfolioPost,
 } from "./blog-utils";
-import { Eyebrow } from "./Eyebrow";
+import { Eyebrow, SECTION_CONTAINER } from "./Eyebrow";
 
 // Featured (latest) + 4 recent posts for the home blog section
 const portfolioPostsQuery = groq`*[_type == "post" && defined(slug.current)]
@@ -37,7 +38,12 @@ const recentTitle =
 const BlogSection = async ({ locale }: { locale: string }) => {
   const t = await getTranslations("portfolio.blog");
 
-  const raw = await safeFetch<PortfolioPost>(portfolioPostsQuery, { locale });
+  // Unconfigured Sanity (dev/CI) → sample fallback below. A real fetch error
+  // deliberately THROWS so ISR keeps serving the last good page instead of
+  // caching the fabricated sample posts over real content.
+  const raw = isSanityConfigured()
+    ? await client.fetch<PortfolioPost[]>(portfolioPostsQuery, { locale })
+    : [];
   const posts = raw.map((post) => localizePortfolioPost(post, locale));
 
   // Keep the reference sample copy as placeholder data until Sanity has posts
@@ -75,10 +81,7 @@ const BlogSection = async ({ locale }: { locale: string }) => {
     : `${featured.date} · ${t("minRead", { minutes: featured.minutes })}`;
 
   return (
-    <section
-      id="blog"
-      className="mx-auto max-w-[1080px] px-5 py-14 md:px-6 md:py-[clamp(64px,9vw,112px)]"
-    >
+    <section id="blog" className={SECTION_CONTAINER}>
       <Eyebrow>{t("eyebrow")}</Eyebrow>
       <div className="md:flex md:flex-wrap md:items-end md:justify-between md:gap-6">
         <h2 className="mt-2.5 text-[26px] leading-[1.15] font-bold tracking-[-0.02em] md:mt-3 md:text-[clamp(28px,3.6vw,38px)]">

@@ -5,6 +5,9 @@ import { useLocale, useTranslations } from "next-intl";
 
 type TermItem = { cmd: string } | { out: string[]; status?: boolean };
 
+// Locale-independent command literals; output lines come from translations.
+const COMMANDS = ["whoami", "cat stack.txt", "./status --production"] as const;
+
 interface TermState {
   i: number;
   chars: number;
@@ -30,11 +33,11 @@ const Terminal = () => {
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const script: TermItem[] = [
-    { cmd: "whoami" },
+    { cmd: COMMANDS[0] },
     { out: [t("term1")] },
-    { cmd: "cat stack.txt" },
+    { cmd: COMMANDS[1] },
     { out: [t("term2a"), t("term2b")] },
-    { cmd: "./status --production" },
+    { cmd: COMMANDS[2] },
     { out: [t("term3")], status: true },
   ];
   const scriptLength = script.length;
@@ -42,7 +45,8 @@ const Terminal = () => {
   useEffect(() => {
     // Item shapes/lengths are static across locales, so the advance loop only
     // depends on scriptLength; the rendered text swaps live via translations.
-    const cmdLengths = [6, 0, 13, 0, 21, 0];
+    // Commands sit at even indexes; output items type nothing.
+    const cmdLengths = COMMANDS.flatMap((cmd) => [cmd.length, 0]);
 
     const advance = (state: TermState) => {
       if (state.i >= scriptLength) {
@@ -116,6 +120,9 @@ const Terminal = () => {
 
   return (
     <div
+      // Decorative: the typed content duplicates the hero/skills copy, and a
+      // partially-typed frame is noise for screen readers.
+      aria-hidden="true"
       className="fade-up overflow-hidden rounded-[14px] border border-[var(--term-line)] bg-[#0F1115] shadow-[0_18px_40px_rgba(22,24,29,0.16)] md:shadow-[0_24px_48px_rgba(22,24,29,0.18)]"
       style={{ "--fade-delay": "0.32s" } as React.CSSProperties}
     >
@@ -127,7 +134,7 @@ const Terminal = () => {
           {t("termUser")}
         </span>
       </div>
-      <div className="min-h-[200px] px-[18px] pb-5 pt-4 font-mono text-xs leading-[2.05] text-[#C4CAD6] md:min-h-[224px] md:px-[22px] md:pb-6 md:pt-5 md:text-[13px]">
+      <div className="min-h-[200px] px-[18px] pt-4 pb-5 font-mono text-xs leading-[2.05] text-[#C4CAD6] md:min-h-[224px] md:px-[22px] md:pt-5 md:pb-6 md:text-[13px]">
         {rows}
       </div>
     </div>

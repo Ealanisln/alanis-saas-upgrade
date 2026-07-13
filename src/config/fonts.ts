@@ -1,17 +1,12 @@
 import { Geist, JetBrains_Mono } from "next/font/google";
 
-export const geistSans = Geist({
+// One Geist instance serves both headings and body (identical weights) so
+// Next emits a single @font-face/preload set instead of two duplicates.
+export const geist = Geist({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
-  variable: "--font-geist-heading",
-});
-
-export const geistBody = Geist({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-geist-body",
+  variable: "--font-geist",
 });
 
 export const jetbrainsMono = JetBrains_Mono({
@@ -21,8 +16,4 @@ export const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
 });
 
-export const fontVariables = [
-  geistSans.variable,
-  geistBody.variable,
-  jetbrainsMono.variable,
-].join(" ");
+export const fontVariables = [geist.variable, jetbrainsMono.variable].join(" ");

@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { Eyebrow, SectionTitle } from "./Eyebrow";
+import { Eyebrow, SECTION_CONTAINER, SectionTitle } from "./Eyebrow";
 
 interface SkillGroup {
   name: string;
@@ -12,7 +12,7 @@ const Skills = async () => {
 
   return (
     <section id="skills" className="border-y border-line bg-card">
-      <div className="mx-auto max-w-[1080px] px-5 py-14 md:px-6 md:py-[clamp(64px,9vw,112px)]">
+      <div className={SECTION_CONTAINER}>
         <Eyebrow>{t("eyebrow")}</Eyebrow>
         <SectionTitle>{t("title")}</SectionTitle>
         <div className="mt-8 flex flex-col gap-[26px] md:mt-11 md:grid md:grid-cols-[repeat(auto-fit,minmax(220px,1fr))] md:gap-[clamp(24px,4vw,40px)]">
@@ -21,7 +21,7 @@ const Skills = async () => {
               key={group.name}
               className="flex flex-col gap-[11px] border-t-2 border-accent pt-3.5 md:gap-3 md:pt-4"
             >
-              <h3 className="text-[13px] font-bold uppercase tracking-[0.05em] text-ink md:text-sm">
+              <h3 className="text-[13px] font-bold tracking-[0.05em] text-ink uppercase md:text-sm">
                 {group.name}
               </h3>
               {/* Chips on mobile, plain stacked list on desktop */}

@@ -65,11 +65,26 @@ const Nav = () => {
     document.documentElement.lang = locale;
   }, [locale]);
 
+  // Keep mobile browser chrome in sync with the class-based theme (the static
+  // meta in the root layout only knows the light default)
+  useEffect(() => {
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute(
+        "content",
+        resolvedTheme === "dark" ? "#0F1115" : "#F7F8FA",
+      );
+  }, [resolvedTheme]);
+
   const toggleTheme = () =>
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
 
   const toggleLocale = () =>
-    router.replace(pathname, { locale: locale === "en" ? "es" : "en" });
+    // Keep the section hash so switching language doesn't dump the reader
+    // back to the top of the single-page layout
+    router.replace(pathname + window.location.hash, {
+      locale: locale === "en" ? "es" : "en",
+    });
 
   const iconButton =
     "inline-flex cursor-pointer items-center justify-center rounded-[10px] border border-line-2 bg-card text-ink-3 transition-colors hover:border-ink-4 hover:text-ink md:rounded-lg";
@@ -93,12 +108,14 @@ const Nav = () => {
               className="block h-6 w-auto"
             />
           </span>
+          {/* Mobile wordmarks skip `priority`: only one of the three logo
+              variants renders per breakpoint/theme, so preloading all three
+              would compete with real above-the-fold resources */}
           <Image
             src="/assets/logo-dark.svg"
             alt={t("logoAlt")}
             width={107}
             height={24}
-            priority
             className="block h-6 w-auto md:hidden dark:hidden"
           />
           <Image
@@ -106,7 +123,6 @@ const Nav = () => {
             alt={t("logoAlt")}
             width={107}
             height={24}
-            priority
             className="hidden h-6 w-auto max-md:dark:block"
           />
         </NavAnchor>

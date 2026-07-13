@@ -25,6 +25,8 @@ export const formatDate = (iso: string | undefined, locale: string) => {
     month: "short",
     day: "numeric",
     year: "numeric",
+    // Post dates render the same regardless of server/viewer timezone
+    timeZone: "UTC",
   }).format(new Date(iso));
 };
 

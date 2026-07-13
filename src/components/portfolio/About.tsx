@@ -1,14 +1,11 @@
 import { getTranslations } from "next-intl/server";
-import { Eyebrow, SectionTitle } from "./Eyebrow";
+import { Eyebrow, SECTION_CONTAINER, SectionTitle } from "./Eyebrow";
 
 const About = async () => {
   const t = await getTranslations("portfolio.about");
 
   return (
-    <section
-      id="about"
-      className="mx-auto max-w-[1080px] px-5 py-14 md:px-6 md:py-[clamp(64px,9vw,112px)]"
-    >
+    <section id="about" className={SECTION_CONTAINER}>
       <div className="grid grid-cols-1 gap-[22px] md:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] md:gap-[clamp(28px,5vw,64px)]">
         <div>
           <Eyebrow>{t("eyebrow")}</Eyebrow>

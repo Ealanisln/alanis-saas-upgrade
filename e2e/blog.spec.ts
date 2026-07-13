@@ -97,9 +97,11 @@ test.describe("Blog Page", () => {
       // Section heading
       await expect(blogSection.locator("h2")).toBeVisible();
 
-      // Featured card + 4 recent rows (fallback copy renders when Sanity is empty)
+      // Data-shape-agnostic: 2 "view all" links + at least the featured card.
+      // (7 links with fallback copy or >=3 posts, but a live dataset with 1-2
+      // posts legitimately renders fewer rows.)
       const postLinks = blogSection.locator('a[href*="/blog"]');
-      expect(await postLinks.count()).toBeGreaterThanOrEqual(5);
+      expect(await postLinks.count()).toBeGreaterThanOrEqual(3);
     });
 
     test("view-all link should navigate to the blog listing", async ({

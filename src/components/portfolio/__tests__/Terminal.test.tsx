@@ -47,11 +47,16 @@ describe("Terminal", () => {
     expect(container.querySelector(".animate-blink")).not.toBeNull();
   });
 
-  it("cleans up its timer on unmount", () => {
-    const clearSpy = vi.spyOn(global, "clearTimeout");
+  it("leaves no pending timers after unmount", () => {
     const { unmount } = render(<Terminal />);
+    act(() => {
+      vi.advanceTimersByTime(700); // mid-typing
+    });
     unmount();
-    expect(clearSpy).toHaveBeenCalled();
-    clearSpy.mockRestore();
+    expect(vi.getTimerCount()).toBe(0);
+    // Nothing left to fire → no post-unmount setState
+    act(() => {
+      vi.runAllTimers();
+    });
   });
 });

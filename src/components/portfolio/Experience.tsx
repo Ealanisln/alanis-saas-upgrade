@@ -1,12 +1,12 @@
 import { getTranslations } from "next-intl/server";
-import { Eyebrow, SectionTitle } from "./Eyebrow";
+import { Eyebrow, SECTION_CONTAINER, SectionTitle } from "./Eyebrow";
 
 const Experience = async () => {
   const t = await getTranslations("portfolio.experience");
 
   return (
     <section id="experience" className="border-y border-line bg-card">
-      <div className="mx-auto max-w-[1080px] px-5 py-14 md:px-6 md:py-[clamp(64px,9vw,112px)]">
+      <div className={SECTION_CONTAINER}>
         <Eyebrow>{t("eyebrow")}</Eyebrow>
         <SectionTitle>{t("title")}</SectionTitle>
         <div className="mt-8 flex flex-col md:mt-12">
@@ -18,17 +18,17 @@ const Experience = async () => {
             </div>
             <div className="pb-10 md:pb-12">
               <div className="md:flex md:flex-wrap md:items-baseline md:gap-3">
-                <h3 className="text-lg font-bold leading-[1.3] tracking-[-0.01em] md:text-xl">
+                <h3 className="text-lg leading-[1.3] font-bold tracking-[-0.01em] md:text-xl">
                   {t("job1.title")}
                 </h3>
                 <p className="mt-1 text-[13px] font-medium text-ink-3 md:mt-0 md:text-[13.5px]">
                   {t("job1.dates")}
                 </p>
               </div>
-              <p className="mt-2 text-sm font-semibold text-accent [text-wrap:pretty] md:mt-1.5 md:text-[15px]">
+              <p className="mt-2 text-sm font-semibold [text-wrap:pretty] text-accent md:mt-1.5 md:text-[15px]">
                 {t("job1.org")}
               </p>
-              <p className="mt-3 max-w-[720px] text-[14.5px] leading-[1.65] text-ink-2 [text-wrap:pretty] md:mt-3.5 md:text-[15.5px]">
+              <p className="mt-3 max-w-[720px] text-[14.5px] leading-[1.65] [text-wrap:pretty] text-ink-2 md:mt-3.5 md:text-[15.5px]">
                 {t("job1.desc")}
               </p>
               <ul className="mt-3 flex max-w-[720px] list-disc flex-col gap-2 pl-[18px] text-sm leading-[1.6] text-ink-2 md:mt-3.5 md:pl-5 md:text-[15px]">
@@ -46,17 +46,17 @@ const Experience = async () => {
             </div>
             <div>
               <div className="md:flex md:flex-wrap md:items-baseline md:gap-3">
-                <h3 className="text-lg font-bold leading-[1.3] tracking-[-0.01em] md:text-xl">
+                <h3 className="text-lg leading-[1.3] font-bold tracking-[-0.01em] md:text-xl">
                   {t("job2.title")}
                 </h3>
                 <p className="mt-1 text-[13px] font-medium text-ink-3 md:mt-0 md:text-[13.5px]">
                   {t("job2.dates")}
                 </p>
               </div>
-              <p className="mt-2 text-sm font-semibold text-accent [text-wrap:pretty] md:mt-1.5 md:text-[15px]">
+              <p className="mt-2 text-sm font-semibold [text-wrap:pretty] text-accent md:mt-1.5 md:text-[15px]">
                 {t("job2.org")}
               </p>
-              <p className="mt-3 max-w-[720px] text-[14.5px] leading-[1.65] text-ink-2 [text-wrap:pretty] md:mt-3.5 md:text-[15.5px]">
+              <p className="mt-3 max-w-[720px] text-[14.5px] leading-[1.65] [text-wrap:pretty] text-ink-2 md:mt-3.5 md:text-[15.5px]">
                 {t("job2.desc")}
               </p>
               <ul className="mt-3 flex max-w-[720px] list-disc flex-col gap-2 pl-[18px] text-sm leading-[1.6] text-ink-2 md:mt-3.5 md:pl-5 md:text-[15px]">

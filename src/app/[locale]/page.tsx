@@ -84,8 +84,11 @@ export default async function Home({ params }: HomePageProps) {
       {/* JSON-LD structured data - content sourced from trusted translation files only */}
       <script
         type="application/ld+json"
-        // Safe: JSON.stringify of developer-controlled translation strings only
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        // Values are developer-controlled translation strings; the <
+        // escaping keeps the pattern safe if a value ever becomes CMS-sourced
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
       />
 
       <Hero />
