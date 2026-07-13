@@ -3,42 +3,50 @@ import { test, expect } from "./fixtures/test-fixtures";
 
 /**
  * Accessibility tests using axe-core
- * Tests WCAG 2.1 Level AA compliance across main pages
+ * Tests WCAG 2.1 Level AA compliance across the single-page portfolio
+ * (/ and /es) and the blog (the only remaining standalone pages).
  *
  * Note: Tests filter out known issues and only fail on critical violations.
  * Serious and moderate violations are logged for incremental fixes.
  */
 
 // Known issues to exclude from test failures (tracked separately)
-const EXCLUDED_RULES = [
-  "link-in-text-block", // Footer link styling
-  "link-name", // Some icon links need aria-labels (tracked as separate issue)
-];
+const EXCLUDED_RULES: string[] = [];
+
+const scanPage = async (
+  page: import("@playwright/test").Page,
+  path: string,
+  label: string,
+) => {
+  await page.goto(path);
+  await page.waitForLoadState("load");
+
+  const accessibilityScanResults = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa"])
+    .disableRules(EXCLUDED_RULES)
+    .analyze();
+
+  // Log violations for visibility
+  if (accessibilityScanResults.violations.length > 0) {
+    console.log(
+      `${label}: ${accessibilityScanResults.violations.length} violations`,
+    );
+    accessibilityScanResults.violations.forEach((v) => {
+      console.log(`  - [${v.impact}] ${v.id}: ${v.help}`);
+    });
+  }
+
+  return accessibilityScanResults;
+};
 
 test.describe("Accessibility - Page Scans", () => {
-  test("home page should have no critical accessibility violations", async ({
+  test("home page (portfolio) should have no critical accessibility violations", async ({
     page,
   }) => {
-    await page.goto("/");
-    await page.waitForLoadState("load");
-
-    const accessibilityScanResults = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
-      .disableRules(EXCLUDED_RULES)
-      .analyze();
-
-    // Log violations for visibility
-    if (accessibilityScanResults.violations.length > 0) {
-      console.log(
-        `Home page: ${accessibilityScanResults.violations.length} violations`,
-      );
-      accessibilityScanResults.violations.forEach((v) => {
-        console.log(`  - [${v.impact}] ${v.id}: ${v.help}`);
-      });
-    }
+    const results = await scanPage(page, "/", "Home page");
 
     // Only fail on critical violations
-    const criticalViolations = accessibilityScanResults.violations.filter(
+    const criticalViolations = results.violations.filter(
       (v) => v.impact === "critical",
     );
 
@@ -48,105 +56,9 @@ test.describe("Accessibility - Page Scans", () => {
   test("blog page should have no critical accessibility violations", async ({
     page,
   }) => {
-    await page.goto("/blog");
-    await page.waitForLoadState("load");
+    const results = await scanPage(page, "/blog", "Blog page");
 
-    const accessibilityScanResults = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
-      .disableRules(EXCLUDED_RULES)
-      .analyze();
-
-    if (accessibilityScanResults.violations.length > 0) {
-      console.log(
-        `Blog page: ${accessibilityScanResults.violations.length} violations`,
-      );
-      accessibilityScanResults.violations.forEach((v) => {
-        console.log(`  - [${v.impact}] ${v.id}: ${v.help}`);
-      });
-    }
-
-    const criticalViolations = accessibilityScanResults.violations.filter(
-      (v) => v.impact === "critical",
-    );
-
-    expect(criticalViolations).toEqual([]);
-  });
-
-  test("portfolio page should have no critical accessibility violations", async ({
-    page,
-  }) => {
-    await page.goto("/portafolio");
-    await page.waitForLoadState("load");
-
-    const accessibilityScanResults = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
-      .disableRules(EXCLUDED_RULES)
-      .analyze();
-
-    if (accessibilityScanResults.violations.length > 0) {
-      console.log(
-        `Portfolio page: ${accessibilityScanResults.violations.length} violations`,
-      );
-      accessibilityScanResults.violations.forEach((v) => {
-        console.log(`  - [${v.impact}] ${v.id}: ${v.help}`);
-      });
-    }
-
-    const criticalViolations = accessibilityScanResults.violations.filter(
-      (v) => v.impact === "critical",
-    );
-
-    expect(criticalViolations).toEqual([]);
-  });
-
-  test("plans page should have no critical accessibility violations", async ({
-    page,
-  }) => {
-    await page.goto("/plans");
-    await page.waitForLoadState("load");
-
-    const accessibilityScanResults = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
-      .disableRules(EXCLUDED_RULES)
-      .analyze();
-
-    if (accessibilityScanResults.violations.length > 0) {
-      console.log(
-        `Plans page: ${accessibilityScanResults.violations.length} violations`,
-      );
-      accessibilityScanResults.violations.forEach((v) => {
-        console.log(`  - [${v.impact}] ${v.id}: ${v.help}`);
-      });
-    }
-
-    const criticalViolations = accessibilityScanResults.violations.filter(
-      (v) => v.impact === "critical",
-    );
-
-    expect(criticalViolations).toEqual([]);
-  });
-
-  test("contact page should have no critical accessibility violations", async ({
-    page,
-  }) => {
-    await page.goto("/contact");
-    await page.waitForLoadState("load");
-
-    const accessibilityScanResults = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
-      .disableRules(EXCLUDED_RULES)
-      .analyze();
-
-    if (accessibilityScanResults.violations.length > 0) {
-      console.log(
-        `Contact page: ${accessibilityScanResults.violations.length} violations`,
-      );
-      accessibilityScanResults.violations.forEach((v) => {
-        console.log(`  - [${v.impact}] ${v.id}: ${v.help}`);
-      });
-    }
-
-    const criticalViolations = accessibilityScanResults.violations.filter(
+    const criticalViolations = results.violations.filter(
       (v) => v.impact === "critical",
     );
 
@@ -156,29 +68,63 @@ test.describe("Accessibility - Page Scans", () => {
   test("Spanish home page should have no critical accessibility violations", async ({
     page,
   }) => {
-    await page.goto("/es");
-    await page.waitForLoadState("load");
+    const results = await scanPage(page, "/es", "Spanish home");
 
-    const accessibilityScanResults = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
-      .disableRules(EXCLUDED_RULES)
-      .analyze();
-
-    if (accessibilityScanResults.violations.length > 0) {
-      console.log(
-        `Spanish home: ${accessibilityScanResults.violations.length} violations`,
-      );
-      accessibilityScanResults.violations.forEach((v) => {
-        console.log(`  - [${v.impact}] ${v.id}: ${v.help}`);
-      });
-    }
-
-    const criticalViolations = accessibilityScanResults.violations.filter(
+    const criticalViolations = results.violations.filter(
       (v) => v.impact === "critical",
     );
 
     expect(criticalViolations).toEqual([]);
   });
+
+  test("Spanish blog page should have no critical accessibility violations", async ({
+    page,
+  }) => {
+    const results = await scanPage(page, "/es/blog", "Spanish blog");
+
+    const criticalViolations = results.violations.filter(
+      (v) => v.impact === "critical",
+    );
+
+    expect(criticalViolations).toEqual([]);
+  });
+});
+
+test.describe("Accessibility - Portfolio Sections", () => {
+  // The old standalone /about, /portfolio, /plans, /contact pages are now
+  // sections of the single-page portfolio. Scan each section individually
+  // so a violation report points at the responsible section.
+  const sections = ["#about", "#experience", "#projects", "#skills", "#blog"];
+
+  for (const section of sections) {
+    test(`${section} section should have no critical accessibility violations`, async ({
+      page,
+    }) => {
+      await page.goto("/");
+      await page.waitForLoadState("load");
+
+      const accessibilityScanResults = await new AxeBuilder({ page })
+        .include(section)
+        .withTags(["wcag2a", "wcag2aa"])
+        .disableRules(EXCLUDED_RULES)
+        .analyze();
+
+      if (accessibilityScanResults.violations.length > 0) {
+        console.log(
+          `${section} section: ${accessibilityScanResults.violations.length} violations`,
+        );
+        accessibilityScanResults.violations.forEach((v) => {
+          console.log(`  - [${v.impact}] ${v.id}: ${v.help}`);
+        });
+      }
+
+      const criticalViolations = accessibilityScanResults.violations.filter(
+        (v) => v.impact === "critical",
+      );
+
+      expect(criticalViolations).toEqual([]);
+    });
+  }
 });
 
 test.describe("Accessibility - Navigation", () => {
@@ -195,9 +141,9 @@ test.describe("Accessibility - Navigation", () => {
     await page.goto("/");
     await page.waitForLoadState("domcontentloaded");
 
-    // Wait for navigation to be ready
+    // Wait for the sticky nav to be ready
     await page
-      .locator("nav a, header a, [tabindex]")
+      .locator("nav a, nav button, [tabindex]")
       .first()
       .waitFor({ state: "visible" });
 
@@ -211,17 +157,48 @@ test.describe("Accessibility - Navigation", () => {
     expect(focusedElement).toBeTruthy();
     expect(focusedElement).not.toBe("BODY");
   });
+
+  test("nav toggle buttons should have accessible names", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("load");
+
+    // Language toggle (English UI announces the switch target in Spanish)
+    await expect(
+      page.getByRole("button", { name: "Cambiar a español" }),
+    ).toBeVisible();
+
+    // Theme toggle
+    await expect(
+      page.getByRole("button", { name: "Toggle dark mode" }),
+    ).toBeVisible();
+  });
+
+  test("mobile menu button should expose aria-expanded state", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+    await page.waitForLoadState("load");
+
+    const menuButton = page.getByRole("button", { name: "Open menu" });
+    await expect(menuButton).toBeVisible();
+    await expect(menuButton).toHaveAttribute("aria-expanded", "false");
+
+    await menuButton.click();
+    await expect(menuButton).toHaveAttribute("aria-expanded", "true");
+  });
 });
 
-test.describe("Accessibility - Form", () => {
+test.describe("Accessibility - Contact Form", () => {
+  // The contact form now lives in the #contact section of the home page.
   test("contact form should have no critical accessibility violations", async ({
     page,
   }) => {
-    await page.goto("/contact");
+    await page.goto("/");
     await page.waitForLoadState("load");
 
     const accessibilityScanResults = await new AxeBuilder({ page })
-      .include("form")
+      .include("#contact form")
       .withTags(["wcag2a", "wcag2aa"])
       .disableRules(EXCLUDED_RULES)
       .analyze();
@@ -243,7 +220,7 @@ test.describe("Accessibility - Form", () => {
   });
 
   test("form inputs should be focusable", async ({ page }) => {
-    await page.goto("/contact");
+    await page.goto("/");
     await page.waitForLoadState("load");
 
     const nameInput = page.locator('input[name="name"]');
@@ -279,11 +256,11 @@ test.describe("Accessibility - Document Structure", () => {
     expect(lang).toMatch(/^(en|es)/);
   });
 
-  test("page should have at least one h1 heading", async ({ page }) => {
+  test("page should have exactly one h1 (hero name)", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("domcontentloaded");
 
-    // Wait for main content to render (webkit needs explicit element wait)
+    // Wait for the hero heading to render
     await page
       .locator("h1")
       .first()
@@ -292,7 +269,8 @@ test.describe("Accessibility - Document Structure", () => {
     const h1 = page.locator("h1");
     const h1Count = await h1.count();
 
-    expect(h1Count).toBeGreaterThanOrEqual(1);
+    expect(h1Count).toBe(1);
+    await expect(h1.first()).toContainText("Emmanuel Alanis");
   });
 
   test("page should have a title", async ({ page }) => {

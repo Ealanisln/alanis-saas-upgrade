@@ -1,323 +1,296 @@
 import { test, expect } from "./fixtures/test-fixtures";
+import type { Page } from "@playwright/test";
 
 /**
- * E2E tests for dark mode functionality
- * Tests theme toggle dropdown, persistence, and CSS class application
+ * E2E tests for dark mode functionality on the single-page portfolio.
  *
- * The ThemeToggler component uses a dropdown with 3 options:
- * - Light mode
- * - Dark mode
- * - System (follows device preference)
+ * The redesign replaced the old 3-option dropdown (light/dark/system) with a
+ * single toggle button in the sticky nav (aria-label "Toggle dark mode"):
+ * - next-themes class strategy: <html> gets class "dark"
+ * - defaultTheme "light", enableSystem false (system preference is IGNORED)
+ * - persistence via localStorage key "alanis-portfolio-theme" (not "theme")
+ * - moon icon shown in light mode, sun icon in dark (swapped via CSS dark:)
  */
 
+const TOGGLE_SELECTOR = 'button[aria-label="Toggle dark mode"]';
+const STORAGE_KEY = "alanis-portfolio-theme";
+
+// Key palette values (see DESIGN tokens in src/styles/index.css)
+const LIGHT_BODY_BG = "rgb(247, 248, 250)"; // #F7F8FA
+const DARK_BODY_BG = "rgb(15, 17, 21)"; // #0F1115
+
 test.describe("Dark Mode", () => {
-  // Skip all dark mode tests on WebKit - the ThemeToggler component doesn't
-  // hydrate properly in Playwright's WebKit due to next-themes interaction issues.
-  // Functionality is verified by Chromium and Firefox tests.
+  // The dev server compiles routes on demand and may be shared with parallel
+  // suites; allow generous navigation time so cold compiles don't flake.
+  test.use({ navigationTimeout: 60_000 });
+  test.describe.configure({ timeout: 90_000 });
+
+  // Skip all dark mode tests on WebKit - next-themes hydration is unreliable
+  // in Playwright's WebKit. Functionality is verified by Chromium and Firefox.
   test.skip(
     ({ browserName }) => browserName === "webkit",
     "WebKit has hydration issues with next-themes",
   );
 
-  // Helper to wait for theme toggle to be ready and scroll it into view
-  const waitForThemeToggle = async (page: import("@playwright/test").Page) => {
-    // Wait for the theme toggle to be visible (indicates hydration complete)
-    // Don't use networkidle as it can timeout in CI due to analytics scripts
-    const toggle = page.locator('[data-testid="theme-toggle-button"]');
-    await toggle.waitFor({ state: "visible", timeout: 15000 });
-    // Scroll into view to avoid image interception issues
-    await toggle.scrollIntoViewIfNeeded();
-  };
+  const themeToggle = (page: Page) => page.locator(TOGGLE_SELECTOR);
 
-  // Selectors using data-testid
-  const selectors = {
-    themeToggle: '[data-testid="theme-toggle-button"]',
-    dropdown: '[data-testid="theme-dropdown"]',
-    lightOption: '[data-testid="theme-option-light"]',
-    darkOption: '[data-testid="theme-option-dark"]',
-    systemOption: '[data-testid="theme-option-system"]',
+  // Deterministically drive the toggle to the requested theme. Retries the
+  // click until the class flips, which also absorbs the pre-hydration window
+  // where the button is visible but React has not attached handlers yet.
+  const setTheme = async (page: Page, theme: "dark" | "light") => {
+    const html = page.locator("html");
+    await themeToggle(page).waitFor({ state: "visible", timeout: 15000 });
+    await expect(async () => {
+      const isDark = await html.evaluate((el) => el.classList.contains("dark"));
+      if ((theme === "dark") !== isDark) {
+        await themeToggle(page).click();
+      }
+      if (theme === "dark") {
+        await expect(html).toHaveClass(/dark/, { timeout: 1000 });
+      } else {
+        await expect(html).not.toHaveClass(/dark/, { timeout: 1000 });
+      }
+    }).toPass({ timeout: 15000 });
   };
 
   test.describe("Theme Toggle Button", () => {
-    test("should have a theme toggle button in the header", async ({
+    test("should have a theme toggle button in the sticky nav", async ({
       page,
     }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator(selectors.themeToggle);
-      await expect(themeToggle).toBeVisible();
+      const toggle = themeToggle(page);
+      await expect(toggle).toBeVisible();
+
+      // It lives inside the nav
+      await expect(page.locator(`nav ${TOGGLE_SELECTOR}`)).toBeVisible();
     });
 
-    test("should open dropdown when clicked", async ({ page }) => {
+    test("should default to light theme", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator(selectors.themeToggle);
-
-      // Click to open dropdown
-      await themeToggle.click();
-
-      // Dropdown should be visible with all 3 options
-      await expect(page.locator(selectors.dropdown)).toBeVisible();
-      await expect(page.locator(selectors.lightOption)).toBeVisible();
-      await expect(page.locator(selectors.darkOption)).toBeVisible();
-      await expect(page.locator(selectors.systemOption)).toBeVisible();
-    });
-
-    test("should toggle dark mode when dark option is selected", async ({
-      page,
-    }) => {
-      await page.goto("/");
-      await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
-
+      // defaultTheme is "light" — no dark class on a fresh visit
       const html = page.locator("html");
-      const themeToggle = page.locator(selectors.themeToggle);
+      await expect(html).not.toHaveClass(/dark/);
 
-      // Open dropdown and select dark mode
-      await themeToggle.click();
-      await page.locator(selectors.darkOption).click();
-
-      // Check that dark class is present (with timeout for WebKit)
-      await expect(html).toHaveClass(/dark/, { timeout: 10000 });
+      const bodyBg = await page
+        .locator("body")
+        .evaluate((el) => getComputedStyle(el).backgroundColor);
+      expect(bodyBg).toBe(LIGHT_BODY_BG);
     });
 
-    test("should toggle to light mode when light option is selected", async ({
+    test("should switch to dark mode on click", async ({ page }) => {
+      await page.goto("/");
+      await page.waitForLoadState("load");
+
+      await setTheme(page, "dark");
+
+      await expect(page.locator("html")).toHaveClass(/dark/);
+    });
+
+    test("should switch back to light mode on a second click", async ({
       page,
     }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
 
-      const html = page.locator("html");
-      const themeToggle = page.locator(selectors.themeToggle);
+      await setTheme(page, "dark");
+      await expect(page.locator("html")).toHaveClass(/dark/);
 
-      // Open dropdown and select light mode
-      await themeToggle.click();
-      await page.locator(selectors.lightOption).click();
-
-      // Wait for theme to apply and check dark class is NOT present
-      await expect(html).not.toHaveClass(/dark/, { timeout: 10000 });
-    });
-
-    test("should close dropdown when option is selected", async ({ page }) => {
-      await page.goto("/");
-      await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
-
-      const themeToggle = page.locator(selectors.themeToggle);
-
-      // Open dropdown
-      await themeToggle.click();
-      await expect(page.locator(selectors.dropdown)).toBeVisible();
-
-      // Select an option
-      await page.locator(selectors.darkOption).click();
-
-      // Dropdown should be closed (with timeout for WebKit)
-      await expect(page.locator(selectors.dropdown)).not.toBeVisible({
-        timeout: 10000,
-      });
-    });
-
-    test("should close dropdown when clicking outside", async ({ page }) => {
-      await page.goto("/");
-      await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
-
-      const themeToggle = page.locator(selectors.themeToggle);
-
-      // Open dropdown
-      await themeToggle.click();
-      await expect(page.locator(selectors.dropdown)).toBeVisible();
-
-      // Click outside (on the page body)
-      await page.locator("body").click({ position: { x: 10, y: 10 } });
-
-      // Dropdown should be closed (with timeout for WebKit)
-      await expect(page.locator(selectors.dropdown)).not.toBeVisible({
+      // A real second click (no retries needed — hydration is proven by now)
+      await themeToggle(page).click();
+      await expect(page.locator("html")).not.toHaveClass(/dark/, {
         timeout: 10000,
       });
     });
   });
 
-  test.describe("Dark Mode CSS Classes", () => {
-    test("should apply dark class to html element when dark mode is selected", async ({
+  test.describe("Dark Mode CSS", () => {
+    test("should apply the dark class and color-scheme to <html>", async ({
       page,
     }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
+
+      await setTheme(page, "dark");
 
       const html = page.locator("html");
-      const themeToggle = page.locator(selectors.themeToggle);
-
-      // Open dropdown and select dark mode
-      await themeToggle.click();
-      await page.locator(selectors.darkOption).click();
-
-      // Verify dark class is present (with timeout for WebKit)
-      await expect(html).toHaveClass(/dark/, { timeout: 10000 });
+      await expect(html).toHaveClass(/dark/);
+      await expect(html).toHaveCSS("color-scheme", "dark");
     });
 
-    test("should remove dark class when light mode is selected", async ({
+    test("should remove the dark class and restore light color-scheme", async ({
       page,
     }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
+
+      await setTheme(page, "dark");
+      await setTheme(page, "light");
 
       const html = page.locator("html");
-      const themeToggle = page.locator(selectors.themeToggle);
+      await expect(html).not.toHaveClass(/dark/);
+      await expect(html).toHaveCSS("color-scheme", "light");
+    });
 
-      // First set to dark mode
-      await themeToggle.click();
-      await page.locator(selectors.darkOption).click();
-      await expect(html).toHaveClass(/dark/, { timeout: 10000 });
+    test("should swap the body background between palettes", async ({
+      page,
+    }) => {
+      await page.goto("/");
+      await page.waitForLoadState("load");
 
-      // Now set to light mode
-      await themeToggle.click();
-      await page.locator(selectors.lightOption).click();
+      const bodyBg = () =>
+        page
+          .locator("body")
+          .evaluate((el) => getComputedStyle(el).backgroundColor);
 
-      // Verify dark class is NOT present (with timeout for WebKit)
-      await expect(html).not.toHaveClass(/dark/, { timeout: 10000 });
+      expect(await bodyBg()).toBe(LIGHT_BODY_BG);
+
+      await setTheme(page, "dark");
+      expect(await bodyBg()).toBe(DARK_BODY_BG);
     });
   });
 
   test.describe("Theme Persistence", () => {
+    test("should store the theme under the new localStorage key", async ({
+      page,
+    }) => {
+      await page.goto("/");
+      await page.waitForLoadState("load");
+
+      await setTheme(page, "dark");
+
+      const stored = await page.evaluate(
+        (key) => localStorage.getItem(key),
+        STORAGE_KEY,
+      );
+      expect(stored).toBe("dark");
+    });
+
+    test("should ignore the legacy 'theme' localStorage key", async ({
+      page,
+    }) => {
+      // The old site persisted under "theme"; the redesign uses
+      // "alanis-portfolio-theme". A stale legacy value must have no effect.
+      await page.addInitScript(() => {
+        localStorage.setItem("theme", "dark");
+      });
+
+      await page.goto("/");
+      await page.waitForLoadState("load");
+
+      await expect(page.locator("html")).not.toHaveClass(/dark/);
+    });
+
     test("should persist theme across page navigation", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator(selectors.themeToggle);
+      await setTheme(page, "dark");
 
-      // Set to dark mode
-      await themeToggle.click();
-      await page.locator(selectors.darkOption).click();
+      // Navigate to the blog (the only remaining secondary page)
+      await page.goto("/blog");
+      await page.waitForLoadState("load");
+
       await expect(page.locator("html")).toHaveClass(/dark/, {
         timeout: 10000,
       });
-
-      // Navigate to another page
-      await page.goto("/blog");
-      await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
-
-      // Check theme is still dark (with timeout for WebKit)
-      const blogHtml = page.locator("html");
-      await expect(blogHtml).toHaveClass(/dark/, { timeout: 10000 });
     });
 
     test("should persist theme on page refresh", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
 
-      const html = page.locator("html");
-      const themeToggle = page.locator(selectors.themeToggle);
+      await setTheme(page, "dark");
 
-      // Set to dark mode
-      await themeToggle.click();
-      await page.locator(selectors.darkOption).click();
-
-      // Verify it's dark (with timeout for WebKit)
-      await expect(html).toHaveClass(/dark/, { timeout: 10000 });
-
-      // Refresh the page
       await page.reload();
       await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
 
-      // Check theme is still dark after refresh (with timeout for WebKit)
-      const refreshedHtml = page.locator("html");
-      await expect(refreshedHtml).toHaveClass(/dark/, { timeout: 10000 });
+      await expect(page.locator("html")).toHaveClass(/dark/, {
+        timeout: 10000,
+      });
+    });
+  });
+
+  test.describe("System Preference", () => {
+    // enableSystem is false — replaces the old "system option" coverage
+    test("should ignore a dark OS preference and stay light by default", async ({
+      page,
+    }) => {
+      await page.emulateMedia({ colorScheme: "dark" });
+
+      await page.goto("/");
+      await page.waitForLoadState("load");
+
+      const html = page.locator("html");
+      await expect(html).not.toHaveClass(/dark/);
+
+      const bodyBg = await page
+        .locator("body")
+        .evaluate((el) => getComputedStyle(el).backgroundColor);
+      expect(bodyBg).toBe(LIGHT_BODY_BG);
+    });
+
+    test("should keep an explicit dark choice under a light OS preference", async ({
+      page,
+    }) => {
+      await page.emulateMedia({ colorScheme: "light" });
+
+      await page.goto("/");
+      await page.waitForLoadState("load");
+
+      await setTheme(page, "dark");
+      await expect(page.locator("html")).toHaveClass(/dark/);
     });
   });
 
   test.describe("Theme Toggle Icons", () => {
-    test("should show sun icon when in light mode", async ({ page }) => {
+    // The button renders both icons; CSS dark: classes show exactly one.
+    const visibleIcon = async (page: Page) => {
+      const svgs = themeToggle(page).locator("svg");
+      await expect(svgs).toHaveCount(2);
+      const visible = themeToggle(page).locator("svg:visible");
+      await expect(visible).toHaveCount(1);
+      return visible.evaluate((el) => el.outerHTML);
+    };
+
+    test("should show the moon icon in light mode", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator(selectors.themeToggle);
+      await setTheme(page, "light");
 
-      // Set to light mode
-      await themeToggle.click();
-      await page.locator(selectors.lightOption).click();
-
-      // In light mode, the button should contain an SVG (sun icon) - with timeout for WebKit
-      const icon = themeToggle.locator("svg");
-      await expect(icon).toBeVisible({ timeout: 10000 });
+      // Exactly one icon visible in light mode
+      await expect(themeToggle(page).locator("svg:visible")).toHaveCount(1);
     });
 
-    test("should show moon icon when in dark mode", async ({ page }) => {
+    test("should swap to the other icon in dark mode", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator(selectors.themeToggle);
+      await setTheme(page, "light");
+      const lightIcon = await visibleIcon(page);
 
-      // Set to dark mode
-      await themeToggle.click();
-      await page.locator(selectors.darkOption).click();
+      await setTheme(page, "dark");
+      const darkIcon = await visibleIcon(page);
 
-      // In dark mode, the button should contain an SVG (moon icon) - with timeout for WebKit
-      const icon = themeToggle.locator("svg");
-      await expect(icon).toBeVisible({ timeout: 10000 });
-    });
-
-    test("should show system icon when in system mode", async ({ page }) => {
-      await page.goto("/");
-      await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
-
-      const themeToggle = page.locator(selectors.themeToggle);
-
-      // Set to system mode
-      await themeToggle.click();
-      await page.locator(selectors.systemOption).click();
-
-      // In system mode, the button should contain an SVG (system/monitor icon) - with timeout for WebKit
-      const icon = themeToggle.locator("svg");
-      await expect(icon).toBeVisible({ timeout: 10000 });
+      // Moon (light) and sun (dark) are different SVGs
+      expect(darkIcon).not.toBe(lightIcon);
     });
   });
 
   test.describe("Accessibility", () => {
-    test("theme toggle button should have accessible label", async ({
+    test("theme toggle button should have an accessible label", async ({
       page,
     }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator(selectors.themeToggle);
-
-      await expect(themeToggle).toHaveAttribute("aria-label", "theme toggler");
-    });
-
-    test("theme toggle should have aria-expanded attribute", async ({
-      page,
-    }) => {
-      await page.goto("/");
-      await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
-
-      const themeToggle = page.locator(selectors.themeToggle);
-
-      // Initially should be false
-      await expect(themeToggle).toHaveAttribute("aria-expanded", "false");
-
-      // Open dropdown
-      await themeToggle.click();
-
-      // Now should be true
-      await expect(themeToggle).toHaveAttribute("aria-expanded", "true");
+      const toggle = themeToggle(page);
+      await expect(toggle).toBeVisible();
+      await expect(toggle).toHaveAttribute("aria-label", "Toggle dark mode");
     });
 
     test("theme toggle should be keyboard accessible", async ({
@@ -332,86 +305,47 @@ test.describe("Dark Mode", () => {
 
       await page.goto("/");
       await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
 
-      const themeToggle = page.locator(selectors.themeToggle);
+      // Prove hydration first via a pointer round-trip, ending in light mode
+      await setTheme(page, "dark");
+      await setTheme(page, "light");
 
-      // Focus the button
-      await themeToggle.focus();
-      await expect(themeToggle).toBeFocused();
+      const toggle = themeToggle(page);
+      await toggle.focus();
+      await expect(toggle).toBeFocused();
 
-      // Should open dropdown with Enter
+      // Enter activates the button and toggles to dark
       await page.keyboard.press("Enter");
-
-      // Dropdown should be open (with timeout for slower browsers)
-      await expect(page.locator(selectors.dropdown)).toBeVisible({
-        timeout: 10000,
-      });
-
-      // Navigate with Tab to dark mode option and press Enter
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Enter");
-
-      // Should have changed to dark mode (with timeout for slower browsers)
-      const html = page.locator("html");
-      await expect(html).toHaveClass(/dark/, { timeout: 10000 });
-    });
-
-    test("dropdown options should be buttons", async ({ page }) => {
-      await page.goto("/");
-      await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
-
-      const themeToggle = page.locator(selectors.themeToggle);
-
-      // Open dropdown
-      await themeToggle.click();
-
-      // All options should be buttons within the dropdown
-      const dropdown = page.locator(selectors.dropdown);
-      const buttons = dropdown.locator("button");
-      await expect(buttons).toHaveCount(3);
-    });
-  });
-
-  test.describe("System Theme Option", () => {
-    test("should have system option in dropdown", async ({ page }) => {
-      await page.goto("/");
-      await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
-
-      const themeToggle = page.locator(selectors.themeToggle);
-
-      // Open dropdown
-      await themeToggle.click();
-
-      // System option should be visible in dropdown
-      await expect(page.locator(selectors.systemOption)).toBeVisible();
-    });
-
-    test("should be able to select system theme", async ({ page }) => {
-      await page.goto("/");
-      await page.waitForLoadState("load");
-      await waitForThemeToggle(page);
-
-      const themeToggle = page.locator(selectors.themeToggle);
-
-      // First set to dark mode
-      await themeToggle.click();
-      await page.locator(selectors.darkOption).click();
       await expect(page.locator("html")).toHaveClass(/dark/, {
         timeout: 10000,
       });
+    });
+  });
 
-      // Now set to system mode
-      await themeToggle.click();
-      await page.locator(selectors.systemOption).click();
+  test.describe("Mobile", () => {
+    test.use({ viewport: { width: 390, height: 844 } });
 
-      // Dropdown should be closed (selection was made) - with timeout for WebKit
-      await expect(page.locator(selectors.dropdown)).not.toBeVisible({
-        timeout: 10000,
-      });
+    test("toggle is visible on mobile with a 44px touch target", async ({
+      page,
+    }) => {
+      await page.goto("/");
+      await page.waitForLoadState("load");
+
+      const toggle = themeToggle(page);
+      await expect(toggle).toBeVisible();
+
+      const box = await toggle.boundingBox();
+      expect(box).not.toBeNull();
+      expect(box!.width).toBeGreaterThanOrEqual(44);
+      expect(box!.height).toBeGreaterThanOrEqual(44);
+    });
+
+    test("toggle works on mobile", async ({ page }) => {
+      await page.goto("/");
+      await page.waitForLoadState("load");
+
+      await setTheme(page, "dark");
+      await expect(page.locator("html")).toHaveClass(/dark/);
     });
   });
 });

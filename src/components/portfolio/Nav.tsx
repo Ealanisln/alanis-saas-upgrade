@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
@@ -50,6 +50,12 @@ const Nav = () => {
 
   const isHome = pathname === "/";
 
+  // The root layout stamps <html lang> from the request cookie; a client-side
+  // locale switch is a soft navigation that never re-renders it, so sync here.
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
+
   const toggleTheme = () =>
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
 
@@ -63,8 +69,12 @@ const Nav = () => {
     <nav className="sticky top-0 z-50 border-b border-line bg-[var(--nav-bg)] backdrop-blur-[12px]">
       <div className="mx-auto flex h-[60px] max-w-[1080px] items-center justify-between gap-2.5 px-[18px] md:h-[68px] md:gap-4 md:px-6">
         {/* Logo — dark chip on desktop, bare wordmark on mobile */}
-        <NavAnchor isHome={isHome} id="top" className="flex shrink-0 items-center">
-          <span className="hidden items-center rounded-lg border border-[var(--chip-line)] bg-[var(--chip-bg)] pb-[5px] pl-3 pr-3 pt-[7px] md:inline-flex">
+        <NavAnchor
+          isHome={isHome}
+          id="top"
+          className="flex shrink-0 items-center"
+        >
+          <span className="hidden items-center rounded-lg border border-[var(--chip-line)] bg-[var(--chip-bg)] pt-[7px] pr-3 pb-[5px] pl-3 md:inline-flex">
             <Image
               src="/assets/logo-light.svg"
               alt={t("logoAlt")}
@@ -97,7 +107,7 @@ const Nav = () => {
           <div className="hidden items-center gap-[22px] md:flex">
             {SECTIONS.map((id) => (
               <NavAnchor
-              isHome={isHome}
+                isHome={isHome}
                 key={id}
                 id={id}
                 className="text-sm font-medium text-ink-3 transition-colors hover:text-ink"
@@ -145,7 +155,7 @@ const Nav = () => {
 
           {/* Desktop CTA */}
           <NavAnchor
-              isHome={isHome}
+            isHome={isHome}
             id="contact"
             className="hidden rounded-lg bg-accent px-[18px] py-[9px] text-sm font-semibold text-white transition-[filter] hover:brightness-[0.92] md:inline-block"
           >
@@ -156,7 +166,7 @@ const Nav = () => {
 
       {/* Mobile dropdown menu */}
       {menuOpen && (
-        <div className="animate-menu-in flex flex-col gap-0.5 border-t border-line px-[18px] pb-4 pt-1.5 md:hidden">
+        <div className="flex animate-menu-in flex-col gap-0.5 border-t border-line px-[18px] pt-1.5 pb-4 md:hidden">
           {SECTIONS.map((id) => (
             <NavAnchor
               isHome={isHome}
@@ -169,7 +179,7 @@ const Nav = () => {
             </NavAnchor>
           ))}
           <NavAnchor
-              isHome={isHome}
+            isHome={isHome}
             id="contact"
             onClick={() => setMenuOpen(false)}
             className="mt-3.5 rounded-[10px] bg-accent p-[13px] text-center text-[15px] font-semibold text-white"

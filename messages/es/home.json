@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Emmanuel Alanis - Desarrollador Full-Stack",
-    "description": "Desarrollador full-stack construyendo aplicaciones web escalables con React, Next.js y TypeScript.",
+    "title": "Emmanuel Alanis — Desarrollador Full Stack Senior",
+    "description": "Desarrollador full-stack senior en la Ciudad de México (GMT-6) con ownership a nivel plataforma de sistemas en producción en fintech y logística/e-commerce. Abierto a roles remotos.",
     "keywords": [
       "desarrollador full-stack",
       "ingeniero de software",
@@ -89,6 +89,6 @@
   },
   "jsonLd": {
     "name": "Emmanuel Alanis",
-    "jobTitle": "Desarrollador Full-Stack"
+    "jobTitle": "Desarrollador Full Stack Senior"
   }
 }

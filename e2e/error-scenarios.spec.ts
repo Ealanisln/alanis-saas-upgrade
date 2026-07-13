@@ -35,18 +35,32 @@ test.describe("Error Scenarios", () => {
       // Accept 404 or 200 (soft 404)
       expect([200, 404]).toContain(status);
     });
+  });
 
-    test("should show 404 for invalid portfolio slug", async ({
+  test.describe("Legacy Route Redirects", () => {
+    // The redesign folded /about and /contact into the single-page
+    // portfolio; the old routes survive only as redirects to /#about
+    // and /#contact. Next streams the shell before the client lands on
+    // the hash URL, so we wait for the final URL instead of asserting
+    // an HTTP 307.
+    test("/about should land on the home #about section", async ({
       page,
       localePath,
     }) => {
-      const response = await page.goto(
-        localePath("/portfolio/invalid-project-xyz"),
-      );
+      await page.goto(localePath("/about"));
+      await page.waitForURL(/#about$/, { timeout: 15000 });
 
-      const status = response?.status();
-      // Accept 404 or 200 (soft 404)
-      expect([200, 404]).toContain(status);
+      await expect(page.locator("section#about")).toBeVisible();
+    });
+
+    test("/contact should land on the home #contact section", async ({
+      page,
+      localePath,
+    }) => {
+      await page.goto(localePath("/contact"));
+      await page.waitForURL(/#contact$/, { timeout: 15000 });
+
+      await expect(page.locator("section#contact")).toBeVisible();
     });
   });
 
@@ -114,11 +128,12 @@ test.describe("Error Scenarios", () => {
   });
 
   test.describe("Form Validation Errors", () => {
+    // The contact form now lives in the #contact section of the home page.
     test("should show validation error for empty contact form", async ({
       page,
       localePath,
     }) => {
-      await page.goto(localePath("/contact"));
+      await page.goto(localePath("/"));
       await page.waitForLoadState("load");
 
       // Try to submit empty form
@@ -126,30 +141,34 @@ test.describe("Error Scenarios", () => {
         .getByRole("button", { name: /send|enviar|submit/i })
         .first();
 
-      if (await submitButton.isVisible()) {
-        // Check if required fields exist (contact form should have required fields)
-        const requiredFields = page.locator(
-          "input[required], textarea[required]",
-        );
-        const hasRequiredFields = (await requiredFields.count()) > 0;
+      await expect(submitButton).toBeVisible();
 
-        // If form has required fields, validation will prevent submission
-        if (hasRequiredFields) {
-          await submitButton.click();
-          await page.waitForTimeout(500);
-          // Form should still be on same page (not submitted)
-          await expect(page).toHaveURL(/contact/);
-        }
-        // Test passes - form has validation (either required fields or other mechanism)
-        expect(true).toBe(true);
-      }
+      // Check if required fields exist (contact form should have required fields)
+      const requiredFields = page.locator(
+        "input[required], textarea[required]",
+      );
+      const hasRequiredFields = (await requiredFields.count()) > 0;
+      expect(hasRequiredFields).toBe(true);
+
+      // Native required-field validation prevents submission
+      await submitButton.click();
+      await page.waitForTimeout(500);
+
+      // Still on the home page (no mailto: navigation happened)
+      await expect(page).toHaveURL(new RegExp(`${localePath("/")}(#.*)?$`));
+
+      // The empty name field should be reported invalid
+      const nameInvalid = await page
+        .locator('input[name="name"]')
+        .evaluate((el) => !(el as HTMLInputElement).validity.valid);
+      expect(nameInvalid).toBe(true);
     });
 
     test("should show error for invalid email format", async ({
       page,
       localePath,
     }) => {
-      await page.goto(localePath("/contact"));
+      await page.goto(localePath("/"));
       await page.waitForLoadState("load");
 
       // Find email input
@@ -157,20 +176,19 @@ test.describe("Error Scenarios", () => {
         .locator('input[type="email"], input[name="email"]')
         .first();
 
-      if (await emailInput.isVisible()) {
-        await emailInput.fill("invalid-email");
+      await expect(emailInput).toBeVisible();
+      await emailInput.fill("invalid-email");
 
-        // Trigger validation
-        await emailInput.blur();
+      // Trigger validation
+      await emailInput.blur();
 
-        // Check for invalid state
-        const isInvalid = await emailInput.evaluate((el) => {
-          const input = el as HTMLInputElement;
-          return !input.validity.valid;
-        });
+      // Check for invalid state
+      const isInvalid = await emailInput.evaluate((el) => {
+        const input = el as HTMLInputElement;
+        return !input.validity.valid;
+      });
 
-        expect(isInvalid).toBe(true);
-      }
+      expect(isInvalid).toBe(true);
     });
   });
 
@@ -256,20 +274,20 @@ test.describe("Error Scenarios - Spanish", () => {
     page,
     localePath,
   }) => {
-    await page.goto(localePath("/contact"));
+    // Contact form lives on the Spanish home page (#contact section)
+    await page.goto(localePath("/"));
     await page.waitForLoadState("load");
 
     const submitButton = page
       .getByRole("button", { name: /enviar|send/i })
       .first();
 
-    if (await submitButton.isVisible()) {
-      await submitButton.click();
-      await page.waitForTimeout(500);
+    await expect(submitButton).toBeVisible();
+    await submitButton.click();
+    await page.waitForTimeout(500);
 
-      // Page should still be functional
-      const body = page.locator("body");
-      await expect(body).toBeVisible();
-    }
+    // Page should still be functional
+    const body = page.locator("body");
+    await expect(body).toBeVisible();
   });
 });
