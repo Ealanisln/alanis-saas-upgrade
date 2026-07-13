@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 export const revalidate = 60;
 import About from "@/components/portfolio/About";
@@ -60,6 +60,9 @@ export async function generateMetadata({
 
 export default async function Home({ params }: HomePageProps) {
   const { locale } = await params;
+  // Pins the request locale so the section components' getTranslations()
+  // calls stay correct if this route ever renders statically
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "home" });
 
   // JSON-LD uses only trusted, developer-controlled translation strings

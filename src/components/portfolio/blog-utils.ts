@@ -21,13 +21,16 @@ export interface PortfolioPost {
 
 export const formatDate = (iso: string | undefined, locale: string) => {
   if (!iso) return "";
+  const date = new Date(iso);
+  // A malformed CMS date must not throw during render
+  if (Number.isNaN(date.getTime())) return "";
   return new Intl.DateTimeFormat(locale === "es" ? "es-MX" : "en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
     // Post dates render the same regardless of server/viewer timezone
     timeZone: "UTC",
-  }).format(new Date(iso));
+  }).format(date);
 };
 
 // ~200 wpm reading speed, minimum 1 minute

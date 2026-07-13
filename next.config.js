@@ -15,6 +15,8 @@ const nextConfig = {
       { source: "/es/about", destination: "/es#about", permanent: true },
       { source: "/contact", destination: "/#contact", permanent: true },
       { source: "/es/contact", destination: "/es#contact", permanent: true },
+      { source: "/portfolio", destination: "/#projects", permanent: true },
+      { source: "/plans", destination: "/#contact", permanent: true },
 
       // Legacy nested route redirects
       {

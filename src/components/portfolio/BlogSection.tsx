@@ -38,16 +38,29 @@ const recentTitle =
 const BlogSection = async ({ locale }: { locale: string }) => {
   const t = await getTranslations("portfolio.blog");
 
-  // Unconfigured Sanity (dev/CI) → sample fallback below. A real fetch error
-  // deliberately THROWS so ISR keeps serving the last good page instead of
-  // caching the fabricated sample posts over real content.
-  const raw = isSanityConfigured()
-    ? await client.fetch<PortfolioPost[]>(portfolioPostsQuery, { locale })
-    : [];
+  // The route renders dynamically (root layout reads cookies), so this fetch
+  // runs per-request: cache it in Next's data cache and degrade to an
+  // empty-but-honest section on error — a Sanity blip must not error the
+  // whole landing page, and an outage must never show fabricated posts.
+  let raw: PortfolioPost[] = [];
+  if (isSanityConfigured()) {
+    try {
+      raw = await client.fetch<PortfolioPost[]>(
+        portfolioPostsQuery,
+        { locale },
+        { next: { revalidate: 60 } },
+      );
+    } catch (error) {
+      console.error("BlogSection: Sanity fetch failed", error);
+    }
+  }
   const posts = raw.map((post) => localizePortfolioPost(post, locale));
 
-  // Keep the reference sample copy as placeholder data until Sanity has posts
-  const usingFallback = posts.length === 0;
+  // The reference sample copy stands in ONLY while Sanity is unconfigured
+  // (dev/CI). A configured-but-empty dataset or a failed fetch renders the
+  // section header + "view all" link without invented posts.
+  const usingFallback = !isSanityConfigured();
+  const showPosts = usingFallback || posts.length > 0;
   const featured: CardPost = usingFallback
     ? {
         key: "fallback-featured",
@@ -76,9 +89,10 @@ const BlogSection = async ({ locale }: { locale: string }) => {
       }))
     : posts.slice(1, 5);
 
-  const featuredMeta = usingFallback
-    ? t("fallback.featured.meta")
-    : `${featured.date} · ${t("minRead", { minutes: featured.minutes })}`;
+  const featuredMeta =
+    usingFallback || !showPosts
+      ? t("fallback.featured.meta")
+      : `${featured.date} · ${t("minRead", { minutes: featured.minutes })}`;
 
   return (
     <section id="blog" className={SECTION_CONTAINER}>
@@ -98,65 +112,67 @@ const BlogSection = async ({ locale }: { locale: string }) => {
         {t("intro")}
       </p>
 
-      <div className="mt-7 md:mt-11 md:grid md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] md:items-stretch md:gap-[clamp(24px,3vw,32px)]">
-        {/* Featured card */}
-        <Link
-          href={featured.href}
-          className="flex flex-col overflow-hidden rounded-2xl border border-line bg-card text-inherit no-underline md:transition-[transform,box-shadow] md:duration-[0.18s] md:hover:-translate-y-0.5 md:hover:shadow-card-hover"
-        >
-          <div className="relative aspect-video w-full border-b border-line bg-slot md:aspect-[16/8.5]">
-            {featured.image && (
-              <Image
-                src={urlFor(featured.image).width(1200).height(638).url()}
-                alt={featured.imageAlt ?? featured.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 540px"
-                className="object-cover"
-              />
-            )}
-          </div>
-          <div className="flex flex-col gap-2.5 p-5 md:gap-3 md:px-7 md:pt-[26px] md:pb-7">
-            <div className="flex flex-wrap items-center gap-2.5">
-              {featured.category && (
-                <span className="rounded-full bg-[color-mix(in_srgb,var(--accent)_8%,transparent)] px-2.5 py-1 text-[11.5px] font-semibold tracking-[0.05em] text-accent uppercase md:px-[11px] md:text-xs">
-                  {featured.category}
-                </span>
+      {showPosts && (
+        <div className="mt-7 md:mt-11 md:grid md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] md:items-stretch md:gap-[clamp(24px,3vw,32px)]">
+          {/* Featured card */}
+          <Link
+            href={featured.href}
+            className="flex flex-col overflow-hidden rounded-2xl border border-line bg-card text-inherit no-underline md:transition-[transform,box-shadow] md:duration-[0.18s] md:hover:-translate-y-0.5 md:hover:shadow-card-hover"
+          >
+            <div className="relative aspect-video w-full border-b border-line bg-slot md:aspect-[16/8.5]">
+              {featured.image && (
+                <Image
+                  src={urlFor(featured.image).width(1200).height(638).url()}
+                  alt={featured.imageAlt ?? featured.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 540px"
+                  className="object-cover"
+                />
               )}
-              <span className="text-[12.5px] text-ink-4 md:text-[13px]">
-                {featuredMeta}
-              </span>
             </div>
-            <h3 className="text-[19px] leading-[1.3] font-bold tracking-[-0.01em] md:text-[clamp(20px,2.2vw,24px)] md:leading-[1.25] md:tracking-[-0.015em]">
-              {featured.title}
-            </h3>
-            <p className="text-sm leading-[1.65] [text-wrap:pretty] text-ink-3 md:text-[15px]">
-              <span className="md:hidden">
-                {usingFallback
-                  ? t("fallback.featured.descShort")
-                  : featured.excerpt}
-              </span>
-              <span className="hidden md:inline">{featured.excerpt}</span>
-            </p>
-          </div>
-        </Link>
+            <div className="flex flex-col gap-2.5 p-5 md:gap-3 md:px-7 md:pt-[26px] md:pb-7">
+              <div className="flex flex-wrap items-center gap-2.5">
+                {featured.category && (
+                  <span className="rounded-full bg-[color-mix(in_srgb,var(--accent)_8%,transparent)] px-2.5 py-1 text-[11.5px] font-semibold tracking-[0.05em] text-accent uppercase md:px-[11px] md:text-xs">
+                    {featured.category}
+                  </span>
+                )}
+                <span className="text-[12.5px] text-ink-4 md:text-[13px]">
+                  {featuredMeta}
+                </span>
+              </div>
+              <h3 className="text-[19px] leading-[1.3] font-bold tracking-[-0.01em] md:text-[clamp(20px,2.2vw,24px)] md:leading-[1.25] md:tracking-[-0.015em]">
+                {featured.title}
+              </h3>
+              <p className="text-sm leading-[1.65] [text-wrap:pretty] text-ink-3 md:text-[15px]">
+                <span className="md:hidden">
+                  {usingFallback
+                    ? t("fallback.featured.descShort")
+                    : featured.excerpt}
+                </span>
+                <span className="hidden md:inline">{featured.excerpt}</span>
+              </p>
+            </div>
+          </Link>
 
-        {/* Recent list — 4 rows on desktop, 3 on mobile */}
-        <div className="mt-2.5 flex flex-col md:mt-0">
-          {recent.map((post, index) => (
-            <Link
-              key={post.key}
-              href={post.href}
-              className={`${recentRow} ${index === recent.length - 1 ? "md:border-b-0" : ""} ${index === 3 ? "max-md:hidden" : ""}`}
-            >
-              <span className={recentMeta}>
-                {post.fallbackMeta ??
-                  [post.date, post.category].filter(Boolean).join(" · ")}
-              </span>
-              <span className={recentTitle}>{post.title}</span>
-            </Link>
-          ))}
+          {/* Recent list — 4 rows on desktop, 3 on mobile */}
+          <div className="mt-2.5 flex flex-col md:mt-0">
+            {recent.map((post, index) => (
+              <Link
+                key={post.key}
+                href={post.href}
+                className={`${recentRow} ${index === recent.length - 1 ? "md:border-b-0" : ""} ${index === 3 ? "max-md:hidden" : ""}`}
+              >
+                <span className={recentMeta}>
+                  {post.fallbackMeta ??
+                    [post.date, post.category].filter(Boolean).join(" · ")}
+                </span>
+                <span className={recentTitle}>{post.title}</span>
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <Link
         href="/blog"

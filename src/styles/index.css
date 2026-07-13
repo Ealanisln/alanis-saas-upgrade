@@ -377,4 +377,18 @@
     animation: fadeUp 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
     animation-delay: var(--fade-delay, 0s);
   }
+
+  /* Vestibular safety (WCAG 2.3.3): drop entrance/looping motion and smooth
+     scrolling for users who ask for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    .fade-up,
+    .animate-menu-in,
+    .animate-pulse-dot,
+    .animate-blink {
+      animation: none;
+    }
+  }
 }

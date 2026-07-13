@@ -40,6 +40,7 @@ const ContactForm = () => {
           name="name"
           type="text"
           required
+          maxLength={100}
           placeholder={t("phName")}
           className={field}
         />
@@ -53,6 +54,7 @@ const ContactForm = () => {
           name="email"
           type="email"
           required
+          maxLength={200}
           placeholder={t("phEmail")}
           className={field}
         />
@@ -61,11 +63,13 @@ const ContactForm = () => {
         <label htmlFor="cf-message" className={label}>
           {t("fMessage")}
         </label>
+        {/* Keeps the URL-encoded mailto under OS handler limits (~2k chars) */}
         <textarea
           id="cf-message"
           name="message"
           required
           rows={5}
+          maxLength={1200}
           placeholder={t("phMessage")}
           className={`${field} resize-y`}
         />
