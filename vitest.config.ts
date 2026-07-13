@@ -39,8 +39,6 @@ export default defineConfig({
         ".sanity/**",
         // Static data files
         "**/*Data.tsx",
-        "**/brandsData.tsx",
-        "src/data/**",
         // Migration scripts (one-time use)
         "migrations/**",
         // Next.js infrastructure
@@ -71,30 +69,25 @@ export default defineConfig({
         "src/app/dashboard/**",
         "src/app/error/**",
         "src/app/new-ui/**",
-        // UI components covered by E2E tests
-        "src/components/About/**",
+        // UI components covered by E2E tests (portfolio logic stays in
+        // coverage: Terminal.tsx and blog-utils.ts are unit-tested)
         "src/components/Blog/**",
-        "src/components/Brands/**",
-        "src/components/Contact/**",
-        "src/components/Portfolio/**",
-        "src/components/Product/**",
-        "src/components/ScrollToTop/**",
-        "src/components/Stripe/**",
-        "src/components/TypewriterTitle/**",
-        "src/components/Video/**",
-        "src/components/Checkout/**",
-        "src/components/Ecommerce/**",
-        "src/components/Examples/**",
-        "src/components/Plans/**",
-        // Calculator sub-components (main calculator is tested)
-        "src/components/Calculator/ServiceCalculatorConfiguration.tsx",
-        "src/components/Calculator/QuoteFormModal.tsx",
-        "src/components/Calculator/QuoteSummary.tsx",
-        "src/components/Calculator/ServiceCard.tsx",
+        "src/components/portfolio/About.tsx",
+        "src/components/portfolio/BlogSection.tsx",
+        "src/components/portfolio/Contact.tsx",
+        "src/components/portfolio/ContactForm.tsx",
+        "src/components/portfolio/Experience.tsx",
+        "src/components/portfolio/Eyebrow.tsx",
+        "src/components/portfolio/Footer.tsx",
+        "src/components/portfolio/Hero.tsx",
+        "src/components/portfolio/Nav.tsx",
+        "src/components/portfolio/Projects.tsx",
+        "src/components/portfolio/Skills.tsx",
+        "src/components/portfolio/Stats.tsx",
+        "src/components/portfolio/icons.tsx",
         // Common UI components
         "src/components/Common/Breadcrumb.tsx",
         "src/components/Common/BreadcrumbJsonLd.tsx",
-        "src/components/Common/ScrollUp.tsx",
         // UI primitives (shadcn)
         "src/components/ui/badge.tsx",
         "src/components/ui/carousel.tsx",
@@ -106,8 +99,6 @@ export default defineConfig({
         "src/components/ui/title/**",
         // Navigation library
         "src/lib/navigation.ts",
-        // Turnstile verification (external service)
-        "src/lib/turnstile.ts",
       ],
       thresholds: {
         statements: 60,
