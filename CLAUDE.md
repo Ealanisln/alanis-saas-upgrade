@@ -36,7 +36,7 @@ pnpm test:coverage          # Run tests with coverage report
 
 ```
 src/
-├── app/[locale]/           # Locale-aware pages (home, about, blog, contact)
+├── app/[locale]/           # Locale-aware pages (home = single-page portfolio, blog; about/contact are redirect stubs)
 ├── app/api/revalidate/     # Sanity webhook for ISR revalidation
 ├── app/studio/             # Sanity Studio at /studio
 ├── components/             # Feature-organized React components
