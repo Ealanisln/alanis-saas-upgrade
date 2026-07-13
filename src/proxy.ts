@@ -28,7 +28,8 @@ export default function proxy(request: NextRequest) {
 
   // Extract locale from URL path and set both header and cookie for root layout
   // Cookies are more reliably accessible in server components than middleware headers
-  const locale = pathname.startsWith("/es") ? "es" : "en";
+  const locale =
+    pathname === "/es" || pathname.startsWith("/es/") ? "es" : "en";
   response.headers.set("x-locale", locale);
   response.cookies.set("x-locale", locale, {
     path: "/",

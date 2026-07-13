@@ -2,8 +2,9 @@
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
-/* Class-based dark mode (next-themes sets .dark on <html>) */
-@custom-variant dark (&:is(.dark *));
+/* Class-based dark mode (next-themes sets .dark on <html>); :where form
+   also matches the .dark element itself, per Tailwind v4 docs */
+@custom-variant dark (&:where(.dark, .dark *));
 /* v3 parity: apply hover: styles regardless of pointer capability */
 @custom-variant hover (&:hover);
 
@@ -79,7 +80,7 @@
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-primary-foreground: hsl(var(--primary-foreground));
-  --color-secondary: hsl(var(--primary));
+  --color-secondary: hsl(var(--secondary));
   --color-secondary-foreground: hsl(var(--secondary-foreground));
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));

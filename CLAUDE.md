@@ -71,8 +71,7 @@ src/
 
 ### Form Handling
 
-- react-hook-form for form state
-- Zod for validation schemas
+- react-hook-form for form state and validation (required fields, maxLength)
 - Contact form is the main form
 
 ### SEO
