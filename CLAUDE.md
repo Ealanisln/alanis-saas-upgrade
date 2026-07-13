@@ -17,6 +17,8 @@ pnpm test                   # Run tests once
 pnpm test:watch             # Run tests in watch mode
 pnpm test:ui                # Run tests with UI
 pnpm test:coverage          # Run tests with coverage report
+pnpm test:e2e               # Run Playwright e2e suite
+pnpm typecheck              # TypeScript compiler check
 ```
 
 ## Architecture Overview
@@ -114,4 +116,5 @@ Required:
 
 - `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_API_VERSION`
 - `SANITY_API_TOKEN`
+- `SANITY_REVALIDATE_SECRET` (the `/api/revalidate` webhook rejects all requests without it)
 - `NEXT_PUBLIC_API_BASE_URL`, `NEXT_PUBLIC_SITE_URL`

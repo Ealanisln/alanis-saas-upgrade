@@ -83,6 +83,7 @@ NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
 NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SANITY_API_VERSION=2024-01-01
 SANITY_API_TOKEN=your_token
+SANITY_REVALIDATE_SECRET=your_webhook_secret
 
 # External API & site
 NEXT_PUBLIC_API_BASE_URL=https://api.alanis.dev
@@ -178,10 +179,12 @@ Translations are organized by namespace in `messages/{locale}/`:
 Example:
 
 ```json
-// messages/en/home.json
+// messages/en/home.json (keys are nested per section)
 {
-  "title": "Welcome",
-  "description": "Professional development services"
+  "meta": {
+    "title": "Emmanuel Alanis — Senior Full Stack Developer",
+    "description": "..."
+  }
 }
 ```
 
@@ -222,7 +225,7 @@ Current test coverage focuses on:
 - Portfolio components (e.g. the hero Terminal animation)
 - UI store and shared UI components
 
-End-to-end coverage runs on Playwright (`pnpm test:e2e`): home sections, blog, contact, navigation/anchors, locale switching, dark mode, accessibility, and error scenarios.
+End-to-end coverage runs on Playwright (`pnpm test:e2e`): home sections, blog, contact, navigation/anchors, locale switching, translation fallback, dark mode, accessibility, error scenarios, and the embedded Sanity Studio.
 
 ## Deployment
 

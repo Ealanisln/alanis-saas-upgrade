@@ -31,24 +31,24 @@ CSS variables live in `src/styles/index.css`; Tailwind utilities map through
 `@theme inline` (`bg-canvas`, `bg-card`, `bg-soft`, `bg-slot`, `text-ink`,
 `text-ink-2/3/4`, `border-line`, `border-line-2`, `bg-accent`, `text-accent`).
 
-| Var           | Light                    | Dark                    |
-| ------------- | ------------------------ | ----------------------- |
-| `--bg`        | `#F7F8FA`                | `#0F1115`               |
-| `--bg-card`   | `#FFFFFF`                | `#171A21`               |
-| `--bg-soft`   | `#F1F3F7`                | `#242A37`               |
-| `--slot-bg`   | `#F7F8FA`                | `#1D222D`               |
-| `--ink`       | `#16181D`                | `#F2F4F8`               |
-| `--ink-2`     | `#3D4453`                | `#C4CAD6`               |
-| `--ink-3`     | `#5B6270`                | `#98A1B3`               |
-| `--ink-4`     | `#9AA3B2`                | `#7A8397`               |
-| `--line`      | `#E6E8EE`                | `#262B36`               |
-| `--line-2`    | `#DCE0E8`                | `#333A49`               |
-| `--nav-bg`    | `rgba(247,248,250,0.85)` | `rgba(15,17,21,0.82)`   |
-| `--chip-bg`   | `#16181D`                | `#16181D` (+ `#333A49` border) |
+| Var           | Light                    | Dark                               |
+| ------------- | ------------------------ | ---------------------------------- |
+| `--bg`        | `#F7F8FA`                | `#0F1115`                          |
+| `--bg-card`   | `#FFFFFF`                | `#171A21`                          |
+| `--bg-soft`   | `#F1F3F7`                | `#242A37`                          |
+| `--slot-bg`   | `#F7F8FA`                | `#1D222D`                          |
+| `--ink`       | `#16181D`                | `#F2F4F8`                          |
+| `--ink-2`     | `#3D4453`                | `#C4CAD6`                          |
+| `--ink-3`     | `#5B6270`                | `#98A1B3`                          |
+| `--ink-4`     | `#9AA3B2`                | `#7A8397`                          |
+| `--line`      | `#E6E8EE`                | `#262B36`                          |
+| `--line-2`    | `#DCE0E8`                | `#333A49`                          |
+| `--nav-bg`    | `rgba(247,248,250,0.85)` | `rgba(15,17,21,0.82)`              |
+| `--chip-bg`   | `#16181D`                | `#16181D` (+ `#333A49` border)     |
 | `--footer-bg` | `#16181D`                | `#0B0D11` (+ `#262B36` top border) |
-| `--dots`      | `#DCE0E8`                | `#262B36`               |
-| `--term-line` | `#262B36`                | `#333A49`               |
-| `--accent`    | `#1D4ED8`                | `#5B8AF5` (remap)       |
+| `--dots`      | `#DCE0E8`                | `#262B36`                          |
+| `--term-line` | `#262B36`                | `#333A49`                          |
+| `--accent`    | `#1D4ED8`                | `#5B8AF5` (remap)                  |
 
 - Accent alternatives (config, unused by default): `#0F766E` (dark `#2CB5A5`), `#1E3A8A` (dark `#7C93E8`).
 - Status green: dot `#16A34A` (+ `rgba(22,163,74,0.15)` ring); badge text `#15803D` on `rgba(22,163,74,0.09)`.
@@ -59,7 +59,7 @@ CSS variables live in `src/styles/index.css`; Tailwind utilities map through
 
 ## Typography
 
-- **Sans:** Geist 400/500/600/700 via `next/font/google` (`--font-geist-heading` / `--font-geist-body`).
+- **Sans:** Geist 400/500/600/700 via `next/font/google` — a single `--font-geist` variable (deduped @font-face/preload), mapped to `--font-heading` / `--font-body` in `src/styles/index.css`.
 - **Mono:** JetBrains Mono 400/500 (`--font-jetbrains-mono`) — hero availability pill and terminal card only.
 - Display sizes carry negative letter-spacing (H1 `-0.03em`, H2 `-0.02em`, card titles `-0.01em`/`-0.015em`).
 - Key sizes: H1 `clamp(42px,7vw,72px)` desktop / 40px mobile; H2 `clamp(28px,3.6vw,38px)` / 26px; eyebrow 13px/12px 600 uppercase `0.08em` accent, numbered `0N — Name`.
