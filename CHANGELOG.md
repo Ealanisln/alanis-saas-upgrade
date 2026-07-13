@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2026-07-12
+
+Full visual redesign: the site is now a single-page, recruiter-focused portfolio (bilingual EN/ES, light + dark), implemented pixel-faithfully from the design handoff in `design_handoff_portfolio/`.
+
+### Added
+
+- Single-page portfolio at `/` (and `/es`): hero with availability pill and an animated terminal card that types `whoami` → stack → production status, "By the numbers" stats strip, About, Experience timeline, Featured Projects, Skills, Blog, and Contact sections with numbered accent eyebrows
+- Blog section wired to Sanity: featured post + four recent posts (three on mobile) with locale-aware dates, estimated read time, and links into `/blog`; the handoff's sample copy renders as a placeholder when Sanity isn't configured
+- Contact form with no backend: submitting opens the visitor's email client with the message pre-filled (`mailto:`), with native validation and length limits that keep the URL within OS handler limits
+- Theme toggle (light default, persisted as `alanis-portfolio-theme`) and an EN/ES language toggle in the nav that keeps your place on the page; mobile browser chrome color follows the active theme
+- Entrance and menu animations are disabled for visitors who prefer reduced motion; the résumé PDF downloads from the hero CTA
+
+### Changed
+
+- New design system: Geist type, blue `#1D4ED8` accent (lighter `#5B8AF5` in dark mode), white/near-black palettes, 1080px content width — canonical spec in `DESIGN.md`; blog and error pages reskinned via the shared tokens
+- `/about` and `/contact` (plus legacy `/portfolio`, `/plans`, `/refund`, `/terms` and Spanish variants) now permanently redirect to the matching home-page sections
+- Blog JSON-LD author links point at the homepage instead of the retired about page; page metadata updated to the senior full-stack positioning
+- The blog section degrades gracefully: a Sanity outage or empty dataset shows the section header and "view all" link instead of erroring the page or inventing posts
+
+### Fixed
+
+- Section links clicked from `/blog` now land on and scroll to the right home-page section
+- `<html lang>` stays correct after switching language without a reload
+- Post dates render identically regardless of server timezone, and malformed CMS dates no longer break the page
+
+### Removed
+
+- The contact email backend (Resend + Turnstile) and its configuration — the form is client-only by design; the Turnstile origin was dropped from the CSP
+- Retired marketing components (old hero, experience, projects, tech stack, language-confirmation dialog, scroll-to-top button) and their dependencies (`framer-motion`, `react-hook-form`, `resend`, `@marsidev/react-turnstile`)
+
 ## [0.4.0] - 2026-07-12
 
 Stack-wide platform modernization with strict 1:1 visual parity — the site looks and behaves identically, but now runs on current majors as the foundation for the upcoming redesign.
