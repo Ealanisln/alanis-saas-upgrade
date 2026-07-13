@@ -3,7 +3,7 @@ import { test, expect } from "./fixtures/test-fixtures";
 test.describe("Navigation", () => {
   test.beforeEach(async ({ page, localePath }) => {
     await page.goto(localePath("/"));
-    await page.waitForLoadState("networkidle");
+    await page.waitForLoadState("load");
   });
 
   test.describe("header navigation", () => {
@@ -81,7 +81,7 @@ test.describe("Navigation", () => {
 
       if (await aboutLink.isVisible()) {
         await aboutLink.click();
-        await page.waitForLoadState("networkidle");
+        await page.waitForLoadState("load");
         await expect(page).toHaveURL(new RegExp(localePath("/about")), {
           timeout: 10000,
         });
@@ -108,7 +108,7 @@ test.describe("Navigation", () => {
 
       if (await portfolioLink.isVisible()) {
         await portfolioLink.click();
-        await page.waitForLoadState("networkidle");
+        await page.waitForLoadState("load");
         await expect(page).toHaveURL(new RegExp(localePath("/portfolio")), {
           timeout: 10000,
         });
@@ -133,7 +133,7 @@ test.describe("Navigation", () => {
 
       if (await blogLink.isVisible()) {
         await blogLink.click();
-        await page.waitForLoadState("networkidle");
+        await page.waitForLoadState("load");
         await expect(page).toHaveURL(new RegExp(localePath("/blog")), {
           timeout: 10000,
         });
@@ -160,7 +160,7 @@ test.describe("Navigation", () => {
 
       if (await plansLink.isVisible()) {
         await plansLink.click();
-        await page.waitForLoadState("networkidle");
+        await page.waitForLoadState("load");
         await expect(page).toHaveURL(new RegExp(localePath("/plans")), {
           timeout: 10000,
         });
@@ -187,7 +187,7 @@ test.describe("Navigation", () => {
 
       if (await contactLink.isVisible()) {
         await contactLink.click();
-        await page.waitForLoadState("networkidle");
+        await page.waitForLoadState("load");
         await expect(page).toHaveURL(new RegExp(localePath("/contact")), {
           timeout: 10000,
         });
@@ -266,7 +266,7 @@ test.describe("Navigation", () => {
   });
 
   test.describe("browser navigation", () => {
-    // Note: no waitForLoadState("networkidle") here — Next 16's link
+    // Note: no waitForLoadState("load") here — Next 16's link
     // prefetching keeps the network busy, so it never settles.
     // toHaveURL auto-waits, which is all these tests need.
     test("should support browser back button", async ({ page, localePath }) => {
@@ -307,7 +307,7 @@ test.describe("Mobile Navigation", () => {
 
   test("should display mobile menu toggle", async ({ page, localePath }) => {
     await page.goto(localePath("/"));
-    await page.waitForLoadState("networkidle");
+    await page.waitForLoadState("load");
 
     // Look for mobile menu button (with timeout for slower browsers)
     const menuButton = page.getByRole("button", { name: /mobile menu/i });
@@ -326,7 +326,7 @@ test.describe("Mobile Navigation", () => {
     );
 
     await page.goto(localePath("/"));
-    await page.waitForLoadState("networkidle");
+    await page.waitForLoadState("load");
 
     const menuButton = page.getByRole("button", { name: /mobile menu/i });
 
@@ -352,7 +352,7 @@ test.describe("Mobile Navigation", () => {
     );
 
     await page.goto(localePath("/"));
-    await page.waitForLoadState("networkidle");
+    await page.waitForLoadState("load");
 
     const menuButton = page.getByRole("button", { name: /mobile menu/i });
 

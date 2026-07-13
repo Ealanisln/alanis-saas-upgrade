@@ -65,15 +65,20 @@ test.describe("Error Scenarios", () => {
       }
     });
 
-    test("should return 404 for malformed URLs with encoded special characters", async ({
-      request,
-    }) => {
-      // proxy.ts rejects %24/%26/%3C/%3E and raw $&<> in paths
-      const response = await request.get("/foo%24bar", {
-        maxRedirects: 0,
+    // proxy.ts rejects %24/%26/%3C/%3E and raw $&<> in paths
+    for (const path of [
+      "/foo%24bar",
+      "/foo%26bar",
+      "/foo%3Cbar",
+      "/foo%3Ebar",
+    ]) {
+      test(`should return 404 for malformed URL ${path}`, async ({
+        request,
+      }) => {
+        const response = await request.get(path, { maxRedirects: 0 });
+        expect(response.status()).toBe(404);
       });
-      expect(response.status()).toBe(404);
-    });
+    }
 
     test("should 301-redirect legacy /en URLs to root paths", async ({
       request,
@@ -81,12 +86,20 @@ test.describe("Error Scenarios", () => {
       // English lives at root; /en/* is redirected for GSC canonical dedup
       const response = await request.get("/en/blog", { maxRedirects: 0 });
       expect(response.status()).toBe(301);
-      expect(response.headers()["location"]).toContain("/blog");
+      const location = response.headers()["location"];
+      expect(new URL(location, "http://localhost:3000").pathname).toBe("/blog");
+    });
+
+    test("should 301-redirect /en itself to the root", async ({ request }) => {
+      const response = await request.get("/en", { maxRedirects: 0 });
+      expect(response.status()).toBe(301);
+      const location = response.headers()["location"];
+      expect(new URL(location, "http://localhost:3000").pathname).toBe("/");
     });
 
     test("should redirect unknown locale to default", async ({ page }) => {
       await page.goto("/de/about");
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Should either show content or redirect
       const url = page.url();
@@ -106,7 +119,7 @@ test.describe("Error Scenarios", () => {
       localePath,
     }) => {
       await page.goto(localePath("/contact"));
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Try to submit empty form
       const submitButton = page
@@ -137,7 +150,7 @@ test.describe("Error Scenarios", () => {
       localePath,
     }) => {
       await page.goto(localePath("/contact"));
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Find email input
       const emailInput = page
@@ -206,7 +219,7 @@ test.describe("Error Scenarios", () => {
       });
 
       await page.goto(localePath("/"));
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Page should still render
       const heading = page.locator("h1, h2").first();
@@ -244,7 +257,7 @@ test.describe("Error Scenarios - Spanish", () => {
     localePath,
   }) => {
     await page.goto(localePath("/contact"));
-    await page.waitForLoadState("networkidle");
+    await page.waitForLoadState("load");
 
     const submitButton = page
       .getByRole("button", { name: /enviar|send/i })

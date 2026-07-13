@@ -24,13 +24,12 @@ test.describe("Blog Page", () => {
       );
       const articlesCount = await articles.count();
 
-      // If no articles, check for empty state
+      // If no articles, an empty state is acceptable for a blog with no posts
       if (articlesCount === 0) {
-        // Empty state is acceptable for a blog with no posts
-        const _emptyState = page.locator(
+        const emptyState = page.locator(
           "text=/no posts|no articles|coming soon/i",
         );
-        // Either posts exist or empty state - both are valid
+        await expect(emptyState.first()).toBeVisible();
       }
     });
 

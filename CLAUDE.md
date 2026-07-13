@@ -29,7 +29,7 @@ pnpm test:coverage          # Run tests with coverage report
 - Translation files: `/messages/{locale}/{namespace}.json`
 - Server components: `getTranslations('namespace')`
 - Client components: `useTranslations('namespace')`
-- Middleware handles locale detection and redirects
+- The proxy (src/proxy.ts, Next 16 convention) handles locale detection and redirects
 
 ### Key Directories
 

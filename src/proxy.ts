@@ -9,7 +9,7 @@ export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Handle malformed URLs with encoded special characters
-  if (/%24|%26|%3C|%3E/.test(pathname) || /[$&<>]/.test(pathname)) {
+  if (/%24|%26|%3C|%3E/i.test(pathname) || /[$&<>]/.test(pathname)) {
     return new NextResponse(null, { status: 404 });
   }
 
@@ -33,6 +33,7 @@ export default function proxy(request: NextRequest) {
   response.cookies.set("x-locale", locale, {
     path: "/",
     sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
   });
 
   return response;

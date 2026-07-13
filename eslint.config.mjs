@@ -87,7 +87,7 @@ const eslintConfig = [
   },
   {
     // CommonJS config files at the repo root
-    files: ["*.config.js", "*.config.ts", "tailwind.config.ts"],
+    files: ["*.config.js", "*.config.ts"],
     rules: {
       "@typescript-eslint/no-require-imports": "off",
     },

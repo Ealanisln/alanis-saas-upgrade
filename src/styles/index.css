@@ -154,7 +154,11 @@
 
 /* v3 container config: centered, 1rem padding, custom max-width steps.
    These screens were container-only in v3 — global responsive variants
-   (sm:, md:, lg:, …) keep Tailwind's default breakpoints. */
+   (sm:, md:, lg:, …) keep Tailwind's default breakpoints.
+   NOTE: Tailwind v4 also emits its built-in .container rules; this block
+   wins only by cascade order (it sorts later in the generated CSS). An e2e
+   assertion guards the 992px step — if container widths ever regress,
+   suspect a cascade-order change here. */
 @utility container {
   width: 100%;
   margin-inline: auto;
@@ -203,7 +207,7 @@
   body {
     background-color: var(--t-bg);
     color: var(--t-text);
-    font-family: var(--font-geist-body), system-ui, sans-serif;
+    font-family: var(--font-body);
     font-feature-settings: "ss01", "tnum";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -229,7 +233,7 @@
   h5,
   h6 {
     @apply leading-tight;
-    font-family: var(--font-geist-heading), system-ui, sans-serif;
+    font-family: var(--font-heading);
     letter-spacing: -0.03em;
   }
 
