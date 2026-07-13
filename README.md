@@ -1,18 +1,16 @@
-# Alanis SaaS Platform
+# alanis.dev — Portfolio
 
-A modern, bilingual (English/Spanish) SaaS platform built with Next.js 16, featuring comprehensive i18n support, Sanity CMS integration, and a service calculator for quote generation.
+A single-page, bilingual (English/Spanish) developer portfolio built with Next.js 16, backed by a Sanity-powered blog. Aimed at recruiters and hiring managers: hero with an animated terminal card, stats, about, experience timeline, featured projects, skills, blog, and contact — in light and dark mode. The design system is documented in [DESIGN.md](./DESIGN.md).
 
 ## Features
 
 ### Core Functionality
 
-- **Bilingual Support**: Full English and Spanish language support using next-intl
+- **Single-Page Portfolio**: Hero (availability pill + animated terminal), stats strip, About, Experience timeline, Featured Projects, Skills, Blog, and Contact sections; legacy routes (`/about`, `/contact`, …) permanently redirect to their home-page sections
+- **Bilingual Support**: Full English and Spanish language support using next-intl (English at `/`, Spanish at `/es`)
 - **Content Management**: Sanity CMS v6 integration with localized content
-- **Service Calculator**: Interactive quote generator with pricing calculations
-- **Blog System**: Multi-language blog with Portable Text support
-- **Portfolio Showcase**: Featured projects display
-- **Contact Forms**: Integrated contact and quote request forms
-- **Pricing Plans**: Tiered pricing display with FAQs
+- **Blog System**: Multi-language blog at `/blog` with Portable Text support; home-page blog section shows the featured + recent posts and degrades gracefully without Sanity
+- **Contact Form**: No backend by design — submitting opens the visitor's email client with the message pre-filled (`mailto:`)
 
 ### Technical Features
 
@@ -33,7 +31,7 @@ A modern, bilingual (English/Spanish) SaaS platform built with Next.js 16, featu
 - **Styling**: Tailwind CSS 4.3 (CSS-first config — theme tokens live in `src/styles/index.css`)
 - **UI Components**: Radix UI, Lucide Icons
 - **Internationalization**: next-intl 4.13
-- **State Management**: Zustand (cart functionality)
+- **State Management**: Zustand (minimal UI state)
 
 ### Backend & CMS
 
@@ -85,13 +83,17 @@ NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
 NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SANITY_API_VERSION=2024-01-01
 SANITY_API_TOKEN=your_token
+SANITY_REVALIDATE_SECRET=your_webhook_secret
 
-# External API
+# External API & site
 NEXT_PUBLIC_API_BASE_URL=https://api.alanis.dev
+NEXT_PUBLIC_SITE_URL=https://www.alanis.dev
 
 # Analytics (optional)
 NEXT_PUBLIC_VERCEL_ANALYTICS_ID=your_analytics_id
 ```
+
+The contact form needs no email/anti-spam configuration — it builds a `mailto:` URL client-side.
 
 ### Development
 
@@ -130,29 +132,29 @@ pnpm typecheck        # Run TypeScript compiler check
 alanis-saas-upgrade/
 ├── src/
 │   ├── app/                 # Next.js app directory
-│   │   ├── [locale]/       # Localized routes
-│   │   ├── actions/        # Server actions
+│   │   ├── [locale]/       # Localized routes (home, blog; about/contact redirect stubs)
+│   │   ├── api/            # Route handlers (Sanity revalidate webhook)
+│   │   ├── studio/         # Embedded Sanity Studio at /studio
 │   │   └── providers.tsx   # Client providers
 │   ├── components/         # React components
-│   │   ├── Blog/          # Blog components
-│   │   ├── Calculator/    # Service calculator
-│   │   ├── Contact/       # Contact forms
-│   │   ├── Portfolio/     # Portfolio display
-│   │   ├── Pricing/       # Pricing plans
+│   │   ├── portfolio/     # Single-page portfolio sections (Hero, Terminal, Nav, ...)
+│   │   ├── Blog/          # Blog components (Portable Text, posts)
+│   │   ├── Common/        # Breadcrumb + JSON-LD helpers
 │   │   └── ui/            # Reusable UI components
 │   ├── lib/               # Utility functions
 │   │   └── api/           # API client
 │   ├── sanity/            # Sanity CMS configuration
 │   │   ├── lib/           # Sanity utilities
 │   │   └── schemas/       # Content schemas
-│   ├── store/             # Zustand stores
+│   ├── store/             # Zustand store (UI state)
 │   ├── types/             # TypeScript types
 │   └── hooks/             # Custom React hooks
+├── design_handoff_portfolio/ # Design handoff (source of truth for the redesign)
 ├── messages/              # i18n translation files
 │   ├── en/               # English translations
 │   └── es/               # Spanish translations
 ├── migrations/            # Sanity migration scripts
-└── public/               # Static assets
+└── public/               # Static assets (resume PDF, logos, images)
 ```
 
 ## Internationalization (i18n)
@@ -161,28 +163,28 @@ The platform supports two locales: **English (en)** and **Spanish (es)**.
 
 ### Route Structure
 
-- English: `/en/*`
+- English (default): `/*` — no locale prefix; legacy `/en/*` URLs redirect to the root
 - Spanish: `/es/*`
 
 ### Adding Translations
 
 Translations are organized by namespace in `messages/{locale}/`:
 
-- `common.json` - Shared content (footer, navigation)
-- `home.json` - Homepage content
-- `about.json` - About page content
+- `common.json` - Shared content
+- `navigation.json` - Nav labels
+- `home.json` - Homepage metadata
+- `portfolio.json` - All portfolio section copy (final and verbatim — do not paraphrase; see CLAUDE.md)
 - `blog.json` - Blog section
-- `contact.json` - Contact forms
-- `plans.json` - Pricing plans
-- `portfolio.json` - Portfolio section
 
 Example:
 
 ```json
-// messages/en/home.json
+// messages/en/home.json (keys are nested per section)
 {
-  "title": "Welcome",
-  "description": "Professional development services"
+  "meta": {
+    "title": "Emmanuel Alanis — Senior Full Stack Developer",
+    "description": "..."
+  }
 }
 ```
 
@@ -200,10 +202,7 @@ Fields like `title`, `description`, and `body` support multiple languages using 
 
 ### Running Sanity Studio
 
-```bash
-# In your Sanity project directory
-npm run dev
-```
+The Studio is embedded in the app — run `pnpm dev` and open [http://localhost:3000/studio](http://localhost:3000/studio).
 
 ## Testing
 
@@ -222,8 +221,11 @@ pnpm test:coverage
 
 Current test coverage focuses on:
 
-- Utility functions
-- Cart store functionality
+- Utility functions and blog helpers (`blog-utils`)
+- Portfolio components (e.g. the hero Terminal animation)
+- UI store and shared UI components
+
+End-to-end coverage runs on Playwright (`pnpm test:e2e`): home sections, blog, contact, navigation/anchors, locale switching, translation fallback, dark mode, accessibility, error scenarios, and the embedded Sanity Studio.
 
 ## Deployment
 
@@ -256,12 +258,19 @@ Ensure all variables from `.env.example` are configured in your deployment platf
 
 ## Documentation
 
+- [DESIGN.md](./DESIGN.md) - Canonical design system (palette, type, spacing, anti-slop checklist)
+- [CLAUDE.md](./CLAUDE.md) - Project instructions for Claude Code
+- [TODOS.md](./TODOS.md) - Open follow-ups and deferred work
+- `design_handoff_portfolio/` - Redesign handoff (pixel reference for the portfolio)
+
 Additional documentation available in `/docs`:
 
 - API Client Guide
 - Backend Migration Guide
+- i18n Fallback Strategy
 - Invoice Ninja Integration
 - SEO Setup
+- Stripe Webhook Setup
 
 ## Changelog
 

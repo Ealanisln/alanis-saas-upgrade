@@ -31,14 +31,14 @@ export const siteConfig = {
   name: "Alanis Dev",
   author: "Emmanuel Alanis",
   contact: {
-    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "contact@alanis.dev",
+    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "emmanuel@alanis.dev",
   },
   social: {
     github:
       process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/Ealanisln",
     linkedin:
       process.env.NEXT_PUBLIC_LINKEDIN_URL ||
-      "https://www.linkedin.com/in/emmanuel-alanis/",
+      "https://www.linkedin.com/in/ealanis/",
     twitter:
       process.env.NEXT_PUBLIC_TWITTER_URL || "https://twitter.com/ealanisln",
   },

@@ -5,10 +5,29 @@ import { test, expect, Page } from "@playwright/test";
  *
  * These tests verify that:
  * 1. Pages don't break with missing translations
- * 2. Content falls back to English correctly
+ * 2. Content falls back to English correctly (es → en → first available)
  * 3. No console errors occur for missing content
  * 4. Users see content even if not fully translated
  */
+
+// Dev-only console noise that must not fail the "no console errors" checks:
+// - CSP blocks the Vercel Analytics debug script (va.vercel-scripts.com)
+// - React dev mode triggers a CSP eval() error
+const filterExpectedErrors = (errors: string[]) =>
+  errors.filter(
+    (e) =>
+      !e.includes("favicon") &&
+      !e.includes("404") &&
+      !e.includes("Failed to load resource") &&
+      !e.includes("Content Security Policy") &&
+      !e.includes("va.vercel-scripts.com") &&
+      !e.includes("unsafe-eval") &&
+      !e.includes("analytics") &&
+      !e.includes("_vercel/insights") &&
+      !e.includes("MIME type") &&
+      !e.includes("net::ERR") &&
+      !e.includes("TLS"),
+  );
 
 test.describe("Translation Fallback Strategy", () => {
   // Helper to collect console errors
@@ -39,17 +58,7 @@ test.describe("Translation Fallback Strategy", () => {
       await expect(mainContent).toBeVisible({ timeout: 10000 });
 
       // No JavaScript errors should occur (excluding third-party analytics and CSP)
-      const jsErrors = errors.filter(
-        (e) =>
-          !e.includes("favicon") &&
-          !e.includes("404") &&
-          !e.includes("Failed to load resource") &&
-          !e.includes("Content Security Policy") &&
-          !e.includes("analytics") &&
-          !e.includes("_vercel/insights") &&
-          !e.includes("MIME type"),
-      );
-      expect(jsErrors).toHaveLength(0);
+      expect(filterExpectedErrors(errors)).toHaveLength(0);
     });
 
     test("should display blog post content in Spanish or fallback to English", async ({
@@ -124,19 +133,30 @@ test.describe("Translation Fallback Strategy", () => {
         expect(text!.length).toBeGreaterThan(10);
 
         // No JavaScript errors related to missing translations (excluding third-party analytics and CSP)
-        const jsErrors = errors.filter(
-          (e) =>
-            !e.includes("favicon") &&
-            !e.includes("404") &&
-            !e.includes("Failed to load resource") &&
-            !e.includes("Content Security Policy") &&
-            !e.includes("analytics") &&
-            !e.includes("_vercel/insights") &&
-            !e.includes("MIME type") &&
-            !e.includes("TLS"),
-        );
-        expect(jsErrors).toHaveLength(0);
+        expect(filterExpectedErrors(errors)).toHaveLength(0);
       }
+    });
+  });
+
+  test.describe("Home page #blog section with fallback", () => {
+    // The redesigned home page has a #blog section (featured card + recent
+    // post rows) whose Sanity content goes through the same fallback chain.
+    test("Spanish home #blog section should render post titles (fallback allowed)", async ({
+      page,
+    }) => {
+      await page.goto("/es");
+      await page.waitForLoadState("load");
+
+      const blogSection = page.locator("section#blog");
+      await expect(blogSection).toBeVisible({ timeout: 15000 });
+
+      // Featured card + recent rows all link into the blog
+      const postLinks = blogSection.locator('a[href*="/blog"]');
+      expect(await postLinks.count()).toBeGreaterThan(0);
+
+      // Each link should carry visible text (Spanish, or English fallback)
+      const firstLinkText = await postLinks.first().textContent();
+      expect(firstLinkText?.trim().length).toBeGreaterThan(0);
     });
   });
 
@@ -179,11 +199,13 @@ test.describe("Translation Fallback Strategy", () => {
       await page.waitForLoadState("load");
 
       // Check that essential page elements are present
-      const header = page.locator("header");
-      const footer = page.locator("footer");
+      // (the redesign uses a sticky <nav> instead of a <header> on non-home pages)
+      const nav = page.locator("nav").first();
+      // Scope past the Next dev-error overlay, which injects its own <footer>
+      const footer = page.locator("footer", { hasText: "Emmanuel Alanis" });
       const main = page.locator("main");
 
-      await expect(header).toBeVisible({ timeout: 10000 });
+      await expect(nav).toBeVisible({ timeout: 10000 });
       await expect(footer).toBeVisible({ timeout: 10000 });
       await expect(main).toBeVisible({ timeout: 10000 });
     });
@@ -203,12 +225,11 @@ test.describe("Translation Fallback Strategy", () => {
   });
 
   test.describe("No breaking errors", () => {
+    // Standalone pages are now only the home portfolio and the blog;
+    // the old /es/portfolio, /es/contact, /es/plans pages folded into /es.
     const pagesToTest = [
-      { path: "/es", name: "Spanish Home" },
+      { path: "/es", name: "Spanish Home (portfolio)" },
       { path: "/es/blog", name: "Spanish Blog" },
-      { path: "/es/portfolio", name: "Spanish Portfolio" },
-      { path: "/es/contact", name: "Spanish Contact" },
-      { path: "/es/plans", name: "Spanish Plans" },
     ];
 
     for (const { path, name } of pagesToTest) {
@@ -224,21 +245,8 @@ test.describe("Translation Fallback Strategy", () => {
         const body = page.locator("body");
         await expect(body).toBeVisible({ timeout: 10000 });
 
-        // Filter out expected non-critical errors (including third-party analytics and CSP)
-        const criticalErrors = errors.filter(
-          (e) =>
-            !e.includes("favicon") &&
-            !e.includes("Failed to load resource") &&
-            !e.includes("404") &&
-            !e.includes("net::ERR") &&
-            !e.includes("Content Security Policy") &&
-            !e.includes("analytics") &&
-            !e.includes("_vercel/insights") &&
-            !e.includes("MIME type"),
-        );
-
-        // No critical JavaScript errors
-        expect(criticalErrors).toHaveLength(0);
+        // No critical JavaScript errors (dev-only CSP/analytics noise excluded)
+        expect(filterExpectedErrors(errors)).toHaveLength(0);
       });
     }
   });

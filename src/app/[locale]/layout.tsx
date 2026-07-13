@@ -5,9 +5,8 @@ import {
   getMessages,
   setRequestLocale,
 } from "next-intl/server";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import LanguageConfirmation from "@/components/LanguageConfirmation";
+import Footer from "@/components/portfolio/Footer";
+import Nav from "@/components/portfolio/Nav";
 import { routing } from "@/i18n/routing";
 import { generateAlternates } from "@/lib/seo";
 
@@ -105,9 +104,10 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
-      <LanguageConfirmation />
-      <Header />
-      <main className="flex-1">{children}</main>
+      <Nav />
+      <main id="top" className="flex-1">
+        {children}
+      </main>
       <Footer />
     </NextIntlClientProvider>
   );

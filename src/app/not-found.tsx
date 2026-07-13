@@ -48,7 +48,7 @@ export default async function GlobalNotFound() {
   // Determine the correct home URL based on locale
   const homeUrl = locale === "es" ? "/es" : "/";
   const blogUrl = locale === "es" ? "/es/blog" : "/blog";
-  const contactUrl = locale === "es" ? "/es/contact" : "/contact";
+  const contactUrl = locale === "es" ? "/es#contact" : "/#contact";
 
   const helpfulLinks = [
     { href: homeUrl, label: t.links.home },
