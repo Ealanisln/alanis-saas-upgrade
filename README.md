@@ -38,7 +38,7 @@ A modern, bilingual (English/Spanish) SaaS platform built with Next.js 16, featu
 ### Backend & CMS
 
 - **CMS**: Sanity 6.4 (next-sanity 13)
-- **API Client**: Axios 1.12.2 (with security fixes)
+- **API Client**: Axios 1.18 (with security fixes)
 - **Content**: Portable Text for rich content
 
 ### Development
