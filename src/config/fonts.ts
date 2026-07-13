@@ -4,21 +4,21 @@ export const geistSans = Geist({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
-  variable: "--font-heading",
+  variable: "--font-geist-heading",
 });
 
 export const geistBody = Geist({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   display: "swap",
-  variable: "--font-body",
+  variable: "--font-geist-body",
 });
 
 export const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
   display: "swap",
-  variable: "--font-mono",
+  variable: "--font-jetbrains-mono",
 });
 
 export const fontVariables = [

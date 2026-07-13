@@ -2,14 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 
-// Create middleware using the routing configuration
+// Create the next-intl handler using the routing configuration
 const intlMiddleware = createMiddleware(routing);
 
-export default function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Handle malformed URLs with encoded special characters
-  if (/%24|%26|%3C|%3E/.test(pathname) || /[$&<>]/.test(pathname)) {
+  if (/%24|%26|%3C|%3E/i.test(pathname) || /[$&<>]/.test(pathname)) {
     return new NextResponse(null, { status: 404 });
   }
 
@@ -28,11 +28,13 @@ export default function middleware(request: NextRequest) {
 
   // Extract locale from URL path and set both header and cookie for root layout
   // Cookies are more reliably accessible in server components than middleware headers
-  const locale = pathname.startsWith("/es") ? "es" : "en";
+  const locale =
+    pathname === "/es" || pathname.startsWith("/es/") ? "es" : "en";
   response.headers.set("x-locale", locale);
   response.cookies.set("x-locale", locale, {
     path: "/",
     sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
   });
 
   return response;

@@ -6,10 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 # Development
-pnpm dev                    # Start dev server with Turbopack
+pnpm dev                    # Start dev server (Turbopack is the Next 16 default)
 pnpm build                  # Production build
 pnpm start                  # Start production server
-pnpm lint                   # Run ESLint
+pnpm lint                   # Run ESLint (flat config, eslint.config.mjs)
+pnpm lint:fix               # Run ESLint with autofix
 
 # Testing
 pnpm test                   # Run tests once
@@ -20,7 +21,7 @@ pnpm test:coverage          # Run tests with coverage report
 
 ## Architecture Overview
 
-**Stack**: Next.js 15 (App Router) + React 19 + TypeScript + Sanity CMS + Tailwind CSS
+**Stack**: Next.js 16 (App Router) + React 19 + TypeScript + Sanity CMS (v6) + Tailwind CSS 4 (CSS-first config)
 
 ### Routing & Internationalization
 
@@ -29,7 +30,7 @@ pnpm test:coverage          # Run tests with coverage report
 - Translation files: `/messages/{locale}/{namespace}.json`
 - Server components: `getTranslations('namespace')`
 - Client components: `useTranslations('namespace')`
-- Middleware handles locale detection and redirects
+- The proxy (src/proxy.ts, Next 16 convention) handles locale detection and redirects
 
 ### Key Directories
 
@@ -71,8 +72,7 @@ src/
 
 ### Form Handling
 
-- react-hook-form for form state
-- Zod for validation schemas
+- react-hook-form for form state and validation (required fields, maxLength)
 - Contact form is the main form
 
 ### SEO

@@ -2,7 +2,7 @@ import { getRequestConfig } from "next-intl/server";
 import { routing } from "./routing";
 
 export default getRequestConfig(async ({ requestLocale }) => {
-  // Get the locale from the request (set by middleware)
+  // Get the locale from the request (set by the proxy, src/proxy.ts)
   // With localePrefix: 'as-needed', this will be 'en' for /about, 'es' for /es/about
   let locale = await requestLocale;
 

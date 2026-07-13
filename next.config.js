@@ -40,13 +40,23 @@ const nextConfig = {
         hostname: "cdn.sanity.io",
         port: "",
       },
-      {
-        protocol: "http",
-        hostname: "localhost",
-        port: "",
-      },
+      // Local images only resolve in dev; never allowlist local IPs in prod
+      ...(process.env.NODE_ENV === "development"
+        ? [
+            {
+              protocol: "http",
+              hostname: "localhost",
+              port: "",
+            },
+          ]
+        : []),
     ],
     formats: ["image/avif", "image/webp"],
+    // Next 16 blocks local-IP remotePatterns (the http://localhost entry
+    // above) unless explicitly allowed; only needed for local dev
+    ...(process.env.NODE_ENV === "development" && {
+      dangerouslyAllowLocalIP: true,
+    }),
   },
 
   // Security headers

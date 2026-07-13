@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useRef } from "react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { useTranslations, useLocale } from "next-intl";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import sendEmail from "@/app/actions/email";
 
 interface FormInputs {
@@ -99,7 +99,7 @@ const Contact = () => {
                   {...register("name", { required: true })}
                   type="text"
                   placeholder={t("namePlaceholder")}
-                  className="w-full rounded-md border border-t-border bg-transparent px-4 py-3 text-sm text-t-text outline-none transition-colors focus:border-t-primary"
+                  className="w-full rounded-md border border-t-border bg-transparent px-4 py-3 text-sm text-t-text outline-hidden transition-colors focus:border-t-primary"
                 />
                 {errors.name && (
                   <span className="mt-1 text-xs text-red-500">
@@ -118,7 +118,7 @@ const Contact = () => {
                   {...register("email", { required: true })}
                   type="email"
                   placeholder={t("emailPlaceholder")}
-                  className="w-full rounded-md border border-t-border bg-transparent px-4 py-3 text-sm text-t-text outline-none transition-colors focus:border-t-primary"
+                  className="w-full rounded-md border border-t-border bg-transparent px-4 py-3 text-sm text-t-text outline-hidden transition-colors focus:border-t-primary"
                 />
                 {errors.email && (
                   <span className="mt-1 text-xs text-red-500">
@@ -142,7 +142,7 @@ const Contact = () => {
                 name="message"
                 rows={5}
                 placeholder={t("messagePlaceholder")}
-                className="w-full resize-none rounded-md border border-t-border bg-transparent px-4 py-3 text-sm text-t-text outline-none transition-colors focus:border-t-primary"
+                className="w-full resize-none rounded-md border border-t-border bg-transparent px-4 py-3 text-sm text-t-text outline-hidden transition-colors focus:border-t-primary"
               />
               {errors.message && (
                 <span className="text-xs text-red-500">{t("required")}</span>

@@ -1,9 +1,9 @@
 import { getTranslations } from "next-intl/server";
 
 const categoryColors: Record<string, string> = {
-  enterprise: "var(--color-primary)",
-  ai: "var(--color-green)",
-  fintech: "var(--color-accent)",
+  enterprise: "var(--t-primary)",
+  ai: "var(--t-green)",
+  fintech: "var(--t-accent)",
 };
 
 const Projects = async () => {
@@ -34,7 +34,7 @@ const Projects = async () => {
                 className="h-1"
                 style={{
                   backgroundColor:
-                    categoryColors[project.category] || "var(--color-primary)",
+                    categoryColors[project.category] || "var(--t-primary)",
                 }}
               />
               <div className="p-6">
@@ -67,7 +67,7 @@ const Projects = async () => {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-t-primary/80 font-medium text-t-primary transition-colors"
+                    className="font-medium text-t-primary transition-colors hover:text-t-primary/80"
                   >
                     {t("viewLive")} &rarr;
                   </a>

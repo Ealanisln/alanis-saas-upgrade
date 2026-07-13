@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
 import { renderHook } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
 import { useApi } from "../useApi";
 
 // Mock React Query

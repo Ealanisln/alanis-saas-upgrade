@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2026-07-12
+
+Stack-wide platform modernization with strict 1:1 visual parity — the site looks and behaves identically, but now runs on current majors as the foundation for the upcoming redesign.
+
+### Changed
+
+- **Tailwind CSS 3.4 → 4.3**: CSS-first configuration — `tailwind.config.ts` replaced by `@theme` tokens in `src/styles/index.css`; palette vars renamed `--color-*` → `--t-*`; custom container breakpoint steps (450–1400px) preserved; v4 class renames applied (`outline-hidden`, `shadow-xs`, `shrink-0`, opacity slash syntax)
+- **Next.js 15.5 → 16.2**: first Turbopack production build; `src/middleware.ts` renamed to `src/proxy.ts` per Next 16 convention (runtime edge → Node); CI moved to Node 22 with `engines >=22.12` and `.nvmrc`
+- **Sanity 4 → 6** with next-sanity 13 and internationalized-array plugin 5; `@sanity/image-url` v2 named-import migration; five studio-transitive packages removed from direct dependencies
+- Linting migrated from the deprecated `next lint` to the ESLint CLI with a consolidated flat config (rules from the dead `.eslintrc.json` restored: import ordering, no-console, prefer-const, and friends)
+- Font variables now live on `<html>` so Tailwind v4 `:root`-level font tokens resolve correctly (headings keep the Geist display face, code blocks keep JetBrains Mono)
+
+### Fixed
+
+- Proxy malformed-URL guard made case-insensitive (lowercase percent-encodings no longer bypass the 404)
+- Locale detection matches `/es` exactly or as a path prefix (a future `/essays` route would no longer be tagged Spanish)
+- `x-locale` cookie hardened with `secure` in production; localhost image patterns now allowed in development only
+- Playwright suite freed of `networkidle` waits (a CI flake class under Next 16 prefetching) — e2e wall time dropped from ~2 minutes to ~37 seconds
+- Coverage thresholds actually enforce now (the previous nested config shape was silently ignored)
+
+### Removed
+
+- Unused `zod` dependency and stale `package-lock.json` (pnpm repo)
+- Dead duplicate Sanity image URL builder (`src/sanity/lib/image.ts`)
+- Security-audit exposure: production dependency vulnerabilities down to two accepted moderates inside Sanity's CLI tooling
+
 ## [0.3.1] - 2026-04-26
 
 ### Added

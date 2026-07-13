@@ -40,7 +40,7 @@ export const metadata = {
 };
 
 export default async function GlobalNotFound() {
-  // Get locale from cookie set by middleware
+  // Get locale from cookie set by the proxy (src/proxy.ts)
   const cookieStore = await cookies();
   const locale = (cookieStore.get("x-locale")?.value || "en") as "en" | "es";
   const t = translations[locale] || translations.en;
@@ -81,7 +81,7 @@ export default async function GlobalNotFound() {
         <h1 className="mb-4 text-8xl font-bold text-primary">{t.heading}</h1>
 
         {/* Title */}
-        <h2 className="mb-4 text-2xl font-semibold text-black dark:text-white sm:text-3xl">
+        <h2 className="mb-4 text-2xl font-semibold text-black sm:text-3xl dark:text-white">
           {t.title}
         </h2>
 

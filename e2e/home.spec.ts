@@ -34,18 +34,32 @@ test.describe("Home Page", () => {
     test("should have working navigation links", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
-      // Check that key navigation links exist
-      const blogLink = page.locator(
-        'nav a[href*="blog"], nav a:has-text("Blog")',
-      );
-      const contactLink = page.locator(
-        'nav a[href*="contact"], nav a:has-text("Contact")',
-      );
-
-      // At least one of these should be visible in mobile or desktop nav
+      // At least one nav link should be present in mobile or desktop nav
       const navLinks = page.locator("nav a");
       const count = await navLinks.count();
       expect(count).toBeGreaterThan(0);
+    });
+
+    test("container uses custom breakpoint steps, not Tailwind defaults", async ({
+      page,
+    }) => {
+      // Guards the @utility container cascade-order override in index.css:
+      // at a 1000px viewport the custom 992px step must win (v4's built-in
+      // .container would give 768px here).
+      await page.goto("/");
+      const container = page.locator(".container").first();
+
+      // 1000px viewport → custom 992px step (v4 default would be 768px)
+      await page.setViewportSize({ width: 1000, height: 800 });
+      expect(
+        await container.evaluate((el) => getComputedStyle(el).maxWidth),
+      ).toBe("992px");
+
+      // 1250px viewport → custom 1200px step (v4 default would be 1024px)
+      await page.setViewportSize({ width: 1250, height: 800 });
+      expect(
+        await container.evaluate((el) => getComputedStyle(el).maxWidth),
+      ).toBe("1200px");
     });
   });
 

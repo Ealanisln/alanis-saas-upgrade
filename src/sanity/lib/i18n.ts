@@ -8,6 +8,7 @@
  * 4. Optionally log missing translations for debugging
  */
 
+import { defaultLocale } from "@/config/i18n";
 import type {
   SanityPost,
   SanityCategory,
@@ -16,7 +17,6 @@ import type {
   LocalizedCategory,
   LocalizedAuthor,
 } from "./types";
-import { defaultLocale } from "@/config/i18n";
 
 // ============================================================================
 // Types
@@ -546,8 +546,7 @@ export function getPostTranslationCoverage(
 
   for (const field of fields) {
     const fieldValue = fieldMap[field] as
-      | Array<{ _key?: string; language?: string; value: unknown }>
-      | undefined;
+      Array<{ _key?: string; language?: string; value: unknown }> | undefined;
     if (hasTranslation(fieldValue, locale)) {
       translatedFields.push(field);
     } else {
@@ -589,8 +588,7 @@ export function getCategoryTranslationCoverage(
 
   for (const field of fields) {
     const fieldValue = fieldMap[field] as
-      | Array<{ _key?: string; language?: string; value: unknown }>
-      | undefined;
+      Array<{ _key?: string; language?: string; value: unknown }> | undefined;
     if (hasTranslation(fieldValue, locale)) {
       translatedFields.push(field);
     } else {

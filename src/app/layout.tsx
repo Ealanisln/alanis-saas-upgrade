@@ -1,5 +1,5 @@
-import Script from "next/script";
 import { cookies } from "next/headers";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import ScrollToTop from "@/components/ScrollToTop";
 import { fontVariables, geistBody } from "@/config/fonts";
@@ -28,8 +28,14 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   const cookieStore = await cookies();
   const locale = cookieStore.get("x-locale")?.value || "en";
 
+  // Font variables live on <html> so Tailwind's :root-level @theme tokens
+  // (--font-heading/--font-body/--font-mono) can resolve them
   return (
-    <html lang={locale} suppressHydrationWarning className="scroll-smooth">
+    <html
+      lang={locale}
+      suppressHydrationWarning
+      className={`scroll-smooth ${fontVariables}`}
+    >
       <head>
         <link rel="preconnect" href="https://cdn.sanity.io" />
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />
@@ -46,9 +52,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           media="(prefers-color-scheme: dark)"
         />
       </head>
-      <body
-        className={`${fontVariables} ${geistBody.className} overflow-x-hidden antialiased`}
-      >
+      <body className={`${geistBody.className} overflow-x-hidden antialiased`}>
         <Script
           defer
           src="https://analytics-omega-nine.vercel.app/script.js"

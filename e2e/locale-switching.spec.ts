@@ -41,7 +41,7 @@ test.describe("Locale Switching", () => {
       });
 
       await spanishButton.click();
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Should navigate to Spanish version
       await expect(page).toHaveURL(/\/es/, { timeout: 15000 });
@@ -69,7 +69,7 @@ test.describe("Locale Switching", () => {
       });
 
       await englishButton.click();
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
 
       // Should navigate to English version
       await expect(page).not.toHaveURL(/\/es/, { timeout: 15000 });

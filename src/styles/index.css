@@ -1,42 +1,214 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+/* Class-based dark mode (next-themes sets .dark on <html>); :where form
+   also matches the .dark element itself, per Tailwind v4 docs */
+@custom-variant dark (&:where(.dark, .dark *));
+/* v3 parity: apply hover: styles regardless of pointer capability */
+@custom-variant hover (&:hover);
 
 /*
  * Production Console design system — see DESIGN.md at repo root.
- * Variable names are kept stable so existing utility classes (text-t-text,
- * bg-t-surface, font-heading, font-mono, etc.) keep working.
+ * Raw palette vars are --t-* (renamed from --color-* to avoid colliding with
+ * Tailwind v4's --color-* theme namespace). Utility names are unchanged
+ * (text-t-text, bg-t-surface, font-heading, font-mono, etc.).
  */
 
+:root {
+  --t-bg: #fafaf7; /* warm paper, never pure white */
+  --t-surface: #f1f0ea; /* cards, code blocks, calculator */
+  --t-text: #0b0d0e; /* off-pure near-black */
+  --t-text-secondary: #5a5c5e; /* muted: metadata, status, captions */
+  --t-border: #d9d7cf; /* hairline 1px */
+  --t-primary: #ff5c1f; /* signal orange — single accent */
+  --t-accent: #ff5c1f; /* same as primary (single-accent system) */
+  --t-green: #0f7a3a; /* code-block strings + success only */
+  --t-error: #c0392b;
+}
+
+.dark {
+  --t-bg: #0b0d0e;
+  --t-surface: #16191b;
+  --t-text: #e8e8e3;
+  --t-text-secondary: #8b8e91;
+  --t-border: #23272a;
+  --t-primary: #ff6a2c; /* slightly lifted orange for dark contrast */
+  --t-accent: #ff6a2c;
+  --t-green: #3fb950;
+  --t-error: #ff6b5a;
+}
+
+/* Tokens that resolve through the light/dark vars above */
+@theme inline {
+  /* terminal palette */
+  --color-t-bg: var(--t-bg);
+  --color-t-surface: var(--t-surface);
+  --color-t-text: var(--t-text);
+  --color-t-muted: var(--t-text-secondary);
+  --color-t-border: var(--t-border);
+  --color-t-primary: var(--t-primary);
+  --color-t-accent: var(--t-accent);
+  --color-t-green: var(--t-green);
+
+  /* brand */
+  --color-primary: var(--t-primary);
+
+  /* fonts (next/font variables set on <body>) */
+  --font-heading: var(--font-geist-heading), system-ui, sans-serif;
+  --font-body: var(--font-geist-body), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+}
+
+@theme {
+  /* Legacy hex tokens still referenced in classNames (unused ones dropped) */
+  --color-black: #0b0d0e;
+  --color-dark: #16191b;
+  --color-body-color: #5a5c5e;
+  --color-body-color-dark: #8b8e91;
+  --color-gray-dark: #16191b;
+  --color-gray-light: #f1f0ea;
+  --color-stroke: #d9d7cf;
+  --color-stroke-dark: #23272a;
+
+  /* shadcn tokens — the hsl() source vars are undefined (pre-existing state);
+     carried verbatim so ui/* primitives render identically. Cleanup belongs
+     to the redesign. NOTE: no --color-accent on purpose (was never defined). */
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  /* radius — --radius is undefined (pre-existing: these resolve to 0 radius).
+     Carried faithfully; defining --radius would change visuals. */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  /* Legacy shadows (error/not-found pages, blog cards) — DESIGN.md bans
+     shadows for new work; these survive only for visual parity. */
+  --shadow-one: 0px 2px 3px rgba(11, 13, 14, 0.05);
+  --shadow-two: 0px 5px 10px rgba(11, 13, 14, 0.1);
+  --shadow-three: 0px 5px 15px rgba(11, 13, 14, 0.05);
+  --shadow-sticky: inset 0 -1px 0 0 rgba(217, 215, 207, 0.3);
+  --shadow-sticky-dark: inset 0 -1px 0 0 rgba(35, 39, 42, 0.3);
+  --shadow-card: 0px 1px 3px rgba(11, 13, 14, 0.08);
+  --shadow-card-hover: 0px 4px 12px rgba(11, 13, 14, 0.12);
+  --shadow-submit: 0px 5px 20px rgba(255, 92, 31, 0.15);
+  --shadow-submit-dark: 0px 5px 20px rgba(11, 13, 14, 0.3);
+  --drop-shadow-three: 0px 5px 15px rgba(11, 13, 14, 0.05);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-slide-up: slide-up 0.3s ease-out;
+  --animate-slide-down: slide-down 0.3s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+  @keyframes slide-up {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slide-down {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+/* v3 container config: centered, 1rem padding, custom max-width steps.
+   These screens were container-only in v3 — global responsive variants
+   (sm:, md:, lg:, …) keep Tailwind's default breakpoints.
+   NOTE: Tailwind v4 also emits its built-in .container rules; this block
+   wins only by cascade order (it sorts later in the generated CSS). An e2e
+   assertion guards the 992px step — if container widths ever regress,
+   suspect a cascade-order change here. */
+@utility container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (min-width: 450px) {
+    max-width: 450px;
+  }
+  @media (min-width: 575px) {
+    max-width: 575px;
+  }
+  @media (min-width: 768px) {
+    max-width: 768px;
+  }
+  @media (min-width: 992px) {
+    max-width: 992px;
+  }
+  @media (min-width: 1200px) {
+    max-width: 1200px;
+  }
+  @media (min-width: 1400px) {
+    max-width: 1400px;
+  }
+}
+
 @layer base {
-  :root {
-    --color-bg: #fafaf7; /* warm paper, never pure white */
-    --color-surface: #f1f0ea; /* cards, code blocks, calculator */
-    --color-text: #0b0d0e; /* off-pure near-black */
-    --color-text-secondary: #5a5c5e; /* muted: metadata, status, captions */
-    --color-border: #d9d7cf; /* hairline 1px */
-    --color-primary: #ff5c1f; /* signal orange — single accent */
-    --color-accent: #ff5c1f; /* same as primary (single-accent system) */
-    --color-green: #0f7a3a; /* code-block strings + success only */
-    --color-error: #c0392b;
+  /* v3-parity compat: v3 defaulted border color to gray-200, v4 uses
+     currentColor. ~50 bare border utilities rely on the old default. */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
   }
 
-  .dark {
-    --color-bg: #0b0d0e;
-    --color-surface: #16191b;
-    --color-text: #e8e8e3;
-    --color-text-secondary: #8b8e91;
-    --color-border: #23272a;
-    --color-primary: #ff6a2c; /* slightly lifted orange for dark contrast */
-    --color-accent: #ff6a2c;
-    --color-green: #3fb950;
-    --color-error: #ff6b5a;
+  /* v3-parity compat: buttons were cursor:pointer, placeholders gray-400 */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-gray-400);
   }
 
   body {
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    font-family: var(--font-body), system-ui, sans-serif;
+    background-color: var(--t-bg);
+    color: var(--t-text);
+    font-family: var(--font-body);
     font-feature-settings: "ss01", "tnum";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -62,7 +234,7 @@
   h5,
   h6 {
     @apply leading-tight;
-    font-family: var(--font-heading), system-ui, sans-serif;
+    font-family: var(--font-heading);
     letter-spacing: -0.03em;
   }
 
@@ -92,7 +264,7 @@
   .hero-dot-grid {
     background-image: radial-gradient(
       circle,
-      var(--color-border) 1px,
+      var(--t-border) 1px,
       transparent 1px
     );
     background-size: 24px 24px;

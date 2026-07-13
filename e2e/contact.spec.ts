@@ -22,10 +22,7 @@ test.describe("Contact Page", () => {
       await page.goto("/contact");
       await page.waitForLoadState("load");
 
-      // Check for common contact form fields
-      const nameInput = page.locator(
-        'input[name="name"], input[id="name"], input[placeholder*="name" i]',
-      );
+      // Check for common contact form fields (name is optional in this check)
       const emailInput = page.locator(
         'input[type="email"], input[name="email"], input[id="email"]',
       );

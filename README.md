@@ -1,12 +1,13 @@
 # Alanis SaaS Platform
 
-A modern, bilingual (English/Spanish) SaaS platform built with Next.js 15, featuring comprehensive i18n support, Sanity CMS integration, and a service calculator for quote generation.
+A modern, bilingual (English/Spanish) SaaS platform built with Next.js 16, featuring comprehensive i18n support, Sanity CMS integration, and a service calculator for quote generation.
 
 ## Features
 
 ### Core Functionality
+
 - **Bilingual Support**: Full English and Spanish language support using next-intl
-- **Content Management**: Sanity CMS v4 integration with localized content
+- **Content Management**: Sanity CMS v6 integration with localized content
 - **Service Calculator**: Interactive quote generator with pricing calculations
 - **Blog System**: Multi-language blog with Portable Text support
 - **Portfolio Showcase**: Featured projects display
@@ -14,8 +15,9 @@ A modern, bilingual (English/Spanish) SaaS platform built with Next.js 15, featu
 - **Pricing Plans**: Tiered pricing display with FAQs
 
 ### Technical Features
+
 - **Type-Safe**: Full TypeScript support with strict typing
-- **Modern Stack**: Next.js 15, React 19, Tailwind CSS
+- **Modern Stack**: Next.js 16, React 19, Tailwind CSS 4
 - **Testing**: Vitest testing framework with 100% passing tests
 - **Security**: Comprehensive security headers and hardening
 - **Performance**: Optimized images (AVIF, WebP), code splitting
@@ -25,50 +27,58 @@ A modern, bilingual (English/Spanish) SaaS platform built with Next.js 15, featu
 ## Tech Stack
 
 ### Frontend
-- **Framework**: Next.js 15.5.6 (App Router)
-- **React**: 19.2.0
-- **Styling**: Tailwind CSS 3.4.1
+
+- **Framework**: Next.js 16.2 (App Router, Turbopack builds)
+- **React**: 19.2
+- **Styling**: Tailwind CSS 4.3 (CSS-first config — theme tokens live in `src/styles/index.css`)
 - **UI Components**: Radix UI, Lucide Icons
-- **Internationalization**: next-intl 3.28.0
+- **Internationalization**: next-intl 4.13
 - **State Management**: Zustand (cart functionality)
 
 ### Backend & CMS
-- **CMS**: Sanity 4.10.3
-- **API Client**: Axios 1.12.2 (with security fixes)
+
+- **CMS**: Sanity 6.4 (next-sanity 13)
+- **API Client**: Axios 1.18 (with security fixes)
 - **Content**: Portable Text for rich content
 
 ### Development
-- **Language**: TypeScript 5.7.2
-- **Testing**: Vitest 3.2.4
-- **Linting**: ESLint with 45+ rules
+
+- **Language**: TypeScript 5.9
+- **Testing**: Vitest 3.2 (unit) + Playwright (e2e)
+- **Linting**: ESLint CLI with flat config (`eslint.config.mjs`)
 - **Package Manager**: pnpm
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18+
-- pnpm (recommended) or npm
+
+- Node.js 22.12+ (an `.nvmrc` is provided — `nvm use`)
+- pnpm (this repo is pnpm-only; the npm lockfile was removed)
 - Sanity account for CMS
 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd alanis-saas-upgrade
 ```
 
 2. Install dependencies:
+
 ```bash
 pnpm install
 ```
 
 3. Set up environment variables:
+
 ```bash
 cp .env.example .env.local
 ```
 
 4. Configure your `.env.local` with required values:
+
 ```env
 # Sanity CMS
 NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
@@ -86,6 +96,7 @@ NEXT_PUBLIC_VERCEL_ANALYTICS_ID=your_analytics_id
 ### Development
 
 Run the development server:
+
 ```bash
 pnpm dev
 ```
@@ -105,10 +116,12 @@ pnpm test             # Run tests
 pnpm test:watch       # Run tests in watch mode
 pnpm test:ui          # Open Vitest UI
 pnpm test:coverage    # Generate coverage report
+pnpm test:e2e         # Run Playwright e2e tests
 
 # Code Quality
 pnpm lint             # Run ESLint
-pnpm type-check       # Run TypeScript compiler check
+pnpm lint:fix         # Run ESLint with autofix
+pnpm typecheck        # Run TypeScript compiler check
 ```
 
 ## Project Structure
@@ -147,12 +160,14 @@ alanis-saas-upgrade/
 The platform supports two locales: **English (en)** and **Spanish (es)**.
 
 ### Route Structure
+
 - English: `/en/*`
 - Spanish: `/es/*`
 
 ### Adding Translations
 
 Translations are organized by namespace in `messages/{locale}/`:
+
 - `common.json` - Shared content (footer, navigation)
 - `home.json` - Homepage content
 - `about.json` - About page content
@@ -162,6 +177,7 @@ Translations are organized by namespace in `messages/{locale}/`:
 - `portfolio.json` - Portfolio section
 
 Example:
+
 ```json
 // messages/en/home.json
 {
@@ -173,11 +189,13 @@ Example:
 ## Content Management (Sanity)
 
 ### Content Types
+
 - **Posts**: Blog articles with i18n support
 - **Authors**: Author profiles
 - **Categories**: Content categorization
 
 ### Localized Fields
+
 Fields like `title`, `description`, and `body` support multiple languages using Sanity's internationalization structure.
 
 ### Running Sanity Studio
@@ -203,6 +221,7 @@ pnpm test:coverage
 ```
 
 Current test coverage focuses on:
+
 - Utility functions
 - Cart store functionality
 
@@ -231,13 +250,14 @@ Ensure all variables from `.env.example` are configured in your deployment platf
 1. Create a feature branch
 2. Make your changes
 3. Run tests: `pnpm test`
-4. Run type check: `pnpm type-check`
+4. Run type check: `pnpm typecheck`
 5. Run linter: `pnpm lint`
 6. Submit a pull request
 
 ## Documentation
 
 Additional documentation available in `/docs`:
+
 - API Client Guide
 - Backend Migration Guide
 - Invoice Ninja Integration
@@ -245,7 +265,10 @@ Additional documentation available in `/docs`:
 
 ## Changelog
 
-See individual reports for detailed changes:
+See [CHANGELOG.md](./CHANGELOG.md) for versioned release notes.
+
+Historical reports:
+
 - `WEEK1_REPORT.md` - Initial setup and testing
 - `WEEK2_REPORT.md` - Code quality improvements
 - `MAINTENANCE_REPORT.md` - Security updates
