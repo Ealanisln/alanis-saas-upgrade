@@ -59,6 +59,43 @@ test.describe("Home Page", () => {
       ).toBeVisible();
     });
 
+    test("hero has a working résumé download link", async ({ page }) => {
+      await page.goto("/");
+      await page.waitForLoadState("load");
+
+      const resume = page.locator(
+        'a[href="/assets/Emmanuel-Alanis-Resume.pdf"]',
+      );
+      await expect(resume).toBeVisible({ timeout: 10000 });
+      await expect(resume).toHaveAttribute(
+        "download",
+        "Emmanuel-Alanis-Resume.pdf",
+      );
+
+      // The PDF asset must actually exist
+      const response = await page.request.get(
+        "/assets/Emmanuel-Alanis-Resume.pdf",
+      );
+      expect(response.status()).toBe(200);
+      expect(response.headers()["content-type"]).toContain("pdf");
+    });
+
+    test("stats strip shows the four headline numbers", async ({ page }) => {
+      await page.goto("/");
+      await page.waitForLoadState("load");
+
+      for (const value of [
+        "2,200+",
+        "8,000+",
+        "Zero downtime",
+        "14 releases",
+      ]) {
+        await expect(page.getByText(value, { exact: true })).toBeVisible({
+          timeout: 10000,
+        });
+      }
+    });
+
     test("should render all portfolio sections", async ({ page }) => {
       await page.goto("/");
       await page.waitForLoadState("load");

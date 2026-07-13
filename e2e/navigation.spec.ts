@@ -97,6 +97,28 @@ test.describe("Navigation", () => {
       await expect(page).toHaveURL(/#contact$/, { timeout: 10000 });
     });
 
+    test("section links from a non-home page navigate back to home anchors", async ({
+      page,
+      localePath,
+    }) => {
+      // On /blog the nav renders Link "/#about" instead of a pure hash anchor
+      await page.goto(localePath("/blog"));
+      await page.waitForLoadState("load");
+      await openMobileMenuIfNeeded(page);
+
+      await page.locator('nav a[href$="#about"]').last().click();
+
+      // Assert the routing contract: full navigation to the locale-prefixed
+      // home with the section hash, and the target section exists. The
+      // browser's load-time anchor scroll itself is NOT asserted — Playwright's
+      // video recording suppresses initial-load hash scrolling in headless
+      // Chromium (verified: same flow scrolls to 797px without recordVideo,
+      // stays at 0 with it). In-page anchor scrolling is covered above.
+      await expect(page).toHaveURL(/#about$/, { timeout: 10000 });
+      expect(new URL(page.url()).pathname).toBe(localePath("/"));
+      await expect(page.locator("#about")).toHaveCount(1);
+    });
+
     test("blog index is reached via the 'View all posts' link", async ({
       page,
       localePath,
