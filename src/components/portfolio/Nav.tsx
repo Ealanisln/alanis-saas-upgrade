@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import { Link, usePathname, useRouter } from "@/lib/navigation";
+import { defaultLocale } from "@/config/i18n";
+import { usePathname, useRouter } from "@/lib/navigation";
 import {
   CloseIcon,
   GlobeIcon,
@@ -15,30 +16,31 @@ import {
 
 const SECTIONS = ["about", "experience", "projects", "skills", "blog"] as const;
 
-// Pure hash links on the home page keep smooth scrolling; from other pages
-// (e.g. /blog) the same items navigate home first.
+// Pure hash links on the home page keep smooth scrolling. From other pages
+// (e.g. /blog) these are plain <a> full navigations on purpose: the App
+// Router's client-side navigation does not scroll to the URL hash, while the
+// browser's initial-load handling does.
 const NavAnchor = ({
   id,
-  isHome,
+  homeHref,
   className,
   onClick,
   children,
 }: {
   id: string;
-  isHome: boolean;
+  homeHref: string | null;
   className: string;
   onClick?: () => void;
   children: React.ReactNode;
-}) =>
-  isHome ? (
-    <a href={`#${id}`} className={className} onClick={onClick}>
-      {children}
-    </a>
-  ) : (
-    <Link href={`/#${id}`} className={className} onClick={onClick}>
-      {children}
-    </Link>
-  );
+}) => (
+  <a
+    href={homeHref === null ? `#${id}` : `${homeHref}#${id}`}
+    className={className}
+    onClick={onClick}
+  >
+    {children}
+  </a>
+);
 
 const Nav = () => {
   const t = useTranslations("portfolio.nav");
@@ -49,6 +51,13 @@ const Nav = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const isHome = pathname === "/";
+  // null on the home page (pure hash anchors); otherwise the locale-prefixed
+  // home path, matching the router's `as-needed` prefix strategy
+  const homeHref = isHome
+    ? null
+    : locale === defaultLocale
+      ? "/"
+      : `/${locale}`;
 
   // The root layout stamps <html lang> from the request cookie; a client-side
   // locale switch is a soft navigation that never re-renders it, so sync here.
@@ -70,7 +79,7 @@ const Nav = () => {
       <div className="mx-auto flex h-[60px] max-w-[1080px] items-center justify-between gap-2.5 px-[18px] md:h-[68px] md:gap-4 md:px-6">
         {/* Logo — dark chip on desktop, bare wordmark on mobile */}
         <NavAnchor
-          isHome={isHome}
+          homeHref={homeHref}
           id="top"
           className="flex shrink-0 items-center"
         >
@@ -107,7 +116,7 @@ const Nav = () => {
           <div className="hidden items-center gap-[22px] md:flex">
             {SECTIONS.map((id) => (
               <NavAnchor
-                isHome={isHome}
+                homeHref={homeHref}
                 key={id}
                 id={id}
                 className="text-sm font-medium text-ink-3 transition-colors hover:text-ink"
@@ -155,7 +164,7 @@ const Nav = () => {
 
           {/* Desktop CTA */}
           <NavAnchor
-            isHome={isHome}
+            homeHref={homeHref}
             id="contact"
             className="hidden rounded-lg bg-accent px-[18px] py-[9px] text-sm font-semibold text-white transition-[filter] hover:brightness-[0.92] md:inline-block"
           >
@@ -169,7 +178,7 @@ const Nav = () => {
         <div className="flex animate-menu-in flex-col gap-0.5 border-t border-line px-[18px] pt-1.5 pb-4 md:hidden">
           {SECTIONS.map((id) => (
             <NavAnchor
-              isHome={isHome}
+              homeHref={homeHref}
               key={id}
               id={id}
               onClick={() => setMenuOpen(false)}
@@ -179,7 +188,7 @@ const Nav = () => {
             </NavAnchor>
           ))}
           <NavAnchor
-            isHome={isHome}
+            homeHref={homeHref}
             id="contact"
             onClick={() => setMenuOpen(false)}
             className="mt-3.5 rounded-[10px] bg-accent p-[13px] text-center text-[15px] font-semibold text-white"
