@@ -1,7 +1,6 @@
 import { cookies } from "next/headers";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
-import ScrollToTop from "@/components/ScrollToTop";
 import { fontVariables, geistBody } from "@/config/fonts";
 import "../styles/index.css";
 import { Providers } from "./providers";
@@ -43,12 +42,12 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta
           name="theme-color"
-          content="#FAFAF7"
+          content="#F7F8FA"
           media="(prefers-color-scheme: light)"
         />
         <meta
           name="theme-color"
-          content="#0B0D0E"
+          content="#0F1115"
           media="(prefers-color-scheme: dark)"
         />
       </head>
@@ -64,7 +63,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           <div className="flex min-h-[100dvh] flex-col">
             {children}
             <Analytics />
-            <ScrollToTop />
           </div>
         </Providers>
       </body>

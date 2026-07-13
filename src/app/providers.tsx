@@ -24,8 +24,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider
         attribute="class"
-        enableSystem={true}
-        defaultTheme="system"
+        enableSystem={false}
+        defaultTheme="light"
+        storageKey="alanis-portfolio-theme"
       >
         {children}
       </ThemeProvider>

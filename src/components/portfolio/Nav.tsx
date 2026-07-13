@@ -1,0 +1,185 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
+import { useTheme } from "next-themes";
+import { Link, usePathname, useRouter } from "@/lib/navigation";
+import {
+  CloseIcon,
+  GlobeIcon,
+  HamburgerIcon,
+  MoonIcon,
+  SunIcon,
+} from "./icons";
+
+const SECTIONS = ["about", "experience", "projects", "skills", "blog"] as const;
+
+// Pure hash links on the home page keep smooth scrolling; from other pages
+// (e.g. /blog) the same items navigate home first.
+const NavAnchor = ({
+  id,
+  isHome,
+  className,
+  onClick,
+  children,
+}: {
+  id: string;
+  isHome: boolean;
+  className: string;
+  onClick?: () => void;
+  children: React.ReactNode;
+}) =>
+  isHome ? (
+    <a href={`#${id}`} className={className} onClick={onClick}>
+      {children}
+    </a>
+  ) : (
+    <Link href={`/#${id}`} className={className} onClick={onClick}>
+      {children}
+    </Link>
+  );
+
+const Nav = () => {
+  const t = useTranslations("portfolio.nav");
+  const locale = useLocale();
+  const pathname = usePathname();
+  const router = useRouter();
+  const { resolvedTheme, setTheme } = useTheme();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const isHome = pathname === "/";
+
+  const toggleTheme = () =>
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+
+  const toggleLocale = () =>
+    router.replace(pathname, { locale: locale === "en" ? "es" : "en" });
+
+  const iconButton =
+    "inline-flex cursor-pointer items-center justify-center rounded-[10px] border border-line-2 bg-card text-ink-3 transition-colors hover:border-ink-4 hover:text-ink md:rounded-lg";
+
+  return (
+    <nav className="sticky top-0 z-50 border-b border-line bg-[var(--nav-bg)] backdrop-blur-[12px]">
+      <div className="mx-auto flex h-[60px] max-w-[1080px] items-center justify-between gap-2.5 px-[18px] md:h-[68px] md:gap-4 md:px-6">
+        {/* Logo — dark chip on desktop, bare wordmark on mobile */}
+        <NavAnchor isHome={isHome} id="top" className="flex shrink-0 items-center">
+          <span className="hidden items-center rounded-lg border border-[var(--chip-line)] bg-[var(--chip-bg)] pb-[5px] pl-3 pr-3 pt-[7px] md:inline-flex">
+            <Image
+              src="/assets/logo-light.svg"
+              alt={t("logoAlt")}
+              width={107}
+              height={24}
+              priority
+              className="block h-6 w-auto"
+            />
+          </span>
+          <Image
+            src="/assets/logo-dark.svg"
+            alt={t("logoAlt")}
+            width={107}
+            height={24}
+            priority
+            className="block h-6 w-auto md:hidden dark:hidden"
+          />
+          <Image
+            src="/assets/logo-light.svg"
+            alt={t("logoAlt")}
+            width={107}
+            height={24}
+            priority
+            className="hidden h-6 w-auto max-md:dark:block"
+          />
+        </NavAnchor>
+
+        <div className="flex items-center gap-2 md:gap-6">
+          {/* Desktop text links */}
+          <div className="hidden items-center gap-[22px] md:flex">
+            {SECTIONS.map((id) => (
+              <NavAnchor
+              isHome={isHome}
+                key={id}
+                id={id}
+                className="text-sm font-medium text-ink-3 transition-colors hover:text-ink"
+              >
+                {t(id)}
+              </NavAnchor>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggleLocale}
+              aria-label={t("langAria")}
+              title={t("langAria")}
+              className={`${iconButton} h-11 min-w-11 gap-1.5 px-2.5 md:h-9 md:min-w-0 md:gap-[5px] md:px-[9px]`}
+            >
+              <GlobeIcon className="size-[15px] md:size-3.5" />
+              <span className="text-xs font-bold tracking-[0.05em] md:text-[11.5px]">
+                {locale.toUpperCase()}
+              </span>
+            </button>
+            <button
+              onClick={toggleTheme}
+              aria-label={t("themeAria")}
+              title={t("themeAria")}
+              className={`${iconButton} size-11 md:size-9`}
+            >
+              <MoonIcon className="size-[17px] md:size-4 dark:hidden" />
+              <SunIcon className="hidden size-[17px] md:size-4 dark:block" />
+            </button>
+            {/* Mobile hamburger */}
+            <button
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-label={t("menuAria")}
+              aria-expanded={menuOpen}
+              className="inline-flex size-11 cursor-pointer items-center justify-center rounded-[10px] border border-line-2 bg-card text-ink md:hidden"
+            >
+              {menuOpen ? (
+                <CloseIcon className="size-[18px]" />
+              ) : (
+                <HamburgerIcon className="size-[18px]" />
+              )}
+            </button>
+          </div>
+
+          {/* Desktop CTA */}
+          <NavAnchor
+              isHome={isHome}
+            id="contact"
+            className="hidden rounded-lg bg-accent px-[18px] py-[9px] text-sm font-semibold text-white transition-[filter] hover:brightness-[0.92] md:inline-block"
+          >
+            {t("cta")}
+          </NavAnchor>
+        </div>
+      </div>
+
+      {/* Mobile dropdown menu */}
+      {menuOpen && (
+        <div className="animate-menu-in flex flex-col gap-0.5 border-t border-line px-[18px] pb-4 pt-1.5 md:hidden">
+          {SECTIONS.map((id) => (
+            <NavAnchor
+              isHome={isHome}
+              key={id}
+              id={id}
+              onClick={() => setMenuOpen(false)}
+              className="border-b border-line px-0.5 py-3 text-base font-semibold text-ink"
+            >
+              {t(id)}
+            </NavAnchor>
+          ))}
+          <NavAnchor
+              isHome={isHome}
+            id="contact"
+            onClick={() => setMenuOpen(false)}
+            className="mt-3.5 rounded-[10px] bg-accent p-[13px] text-center text-[15px] font-semibold text-white"
+          >
+            {t("cta")}
+          </NavAnchor>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+export default Nav;
