@@ -75,7 +75,6 @@ export default defineConfig({
         "src/components/portfolio/About.tsx",
         "src/components/portfolio/BlogSection.tsx",
         "src/components/portfolio/Contact.tsx",
-        "src/components/portfolio/ContactForm.tsx",
         "src/components/portfolio/Experience.tsx",
         "src/components/portfolio/Eyebrow.tsx",
         "src/components/portfolio/Footer.tsx",

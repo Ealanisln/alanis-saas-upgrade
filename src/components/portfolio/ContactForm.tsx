@@ -1,25 +1,66 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useRef, useState } from "react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
+import { useLocale, useTranslations } from "next-intl";
+import { useTheme } from "next-themes";
+import { submitContact } from "@/app/actions/contact";
+import { CONTACT_LIMITS } from "@/lib/contact-limits";
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+
+type Status = "idle" | "sending" | "success" | "error";
 
 /**
- * No backend — builds a mailto: URL exactly as specced:
- * subject "Opportunity for Emmanuel — from {name}",
- * body "{message}\n\n— {name} ({email})".
+ * Submits through the `submitContact` server action (Turnstile check +
+ * Resend delivery). The Turnstile widget only renders when the site key is
+ * configured; without it the action degrades to plain validation + send.
  */
 const ContactForm = () => {
   const t = useTranslations("portfolio.contact");
+  const locale = useLocale();
+  const { resolvedTheme } = useTheme();
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorKey, setErrorKey] = useState<"errVerify" | "errSend">("errSend");
+  const [token, setToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileInstance | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
-    const subject = encodeURIComponent(
-      t("mailSubject") + String(fd.get("name") ?? ""),
-    );
-    const body = encodeURIComponent(
-      `${fd.get("message")}\n\n— ${fd.get("name")} (${fd.get("email")})`,
-    );
-    window.location.href = `mailto:emmanuel@alanis.dev?subject=${subject}&body=${body}`;
+    if (status === "sending") return;
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+
+    if (TURNSTILE_SITE_KEY && !token) {
+      setErrorKey("errVerify");
+      setStatus("error");
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      const result = await submitContact({
+        name: String(fd.get("name") ?? ""),
+        email: String(fd.get("email") ?? ""),
+        message: String(fd.get("message") ?? ""),
+        locale,
+        turnstileToken: token ?? undefined,
+      });
+      if (result.ok) {
+        form.reset();
+        setStatus("success");
+      } else {
+        setErrorKey(result.code === "verification" ? "errVerify" : "errSend");
+        setStatus("error");
+      }
+    } catch {
+      setErrorKey("errSend");
+      setStatus("error");
+    } finally {
+      // Tokens are single-use — reissue for a follow-up submission
+      turnstileRef.current?.reset();
+      setToken(null);
+    }
   };
 
   const field =
@@ -40,7 +81,7 @@ const ContactForm = () => {
           name="name"
           type="text"
           required
-          maxLength={100}
+          maxLength={CONTACT_LIMITS.name}
           placeholder={t("phName")}
           className={field}
         />
@@ -54,7 +95,7 @@ const ContactForm = () => {
           name="email"
           type="email"
           required
-          maxLength={200}
+          maxLength={CONTACT_LIMITS.email}
           placeholder={t("phEmail")}
           className={field}
         />
@@ -63,24 +104,63 @@ const ContactForm = () => {
         <label htmlFor="cf-message" className={label}>
           {t("fMessage")}
         </label>
-        {/* Keeps the URL-encoded mailto under OS handler limits (~2k chars) */}
         <textarea
           id="cf-message"
           name="message"
           required
           rows={5}
-          maxLength={1200}
+          maxLength={CONTACT_LIMITS.message}
           placeholder={t("phMessage")}
           className={`${field} resize-y`}
         />
       </div>
+      {/* Wait for the resolved theme so the widget initializes once with the
+          right palette; afterwards the key remounts it on user toggles (its
+          own "auto" only tracks the OS preference, not the class theme) */}
+      {TURNSTILE_SITE_KEY && resolvedTheme && (
+        <Turnstile
+          ref={turnstileRef}
+          key={resolvedTheme}
+          siteKey={TURNSTILE_SITE_KEY}
+          onSuccess={setToken}
+          onError={() => setToken(null)}
+          onExpire={() => setToken(null)}
+          options={{
+            theme: resolvedTheme === "dark" ? "dark" : "light",
+            size: "flexible",
+          }}
+        />
+      )}
       <button
         type="submit"
-        className="cursor-pointer rounded-[10px] border-none bg-accent px-6 py-3.5 font-[inherit] text-[15px] font-semibold text-white transition-[filter] hover:brightness-[0.92] md:rounded-[9px] md:py-[13px]"
+        disabled={status === "sending"}
+        className="cursor-pointer rounded-[10px] border-none bg-accent px-6 py-3.5 font-[inherit] text-[15px] font-semibold text-white transition-[filter] hover:brightness-[0.92] disabled:cursor-default disabled:opacity-60 md:rounded-[9px] md:py-[13px]"
       >
-        {t("fSend")}
+        {status === "sending" ? t("fSending") : t("fSend")}
       </button>
-      <p className="text-center text-[12.5px] text-ink-4">{t("fNote")}</p>
+      <p role="status" aria-live="polite" className="text-center text-[12.5px]">
+        {status === "success" ? (
+          <span className="font-medium text-accent">{t("fSuccess")}</span>
+        ) : status === "error" ? (
+          <span className="font-medium text-t-error">
+            {t.rich(errorKey, {
+              mail: (chunks) => (
+                <a
+                  href="mailto:emmanuel@alanis.dev"
+                  className="underline underline-offset-2"
+                >
+                  {chunks}
+                </a>
+              ),
+            })}
+          </span>
+        ) : (
+          // Don't claim Turnstile protection when it isn't configured
+          <span className="text-ink-4">
+            {TURNSTILE_SITE_KEY ? t("fNote") : t("fNotePlain")}
+          </span>
+        )}
+      </p>
     </form>
   );
 };

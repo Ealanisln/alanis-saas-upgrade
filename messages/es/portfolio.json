@@ -197,8 +197,13 @@
     "fMessage": "Mensaje",
     "phMessage": "¿Para qué puesto estás contratando?",
     "fSend": "Enviar mensaje",
-    "fNote": "Abre tu cliente de correo con el mensaje prellenado.",
-    "mailSubject": "Oportunidad para Emmanuel — de "
+    "fNote": "Protegido con Cloudflare Turnstile — tu mensaje llega directo a mi bandeja.",
+    "mailSubject": "Oportunidad para Emmanuel — de ",
+    "fSending": "Enviando…",
+    "fSuccess": "Mensaje enviado — te responderé en un día hábil.",
+    "errVerify": "Completa la verificación anti-bots e inténtalo de nuevo.",
+    "errSend": "Algo salió mal. Inténtalo de nuevo o escríbeme directo a <mail>emmanuel@alanis.dev</mail>.",
+    "fNotePlain": "Tu mensaje llega directo a mi bandeja."
   },
   "footer": {
     "copy": "© 2026 Emmanuel Alanis. Ciudad de México · GMT-6."
