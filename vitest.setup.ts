@@ -32,6 +32,7 @@ vi.mock("next/navigation", () => ({
 vi.mock("next-intl", () => ({
   useTranslations: () => {
     const t = (key: string) => key;
+    t.rich = (key: string) => key;
     t.raw = (key: string) => {
       // Return arrays for known array keys
       if (

@@ -10,7 +10,7 @@ A single-page, bilingual (English/Spanish) developer portfolio built with Next.j
 - **Bilingual Support**: Full English and Spanish language support using next-intl (English at `/`, Spanish at `/es`)
 - **Content Management**: Sanity CMS v6 integration with localized content
 - **Blog System**: Multi-language blog at `/blog` with Portable Text support; home-page blog section shows the featured + recent posts and degrades gracefully without Sanity
-- **Contact Form**: No backend by design — submitting opens the visitor's email client with the message pre-filled (`mailto:`)
+- **Contact Form**: Sends directly from the site via a server action — Cloudflare Turnstile anti-bot verification, then email delivery through Resend (with a direct-email fallback if sending fails)
 
 ### Technical Features
 
@@ -89,11 +89,17 @@ SANITY_REVALIDATE_SECRET=your_webhook_secret
 NEXT_PUBLIC_API_BASE_URL=https://api.alanis.dev
 NEXT_PUBLIC_SITE_URL=https://www.alanis.dev
 
+# Contact form (Cloudflare Turnstile + Resend)
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=your_turnstile_site_key
+TURNSTILE_SECRET_KEY=your_turnstile_secret_key
+RESEND_API_KEY=your_resend_api_key
+# EMAIL_FROM / EMAIL_TO are optional (defaults in .env.example)
+
 # Analytics (optional)
 NEXT_PUBLIC_VERCEL_ANALYTICS_ID=your_analytics_id
 ```
 
-The contact form needs no email/anti-spam configuration — it builds a `mailto:` URL client-side.
+Without Turnstile keys the widget is hidden and submissions skip anti-bot verification (fine for local development); without `RESEND_API_KEY` submissions fail with a user-facing error, so it is required in production. See `.env.example` for details.
 
 ### Development
 
