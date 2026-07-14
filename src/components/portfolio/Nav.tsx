@@ -92,24 +92,32 @@ const Nav = () => {
   return (
     <nav className="sticky top-0 z-50 border-b border-line bg-[var(--nav-bg)] backdrop-blur-[12px]">
       <div className="mx-auto flex h-[60px] max-w-[1080px] items-center justify-between gap-2.5 px-[18px] md:h-[68px] md:gap-4 md:px-6">
-        {/* Logo — dark chip on desktop, bare wordmark on mobile */}
+        {/* Logo — theme-matched wordmark; the dark chip survives only in
+            dark-mode desktop (owner call 2026-07-14, deviates from the
+            handoff's always-dark chip) */}
         <NavAnchor
           homeHref={homeHref}
           id="top"
           className="flex shrink-0 items-center"
         >
-          <span className="hidden items-center rounded-lg border border-[var(--chip-line)] bg-[var(--chip-bg)] pt-[7px] pr-3 pb-[5px] pl-3 md:inline-flex">
+          <Image
+            src="/assets/logo-dark.png"
+            alt={t("logoAlt")}
+            width={90}
+            height={24}
+            className="hidden h-6 w-auto md:block md:dark:hidden"
+          />
+          <span className="hidden items-center rounded-lg border border-[var(--chip-line)] bg-[var(--chip-bg)] pt-[7px] pr-3 pb-[5px] pl-3 md:dark:inline-flex">
             <Image
               src="/assets/logo-light.png"
               alt={t("logoAlt")}
               width={90}
               height={24}
-              priority
               className="block h-6 w-auto"
             />
           </span>
-          {/* Mobile wordmarks skip `priority`: only one of the three logo
-              variants renders per breakpoint/theme, so preloading all three
+          {/* All wordmarks skip `priority`: only one of the four logo
+              variants renders per breakpoint/theme, so preloading them all
               would compete with real above-the-fold resources */}
           <Image
             src="/assets/logo-dark.png"
