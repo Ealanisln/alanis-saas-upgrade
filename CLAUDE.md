@@ -74,7 +74,7 @@ src/
 
 ### Form Handling
 
-- Contact form has no backend: native HTML validation + a `mailto:` URL built on submit (see `src/components/portfolio/ContactForm.tsx` and DESIGN.md)
+- Contact form submits through the `submitContact` server action (`src/app/actions/contact.ts`): Cloudflare Turnstile verification (`src/lib/turnstile.ts`) then Resend delivery (`src/lib/email.ts`). The Turnstile widget renders only when `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is set; verification is skipped when `TURNSTILE_SECRET_KEY` is unset (see `src/components/portfolio/ContactForm.tsx` and DESIGN.md)
 
 ### SEO
 
@@ -118,3 +118,8 @@ Required:
 - `SANITY_API_TOKEN`
 - `SANITY_REVALIDATE_SECRET` (the `/api/revalidate` webhook rejects all requests without it)
 - `NEXT_PUBLIC_API_BASE_URL`, `NEXT_PUBLIC_SITE_URL`
+
+Contact form (optional but required in production — see `.env.example`):
+
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` (Cloudflare Turnstile anti-bot)
+- `RESEND_API_KEY`, `EMAIL_FROM`, `EMAIL_TO` (Resend email delivery)

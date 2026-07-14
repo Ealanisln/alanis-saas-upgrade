@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.1] - 2026-07-13
+
+### Fixed
+
+- The nav and footer show the full brand logo again — laptop icon plus wordmark. The redesign's SVG exports had silently lost the icon, leaving only the text. The mark now ships as small optimized images (~9KB each instead of the original 165KB files), crisp on retina displays in both themes
+
+### Changed
+
+- The contact form sends messages directly from the site again: submissions are verified by Cloudflare Turnstile (anti-bot) and delivered by email via Resend, replacing the redesign's open-your-email-client (`mailto:`) flow. While sending, the button shows progress; success confirms delivery; and a failed send shows a clickable direct-email fallback
+- Verification failures are honest about whose fault they are: a rejected challenge asks the visitor to re-verify, while a Cloudflare outage or server misconfiguration shows the email fallback instead of blaming the visitor
+- Without Turnstile keys configured (local development), the widget hides, the form note stops claiming anti-bot protection, and submissions still work
+
+### Added
+
+- Contact endpoint hardening: server-side validation mirrors the field limits, subject-line header injection is rejected, the visitor IP strengthens Turnstile verification, verification calls time out after 5s, and the security headers allow the Turnstile script
+- 49 new unit tests covering the contact backend and every form state; the e2e contact suite was rewritten for the new flow
+
 ## [0.5.0] - 2026-07-12
 
 Full visual redesign: the site is now a single-page, recruiter-focused portfolio (bilingual EN/ES, light + dark), implemented pixel-faithfully from the design handoff in `design_handoff_portfolio/`.

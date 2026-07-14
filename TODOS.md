@@ -21,10 +21,17 @@
 **Priority:** P1
 The project cards (Consumer Lending 4:3, Ready Set + Destino SF 16:10) and the blog-fallback cover render neutral `bg-slot` placeholder blocks per the handoff. Source real product screenshots and drop them in. Also: several Sanity posts lack EN translations (Spanish titles show on the EN page via fallback), `publishedAt`, and categories — fix in Studio.
 
-### Verify the handoff logo SVGs
+## Contact form
 
-**Priority:** P2
-`public/assets/logo-light.svg` / `logo-dark.svg` (byte-identical to the handoff assets) contain four `<image>` elements with no `href` inside mask/filter defs — the raster payload was stripped in the design-tool export. The path-based wordmark renders fine, but confirm no icon mark was lost, then clean ~10KB of dead defs with SVGO. Noticed by adversarial review on `feature/portfolio-redesign`.
+### Lazy-mount the Turnstile widget
+
+**Priority:** P3
+The Turnstile widget initializes on page load even though the contact form is the last section of the single-page portfolio. Defer initialization until the form nears the viewport (IntersectionObserver) or use Turnstile's interaction-only appearance. Deferred from the v0.5.1 review.
+
+### Consider per-IP rate limiting on submitContact
+
+**Priority:** P3
+Turnstile single-use tokens are the throttle on the public contact action; without Turnstile keys the form degrades to unthrottled (send still gated on `RESEND_API_KEY`). If spam or quota burn ever shows up, add a lightweight per-IP limiter (Upstash or in-memory) as defense in depth. Accepted risk in the v0.5.1 review.
 
 ## Redesign follow-ups
 
@@ -34,6 +41,12 @@ The project cards (Consumer Lending 4:3, Ready Set + Destino SF 16:10) and the b
 Deferred from the v0.5.0 redesign ship: `@portabletext/react` 6 and `@vercel/analytics` 2 upgrades; dead shadcn `hsl()` token cleanup in `src/styles/index.css` and `src/components/ui/*` (the `--radius`-undefined latent parity still stands for ui/* primitives used by blog pages).
 
 ## Completed
+
+### Verify the handoff logo SVGs
+
+**Priority:** P2
+`public/assets/logo-light.svg` / `logo-dark.svg` contained four `<image>` elements with no `href` — the raster laptop icon really was stripped in the design-tool export. Restored from the pre-redesign originals and re-rasterized to 9KB transparent PNGs at 3× (`/assets/logo-{light,dark}.png`); the SVGs were removed.
+**Completed:** v0.5.1 (2026-07-13)
 
 ### Major visual redesign on the modernized stack
 
