@@ -39,7 +39,7 @@
   "about": {
     "eyebrow": "01 — Sobre mí",
     "title": "Un ingeniero que se hace cargo de sistemas de punta a punta.",
-    "p1": "Soy desarrollador full-stack en la Ciudad de México. Hoy soy dueño del frontend en React y corresponsable de tres servicios backend para una SOFOM mexicana regulada (crédito al consumo) — uno de dos desarrolladores full-stack en un equipo pequeño de ingeniería que reporta al director de TI — y soy contratista de largo plazo para una empresa de EE. UU., construyendo plataformas de logística y e-commerce en producción.",
+    "p1": "Soy desarrollador full-stack en la Ciudad de México. Hoy soy dueño del frontend en React y corresponsable de tres servicios backend para una SOFOM mexicana (crédito al consumo) — uno de dos desarrolladores full-stack en un equipo pequeño de ingeniería que reporta al director de TI — y soy contratista de largo plazo para una empresa de EE. UU., construyendo plataformas de logística y e-commerce en producción.",
     "p2": "Viví y trabajé varios años en California, así que bilingüe significa genuinamente bicultural: escribo specs, dirijo revisiones de incidentes y debato arquitectura en inglés sin fricción.",
     "p3": "No me quedo en una sola capa. Features, hardening de seguridad, CI/CD, infraestructura — asumo la responsabilidad del sistema completo, y uso herramientas de IA (Claude Code, a diario) para avanzar más rápido sin sacrificar calidad."
   },
@@ -49,7 +49,7 @@
     "job1": {
       "title": "Desarrollador Full Stack Senior",
       "dates": "Feb 2026 — Actual",
-      "org": "DXN — SOFOM mexicana regulada (fintech de crédito al consumo)",
+      "org": "DXN — SOFOM mexicana (fintech de crédito al consumo)",
       "desc": "Dueño del frontend en React de punta a punta y corresponsable de tres servicios backend (Django, Symfony, Node/TypeScript) en una plataforma de crédito en vivo, como uno de dos desarrolladores full-stack reportando al director de TI. La mayor parte del trabajo es corrección y estabilización en producción — además de ser el punto de integración de merges y releases del equipo.",
       "b1": "Especialidad profunda en verificación de identidad — OCR de documentos INE, detección facial de vida (MediaPipe) y flujos de firma digital.",
       "b2": "Seguridad de aplicaciones: hardening de JWT, flujos de MFA y OTP, CSP, externalización de credenciales; lideré una auditoría formal de seguridad con un plan de remediación en varias fases.",
@@ -70,11 +70,11 @@
     "eyebrow": "03 — Proyectos destacados",
     "title": "Sistemas en producción, no demos de fin de semana.",
     "flagship": "Proyecto principal",
-    "regulated": "Regulado · en producción",
+    "regulated": "AML/KYC · en producción",
     "caseStudy": "Caso de estudio — detalles a solicitud",
     "p1": {
       "title": "Plataforma de Crédito al Consumo — SOFOM Mexicana",
-      "desc": "Una plataforma de originación de crédito con KYC biométrico y firma digital — evidencia de hacerse cargo de un sistema regulado y crítico en seguridad, en producción y a escala.",
+      "desc": "Una plataforma de originación de crédito con KYC biométrico y firma digital — evidencia de hacerse cargo de un sistema con fuertes exigencias de cumplimiento y crítico en seguridad, en producción y a escala.",
       "b1": "Detección facial de vida y verificación de documentos INE",
       "b2": "Hardening de seguridad JWT / MFA / OTP",
       "b3": "Migración a AWS sin downtime"

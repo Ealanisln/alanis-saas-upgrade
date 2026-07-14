@@ -39,7 +39,7 @@
   "about": {
     "eyebrow": "01 — About",
     "title": "An engineer who owns systems end-to-end.",
-    "p1": "I'm a full-stack developer based in Mexico City. Today I own the React frontend and co-own three backend services for a regulated Mexican SOFOM (consumer lending) — one of two full-stack developers on a small engineering team reporting to the IT director — and I'm a long-term contractor for a US company, building production logistics and e-commerce platforms.",
+    "p1": "I'm a full-stack developer based in Mexico City. Today I own the React frontend and co-own three backend services for a Mexican SOFOM (consumer lending) — one of two full-stack developers on a small engineering team reporting to the IT director — and I'm a long-term contractor for a US company, building production logistics and e-commerce platforms.",
     "p2": "I spent years living and working in California, so bilingual means genuinely bicultural: I write specs, run incident reviews, and debate architecture in English without friction.",
     "p3": "I don't stick to one layer. Features, security hardening, CI/CD, infrastructure — I take responsibility for the whole system, and I use AI tooling (Claude Code, daily) to move faster without cutting corners."
   },
@@ -49,7 +49,7 @@
     "job1": {
       "title": "Senior Full Stack Developer",
       "dates": "Feb 2026 — Present",
-      "org": "DXN — regulated Mexican SOFOM (consumer lending fintech)",
+      "org": "DXN — Mexican SOFOM (consumer lending fintech)",
       "desc": "Own the React frontend end-to-end and co-own three backend services (Django, Symfony, Node/TypeScript) on a live lending platform, as one of two full-stack developers reporting to the IT director. Majority of the work is production fixes and stabilization — plus acting as the team's merge and release integration point.",
       "b1": "Deep specialty in identity verification — INE document OCR, facial liveness detection (MediaPipe), and digital signature flows.",
       "b2": "Application security: JWT hardening, MFA and OTP flows, CSP, credential externalization; led a formal security audit with a multi-wave remediation plan.",
@@ -70,11 +70,11 @@
     "eyebrow": "03 — Featured Projects",
     "title": "Production systems, not side demos.",
     "flagship": "Flagship",
-    "regulated": "Regulated · in production",
+    "regulated": "AML/KYC · in production",
     "caseStudy": "Case study — details on request",
     "p1": {
       "title": "Consumer Lending Platform — Mexican SOFOM",
-      "desc": "A loan-origination platform with biometric KYC and digital signing — evidence of owning a regulated, security-critical production system at scale.",
+      "desc": "A loan-origination platform with biometric KYC and digital signing — evidence of owning a compliance-heavy, security-critical production system at scale.",
       "b1": "Facial liveness detection and INE document verification",
       "b2": "JWT / MFA / OTP security hardening",
       "b3": "Zero-downtime AWS migration"
