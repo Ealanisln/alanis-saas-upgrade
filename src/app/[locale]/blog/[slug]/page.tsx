@@ -218,7 +218,11 @@ export default async function BlogPostPage({
       {/* Add JSON-LD structured data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        // Title/description/author are CMS-sourced; escape < so a value like
+        // "</script>" cannot break out of the inline script block
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
       />
 
       {/* Add breadcrumb structured data */}
