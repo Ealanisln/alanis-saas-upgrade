@@ -1,13 +1,15 @@
 import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 export const revalidate = 60;
-import ScrollUp from "@/components/Common/ScrollUp";
-import HeroSection from "@/components/Hero/index";
-import Experience from "@/components/Experience";
-import Projects from "@/components/Projects";
-import TechStack from "@/components/TechStack";
-import Blog from "@/components/Blog";
+import About from "@/components/portfolio/About";
+import BlogSection from "@/components/portfolio/BlogSection";
+import Contact from "@/components/portfolio/Contact";
+import Experience from "@/components/portfolio/Experience";
+import Hero from "@/components/portfolio/Hero";
+import Projects from "@/components/portfolio/Projects";
+import Skills from "@/components/portfolio/Skills";
+import Stats from "@/components/portfolio/Stats";
 import { siteConfig } from "@/config/i18n";
 import {
   generateLocalizedUrl,
@@ -58,6 +60,9 @@ export async function generateMetadata({
 
 export default async function Home({ params }: HomePageProps) {
   const { locale } = await params;
+  // Pins the request locale so the section components' getTranslations()
+  // calls stay correct if this route ever renders statically
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "home" });
 
   // JSON-LD uses only trusted, developer-controlled translation strings
@@ -82,34 +87,21 @@ export default async function Home({ params }: HomePageProps) {
       {/* JSON-LD structured data - content sourced from trusted translation files only */}
       <script
         type="application/ld+json"
-        // Safe: JSON.stringify of developer-controlled translation strings only
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        // Values are developer-controlled translation strings; the <
+        // escaping keeps the pattern safe if a value ever becomes CMS-sourced
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
       />
 
-      <ScrollUp />
-      <HeroSection locale={locale} />
+      <Hero />
+      <Stats />
+      <About />
       <Experience />
       <Projects />
-      <TechStack />
-      <Blog locale={locale} />
-
-      {/* CTA section */}
-      <section className="py-16 md:py-20 lg:py-24">
-        <div className="container">
-          <div className="mx-auto max-w-xl text-center">
-            <h2 className="mb-4 font-heading text-3xl font-bold text-t-text sm:text-4xl">
-              {t("cta.title")}
-            </h2>
-            <p className="mb-6 text-t-muted">{t("cta.description")}</p>
-            <a
-              href={`/${locale}/contact`}
-              className="hover:text-t-primary/80 inline-flex items-center font-medium text-t-primary transition-colors"
-            >
-              {t("cta.link")} <span className="ml-1">&rarr;</span>
-            </a>
-          </div>
-        </div>
-      </section>
+      <Skills />
+      <BlogSection locale={locale} />
+      <Contact />
     </>
   );
 }

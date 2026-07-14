@@ -189,7 +189,7 @@ export default async function BlogPostPage({
     author: {
       "@type": "Person",
       name: post.author || "Alanis Dev",
-      url: generateLocalizedUrl(locale, "/about"),
+      url: generateLocalizedUrl(locale, "/"),
     },
     publisher: {
       "@type": "Organization",
@@ -218,25 +218,29 @@ export default async function BlogPostPage({
       {/* Add JSON-LD structured data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        // Title/description/author are CMS-sourced; escape < so a value like
+        // "</script>" cannot break out of the inline script block
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
       />
 
       {/* Add breadcrumb structured data */}
       <BreadcrumbJsonLd items={breadcrumbItems} />
 
-      <section className="pb-[120px] pt-[150px]">
+      <section className="pt-[150px] pb-[120px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap justify-center">
             <div className="w-full px-4 lg:w-8/12">
               <h1>
-                <span className="mb-8 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight">
+                <span className="mb-8 text-3xl leading-tight font-bold text-black sm:text-4xl sm:leading-tight dark:text-white">
                   {title}
                 </span>
               </h1>
 
               {/* Add publication date */}
               {formattedDate && (
-                <div className="mb-6 mt-2 text-base text-body-color dark:text-body-color-dark">
+                <div className="mt-2 mb-6 text-base text-body-color dark:text-body-color-dark">
                   {t("publishedOn")} {formattedDate}
                 </div>
               )}
@@ -251,7 +255,7 @@ export default async function BlogPostPage({
                   className="mt-8 rounded-xl"
                 />
               )}
-              <div className="prose prose-xl prose-blue mt-16 dark:prose-invert prose-a:text-primary prose-li:marker:text-primary">
+              <div className="prose prose-xl mt-16 prose-blue dark:prose-invert prose-a:text-primary prose-li:marker:text-primary">
                 <PortableText
                   value={bodyBlocks}
                   components={portableTextComponents}

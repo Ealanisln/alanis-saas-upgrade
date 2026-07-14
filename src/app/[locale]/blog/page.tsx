@@ -106,7 +106,7 @@ export default async function Blog({
     author: {
       "@type": "Person",
       name: "Alanis Dev",
-      url: generateLocalizedUrl(locale, "/about"),
+      url: generateLocalizedUrl(locale, "/"),
     },
     publisher: {
       "@type": "Organization",
@@ -141,14 +141,18 @@ export default async function Blog({
       {/* Add JSON-LD structured data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        // Post titles/authors are CMS-sourced; escape < so a value like
+        // "</script>" cannot break out of the inline script block
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
       />
 
       {/* Add breadcrumb structured data */}
       <BreadcrumbJsonLd items={breadcrumbItems} />
 
       <Breadcrumb pageName={t("title")} description={t("description")} />
-      <section className="pb-8 pt-8 md:pb-16 md:pt-16">
+      <section className="pt-8 pb-8 md:pt-16 md:pb-16">
         <div className="container mx-auto">
           <div className="-mx-4 flex flex-wrap justify-center">
             <Posts data={data} locale={locale} />

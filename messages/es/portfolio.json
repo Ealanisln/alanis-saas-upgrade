@@ -1,0 +1,211 @@
+{
+  "nav": {
+    "about": "Sobre mí",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "skills": "Habilidades",
+    "blog": "Blog",
+    "cta": "Contáctame",
+    "langAria": "Switch to English",
+    "themeAria": "Cambiar modo oscuro",
+    "menuAria": "Abrir menú",
+    "logoAlt": "Alanis — Web Developer"
+  },
+  "hero": {
+    "badge": "Abierto a roles remotos",
+    "badgeZone": "GMT-6 · CDMX",
+    "badgeZoneShort": "GMT-6",
+    "name": "Emmanuel Alanis",
+    "role": "Desarrollador Full Stack Senior",
+    "summary": "Ownership a nivel plataforma de sistemas en producción en fintech y logística/e-commerce — frontend, servicios backend, seguridad e infraestructura. Inglés fluido, listo para trabajo remoto.",
+    "ctaResume": "Descargar CV",
+    "ctaContact": "Contáctame",
+    "termUser": "emmanuel@cdmx — zsh",
+    "term1": "desarrollador full-stack senior · cdmx",
+    "term2a": "react 19 · next.js 15 · typescript",
+    "term2b": "django · node · postgresql · aws",
+    "term3": "2 plataformas en vivo · 8,000+ pruebas pasando"
+  },
+  "stats": {
+    "stat1Value": "2,200+",
+    "stat1": "commits enviados a plataformas en producción en los últimos 5 meses",
+    "stat2Value": "8,000+",
+    "stat2": "pruebas automatizadas mantenidas en dos plataformas en producción",
+    "stat3Value": "Cero downtime",
+    "stat3": "migración a AWS en producción",
+    "stat4Value": "14 releases",
+    "stat4": "entregados a producción en una ventana de 3 semanas"
+  },
+  "about": {
+    "eyebrow": "01 — Sobre mí",
+    "title": "Un ingeniero que se hace cargo de sistemas de punta a punta.",
+    "p1": "Soy desarrollador full-stack en la Ciudad de México. Hoy soy dueño del frontend en React y corresponsable de tres servicios backend para una SOFOM mexicana (crédito al consumo) — uno de dos desarrolladores full-stack en un equipo pequeño de ingeniería que reporta al director de TI — y soy contratista de largo plazo para una empresa de EE. UU., construyendo plataformas de logística y e-commerce en producción.",
+    "p2": "Viví y trabajé varios años en California, así que bilingüe significa genuinamente bicultural: escribo specs, dirijo revisiones de incidentes y debato arquitectura en inglés sin fricción.",
+    "p3": "No me quedo en una sola capa. Features, hardening de seguridad, CI/CD, infraestructura — asumo la responsabilidad del sistema completo, y uso herramientas de IA (Claude Code, a diario) para avanzar más rápido sin sacrificar calidad."
+  },
+  "experience": {
+    "eyebrow": "02 — Experiencia",
+    "title": "Dónde he entregado.",
+    "job1": {
+      "title": "Desarrollador Full Stack Senior",
+      "dates": "Feb 2026 — Actual",
+      "org": "DXN — SOFOM mexicana (fintech de crédito al consumo)",
+      "desc": "Dueño del frontend en React de punta a punta y corresponsable de tres servicios backend (Django, Symfony, Node/TypeScript) en una plataforma de crédito en vivo, como uno de dos desarrolladores full-stack reportando al director de TI. La mayor parte del trabajo es corrección y estabilización en producción — además de ser el punto de integración de merges y releases del equipo.",
+      "b1": "Especialidad profunda en verificación de identidad — OCR de documentos INE, detección facial de vida (MediaPipe) y flujos de firma digital.",
+      "b2": "Seguridad de aplicaciones: hardening de JWT, flujos de MFA y OTP, CSP, externalización de credenciales; lideré una auditoría formal de seguridad con un plan de remediación en varias fases.",
+      "b3": "Lideré una migración a AWS sin downtime; construí herramientas internas desde cero — consola de almacenamiento, dashboard de salud, navegador de respaldos."
+    },
+    "job2": {
+      "title": "Ingeniero Full Stack (Contratista)",
+      "dates": "Jun 2024 — Actual",
+      "org": "Ready Set Group — cliente de EE. UU., Área de la Bahía de SF",
+      "desc": "Dueño de dos plataformas en producción de punta a punta — features, hardening de seguridad, CI/CD e infraestructura — con colaboración diaria en inglés entre zonas horarias.",
+      "b1Lead": "Ready Set (logística/entregas):",
+      "b1": "construí una capa de integración de APIs de socios que conecta tres marketplaces de catering — CaterValley (en producción con precios escalonados automáticos), CaterCow y ezCater — con autenticación firmada con HMAC y rate limiting por socio; rastreo GPS de conductores en tiempo real con captura de prueba de entrega; cálculo de kilometraje con PostGIS para nómina; migré la infraestructura de Vercel a Docker autogestionado en un VPS de Hetzner.",
+      "b2Lead": "Destino SF (e-commerce/catering):",
+      "b2": "construí una sincronización bidireccional del catálogo de Square que eliminó la doble captura de datos para el personal del restaurante, un checkout seguro ante concurrencia que previene cargos dobles y pedidos duplicados, ingeniería de resiliencia (circuit breakers, colas de reintento) y un rig serio de QA — E2E con Playwright, pruebas de accesibilidad, pruebas de carga — entregando 14 releases a producción en 3 semanas."
+    }
+  },
+  "projects": {
+    "eyebrow": "03 — Proyectos destacados",
+    "title": "Sistemas en producción, no demos de fin de semana.",
+    "flagship": "Proyecto principal",
+    "regulated": "AML/KYC · en producción",
+    "caseStudy": "Caso de estudio — detalles a solicitud",
+    "p1": {
+      "title": "Plataforma de Crédito al Consumo — SOFOM Mexicana",
+      "desc": "Una plataforma de originación de crédito con KYC biométrico y firma digital — evidencia de hacerse cargo de un sistema con fuertes exigencias de cumplimiento y crítico en seguridad, en producción y a escala.",
+      "b1": "Detección facial de vida y verificación de documentos INE",
+      "b2": "Hardening de seguridad JWT / MFA / OTP",
+      "b3": "Migración a AWS sin downtime"
+    },
+    "p2": {
+      "title": "Ready Set — Plataforma de Logística y Entregas",
+      "desc": "Plataforma multi-actor que conecta proveedores, conductores y despacho para entregas bajo demanda. Integraciones en vivo con marketplaces (CaterValley, CaterCow, ezCater), rastreo GPS en tiempo real, prueba de concepto de app nativa para conductores y una migración a infraestructura autoalojada."
+    },
+    "p3": {
+      "title": "Destino SF — Plataforma de E-commerce y Catering",
+      "desc": "Tienda en línea y sistema de catering para un restaurante, con sincronización bidireccional del catálogo de Square y checkout seguro ante concurrencia. Ingeniería de resiliencia — circuit breakers, colas de reintento — más QA riguroso (Playwright, accesibilidad, pruebas de carga) y una cadencia rápida de releases."
+    }
+  },
+  "skills": {
+    "eyebrow": "04 — Habilidades",
+    "title": "Stack tecnológico.",
+    "groups": [
+      {
+        "name": "Frontend",
+        "items": [
+          "React (18/19)",
+          "Next.js 15 (App Router)",
+          "TypeScript (estricto)",
+          "Tailwind CSS",
+          "Zustand"
+        ]
+      },
+      {
+        "name": "Backend",
+        "items": ["Node.js", "Django", "PHP / Symfony", "Prisma"]
+      },
+      {
+        "name": "Base de datos e infra",
+        "items": [
+          "PostgreSQL",
+          "PostGIS",
+          "Supabase",
+          "Redis",
+          "Docker",
+          "AWS",
+          "Hetzner",
+          "Coolify / Dokploy",
+          "GitHub Actions"
+        ]
+      },
+      {
+        "name": "Pagos e integraciones",
+        "items": [
+          "Stripe",
+          "Square",
+          "Shippo",
+          "Twilio",
+          "Mapbox / Google Maps",
+          "Resend / SendGrid"
+        ]
+      },
+      {
+        "name": "Seguridad e identidad",
+        "items": [
+          "JWT",
+          "MFA / OTP",
+          "CSP",
+          "Detección biométrica de vida",
+          "Verificación de documentos con OCR",
+          "Remediación OWASP"
+        ]
+      },
+      {
+        "name": "Testing y calidad",
+        "items": [
+          "Playwright",
+          "Pruebas de carga con k6",
+          "Pruebas de accesibilidad (WCAG)",
+          "8,000+ pruebas automatizadas mantenidas"
+        ]
+      }
+    ]
+  },
+  "blog": {
+    "eyebrow": "05 — Blog",
+    "title": "Notas desde producción.",
+    "intro": "Escribo sobre desarrollo web, nuevas tecnologías y las prácticas que sí aguantan en sistemas reales en producción.",
+    "viewAll": "Ver todas las entradas",
+    "minRead": "{minutes} min de lectura",
+    "fallback": {
+      "featured": {
+        "category": "DevOps",
+        "meta": "28 jun 2026 · 9 min de lectura",
+        "title": "Migraciones a AWS sin downtime: un checklist práctico",
+        "desc": "Lo que realmente se necesita para mover una plataforma de crédito en vivo a AWS sin ventana de mantenimiento — estrategia de DNS, dual-writes y el plan de rollback que nadie quiere usar.",
+        "descShort": "Lo que realmente se necesita para mover una plataforma de crédito en vivo a AWS sin ventana de mantenimiento."
+      },
+      "post1": {
+        "meta": "14 jun 2026 · React",
+        "title": "Detección facial de vida en el navegador con MediaPipe"
+      },
+      "post2": {
+        "meta": "30 may 2026 · Backend",
+        "title": "Checkout seguro ante concurrencia: cómo detuvimos los cargos dobles"
+      },
+      "post3": {
+        "meta": "12 may 2026 · Testing",
+        "title": "8,000 pruebas después: una estrategia pragmática de Playwright"
+      },
+      "post4": {
+        "meta": "26 abr 2026 · APIs",
+        "title": "APIs de socios firmadas con HMAC: patrones de auth que escalan"
+      }
+    }
+  },
+  "contact": {
+    "eyebrow": "06 — Contacto",
+    "title": "Hablemos.",
+    "lead": "Abierto a oportunidades remotas pagadas en USD.",
+    "body": "Normalmente respondo en un día hábil — incluido el horario de EE. UU.",
+    "fName": "Nombre",
+    "phName": "Tu nombre",
+    "fEmail": "Email",
+    "phEmail": "tu@empresa.com",
+    "fMessage": "Mensaje",
+    "phMessage": "¿Para qué puesto estás contratando?",
+    "fSend": "Enviar mensaje",
+    "fNote": "Protegido con Cloudflare Turnstile — tu mensaje llega directo a mi bandeja.",
+    "mailSubject": "Oportunidad para Emmanuel — de ",
+    "fSending": "Enviando…",
+    "fSuccess": "Mensaje enviado — te responderé en un día hábil.",
+    "errVerify": "Completa la verificación anti-bots e inténtalo de nuevo.",
+    "errSend": "Algo salió mal. Inténtalo de nuevo o escríbeme directo a <mail>emmanuel@alanis.dev</mail>.",
+    "fNotePlain": "Tu mensaje llega directo a mi bandeja."
+  },
+  "footer": {
+    "copy": "© 2026 Emmanuel Alanis. Ciudad de México · GMT-6."
+  }
+}

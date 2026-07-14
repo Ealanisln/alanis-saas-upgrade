@@ -1,154 +1,120 @@
-# Design System — alanis.dev (Alanis SaaS Platform)
+# Design System — alanis.dev (Personal Portfolio)
+
+> **Source of truth:** `design_handoff_portfolio/README.md` + the two `.dc.html`
+> references in that folder. This file summarizes the system for day-to-day
+> decisions; when in doubt, the handoff references win.
 
 ## Memorable Thing
 
-> A serious LATAM operator who ships reliable, production-ready products with clear business impact.
+> A senior full-stack engineer who owns compliance-heavy production systems end-to-end — worth hiring for remote, USD-denominated roles.
 
-Three load-bearing words: **serious**, **production-ready**, **business impact**. Every visual decision must serve at least one. If a decision serves none, drop it.
+The site is a single-page portfolio aimed at recruiters and hiring managers
+(US-remote market), bilingual EN/ES, with the blog (Sanity) as supporting
+evidence of production experience.
 
 ## Product Context
 
-- **What this is:** Bilingual (ES/EN) marketing site + service calculator + blog + portfolio for Emmanuel Alanis, an independent SaaS developer based in Mexico City selling production-grade web/SaaS development to LATAM and US clients.
-- **Who it's for:** Two buyer personas served simultaneously:
-  1. **Technical buyer** (CTO, lead dev, founder-engineer) scanning for "is this person any good" — wants real code, stack honesty, shipping cadence.
-  2. **Non-technical buyer** (founder, ops lead, marketing director, ES-speaking SMB owner) scanning for "can I trust this person" — wants clear pricing, deliverables, plain-language Spanish.
-- **Space:** Independent / boutique SaaS development. Peer set: solo dev portfolios (Brittany Chiang), dev-tool marketing (Linear, Vercel, Bun), boutique LATAM dev shops.
-- **Project type:** Marketing site + product feature (calculator) + content (blog, portfolio).
+- **What this is:** Single-page personal portfolio (hero, stats, about, experience timeline, featured projects, skills, blog, contact) + blog index/post pages, for Emmanuel Alanis, Senior Full Stack Developer, Mexico City (GMT-6).
+- **Who it's for:** Recruiters and hiring managers evaluating for remote roles; secondarily technical peers reading the blog.
+- **Predecessor:** The 2026-04 "Production Console" system (signal orange `#FF5C1F`, `// status-line` strip, oversized ES//EN hero) was superseded on 2026-07-12 by the design handoff. Its three "load-bearing risks" are retired with it.
 
-## Aesthetic Direction — "Production Console"
+## Aesthetic Direction
 
-- **Direction:** Tasteful terminal aesthetic. Calm, serious, working-tool energy. NOT green-on-black hacker cosplay. Linear-restrained, Bun-warm, Brittany-Chiang-calm.
-- **Decoration level:** Intentional. Typography does most of the work. One deliberate texture: a 1px monospace dot grid at ~6% opacity, hero only. No gradients, no blobs, no decorative shapes, no drop shadows.
-- **Mood:** The site itself should feel like a tool that runs in production, not a marketing site about tools that run in production.
-- **Reference sites:** linear.app (restraint), bun.com (warm dev marketing), brittanychiang.com (solo-dev minimalism).
+Calm, credible, production-grade. White/near-white surfaces, hairline borders,
+one saturated blue accent, a dark terminal card in the hero as the single
+"developer" signal. Both light and dark mode are first-class — never ship a
+feature in only one mode.
 
 ## Color
 
-- **Approach:** Restrained — single saturated accent (`#FF5C1F`), warm neutrals, near-black/warm-paper for text and backgrounds.
-- **Light mode:**
+CSS variables live in `src/styles/index.css`; Tailwind utilities map through
+`@theme inline` (`bg-canvas`, `bg-card`, `bg-soft`, `bg-slot`, `text-ink`,
+`text-ink-2/3/4`, `border-line`, `border-line-2`, `bg-accent`, `text-accent`).
 
-  | Role         | Hex       | Notes                                                                     |
-  | ------------ | --------- | ------------------------------------------------------------------------- |
-  | Background   | `#FAFAF7` | Warm paper, never pure white                                              |
-  | Surface      | `#F1F0EA` | Cards, code blocks, calculator background                                 |
-  | Text primary | `#0B0D0E` | Off-pure near-black                                                       |
-  | Text muted   | `#5A5C5E` | Metadata, status, captions                                                |
-  | Border       | `#D9D7CF` | Hairline 1px                                                              |
-  | **Accent**   | `#FF5C1F` | Signal orange — CTAs, calculator result, status-line live dot, link hover |
-  | Code green   | `#0F7A3A` | Code-block string literals only, success states                           |
-  | Error        | `#C0392B` | Validation, error states                                                  |
+| Var           | Light                    | Dark                               |
+| ------------- | ------------------------ | ---------------------------------- |
+| `--bg`        | `#F7F8FA`                | `#0F1115`                          |
+| `--bg-card`   | `#FFFFFF`                | `#171A21`                          |
+| `--bg-soft`   | `#F1F3F7`                | `#242A37`                          |
+| `--slot-bg`   | `#F7F8FA`                | `#1D222D`                          |
+| `--ink`       | `#16181D`                | `#F2F4F8`                          |
+| `--ink-2`     | `#3D4453`                | `#C4CAD6`                          |
+| `--ink-3`     | `#5B6270`                | `#98A1B3`                          |
+| `--ink-4`     | `#9AA3B2`                | `#7A8397`                          |
+| `--line`      | `#E6E8EE`                | `#262B36`                          |
+| `--line-2`    | `#DCE0E8`                | `#333A49`                          |
+| `--nav-bg`    | `rgba(247,248,250,0.85)` | `rgba(15,17,21,0.82)`              |
+| `--chip-bg`   | `#16181D`                | `#16181D` (+ `#333A49` border)     |
+| `--footer-bg` | `#16181D`                | `#0B0D11` (+ `#262B36` top border) |
+| `--dots`      | `#DCE0E8`                | `#262B36`                          |
+| `--term-line` | `#262B36`                | `#333A49`                          |
+| `--accent`    | `#1D4ED8`                | `#5B8AF5` (remap)                  |
 
-- **Dark mode (equally first-class):**
-
-  | Role         | Hex       | Notes                                         |
-  | ------------ | --------- | --------------------------------------------- |
-  | Background   | `#0B0D0E` | Near-black, never pure                        |
-  | Surface      | `#16191B` |                                               |
-  | Text primary | `#E8E8E3` | Off-pure                                      |
-  | Text muted   | `#8B8E91` |                                               |
-  | Border       | `#23272A` |                                               |
-  | Accent       | `#FF6A2C` | Slightly lifted orange for dark-mode contrast |
-  | Code green   | `#3FB950` |                                               |
-  | Error        | `#FF6B5A` |                                               |
-
-- **Banned colors** (do not introduce without explicit user approval):
-  - Purple/violet of any kind (the previous `#8250df` accent was retired — it now reads as default-AI-template in 2026)
-  - Default GitHub blue `#2f81f7`/`#58a6ff` (was the previous primary — replaced by accent orange)
-  - Any gradient. Solid colors only.
+- Accent alternatives (config, unused by default): `#0F766E` (dark `#2CB5A5`), `#1E3A8A` (dark `#7C93E8`).
+- Status green: dot `#16A34A` (+ `rgba(22,163,74,0.15)` ring); badge text `#15803D` on `rgba(22,163,74,0.09)`.
+- Accent focus/marker rings: `color-mix(in srgb, var(--accent) 12%, transparent)`.
+- `::selection`: `rgba(29,78,216,0.16)`.
+- Terminal card is always dark: bg `#0F1115`, header `#171A21`, prompt `#5B8AF5`, output `#F2F4F8`, status `#34D399`.
+- **Banned:** purple/violet anywhere; multi-color gradients (the hero's white→off-white vertical gradient is the one exception, from the handoff); Inter / Space Grotesk / IBM Plex.
 
 ## Typography
 
-- **Display/Heading:** **Geist** (Vercel, free). Weights 600/700. Negative letter-spacing -0.03em on display sizes. Loaded via `next/font/google`.
-- **Body:** **Geist** regular (400) and medium (500). Same family as heading for visual coherence.
-- **Mono:** **JetBrains Mono** (free). Weights 400/500. Used for: status lines, code blocks, version stamps, calculator field labels (k), tabular numerals in the calculator output, eyebrow `// SECTION` labels.
-- **Loading:** `next/font/google` with `display: 'swap'`.
-- **Banned fonts** (do not introduce):
+- **Sans:** Geist 400/500/600/700 via `next/font/google` — a single `--font-geist` variable (deduped @font-face/preload), mapped to `--font-heading` / `--font-body` in `src/styles/index.css`.
+- **Mono:** JetBrains Mono 400/500 (`--font-jetbrains-mono`) — hero availability pill and terminal card only.
+- Display sizes carry negative letter-spacing (H1 `-0.03em`, H2 `-0.02em`, card titles `-0.01em`/`-0.015em`).
+- Key sizes: H1 `clamp(42px,7vw,72px)` desktop / 40px mobile; H2 `clamp(28px,3.6vw,38px)` / 26px; eyebrow 13px/12px 600 uppercase `0.08em` accent, numbered `0N — Name`.
 
-  - Inter, Roboto, Open Sans, Lato, Montserrat, Poppins (overused)
-  - **Space Grotesk** — was the previous heading font; retired because every Next.js template defaults to it
-  - **IBM Plex Sans** — was the previous body font; retired (every dev/agency site uses it)
-  - system-ui / -apple-system as primary display font (the "I gave up" signal)
+## Spacing & Layout
 
-- **Scale (modular, 1.25 ratio):**
-
-  | Role          | Size     | Line height | Weight                                      |
-  | ------------- | -------- | ----------- | ------------------------------------------- |
-  | Display       | 88–120px | 0.96        | 700                                         |
-  | H1            | 64px     | 1.0         | 700                                         |
-  | H2            | 48px     | 1.05        | 600                                         |
-  | H3            | 32px     | 1.15        | 600                                         |
-  | Body large    | 19px     | 1.55        | 400                                         |
-  | Body          | 16px     | 1.6         | 400                                         |
-  | Small         | 14px     | 1.5         | 400                                         |
-  | Mono / status | 12–13px  | 1.5         | 500 (uppercase, letter-spacing 0.08–0.14em) |
-
-- **Always use tabular numerals** (`font-feature-settings: "tnum"`) on the calculator output, pricing, dates, version stamps.
-
-## Spacing
-
-- **Base unit:** 4px.
-- **Density:** Comfortable.
-- **Scale:** `2(2px) · 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128`.
-- **Section padding:** 96px desktop, 48px mobile (vertical).
-- **Container max-width:** `1180px` (slightly tighter than typical — feels curated).
-- **Hero padding:** 80px top, 120px bottom (desktop).
-
-## Layout
-
-- **Approach:** Hybrid — disciplined 12-column grid for app/calculator, editorial moments on marketing.
-- **Grid:** 12 columns, 32px gutter at desktop, 16px at mobile.
-- **Border radius scale:** `sm: 4px, md: 6px, lg: 8px`. **Maximum 8px.** No bubble-rounded buttons. No rounded cards larger than 8px.
-- **Borders:** Hairline 1px in `--border`. No drop shadows anywhere on production. Use border + slight surface color shift for elevation.
-- **Hero composition (canonical):**
-  - Top-left: small monospace logomark `alanis.dev/` with blinking orange cursor block
-  - Top-right: minimal mono nav (`work · services · calculator · contact`) + theme toggle
-  - Status strip directly below topbar, full-width, 1px borders top/bottom: pulsing orange dot + uppercase mono items separated by bullets (`AVAILABLE · Q3 2026 · 2 SLOTS OPEN · LAST SHIPPED 3 DAYS AGO · CDMX GMT-6`). Must be kept accurate — stale status is worse than no status.
-  - Two-column hero grid (1.4fr / 1fr): left column carries oversized `ES // EN` typographic toggle (96px Geist 700, inactive locale dimmed to muted), then headline ("Production-ready software, shipped from Mexico City." with "Mexico City" in accent orange), then subhead, then CTA row (primary orange + secondary border).
-  - Right column: code card with hairline border, no shadow, header strip + JetBrains Mono syntax-highlighted real production snippet (Stripe webhook handler is the canonical example).
-
-## Three Signature Risks (the ones that make the site memorable)
-
-These three deliberate departures from category convention are LOAD-BEARING. Removing any of them returns the site to default-template-land. Document any decision to drop one.
-
-1. **Signal orange `#FF5C1F` as the only accent.** Replaces blue/violet category default. The calculator result number is the single largest application of orange on the site — it's the visual mark.
-2. **Persistent `// status-line` strip below topbar.** Real, live, must be kept current. Single highest-signal element on the entire site. Says "actively shipping" without saying it.
-3. **Oversized `ES // EN` typographic language toggle as a hero element.** Bilingual is a feature, not a header dropdown. Inactive locale dimmed to `--muted`. If the site ever expands to PT, this evolves rather than gets buried.
+- Content max-width **1080px**, 24px side padding desktop / 18–20px mobile.
+- Section padding `clamp(64px,9vw,112px)` desktop / 56px mobile vertical.
+- Sections alternate: About/Projects/Blog/Contact on `--bg`; Stats/Experience/Skills on `--bg-card` with 1px top+bottom `--line` borders.
+- Radii: 8 (inputs, small buttons), 9–10 (CTAs), 12 (flagship image, mobile pill), 14 (form card, terminal), 16 (project/blog cards), 999 (pills/chips).
+- Shadows (handoff spec): card `0 8px 24px rgba(22,24,29,0.05)`; hover `0 10px 28px rgba(22,24,29,0.08)`; button `0 1px 2px rgba(22,24,29,0.08)`; terminal `0 24px 48px rgba(22,24,29,0.18)`.
+- Breakpoint: **768px** for nav collapse and desktop/mobile layout swaps (mobile reference designed at 390px).
 
 ## Motion
 
-- **Approach:** Minimal-functional with one signature moment.
-- **Easing:** enter `ease-out`, exit `ease-in`, move `ease-in-out`.
-- **Duration:** micro (50–100ms hover), short (150–250ms state changes), medium (250–400ms layout shifts), long (400–700ms reserved).
-- **Signature moment:** When the calculator computes, the result number animates with a counter roll-up (1500ms ease-out). Reinforces "real number, real product."
-- **Banned:** scroll-driven parallax, entrance animations on every section, fade-up-on-scroll on every block, gradient color animations.
+- `fadeUp` 0.6s `cubic-bezier(0.2,0.7,0.2,1)`, hero stagger 0/0.08/0.14/0.2/0.26/0.32s.
+- `menuIn` 0.18s ease-out (mobile menu); micro-transitions 0.15–0.18s.
+- Terminal typing: 52ms/char, 420ms pause after commands, 300ms between output lines, blinking cursor when done.
+- Availability dot pulse 2.4s.
+- **Banned:** scroll-driven parallax, fade-up-on-scroll on every block, gradient animations.
 
-## Anti-slop Checklist
+## Signature Elements (load-bearing — do not remove without flagging)
 
-If a Pull Request introduces any of these, it must be flagged in review:
+1. **Hero terminal card** with the typed `whoami / cat stack.txt / ./status --production` script — the single "developer" signal on the page.
+2. **Numbered accent eyebrows** (`01 — About` … `06 — Contact`) tying the single-page structure together.
+3. **Availability pill** (green pulsing dot, JetBrains Mono, GMT-6) — must be kept accurate; stale status is worse than none.
+
+## Behavior
+
+- Theme: light/dark toggle, persisted in `localStorage` key `alanis-portfolio-theme` (next-themes, class strategy, `color-scheme` set, no flash).
+- Language: EN/ES via next-intl locale routing (`/` and `/es`), globe toggle in nav; all portfolio copy in `messages/{locale}/portfolio.json` — **copy is final, verbatim from the handoff; do not paraphrase.**
+- Contact form: server action → Cloudflare Turnstile verification → Resend email to `EMAIL_TO`, subject `Opportunity for Emmanuel — from {name}` (the `mailSubject` string). Widget hidden and verification skipped when the Turnstile env keys are unset (the idle note swaps to `fNotePlain` so the copy never claims protection that isn't active).
+- Form status colors: success reuses the accent; error text uses the legacy `--t-error` token (`#C0392B` light / `#FF6B5A` dark) — carried over from the pre-redesign palette as the system's only error color, kept for both status messaging and the blog/error pages.
+- Smooth anchor scrolling with `scroll-padding-top` 96px desktop / 76px mobile.
+- Project cards render text-only (the neutral `--slot-bg` placeholder blocks are hidden until real screenshots exist — see the 2026-07-14 decision); the blog-fallback covers keep `--slot-bg` as the backdrop behind real Sanity images (16:8.5 / 16:9).
+
+## Anti-slop Checklist (flag in review)
 
 - Purple/violet anywhere
-- Gradients (background, text, button)
-- Drop shadows
-- 3-column feature grid with icons in colored circles
-- Centered-everything hero
+- Decorative gradients (beyond the specced hero white→off-white)
 - Inter, Space Grotesk, IBM Plex as display or body
 - system-ui as primary display font
-- Bubble-rounded buttons (border-radius > 8px)
+- 3-column feature grid with icons in colored circles
 - Stock-photo people in hero
-- Emoji as decoration (functional emoji in copy is fine — flags 🇲🇽 etc.)
 - "Built for X" / "Designed for Y" copy patterns
+- Copy that deviates from the handoff's final verbatim text
+- New shadows/radii outside the scales above
 
 ## Decisions Log
 
-| Date       | Decision                                                                                                                | Rationale                                                                                                                                                                                               |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-04-26 | Initial design system created via /design-consultation                                                                  | Codified after 3-variant side-by-side comparison. Variant A (Production Console + signal orange) chosen unanimously. Memorable thing locked: serious LATAM operator, production-ready, business impact. |
-| 2026-04-26 | Retired `#8250df` purple and `#2f81f7` blue accents                                                                     | Both read as default-AI-template/default-GitHub in 2026. Replaced with `#FF5C1F` signal orange.                                                                                                         |
-| 2026-04-26 | Retired Space Grotesk + IBM Plex Sans                                                                                   | Both overused. Replaced with Geist (Vercel) for heading + body, JetBrains Mono for status/code. All three free, production-grade.                                                                       |
-| 2026-04-26 | Adopted `// status-line` strip + oversized `ES // EN` + signal-orange calculator result as the three load-bearing risks | These are the differentiators. Document any future decision to drop one.                                                                                                                                |
-
-## Implementation References
-
-- **Approved mockup:** `~/.gstack/projects/Ealanisln-alanis-saas-upgrade/designs/design-system-20260426-140447/variant-A-orange.html`
-- **Comparison board:** `~/.gstack/projects/Ealanisln-alanis-saas-upgrade/designs/design-system-20260426-140447/board.html`
-- **v0 prompt:** see chat transcript for /design-consultation session 2026-04-26 — paste into v0.dev to generate React/Tailwind components matching this system.
+| Date       | Decision                                                                                  | Rationale                                                                                                                                                                                                                                                                                                                                |
+| ---------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-04-26 | "Production Console" system created (signal orange, status-line, ES//EN)                  | Chosen via /design-consultation 3-variant comparison.                                                                                                                                                                                                                                                                                    |
+| 2026-07-12 | **Superseded** by the recruiter-focused portfolio handoff                                 | Product pivot: from selling dev services to landing remote roles. New system: Geist, blue `#1D4ED8` accent, hero terminal card, 1080px page.                                                                                                                                                                                             |
+| 2026-07-12 | `#1D4ED8` blue un-retired as the accent                                                   | The 2026-04 ban targeted default-GitHub blue in the old system; the handoff explicitly specs this accent with a dark remap `#5B8AF5`.                                                                                                                                                                                                    |
+| 2026-07-12 | Contact backend (Resend + Turnstile) removed                                              | Handoff specs a no-backend `mailto:` form.                                                                                                                                                                                                                                                                                               |
+| 2026-07-13 | Contact backend (Resend + Turnstile) **restored**; brand logo re-rasterized               | Owner decision post-launch: keep the anti-bot form, not `mailto:`. Handoff logo SVGs had stripped the embedded laptop icon (blank `<image>` tags); originals were 165KB raster-in-SVG, so the full mark now ships as 9KB transparent PNGs at 3× (`/assets/logo-{light,dark}.png`).                                                       |
+| 2026-07-14 | Nav logo chip is **dark-mode only**; project image slots hidden; "regulated" copy retired | Owner decisions (v0.6.0): the handoff's always-dark nav chip read as broken on the light header — light mode now shows the dark-text wordmark bare. Empty screenshot placeholders read as unfinished — project cards go text-only until real captures land. Site + CV copy now says "compliance-heavy / AML/KYC" instead of "regulated". |

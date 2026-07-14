@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
 import { createClient } from "next-sanity";
+import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
 
 // Mock next/og ImageResponse
 vi.mock("next/og", () => ({

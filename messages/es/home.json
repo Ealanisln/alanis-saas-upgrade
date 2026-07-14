@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Emmanuel Alanis - Desarrollador Full-Stack",
-    "description": "Desarrollador full-stack construyendo aplicaciones web escalables con React, Next.js y TypeScript.",
+    "title": "Emmanuel Alanis — Desarrollador Full Stack Senior",
+    "description": "Desarrollador full-stack senior en la Ciudad de México (GMT-6) con ownership a nivel plataforma de sistemas en producción en fintech y logística/e-commerce. Abierto a roles remotos.",
     "keywords": [
       "desarrollador full-stack",
       "ingeniero de software",
@@ -11,84 +11,8 @@
       "Emmanuel Alanis"
     ]
   },
-  "hero": {
-    "role": "desarrollador full-stack AI-first",
-    "name": "Emmanuel Alanis",
-    "bio": "Desarrollador AI-first. Entrego software en producción al ritmo de un equipo, siendo uno solo.",
-    "bioExtended": "Middleware para SOFOM. Plataformas de entrega empresariales. SaaS multi-tenant. KYC y biometría. Orquesto Claude Code, Cursor, Codex y Gemini para entregar a un ritmo que un equipo humano por sí solo no alcanza.",
-    "terminalPrompt": "> emmanuel.alanis --role=\"ai-first\" --stack=\"claude-code,cursor,codex,gemini\" --location=\"CDMX\"",
-    "cta": "Ver mi trabajo",
-    "contact": "Contactar",
-    "badges": ["AI-first", "Claude Code", "TypeScript", "45 repos"]
-  },
-  "experience": {
-    "title": "Experiencia",
-    "items": [
-      {
-        "period": "2024 — Presente",
-        "role": "Desarrollador Full-Stack",
-        "company": "SOFOM mexicana",
-        "description": "Parte de un equipo pequeño (2 devs full-stack + 1 director de IT) construyendo y manteniendo una plataforma de operaciones de crédito. Middleware de pagos federales, biometría KYC, infraestructura de correo transaccional, auditorías de seguridad. Migración de legacy PHP/Symfony a microservicios TypeScript con Claude Code como herramienta principal."
-      },
-      {
-        "period": "2021 — Presente",
-        "role": "Desarrollador Independiente",
-        "company": "Alanis Dev",
-        "description": "Entregué Ready Set (entrega empresarial, San Francisco), Vetify (SaaS multi-tenant veterinario), Destino SF (e-commerce de alimentos especiales), Pagaré Fácil (pagarés mexicanos) y FitTrackr (fitness con OCR de Gemini). Pagos en producción con Stripe y Square."
-      },
-      {
-        "period": "2019 — 2021",
-        "role": "Desarrollador Web",
-        "company": "Autodidacta",
-        "description": "Aprendí desarrollo web moderno construyendo productos reales de principio a fin."
-      }
-    ]
-  },
-  "projects": {
-    "title": "Proyectos Destacados",
-    "items": [
-      {
-        "name": "Ready Set",
-        "description": "Plataforma de entrega empresarial con gestión de conductores, vendedores y clientes. Entrega el mismo día, servicios bajo demanda y seguimiento en tiempo real.",
-        "technologies": ["Next.js", "PostgreSQL", "Prisma", "Shadcn"],
-        "liveUrl": "https://readysetllc.com",
-        "githubUrl": "https://github.com/Ealanisln/ready-set",
-        "category": "enterprise"
-      },
-      {
-        "name": "FitTrackr",
-        "description": "Rastreador fitness impulsado por IA con OCR para etiquetas nutricionales, planificación de entrenamientos y analíticas de progreso.",
-        "technologies": ["React", "Express", "Gemini AI", "Docker"],
-        "liveUrl": "https://fittrackr.me",
-        "githubUrl": "https://github.com/Ealanisln/fittrackr",
-        "category": "ai"
-      },
-      {
-        "name": "Pagare Facil",
-        "description": "Generador de pagarés con interfaz intuitiva para información del deudor, términos de pago y generación de PDF.",
-        "technologies": ["Next.js", "React", "Generación PDF"],
-        "liveUrl": "https://www.pagarefacil.pro",
-        "githubUrl": "https://github.com/Ealanisln/pagare-facil",
-        "category": "fintech"
-      }
-    ],
-    "viewOnGithub": "Ver en GitHub",
-    "viewLive": "Link"
-  },
-  "techStack": {
-    "title": "Tecnologías"
-  },
-  "blog": {
-    "title": "Últimas Publicaciones",
-    "viewAll": "Ver todas"
-  },
-  "cta": {
-    "title": "¿Interesado en trabajar juntos?",
-    "description": "Siempre estoy abierto a discutir nuevas oportunidades y proyectos interesantes.",
-    "link": "Contactar"
-  },
   "jsonLd": {
     "name": "Emmanuel Alanis",
-    "jobTitle": "Desarrollador Full-Stack"
+    "jobTitle": "Desarrollador Full Stack Senior"
   }
 }

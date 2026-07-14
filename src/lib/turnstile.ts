@@ -1,111 +1,93 @@
 /**
- * Cloudflare Turnstile server-side verification
+ * Cloudflare Turnstile server-side verification.
  * @see https://developers.cloudflare.com/turnstile/get-started/server-side-validation/
  */
-
-interface TurnstileVerifyResponse {
-  success: boolean;
-  "error-codes"?: string[];
-  challenge_ts?: string;
-  hostname?: string;
-}
-
-interface VerificationResult {
-  success: boolean;
-  error?: string;
-}
 
 const TURNSTILE_VERIFY_URL =
   "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
+interface TurnstileVerifyResponse {
+  success: boolean;
+  "error-codes"?: string[];
+}
+
 /**
- * Verify a Turnstile token server-side
- * @param token - The token from the Turnstile widget
- * @param remoteIp - Optional IP address of the user
- * @returns Verification result
+ * "rejected" means the token itself failed (bot, expired, missing) — the
+ * visitor should re-solve the challenge. "unavailable" means we couldn't
+ * verify at all (siteverify down/timeout, or server misconfiguration) — the
+ * visitor can't fix that by retrying the widget.
+ */
+export type TurnstileVerdict = "ok" | "rejected" | "unavailable";
+
+/**
+ * Verifies a widget token. Resolves "ok" without checking when Turnstile is
+ * entirely unconfigured (no secret, no site key) so the contact form keeps
+ * working in environments without Turnstile.
  */
 export async function verifyTurnstileToken(
   token: string,
   remoteIp?: string,
-): Promise<VerificationResult> {
+): Promise<TurnstileVerdict> {
   const secretKey = process.env.TURNSTILE_SECRET_KEY;
 
-  // If Turnstile is not configured, allow the request (graceful degradation)
   if (!secretKey) {
-    console.warn(
+    // Fail closed when the widget is being served: a deployment that shows
+    // the challenge must never silently skip verifying it
+    if (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY) {
+      console.error(
+        "NEXT_PUBLIC_TURNSTILE_SITE_KEY is set but TURNSTILE_SECRET_KEY is missing. Rejecting submission.",
+      );
+      return "unavailable";
+    }
+    const log =
+      process.env.NODE_ENV === "production" ? console.error : console.warn;
+    log(
       "TURNSTILE_SECRET_KEY not configured. Skipping Turnstile verification.",
     );
-    return { success: true };
+    return "ok";
   }
 
-  // If no token provided, reject
   if (!token) {
-    return { success: false, error: "Turnstile verification required" };
+    // Mirror misconfiguration: secret set but no site key means the widget
+    // never renders, so every visitor would arrive tokenless. Blaming them
+    // ("re-solve the challenge") would dead-end the form.
+    if (!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY) {
+      console.error(
+        "TURNSTILE_SECRET_KEY is set but NEXT_PUBLIC_TURNSTILE_SITE_KEY is missing — the widget never renders. Treating verification as unavailable.",
+      );
+      return "unavailable";
+    }
+    return "rejected";
   }
+
+  // Cloudflare tokens are ≤2048 chars; don't relay oversized payloads
+  if (token.length > 2048) return "rejected";
 
   try {
-    const formData = new URLSearchParams();
-    formData.append("secret", secretKey);
-    formData.append("response", token);
-    if (remoteIp) {
-      formData.append("remoteip", remoteIp);
-    }
+    const body = new URLSearchParams({ secret: secretKey, response: token });
+    if (remoteIp) body.append("remoteip", remoteIp);
 
     const response = await fetch(TURNSTILE_VERIFY_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: formData.toString(),
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body.toString(),
+      // A hung siteverify must not pin the user's submit in "sending"
+      signal: AbortSignal.timeout(5000),
     });
 
     if (!response.ok) {
       console.error("Turnstile verification request failed:", response.status);
-      return { success: false, error: "Verification service unavailable" };
+      return "unavailable";
     }
 
     const data: TurnstileVerifyResponse = await response.json();
-
-    if (data.success) {
-      return { success: true };
-    } else {
-      const errorCode = data["error-codes"]?.[0] || "unknown";
+    if (!data.success) {
       console.error("Turnstile verification failed:", data["error-codes"]);
-      return {
-        success: false,
-        error: getTurnstileErrorMessage(errorCode),
-      };
+      return "rejected";
     }
+    return "ok";
   } catch (error) {
     console.error("Turnstile verification error:", error);
-    return { success: false, error: "Verification failed" };
+    return "unavailable";
   }
-}
-
-/**
- * Get user-friendly error message for Turnstile error codes
- */
-function getTurnstileErrorMessage(errorCode: string): string {
-  const errorMessages: Record<string, string> = {
-    "missing-input-secret": "Server configuration error",
-    "invalid-input-secret": "Server configuration error",
-    "missing-input-response": "Please complete the verification",
-    "invalid-input-response": "Verification expired. Please try again.",
-    "bad-request": "Verification failed",
-    "timeout-or-duplicate":
-      "Verification expired or already used. Please try again.",
-    "internal-error": "Verification service error",
-  };
-
-  return errorMessages[errorCode] || "Verification failed. Please try again.";
-}
-
-/**
- * Check if Turnstile is configured
- */
-export function isTurnstileConfigured(): boolean {
-  return Boolean(
-    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY &&
-      process.env.TURNSTILE_SECRET_KEY,
-  );
 }

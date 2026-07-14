@@ -9,7 +9,7 @@ vi.mock("next-sanity", () => ({
 
 // Mock @sanity/image-url
 vi.mock("@sanity/image-url", () => ({
-  default: vi.fn(() => ({
+  createImageUrlBuilder: vi.fn(() => ({
     image: vi.fn(() => ({
       width: vi.fn().mockReturnThis(),
       height: vi.fn().mockReturnThis(),

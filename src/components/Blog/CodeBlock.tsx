@@ -3,9 +3,10 @@
 
 import React, { Suspense, lazy } from "react";
 
+// PrismAsyncLight loads each language grammar on demand instead of bundling all of them
 const SyntaxHighlighter = lazy(() =>
   import("react-syntax-highlighter").then((mod) => ({
-    default: mod.Prism,
+    default: mod.PrismAsyncLight,
   })),
 );
 

@@ -8,27 +8,37 @@ const nextConfig = {
   // NOTE: /en/* redirects are handled by next-intl middleware, not here
   async redirects() {
     return [
+      // Retired standalone pages → single-page portfolio sections.
+      // Config-level 308s so crawlers see a real permanent redirect (the
+      // page-level redirect stubs stream a 200 shell first).
+      { source: "/about", destination: "/#about", permanent: true },
+      { source: "/es/about", destination: "/es#about", permanent: true },
+      { source: "/contact", destination: "/#contact", permanent: true },
+      { source: "/es/contact", destination: "/es#contact", permanent: true },
+      { source: "/portfolio", destination: "/#projects", permanent: true },
+      { source: "/plans", destination: "/#contact", permanent: true },
+
       // Legacy nested route redirects
       {
         source: "/about/portfolio",
-        destination: "/portfolio",
+        destination: "/#projects",
         permanent: true,
       },
-      { source: "/about/plans", destination: "/plans", permanent: true },
+      { source: "/about/plans", destination: "/#contact", permanent: true },
 
       // Spanish route variants
-      { source: "/portafolio", destination: "/es/portfolio", permanent: true },
+      { source: "/portafolio", destination: "/es#projects", permanent: true },
       {
         source: "/portafolio/:path*",
-        destination: "/es/portfolio",
+        destination: "/es#projects",
         permanent: true,
       },
-      { source: "/planes", destination: "/es/plans", permanent: true },
+      { source: "/planes", destination: "/es#contact", permanent: true },
 
       // Handle missing pages (redirect to contact)
-      { source: "/es/refund", destination: "/es/contact", permanent: true },
-      { source: "/refund", destination: "/contact", permanent: true },
-      { source: "/terms", destination: "/contact", permanent: true },
+      { source: "/es/refund", destination: "/es#contact", permanent: true },
+      { source: "/refund", destination: "/#contact", permanent: true },
+      { source: "/terms", destination: "/#contact", permanent: true },
     ];
   },
 
@@ -40,13 +50,23 @@ const nextConfig = {
         hostname: "cdn.sanity.io",
         port: "",
       },
-      {
-        protocol: "http",
-        hostname: "localhost",
-        port: "",
-      },
+      // Local images only resolve in dev; never allowlist local IPs in prod
+      ...(process.env.NODE_ENV === "development"
+        ? [
+            {
+              protocol: "http",
+              hostname: "localhost",
+              port: "",
+            },
+          ]
+        : []),
     ],
     formats: ["image/avif", "image/webp"],
+    // Next 16 blocks local-IP remotePatterns (the http://localhost entry
+    // above) unless explicitly allowed; only needed for local dev
+    ...(process.env.NODE_ENV === "development" && {
+      dangerouslyAllowLocalIP: true,
+    }),
   },
 
   // Security headers
@@ -56,11 +76,11 @@ const nextConfig = {
     // Note: 'unsafe-eval' is NOT included for better security
     const cspDirectives = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://js.stripe.com https://challenges.cloudflare.com",
+      "script-src 'self' 'unsafe-inline' https://js.stripe.com https://analytics-omega-nine.vercel.app https://challenges.cloudflare.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https://cdn.sanity.io https://*.stripe.com",
       "font-src 'self' data:",
-      "connect-src 'self' https://api.stripe.com https://*.sanity.io https://challenges.cloudflare.com",
+      "connect-src 'self' https://api.stripe.com https://*.sanity.io https://analytics-omega-nine.vercel.app",
       "frame-src 'self' https://js.stripe.com https://hooks.stripe.com https://challenges.cloudflare.com",
       "frame-ancestors 'none'",
       "form-action 'self'",
@@ -131,7 +151,7 @@ const nextConfig = {
 
   // Experimental features
   experimental: {
-    optimizePackageImports: ["lucide-react", "framer-motion"],
+    optimizePackageImports: ["lucide-react"],
   },
 };
 

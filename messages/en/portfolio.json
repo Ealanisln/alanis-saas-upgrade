@@ -1,0 +1,211 @@
+{
+  "nav": {
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "skills": "Skills",
+    "blog": "Blog",
+    "cta": "Get in Touch",
+    "langAria": "Cambiar a español",
+    "themeAria": "Toggle dark mode",
+    "menuAria": "Open menu",
+    "logoAlt": "Alanis — Web Developer"
+  },
+  "hero": {
+    "badge": "Open to remote roles",
+    "badgeZone": "GMT-6 · CDMX",
+    "badgeZoneShort": "GMT-6",
+    "name": "Emmanuel Alanis",
+    "role": "Senior Full Stack Developer",
+    "summary": "Platform-level ownership of production systems across fintech and logistics/e-commerce — frontend, backend services, security, and infrastructure. Fluent English, remote-work ready.",
+    "ctaResume": "Download Résumé",
+    "ctaContact": "Get in Touch",
+    "termUser": "emmanuel@cdmx — zsh",
+    "term1": "senior full-stack developer · mexico city",
+    "term2a": "react 19 · next.js 15 · typescript",
+    "term2b": "django · node · postgresql · aws",
+    "term3": "2 platforms live · 8,000+ tests passing"
+  },
+  "stats": {
+    "stat1Value": "2,200+",
+    "stat1": "commits shipped across production platforms in the last 5 months",
+    "stat2Value": "8,000+",
+    "stat2": "automated tests maintained across two production platforms",
+    "stat3Value": "Zero downtime",
+    "stat3": "production migration to AWS",
+    "stat4Value": "14 releases",
+    "stat4": "shipped to production in a 3-week window"
+  },
+  "about": {
+    "eyebrow": "01 — About",
+    "title": "An engineer who owns systems end-to-end.",
+    "p1": "I'm a full-stack developer based in Mexico City. Today I own the React frontend and co-own three backend services for a Mexican SOFOM (consumer lending) — one of two full-stack developers on a small engineering team reporting to the IT director — and I'm a long-term contractor for a US company, building production logistics and e-commerce platforms.",
+    "p2": "I spent years living and working in California, so bilingual means genuinely bicultural: I write specs, run incident reviews, and debate architecture in English without friction.",
+    "p3": "I don't stick to one layer. Features, security hardening, CI/CD, infrastructure — I take responsibility for the whole system, and I use AI tooling (Claude Code, daily) to move faster without cutting corners."
+  },
+  "experience": {
+    "eyebrow": "02 — Experience",
+    "title": "Where I've shipped.",
+    "job1": {
+      "title": "Senior Full Stack Developer",
+      "dates": "Feb 2026 — Present",
+      "org": "DXN — Mexican SOFOM (consumer lending fintech)",
+      "desc": "Own the React frontend end-to-end and co-own three backend services (Django, Symfony, Node/TypeScript) on a live lending platform, as one of two full-stack developers reporting to the IT director. Majority of the work is production fixes and stabilization — plus acting as the team's merge and release integration point.",
+      "b1": "Deep specialty in identity verification — INE document OCR, facial liveness detection (MediaPipe), and digital signature flows.",
+      "b2": "Application security: JWT hardening, MFA and OTP flows, CSP, credential externalization; led a formal security audit with a multi-wave remediation plan.",
+      "b3": "Led a zero-downtime production migration to AWS; built internal tooling from scratch — storage console, health dashboard, backup browser."
+    },
+    "job2": {
+      "title": "Full Stack Engineer (Contractor)",
+      "dates": "Jun 2024 — Present",
+      "org": "Ready Set Group — US client, SF Bay Area",
+      "desc": "Owns two production platforms end-to-end — features, security hardening, CI/CD, and infrastructure — with daily cross-timezone collaboration in English.",
+      "b1Lead": "Ready Set (logistics/delivery):",
+      "b1": "built a partner API integration layer connecting three catering marketplaces — CaterValley (live in production with automated tiered pricing), CaterCow, and ezCater — with HMAC-signed auth and per-partner rate limiting; real-time driver GPS tracking with proof-of-delivery capture; PostGIS-based mileage calculation for payroll; migrated infrastructure off Vercel to self-managed Docker on a Hetzner VPS.",
+      "b2Lead": "Destino SF (e-commerce/catering):",
+      "b2": "built two-way Square catalog sync that eliminated double data entry for restaurant staff, a concurrency-safe checkout preventing double charges and duplicate orders, resilience engineering (circuit breakers, retry queues), and a serious QA rig — Playwright E2E, accessibility testing, load testing — shipping 14 production releases in 3 weeks."
+    }
+  },
+  "projects": {
+    "eyebrow": "03 — Featured Projects",
+    "title": "Production systems, not side demos.",
+    "flagship": "Flagship",
+    "regulated": "AML/KYC · in production",
+    "caseStudy": "Case study — details on request",
+    "p1": {
+      "title": "Consumer Lending Platform — Mexican SOFOM",
+      "desc": "A loan-origination platform with biometric KYC and digital signing — evidence of owning a compliance-heavy, security-critical production system at scale.",
+      "b1": "Facial liveness detection and INE document verification",
+      "b2": "JWT / MFA / OTP security hardening",
+      "b3": "Zero-downtime AWS migration"
+    },
+    "p2": {
+      "title": "Ready Set — Logistics & Delivery Platform",
+      "desc": "Multi-sided platform connecting vendors, drivers, and dispatch for on-demand delivery. Live partner marketplace integrations (CaterValley, CaterCow, ezCater), real-time GPS tracking, a native driver-app proof-of-concept, and a self-hosted infra migration."
+    },
+    "p3": {
+      "title": "Destino SF — E-commerce & Catering Platform",
+      "desc": "Storefront and catering system for a restaurant, with two-way Square catalog sync and concurrency-safe checkout. Resilience engineering — circuit breakers, retry queues — plus rigorous QA (Playwright, accessibility, load testing) and a rapid release cadence."
+    }
+  },
+  "skills": {
+    "eyebrow": "04 — Skills",
+    "title": "Tech stack.",
+    "groups": [
+      {
+        "name": "Frontend",
+        "items": [
+          "React (18/19)",
+          "Next.js 15 (App Router)",
+          "TypeScript (strict)",
+          "Tailwind CSS",
+          "Zustand"
+        ]
+      },
+      {
+        "name": "Backend",
+        "items": ["Node.js", "Django", "PHP / Symfony", "Prisma"]
+      },
+      {
+        "name": "Database & Infra",
+        "items": [
+          "PostgreSQL",
+          "PostGIS",
+          "Supabase",
+          "Redis",
+          "Docker",
+          "AWS",
+          "Hetzner",
+          "Coolify / Dokploy",
+          "GitHub Actions"
+        ]
+      },
+      {
+        "name": "Payments & Integrations",
+        "items": [
+          "Stripe",
+          "Square",
+          "Shippo",
+          "Twilio",
+          "Mapbox / Google Maps",
+          "Resend / SendGrid"
+        ]
+      },
+      {
+        "name": "Security & Identity",
+        "items": [
+          "JWT",
+          "MFA / OTP",
+          "CSP",
+          "Biometric liveness detection",
+          "OCR document verification",
+          "OWASP remediation"
+        ]
+      },
+      {
+        "name": "Testing & Quality",
+        "items": [
+          "Playwright",
+          "k6 load testing",
+          "Accessibility (WCAG) testing",
+          "8,000+ automated tests maintained"
+        ]
+      }
+    ]
+  },
+  "blog": {
+    "eyebrow": "05 — Blog",
+    "title": "Notes from production.",
+    "intro": "Writing about web development, new technologies, and the practices that hold up in real production systems.",
+    "viewAll": "View all posts",
+    "minRead": "{minutes} min read",
+    "fallback": {
+      "featured": {
+        "category": "DevOps",
+        "meta": "Jun 28, 2026 · 9 min read",
+        "title": "Zero-downtime AWS migrations: a practical checklist",
+        "desc": "What it actually takes to move a live lending platform to AWS without a maintenance window — DNS strategy, dual-writes, and the rollback plan nobody wants to use.",
+        "descShort": "What it actually takes to move a live lending platform to AWS without a maintenance window."
+      },
+      "post1": {
+        "meta": "Jun 14, 2026 · React",
+        "title": "Facial liveness detection in the browser with MediaPipe"
+      },
+      "post2": {
+        "meta": "May 30, 2026 · Backend",
+        "title": "Concurrency-safe checkout: how we stopped double charges"
+      },
+      "post3": {
+        "meta": "May 12, 2026 · Testing",
+        "title": "8,000 tests later: a pragmatic Playwright strategy"
+      },
+      "post4": {
+        "meta": "Apr 26, 2026 · APIs",
+        "title": "HMAC-signed partner APIs: auth patterns that scale"
+      }
+    }
+  },
+  "contact": {
+    "eyebrow": "06 — Contact",
+    "title": "Let's talk.",
+    "lead": "Open to remote, USD-denominated opportunities.",
+    "body": "I typically reply within one business day — US business hours included.",
+    "fName": "Name",
+    "phName": "Your name",
+    "fEmail": "Email",
+    "phEmail": "you@company.com",
+    "fMessage": "Message",
+    "phMessage": "What are you hiring for?",
+    "fSend": "Send Message",
+    "fNote": "Protected by Cloudflare Turnstile — your message goes straight to my inbox.",
+    "mailSubject": "Opportunity for Emmanuel — from ",
+    "fSending": "Sending…",
+    "fSuccess": "Message sent — I'll get back to you within one business day.",
+    "errVerify": "Please complete the anti-bot verification and try again.",
+    "errSend": "Something went wrong. Please try again, or email me directly at <mail>emmanuel@alanis.dev</mail>.",
+    "fNotePlain": "Your message goes straight to my inbox."
+  },
+  "footer": {
+    "copy": "© 2026 Emmanuel Alanis. Mexico City · GMT-6."
+  }
+}

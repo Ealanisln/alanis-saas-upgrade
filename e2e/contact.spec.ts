@@ -1,47 +1,93 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 
-test.describe("Contact Page", () => {
+/**
+ * E2E tests for the Contact section of the single-page portfolio.
+ *
+ * The form submits through the `submitContact` server action (Cloudflare
+ * Turnstile verification + Resend delivery). Validation is native HTML (all
+ * three fields required, email uses type="email"). In this e2e environment
+ * neither the Turnstile keys nor RESEND_API_KEY are configured, so the widget
+ * is hidden, verification is skipped, and a valid submission deterministically
+ * surfaces the send-failure state with the direct-email fallback link.
+ * The old /contact route survives only as a redirect to /#contact.
+ */
+
+// Helper to fill the form with valid data
+async function fillContactForm(
+  page: Page,
+  data = {
+    name: "Test User",
+    email: "test@example.com",
+    message: "This is a test message for the contact form.",
+  },
+) {
+  await page.fill("#cf-name", data.name);
+  await page.fill("#cf-email", data.email);
+  await page.fill("#cf-message", data.message);
+  return data;
+}
+
+test.describe("Contact Section", () => {
+  // The dev server compiles routes on demand and may be shared with parallel
+  // suites; allow generous navigation time so cold compiles don't flake.
+  test.use({ navigationTimeout: 60_000 });
+  test.describe.configure({ timeout: 90_000 });
+
   test.describe("English locale", () => {
-    test("should load the contact page", async ({ page }) => {
+    test("old /contact route redirects to the home contact section", async ({
+      page,
+    }) => {
       await page.goto("/contact");
-      await page.waitForLoadState("load");
 
-      await expect(page).toHaveTitle(/Contact|Alanis/i);
+      // The route survives only as a redirect to the single-page anchor
+      await page.waitForURL(/\/#contact$/);
+
+      await expect(page).toHaveTitle(/Alanis|Emmanuel/i);
+      await expect(page.locator("#contact")).toBeVisible();
     });
 
-    test("should display the contact form", async ({ page }) => {
-      await page.goto("/contact");
+    test("should display the contact section with heading and form", async ({
+      page,
+    }) => {
+      await page.goto("/");
       await page.waitForLoadState("load");
 
-      // Check for form element
-      const form = page.locator("form");
+      const section = page.locator("#contact");
+      await expect(section).toBeVisible();
+      await expect(
+        section.getByRole("heading", { name: "Let's talk." }),
+      ).toBeVisible();
+
+      const form = section.locator("form");
       await expect(form).toBeVisible();
     });
 
-    test("should have required form fields", async ({ page }) => {
-      await page.goto("/contact");
+    test("should have required form fields and a submit button", async ({
+      page,
+    }) => {
+      await page.goto("/");
       await page.waitForLoadState("load");
 
-      // Check for common contact form fields
-      const nameInput = page.locator(
-        'input[name="name"], input[id="name"], input[placeholder*="name" i]',
-      );
-      const emailInput = page.locator(
-        'input[type="email"], input[name="email"], input[id="email"]',
-      );
-      const messageInput = page.locator(
-        'textarea, textarea[name="message"], textarea[id="message"]',
-      );
+      const name = page.locator("#cf-name");
+      const email = page.locator("#cf-email");
+      const message = page.locator("#cf-message");
 
-      // At least email and message should be present
-      const emailCount = await emailInput.count();
-      const messageCount = await messageInput.count();
+      await expect(name).toBeVisible();
+      await expect(email).toBeVisible();
+      await expect(message).toBeVisible();
 
-      expect(emailCount).toBeGreaterThan(0);
-      expect(messageCount).toBeGreaterThan(0);
+      // All three fields use native required validation
+      await expect(name).toHaveAttribute("required", "");
+      await expect(email).toHaveAttribute("required", "");
+      await expect(message).toHaveAttribute("required", "");
+      await expect(email).toHaveAttribute("type", "email");
+
+      await expect(
+        page.getByRole("button", { name: "Send Message" }),
+      ).toBeVisible();
     });
 
-    test("should show validation errors on empty submit", async ({
+    test("should block empty submit via native validation", async ({
       page,
       browserName,
     }) => {
@@ -51,244 +97,165 @@ test.describe("Contact Page", () => {
         "WebKit has validation timing issues",
       );
 
-      await page.goto("/contact");
+      await page.goto("/");
       await page.waitForLoadState("load");
 
-      // Find and click submit button
-      const submitButton = page.locator(
-        'button[type="submit"], input[type="submit"], button:has-text("Send"), button:has-text("Submit")',
+      await page.getByRole("button", { name: "Send Message" }).click();
+
+      // Native HTML validation should mark the empty required fields invalid
+      const invalid = page.locator(
+        "#cf-name:invalid, #cf-email:invalid, #cf-message:invalid",
       );
+      await expect(invalid).toHaveCount(3);
 
-      if ((await submitButton.count()) > 0) {
-        await submitButton.first().click();
-
-        // Wait for validation - either HTML5 validation or custom
-        await page.waitForTimeout(500);
-
-        // Check for validation indicators (required fields should show validation)
-        const invalidFields = page.locator(':invalid, [aria-invalid="true"]');
-        const errorMessages = page.locator(
-          '[role="alert"], .error, .error-message, [data-error]',
-        );
-
-        const hasInvalidFields = (await invalidFields.count()) > 0;
-        const hasErrorMessages = (await errorMessages.count()) > 0;
-
-        // At least one type of validation should trigger
-        expect(hasInvalidFields || hasErrorMessages).toBeTruthy();
-      }
+      // Native validation blocks the submit before the server action runs
+      await expect(page.locator("#contact")).toBeVisible();
     });
 
-    test("should have accessible form labels", async ({ page }) => {
-      await page.goto("/contact");
+    test("should flag a malformed email via native validation", async ({
+      page,
+      browserName,
+    }) => {
+      test.skip(
+        browserName === "webkit",
+        "WebKit has validation timing issues",
+      );
+
+      await page.goto("/");
       await page.waitForLoadState("load");
 
-      // Check that inputs have associated labels
-      const inputs = page.locator('input:not([type="hidden"]), textarea');
-      const count = await inputs.count();
+      await fillContactForm(page, {
+        name: "Test User",
+        email: "not-an-email",
+        message: "Hello",
+      });
+      await page.getByRole("button", { name: "Send Message" }).click();
 
-      for (let i = 0; i < count; i++) {
-        const input = inputs.nth(i);
-        const id = await input.getAttribute("id");
-        const ariaLabel = await input.getAttribute("aria-label");
-        const ariaLabelledBy = await input.getAttribute("aria-labelledby");
-        const placeholder = await input.getAttribute("placeholder");
+      // type="email" typeMismatch keeps the field invalid
+      await expect(page.locator("#cf-email:invalid")).toHaveCount(1);
+      const validity = await page
+        .locator("#cf-email")
+        .evaluate((el: HTMLInputElement) => el.validity.typeMismatch);
+      expect(validity).toBe(true);
+    });
 
-        // Input should have at least one accessibility attribute
-        const hasAccessibility =
-          id || ariaLabel || ariaLabelledBy || placeholder;
+    test("should have accessible labels wired to each field", async ({
+      page,
+    }) => {
+      await page.goto("/");
+      await page.waitForLoadState("load");
 
-        if (!hasAccessibility) {
-          // This is a soft check - log but don't fail
-          console.log(`Input ${i} may lack accessibility attributes`);
-        }
-      }
+      // Each input has an explicit <label for="...">
+      await expect(page.locator('label[for="cf-name"]')).toHaveText("Name");
+      await expect(page.locator('label[for="cf-email"]')).toHaveText("Email");
+      await expect(page.locator('label[for="cf-message"]')).toHaveText(
+        "Message",
+      );
+
+      // Labels resolve as accessible names
+      await expect(page.getByLabel("Name", { exact: true })).toBeVisible();
+      await expect(page.getByLabel("Email", { exact: true })).toBeVisible();
+      await expect(page.getByLabel("Message", { exact: true })).toBeVisible();
+    });
+
+    test("should show the plain inbox note when Turnstile is not configured", async ({
+      page,
+    }) => {
+      await page.goto("/");
+      await page.waitForLoadState("load");
+
+      // Without NEXT_PUBLIC_TURNSTILE_SITE_KEY the widget is hidden and the
+      // note must not claim anti-bot protection
+      await expect(
+        page.getByText("Your message goes straight to my inbox."),
+      ).toBeVisible();
+    });
+
+    test("should display direct contact links", async ({ page }) => {
+      await page.goto("/");
+      await page.waitForLoadState("load");
+
+      const section = page.locator("#contact");
+
+      const mailLink = section.locator('a[href="mailto:emmanuel@alanis.dev"]');
+      await expect(mailLink).toBeVisible();
+      await expect(mailLink).toHaveText(/emmanuel@alanis\.dev/);
+
+      const linkedin = section.locator('a[href*="linkedin.com/in/ealanis"]');
+      await expect(linkedin).toBeVisible();
+      await expect(linkedin).toHaveAttribute("target", "_blank");
+
+      const github = section.locator('a[href="https://github.com/Ealanisln"]');
+      await expect(github).toBeVisible();
+      await expect(github).toHaveAttribute("target", "_blank");
     });
   });
 
   test.describe("Spanish locale", () => {
-    test("should load the Spanish contact page", async ({ page }) => {
+    test("old /es/contact route redirects to the Spanish contact section", async ({
+      page,
+    }) => {
       await page.goto("/es/contact");
-      await page.waitForLoadState("load");
 
-      await expect(page).toHaveTitle(/Contact|Contacto|Alanis/i);
+      await page.waitForURL(/\/es\/?#contact$/);
+
+      const html = page.locator("html");
+      await expect(html).toHaveAttribute("lang", "es");
+      await expect(page.locator("#contact")).toBeVisible();
     });
 
     test("should display form with Spanish labels", async ({ page }) => {
-      await page.goto("/es/contact");
+      await page.goto("/es");
       await page.waitForLoadState("load");
 
-      const form = page.locator("form");
-      await expect(form).toBeVisible();
+      const section = page.locator("#contact");
+      await expect(section.locator("form")).toBeVisible();
 
-      // Check the html lang attribute
+      await expect(page.locator('label[for="cf-name"]')).toHaveText("Nombre");
+      await expect(page.locator('label[for="cf-message"]')).toHaveText(
+        "Mensaje",
+      );
+      await expect(
+        page.getByRole("button", { name: "Enviar mensaje" }),
+      ).toBeVisible();
+
       const html = page.locator("html");
       await expect(html).toHaveAttribute("lang", "es");
     });
   });
 
-  test.describe("Form submission", () => {
-    // Helper to fill the form with valid data
-    async function fillContactForm(page: import("@playwright/test").Page) {
-      await page.fill('input[name="name"]', "Test User");
-      await page.fill('input[type="email"]', "test@example.com");
-      await page.fill(
-        'textarea[name="message"]',
-        "This is a test message for the contact form.",
-      );
-    }
-
-    // Skip: Contact form uses Next.js server action (sendEmail), not API route
-    // Server actions cannot be mocked with Playwright's page.route()
-    test.skip("should submit form successfully with valid data", async ({
+  test.describe("Form submission (server action)", () => {
+    test("valid submission reaches the action and surfaces the send-failure fallback", async ({
       page,
     }) => {
-      // Mock API success response
-      await page.route("**/api/**", async (route) => {
-        await route.fulfill({
-          status: 200,
-          contentType: "application/json",
-          body: JSON.stringify({ success: true }),
-        });
-      });
-
-      await page.goto("/contact");
-      await page.waitForLoadState("load");
-
-      // Fill form with valid data
-      await fillContactForm(page);
-
-      // Submit the form
-      await page.click('button[type="submit"]');
-
-      // Verify success message appears (green background)
-      const successMessage = page.locator(".bg-green-200");
-      await expect(successMessage).toBeVisible({ timeout: 5000 });
-    });
-
-    // Skip: Contact form uses Next.js server action (sendEmail), not API route
-    test.skip("should reset form after successful submission", async ({
-      page,
-    }) => {
-      // Mock API success response
-      await page.route("**/api/**", async (route) => {
-        await route.fulfill({
-          status: 200,
-          contentType: "application/json",
-          body: JSON.stringify({ success: true }),
-        });
-      });
-
-      await page.goto("/contact");
-      await page.waitForLoadState("load");
-
-      // Fill form
-      await fillContactForm(page);
-
-      // Submit
-      await page.click('button[type="submit"]');
-
-      // Wait for success message
-      await expect(page.locator(".bg-green-200")).toBeVisible({
-        timeout: 5000,
-      });
-
-      // Wait for form reset (happens after 3 seconds)
-      await page.waitForTimeout(3500);
-
-      // Verify fields are cleared
-      const nameInput = page.locator('input[name="name"]');
-      const emailInput = page.locator('input[type="email"]');
-      const messageInput = page.locator('textarea[name="message"]');
-
-      await expect(nameInput).toHaveValue("");
-      await expect(emailInput).toHaveValue("");
-      await expect(messageInput).toHaveValue("");
-    });
-
-    // Skip: Contact form uses Next.js server action (sendEmail), not API route
-    test.skip("should clear success message after timeout", async ({
-      page,
-    }) => {
-      // Mock API success response
-      await page.route("**/api/**", async (route) => {
-        await route.fulfill({
-          status: 200,
-          contentType: "application/json",
-          body: JSON.stringify({ success: true }),
-        });
-      });
-
-      await page.goto("/contact");
+      await page.goto("/");
       await page.waitForLoadState("load");
 
       await fillContactForm(page);
-      await page.click('button[type="submit"]');
+      await page.getByRole("button", { name: "Send Message" }).click();
 
-      // Verify success message appears
-      const successMessage = page.locator(".bg-green-200");
-      await expect(successMessage).toBeVisible({ timeout: 5000 });
+      // No field is invalid after a valid submission
+      await expect(
+        page.locator(
+          "#cf-name:invalid, #cf-email:invalid, #cf-message:invalid",
+        ),
+      ).toHaveCount(0);
 
-      // Wait for message to clear (3 seconds timeout)
-      await page.waitForTimeout(3500);
-
-      // Verify success message is gone
-      await expect(successMessage).not.toBeVisible();
-    });
-
-    // Skip: Contact form uses Next.js server action (sendEmail), not API route
-    test.skip("should display error message on server error", async ({
-      page,
-    }) => {
-      // Mock API error response
-      await page.route("**/api/**", async (route) => {
-        await route.fulfill({
-          status: 500,
-          contentType: "application/json",
-          body: JSON.stringify({ success: false, message: "Server error" }),
-        });
+      // RESEND_API_KEY is not configured in the e2e environment, so the
+      // action reports a send failure with the direct-email escape hatch
+      const status = page.locator("#contact form [role='status']");
+      await expect(status).toContainText("Something went wrong", {
+        timeout: 15_000,
       });
+      await expect(
+        status.locator('a[href="mailto:emmanuel@alanis.dev"]'),
+      ).toBeVisible();
 
-      await page.goto("/contact");
-      await page.waitForLoadState("load");
-
-      await fillContactForm(page);
-      await page.click('button[type="submit"]');
-
-      // Verify error message appears (red background)
-      const errorMessage = page.locator(".bg-red-200");
-      await expect(errorMessage).toBeVisible({ timeout: 5000 });
-    });
-
-    // Skip: Contact form uses Next.js server action (sendEmail), not API route
-    test.skip("should display error message on network failure", async ({
-      page,
-    }) => {
-      // Mock network failure
-      await page.route("**/api/**", async (route) => {
-        await route.abort("failed");
-      });
-
-      await page.goto("/contact");
-      await page.waitForLoadState("load");
-
-      await fillContactForm(page);
-      await page.click('button[type="submit"]');
-
-      // Verify error message appears (red background)
-      const errorMessage = page.locator(".bg-red-200");
-      await expect(errorMessage).toBeVisible({ timeout: 5000 });
-    });
-
-    test("should show character limit message for message field", async ({
-      page,
-    }) => {
-      await page.goto("/contact");
-      await page.waitForLoadState("load");
-
-      // The maxChars message should be visible
-      const maxCharsMessage = page.locator("text=/max|500|char/i");
-      await expect(maxCharsMessage).toBeVisible();
+      // The page must not navigate away, and a failed submission must keep
+      // what the visitor typed
+      await expect(page.locator("#contact")).toBeVisible();
+      await expect(page.locator("#cf-name")).toHaveValue("Test User");
+      await expect(page.locator("#cf-email")).toHaveValue("test@example.com");
     });
   });
 });

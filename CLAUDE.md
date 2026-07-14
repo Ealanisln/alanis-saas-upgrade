@@ -6,21 +6,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 # Development
-pnpm dev                    # Start dev server with Turbopack
+pnpm dev                    # Start dev server (Turbopack is the Next 16 default)
 pnpm build                  # Production build
 pnpm start                  # Start production server
-pnpm lint                   # Run ESLint
+pnpm lint                   # Run ESLint (flat config, eslint.config.mjs)
+pnpm lint:fix               # Run ESLint with autofix
 
 # Testing
 pnpm test                   # Run tests once
 pnpm test:watch             # Run tests in watch mode
 pnpm test:ui                # Run tests with UI
 pnpm test:coverage          # Run tests with coverage report
+pnpm test:e2e               # Run Playwright e2e suite
+pnpm typecheck              # TypeScript compiler check
 ```
 
 ## Architecture Overview
 
-**Stack**: Next.js 15 (App Router) + React 19 + TypeScript + Sanity CMS + Tailwind CSS
+**Stack**: Next.js 16 (App Router) + React 19 + TypeScript + Sanity CMS (v6) + Tailwind CSS 4 (CSS-first config)
 
 ### Routing & Internationalization
 
@@ -29,13 +32,13 @@ pnpm test:coverage          # Run tests with coverage report
 - Translation files: `/messages/{locale}/{namespace}.json`
 - Server components: `getTranslations('namespace')`
 - Client components: `useTranslations('namespace')`
-- Middleware handles locale detection and redirects
+- The proxy (src/proxy.ts, Next 16 convention) handles locale detection and redirects
 
 ### Key Directories
 
 ```
 src/
-├── app/[locale]/           # Locale-aware pages (home, about, blog, contact)
+├── app/[locale]/           # Locale-aware pages (home = single-page portfolio, blog; about/contact are redirect stubs)
 ├── app/api/revalidate/     # Sanity webhook for ISR revalidation
 ├── app/studio/             # Sanity Studio at /studio
 ├── components/             # Feature-organized React components
@@ -71,9 +74,7 @@ src/
 
 ### Form Handling
 
-- react-hook-form for form state
-- Zod for validation schemas
-- Contact form is the main form
+- Contact form submits through the `submitContact` server action (`src/app/actions/contact.ts`): Cloudflare Turnstile verification (`src/lib/turnstile.ts`) then Resend delivery (`src/lib/email.ts`). The Turnstile widget renders only when `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is set; verification is skipped only when both Turnstile keys are unset — a half-configured pair fails closed (see `src/components/portfolio/ContactForm.tsx` and DESIGN.md)
 
 ### SEO
 
@@ -84,7 +85,7 @@ src/
 
 ### Styling
 
-- Tailwind CSS with custom color system. **See DESIGN.md for the canonical palette, type, spacing, and aesthetic direction.** Current legacy CSS variables (e.g., `#4F7AFA`, GitHub Primer-inspired tokens) are being migrated to the Production Console system defined in DESIGN.md.
+- Tailwind CSS with custom color system. **See DESIGN.md for the canonical palette, type, spacing, and aesthetic direction.** Tokens live in `src/styles/index.css` (`bg-canvas/card/soft/slot`, `text-ink`/`-2/-3/-4`, `border-line`/`-2`, `bg-accent`); the source-of-truth spec is `design_handoff_portfolio/README.md`.
 - Dark mode via class-based next-themes (light + dark are equally first-class — never ship a feature in only one mode)
 - Import path alias: `@/*` → `./src/*`
 
@@ -92,9 +93,9 @@ src/
 
 **Always read DESIGN.md before making any visual or UI decisions.** All font choices, colors, spacing, and aesthetic direction are defined there. Do not deviate without explicit user approval.
 
-The system is "Production Console" — Geist + JetBrains Mono, signal orange `#FF5C1F` accent, warm-paper / near-black palette. The three load-bearing risks (signal orange accent, `// status-line` strip, oversized `ES // EN` hero typography) are documented in DESIGN.md and must not be removed without flagging.
+The system is the recruiter-focused portfolio from `design_handoff_portfolio/` — Geist (+ JetBrains Mono in the hero pill/terminal only), blue `#1D4ED8` accent (dark-mode remap `#5B8AF5`), white/near-black palette, 1080px content width. Signature elements (hero terminal card, numbered accent eyebrows, availability pill) are documented in DESIGN.md and must not be removed without flagging. All portfolio copy is final and verbatim in `messages/{locale}/portfolio.json` — do not paraphrase it.
 
-In code review and QA: flag any code that introduces purple/violet, gradients, drop shadows, Inter/Space Grotesk/IBM Plex Sans, bubble-rounded buttons (border-radius > 8px), or any other entry on the DESIGN.md anti-slop checklist.
+In code review and QA: flag any code that introduces purple/violet, decorative gradients, Inter/Space Grotesk/IBM Plex Sans, shadows or radii outside the DESIGN.md scales, or any other entry on the DESIGN.md anti-slop checklist.
 
 ### Testing
 
@@ -115,8 +116,10 @@ Required:
 
 - `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_API_VERSION`
 - `SANITY_API_TOKEN`
+- `SANITY_REVALIDATE_SECRET` (the `/api/revalidate` webhook rejects all requests without it)
 - `NEXT_PUBLIC_API_BASE_URL`, `NEXT_PUBLIC_SITE_URL`
 
-Email:
+Contact form (optional but required in production — see `.env.example`):
 
-- `RESEND_API_KEY`
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` (Cloudflare Turnstile anti-bot)
+- `RESEND_API_KEY`, `EMAIL_FROM`, `EMAIL_TO` (Resend email delivery)
