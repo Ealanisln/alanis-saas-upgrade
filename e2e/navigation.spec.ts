@@ -1,5 +1,5 @@
-import { test, expect } from "./fixtures/test-fixtures";
 import type { Page } from "@playwright/test";
+import { test, expect } from "./fixtures/test-fixtures";
 
 // The redesign turned the site into a single-page portfolio: the nav links
 // are anchors into home sections (#about, #experience, ...), the Blog nav

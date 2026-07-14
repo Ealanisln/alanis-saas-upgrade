@@ -1,5 +1,5 @@
-import { test, expect } from "./fixtures/test-fixtures";
 import type { Page } from "@playwright/test";
+import { test, expect } from "./fixtures/test-fixtures";
 
 /**
  * E2E tests for dark mode functionality on the single-page portfolio.

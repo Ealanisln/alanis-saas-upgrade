@@ -3,10 +3,12 @@ import { test, expect, type Page } from "@playwright/test";
 /**
  * E2E tests for the Contact section of the single-page portfolio.
  *
- * The redesign replaced the old /contact page (server-action form) with a
- * #contact section on the home page. There is NO backend: the form builds a
- * mailto: URL on submit and assigns it to window.location.href. Validation is
- * native HTML (all three fields are required, email uses type="email").
+ * The form submits through the `submitContact` server action (Cloudflare
+ * Turnstile verification + Resend delivery). Validation is native HTML (all
+ * three fields required, email uses type="email"). In this e2e environment
+ * neither the Turnstile keys nor RESEND_API_KEY are configured, so the widget
+ * is hidden, verification is skipped, and a valid submission deterministically
+ * surfaces the send-failure state with the direct-email fallback link.
  * The old /contact route survives only as a redirect to /#contact.
  */
 
@@ -106,8 +108,8 @@ test.describe("Contact Section", () => {
       );
       await expect(invalid).toHaveCount(3);
 
-      // Submission must not have navigated anywhere (no mailto: attempt)
-      expect(page.url()).not.toMatch(/^mailto:/);
+      // Native validation blocks the submit before the server action runs
+      await expect(page.locator("#contact")).toBeVisible();
     });
 
     test("should flag a malformed email via native validation", async ({
@@ -156,15 +158,16 @@ test.describe("Contact Section", () => {
       await expect(page.getByLabel("Message", { exact: true })).toBeVisible();
     });
 
-    test("should explain that submission opens the email client", async ({
+    test("should show the plain inbox note when Turnstile is not configured", async ({
       page,
     }) => {
       await page.goto("/");
       await page.waitForLoadState("load");
 
-      // Replaces the old char-limit hint: the form now discloses the mailto flow
+      // Without NEXT_PUBLIC_TURNSTILE_SITE_KEY the widget is hidden and the
+      // note must not claim anti-bot protection
       await expect(
-        page.getByText("Opens your email client with the message pre-filled."),
+        page.getByText("Your message goes straight to my inbox."),
       ).toBeVisible();
     });
 
@@ -221,51 +224,8 @@ test.describe("Contact Section", () => {
     });
   });
 
-  test.describe("Form submission (mailto construction)", () => {
-    // The submit handler builds a mailto: URL and assigns window.location.href.
-    // The browser cancels external-protocol navigations in headless mode, so we
-    // capture the requested navigation via CDP (Chromium-only) and assert the
-    // exact subject/body construction.
-    test("should build the mailto URL with the specced subject and body", async ({
-      page,
-      browserName,
-    }) => {
-      test.skip(
-        browserName !== "chromium",
-        "CDP navigation capture is Chromium-only",
-      );
-
-      await page.goto("/");
-      await page.waitForLoadState("load");
-
-      const client = await page.context().newCDPSession(page);
-      await client.send("Page.enable");
-
-      const mailtoRequested = new Promise<string>((resolve) => {
-        client.on("Page.frameRequestedNavigation", (event) => {
-          if (event.url.startsWith("mailto:")) {
-            resolve(event.url);
-          }
-        });
-      });
-
-      const data = await fillContactForm(page);
-      await page.getByRole("button", { name: "Send Message" }).click();
-
-      const mailtoUrl = await mailtoRequested;
-
-      const url = new URL(mailtoUrl);
-      expect(url.protocol).toBe("mailto:");
-      expect(url.pathname).toBe("emmanuel@alanis.dev");
-      expect(url.searchParams.get("subject")).toBe(
-        `Opportunity for Emmanuel — from ${data.name}`,
-      );
-      expect(url.searchParams.get("body")).toBe(
-        `${data.message}\n\n— ${data.name} (${data.email})`,
-      );
-    });
-
-    test("valid submission passes native validation and stays on the page", async ({
+  test.describe("Form submission (server action)", () => {
+    test("valid submission reaches the action and surfaces the send-failure fallback", async ({
       page,
     }) => {
       await page.goto("/");
@@ -281,8 +241,18 @@ test.describe("Contact Section", () => {
         ),
       ).toHaveCount(0);
 
-      // mailto: is handled externally — the page itself must not navigate away,
-      // and the form keeps its values (there is no success/reset state anymore)
+      // RESEND_API_KEY is not configured in the e2e environment, so the
+      // action reports a send failure with the direct-email escape hatch
+      const status = page.locator("#contact form [role='status']");
+      await expect(status).toContainText("Something went wrong", {
+        timeout: 15_000,
+      });
+      await expect(
+        status.locator('a[href="mailto:emmanuel@alanis.dev"]'),
+      ).toBeVisible();
+
+      // The page must not navigate away, and a failed submission must keep
+      // what the visitor typed
       await expect(page.locator("#contact")).toBeVisible();
       await expect(page.locator("#cf-name")).toHaveValue("Test User");
       await expect(page.locator("#cf-email")).toHaveValue("test@example.com");
