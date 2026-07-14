@@ -23,9 +23,9 @@ const Footer = async () => {
       <div className="mx-auto flex max-w-[1080px] flex-col gap-[18px] px-5 py-8 md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-5 md:px-6 md:py-10">
         <div className="flex items-center gap-[18px]">
           <Image
-            src="/assets/logo-light.svg"
+            src="/assets/logo-light.png"
             alt={t("nav.logoAlt")}
-            width={116}
+            width={97}
             height={26}
             className="block h-6 w-auto self-start md:h-[26px] md:self-auto"
           />

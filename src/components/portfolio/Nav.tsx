@@ -100,9 +100,9 @@ const Nav = () => {
         >
           <span className="hidden items-center rounded-lg border border-[var(--chip-line)] bg-[var(--chip-bg)] pt-[7px] pr-3 pb-[5px] pl-3 md:inline-flex">
             <Image
-              src="/assets/logo-light.svg"
+              src="/assets/logo-light.png"
               alt={t("logoAlt")}
-              width={107}
+              width={90}
               height={24}
               priority
               className="block h-6 w-auto"
@@ -112,16 +112,16 @@ const Nav = () => {
               variants renders per breakpoint/theme, so preloading all three
               would compete with real above-the-fold resources */}
           <Image
-            src="/assets/logo-dark.svg"
+            src="/assets/logo-dark.png"
             alt={t("logoAlt")}
-            width={107}
+            width={90}
             height={24}
             className="block h-6 w-auto md:hidden dark:hidden"
           />
           <Image
-            src="/assets/logo-light.svg"
+            src="/assets/logo-light.png"
             alt={t("logoAlt")}
-            width={107}
+            width={90}
             height={24}
             className="hidden h-6 w-auto max-md:dark:block"
           />
