@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0] - 2026-07-14
+
+### Added
+
+- The "Download Résumé" button now serves the CV matching the page language: the Spanish site delivers the Spanish CV, the English site the English résumé. Both PDFs refreshed to the latest exports
+
+### Changed
+
+- Reworded the DXN experience across both languages: the org line now reads "Mexican SOFOM (consumer lending fintech)", the project badge shows "AML/KYC · in production", and the flagship description says "compliance-heavy, security-critical" — no more "regulated" claims
+- The project cards no longer show empty gray screenshot placeholders — they render as clean text-only cards until real product captures are ready
+
+### Fixed
+
+- The nav logo now matches the active theme on desktop: light mode shows the dark-text wordmark directly on the header instead of a dark box; dark mode keeps the chip treatment
+- Blog pages and breadcrumbs escape `<` in their JSON-LD structured data, so CMS-sourced titles can never break out of the inline script block (the home page already had this hardening; the blog routes now match)
+
 ## [0.5.1] - 2026-07-13
 
 ### Fixed

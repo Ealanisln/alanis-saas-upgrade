@@ -17,20 +17,24 @@ const BreadcrumbJsonLd: React.FC<BreadcrumbJsonLdProps> = ({ items }) => {
   const breadcrumbData = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": items.map((item, index) => ({
+    itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
-      "position": index + 1,
-      "name": item.name,
-      "item": item.url
-    }))
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
   };
 
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      // Breadcrumb names can be CMS-sourced post titles; escape < so a value
+      // like "</script>" cannot break out of the inline script block
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(breadcrumbData).replace(/</g, "\\u003c"),
+      }}
     />
   );
 };
 
-export default BreadcrumbJsonLd; 
+export default BreadcrumbJsonLd;
