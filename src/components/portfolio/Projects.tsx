@@ -20,22 +20,6 @@ const DESTINO_CHIPS = [
   "Shippo",
 ];
 
-/** Neutral placeholder block until real product screenshots are provided. */
-const ImageSlot = ({
-  aspect,
-  radius,
-  className = "",
-}: {
-  aspect: string;
-  radius: string;
-  className?: string;
-}) => (
-  <div
-    aria-hidden="true"
-    className={`w-full border border-line bg-slot ${aspect} ${radius} ${className}`}
-  />
-);
-
 const TechChips = ({ chips }: { chips: string[] }) => (
   <div className="mt-auto flex flex-wrap gap-1.5 md:gap-[7px]">
     {chips.map((chip) => (
@@ -74,12 +58,6 @@ const Projects = async () => {
           <h3 className="text-xl leading-[1.25] font-bold tracking-[-0.015em] md:text-[clamp(22px,2.6vw,27px)]">
             {t("p1.title")}
           </h3>
-          {/* Mobile order: image sits between title and description */}
-          <ImageSlot
-            aspect="aspect-[4/3]"
-            radius="rounded-xl"
-            className="md:hidden"
-          />
           <p className="text-[15px] leading-[1.65] [text-wrap:pretty] text-ink-2 md:text-base md:leading-[1.7]">
             {t("p1.desc")}
           </p>
@@ -92,17 +70,11 @@ const Projects = async () => {
             {t("caseStudy")}
           </span>
         </div>
-        <ImageSlot
-          aspect="aspect-[4/3]"
-          radius="rounded-xl"
-          className="hidden md:block"
-        />
       </div>
 
       {/* Secondary cards */}
       <div className="mt-[18px] flex flex-col gap-[18px] md:mt-5 md:grid md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] md:gap-5">
         <div className={secondaryCard}>
-          <ImageSlot aspect="aspect-[16/10]" radius="rounded-[10px]" />
           <h3 className="text-lg leading-[1.3] font-bold tracking-[-0.01em] md:text-[19px]">
             {t("p2.title")}
           </h3>
@@ -115,7 +87,6 @@ const Projects = async () => {
           </span>
         </div>
         <div className={secondaryCard}>
-          <ImageSlot aspect="aspect-[16/10]" radius="rounded-[10px]" />
           <h3 className="text-lg leading-[1.3] font-bold tracking-[-0.01em] md:text-[19px]">
             {t("p3.title")}
           </h3>
