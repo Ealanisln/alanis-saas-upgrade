@@ -74,7 +74,7 @@ src/
 
 ### Form Handling
 
-- Contact form submits through the `submitContact` server action (`src/app/actions/contact.ts`): Cloudflare Turnstile verification (`src/lib/turnstile.ts`) then Resend delivery (`src/lib/email.ts`). The Turnstile widget renders only when `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is set; verification is skipped when `TURNSTILE_SECRET_KEY` is unset (see `src/components/portfolio/ContactForm.tsx` and DESIGN.md)
+- Contact form submits through the `submitContact` server action (`src/app/actions/contact.ts`): Cloudflare Turnstile verification (`src/lib/turnstile.ts`) then Resend delivery (`src/lib/email.ts`). The Turnstile widget renders only when `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is set; verification is skipped only when both Turnstile keys are unset — a half-configured pair fails closed (see `src/components/portfolio/ContactForm.tsx` and DESIGN.md)
 
 ### SEO
 
