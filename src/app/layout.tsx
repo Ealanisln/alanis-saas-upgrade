@@ -48,7 +48,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       <body className={`${geist.className} overflow-x-hidden antialiased`}>
         <Script
           defer
-          src="https://analytics-omega-nine.vercel.app/script.js"
+          src="https://analytics.alanis.dev/script.js"
           data-website-id="ff7f7fca-11fa-497f-814a-ee473d935868"
           strategy="afterInteractive"
         />

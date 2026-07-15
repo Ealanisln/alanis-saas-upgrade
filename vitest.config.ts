@@ -66,9 +66,6 @@ export default defineConfig({
         "src/app/blog-details/**",
         "src/app/blog-sidebar/**",
         "src/app/cotizador/**",
-        "src/app/dashboard/**",
-        "src/app/error/**",
-        "src/app/new-ui/**",
         // UI components covered by E2E tests (portfolio logic stays in
         // coverage: Terminal.tsx and blog-utils.ts are unit-tested)
         "src/components/Blog/**",
