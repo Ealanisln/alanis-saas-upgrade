@@ -151,7 +151,7 @@ const nextConfig = {
 
   // Experimental features
   experimental: {
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: [],
   },
 };
 
