@@ -5,7 +5,7 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // SEO Redirects: Handle legacy URLs only
-  // NOTE: /en/* redirects are handled by next-intl middleware, not here
+  // NOTE: /en/* redirects are handled in src/proxy.ts, not here
   async redirects() {
     return [
       // Retired standalone pages → single-page portfolio sections.
@@ -76,12 +76,12 @@ const nextConfig = {
     // Note: 'unsafe-eval' is NOT included for better security
     const cspDirectives = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://js.stripe.com https://analytics-omega-nine.vercel.app https://challenges.cloudflare.com",
+      "script-src 'self' 'unsafe-inline' https://analytics.alanis.dev https://challenges.cloudflare.com",
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob: https://cdn.sanity.io https://*.stripe.com",
+      "img-src 'self' data: blob: https://cdn.sanity.io",
       "font-src 'self' data:",
-      "connect-src 'self' https://api.stripe.com https://*.sanity.io https://analytics-omega-nine.vercel.app",
-      "frame-src 'self' https://js.stripe.com https://hooks.stripe.com https://challenges.cloudflare.com",
+      "connect-src 'self' https://*.sanity.io https://analytics.alanis.dev",
+      "frame-src 'self' https://challenges.cloudflare.com",
       "frame-ancestors 'none'",
       "form-action 'self'",
       "base-uri 'self'",
@@ -151,7 +151,7 @@ const nextConfig = {
 
   // Experimental features
   experimental: {
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: [],
   },
 };
 

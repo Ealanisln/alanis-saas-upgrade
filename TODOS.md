@@ -40,21 +40,6 @@ Turnstile single-use tokens are the throttle on the public contact action; witho
 **Priority:** P2
 Deferred from the v0.5.0 redesign ship: `@portabletext/react` 6 and `@vercel/analytics` 2 upgrades; dead shadcn `hsl()` token cleanup in `src/styles/index.css` and `src/components/ui/*` (the `--radius`-undefined latent parity still stands for ui/* primitives used by blog pages).
 
-### Delete the unused shadcn ui primitives and their deps
-
-**Priority:** P2
-Nothing outside `src/components/ui/` imports the shadcn primitives (badge, button, card, carousel, dialog, dropdown-menu, pagination, table, the index barrel) — only `PageNotFound` is live. Delete them plus the orphaned deps (`@radix-ui/react-dialog`, `@radix-ui/react-dropdown-menu`, `embla-carousel-react`, `lucide-react` and its `optimizePackageImports` entry). Same sweep: `src/components/Blog/{SingleBlog,RelatedPost,SharePost,TagButton}.tsx` are unimported, and `src/styles/index.css` carries dead tokens (`--shadow-three`, `--animate-accordion-*`, the `#checkboxLabel` rule). From the v0.6.0 release review.
-
-### Strip the stale Stripe entries from CSP and .env.example
-
-**Priority:** P2
-`next.config.js` allowlists js.stripe.com / api.stripe.com / hooks.stripe.com / *.stripe.com on four CSP directives but no Stripe code or dependency remains; `.env.example` keeps a Stripe key section. Remove both (or comment why they stay). Also stale: `vitest.config.ts` coverage excludes for nonexistent `src/app/{dashboard,error,new-ui}/**`, and the `next.config.js:8` comment still says "middleware" instead of `src/proxy.ts`. From the v0.6.0 release review.
-
-### Serve the analytics script first-party
-
-**Priority:** P2
-`layout.tsx` loads Umami from `analytics-omega-nine.vercel.app` (allowlisted in CSP script-src/connect-src). A `*.vercel.app` subdomain is released if the project is deleted/renamed — anyone claiming it gains script execution on the site. Point a first-party domain (e.g. `analytics.alanis.dev`, which already exists) at the Umami project and load from there. Related: the instance is currently returning 500 on `/api/send` (15–24s) — page-view data is being dropped; check its database. From the v0.6.0 release review + QA.
-
 ### CSP hardening: drop 'unsafe-inline' from script-src
 
 **Priority:** P3
@@ -76,6 +61,24 @@ Nothing outside `src/components/ui/` imports the shadcn primitives (badge, butto
 (1) The home GROQ query ships full post bodies (`pt::text`) just to count words server-side — compute the count in GROQ instead. (2) `NextIntlClientProvider` receives the full message bag; pass only the client-consumed namespaces (nav/hero/contact). From the v0.6.0 release review.
 
 ## Completed
+
+### Delete the unused shadcn ui primitives and their deps
+
+**Priority:** P2
+Nothing outside `src/components/ui/` imports the shadcn primitives (badge, button, card, carousel, dialog, dropdown-menu, pagination, table, the index barrel) — only `PageNotFound` is live. Delete them plus the orphaned deps (`@radix-ui/react-dialog`, `@radix-ui/react-dropdown-menu`, `embla-carousel-react`, `lucide-react` and its `optimizePackageImports` entry). Same sweep: `src/components/Blog/{SingleBlog,RelatedPost,SharePost,TagButton}.tsx` are unimported, and `src/styles/index.css` carries dead tokens (`--shadow-three`, `--animate-accordion-*`, the `#checkboxLabel` rule). From the v0.6.0 release review.
+**Completed:** v0.6.1 (2026-07-14)
+
+### Strip the stale Stripe entries from CSP and .env.example
+
+**Priority:** P2
+`next.config.js` allowlists js.stripe.com / api.stripe.com / hooks.stripe.com / *.stripe.com on four CSP directives but no Stripe code or dependency remains; `.env.example` keeps a Stripe key section. Remove both (or comment why they stay). Also stale: `vitest.config.ts` coverage excludes for nonexistent `src/app/{dashboard,error,new-ui}/**`, and the `next.config.js:8` comment still says "middleware" instead of `src/proxy.ts`. From the v0.6.0 release review.
+**Completed:** v0.6.1 (2026-07-14)
+
+### Serve the analytics script first-party
+
+**Priority:** P2
+`layout.tsx` loads Umami from `analytics-omega-nine.vercel.app` (allowlisted in CSP script-src/connect-src). A `*.vercel.app` subdomain is released if the project is deleted/renamed — anyone claiming it gains script execution on the site. Point a first-party domain (e.g. `analytics.alanis.dev`, which already exists) at the Umami project and load from there. Related: the instance is currently returning 500 on `/api/send` (15–24s) — page-view data is being dropped; check its database. From the v0.6.0 release review + QA.
+**Completed:** v0.6.1 (2026-07-14)
 
 ### Verify the handoff logo SVGs
 
