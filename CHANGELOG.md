@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.1] - 2026-07-14
+
+### Changed
+
+- Analytics now loads from the first-party domain `analytics.alanis.dev` — Umami runs self-hosted on the VPS (v3.2.0) with its database on a private network, replacing the retired Vercel instance whose database had become unreachable. Historical stats (20k+ events) were preserved
+- Slimmer pages and stricter security policy: removed the unused UI component library remnants and their four dependencies, dead blog components, orphaned CSS, and the stale Stripe entries from the Content Security Policy
+
 ## [0.6.0] - 2026-07-14
 
 ### Added
